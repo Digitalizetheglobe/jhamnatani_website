@@ -95,7 +95,7 @@ export default function Amenities() {
                 </h3>
                 
                 {/* Description */}
-                <p className="font-sans text-[15px] md:text-[16px] leading-relaxed text-[#000] mt-3 max-w-[270px]">
+                <p className="font-sans text-[15px] md:text-[15px] leading-relaxed text-[#000] mt-3 max-w-[300px] line-clamp-3">
                   {p.desc}
                 </p>
               </motion.div>
