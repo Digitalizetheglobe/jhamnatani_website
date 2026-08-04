@@ -3,12 +3,22 @@
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import XOSeries from "./XOSeries";
 
 export default function Projects() {
   const [activeSlide, setActiveSlide] = useState(1);
   const totalSlides = 5;
+
+  // Auto-slide every 5 seconds
+  const autoAdvance = useCallback(() => {
+    setActiveSlide((prev) => (prev < totalSlides ? prev + 1 : 1));
+  }, [totalSlides]);
+
+  useEffect(() => {
+    const timer = setInterval(autoAdvance, 5000);
+    return () => clearInterval(timer);
+  }, [autoAdvance, activeSlide]);
 
   const projectsData = [
     {
@@ -16,7 +26,7 @@ export default function Projects() {
       title: "ACE Atmosphere",
       location: "Ravet",
       type: "Residential",
-      image: "/assets/pojetcts/ace_atmosphere.png",
+      image: "/assets/pojetcts/ace_atmosphere.jpg",
       desc: "Pune’s first 24×7 Lifestyle with all-day open amenities.",
       logo: (
         <div className="flex flex-col items-center justify-center space-y-4">
@@ -56,7 +66,7 @@ export default function Projects() {
       title: "ACE Villas",
       location: "Koregaon Park NX",
       type: "Villas",
-      image: "/assets/pojetcts/ace_villas.png",
+      image: "/assets/pojetcts/ace_villas.jpg",
       desc: "Unrivaled luxury estate villas reserved for a select few.",
       logo: (
         <div className="flex flex-col items-center justify-center space-y-4">
@@ -76,7 +86,7 @@ export default function Projects() {
       title: "Jhamtani Bizcore",
       location: "Koregaon Park NX",
       type: "Commercial",
-      image: "/assets/pojetcts/bizcore_image.png",
+      image: "/assets/pojetcts/bizcore_image.jpg",
       desc: "Premium boutique office spaces and dynamic retail hubs.",
       logo: (
         <div className="flex flex-col items-center justify-center space-y-4">

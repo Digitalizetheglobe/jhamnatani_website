@@ -7,7 +7,7 @@ export default function Testimonial() {
   return (
     <section
       id="testimonial"
-      className="w-full bg-[#eeebe7] text-zinc-900 px-6 sm:px-12 lg:px-24 py-20 md:py-28 border-t border-luxury-border"
+      className="w-full bg-[#eeebe7] text-zinc-900 px-6 sm:px-12 lg:px-24 py-16 md:py-24 border-t border-luxury-border"
     >
       <div className="max-w-7xl mx-auto space-y-12 text-center">
         {/* Header */}

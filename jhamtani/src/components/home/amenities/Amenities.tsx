@@ -30,7 +30,7 @@ export default function Amenities() {
   return (
     <section
       id="promises"
-      className="clear-both w-full bg-[#eeebe7] text-white px-6 sm:px-12 lg:px-24 py-20 md:py-35 border-t border-luxury-border"
+      className="clear-both w-full bg-[#eeebe7] text-white px-6 sm:px-12 lg:px-24 py-16 md:py-24 border-t border-luxury-border"
     >
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header */}
