@@ -16,7 +16,6 @@ export default function Hero() {
           className="object-cover object-center scale-105"
         />
         {/* Deep elegant overlay gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/70 z-10" />
       </div>
 
       {/* Hero content */}
