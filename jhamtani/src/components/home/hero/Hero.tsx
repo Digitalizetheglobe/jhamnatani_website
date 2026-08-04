@@ -9,7 +9,7 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/image_11.png"
+          src="/assets/image_11.jpg"
           alt="Jhamtani Luxury Residence"
           fill
           priority
