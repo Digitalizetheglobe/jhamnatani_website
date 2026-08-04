@@ -8,6 +8,8 @@ import Testimonial from "@/components/home/testimonial/Testimonial";
 import Blog from "@/components/home/blog/Blog";
 import Contact from "@/components/home/contact/Contact";
 import Footer from "@/components/footer/Footer";
+import SignatureSeries from '@/components/home/signtaure/signtaureseries';
+
 
 export default function Home() {
   return (
@@ -18,6 +20,7 @@ export default function Home() {
         <AboutSection />
         <Amenities />
         <Projects />
+        <SignatureSeries/>
         <Timeline />
         <Testimonial />
         <Blog />

@@ -38,7 +38,7 @@ export default function Testimonial() {
             className="lg:col-span-3 relative w-full h-[320px] md:h-[450px] rounded-[36px] overflow-hidden bg-zinc-950"
           >
             <Image
-              src="/assets/image_14.png"
+              src="/assets/image_14.webp"
               alt="Testimonial Homeowners"
               fill
               className="object-cover"
@@ -55,7 +55,7 @@ export default function Testimonial() {
             className="lg:col-span-6 relative w-full h-[320px] md:h-[450px] rounded-[36px] overflow-hidden bg-zinc-950 group cursor-pointer"
           >
             <Image
-              src="/assets/image_2.png"
+              src="/assets/image_2.webp"
               alt="Happy Family testimonial video"
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -108,7 +108,7 @@ export default function Testimonial() {
             className="lg:col-span-3 relative w-full h-[320px] md:h-[450px] rounded-[36px] overflow-hidden bg-zinc-950"
           >
             <Image
-              src="/assets/image_15.png"
+              src="/assets/image_15.webp"
               alt="Testimonial Homeowners Couple"
               fill
               className="object-cover"

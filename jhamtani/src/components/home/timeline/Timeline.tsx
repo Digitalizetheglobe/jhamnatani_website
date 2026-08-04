@@ -13,7 +13,7 @@ export default function Timeline() {
       <div className="absolute top-0 right-0 bottom-0 w-full lg:w-[82%] h-full flex justify-end items-center pointer-events-none z-10">
         <div className="relative w-full h-full">
           <Image
-            src="/assets/image_16.png"
+            src="/assets/image_16.webp"
             alt="The Geography of Promises Delivered Map"
             fill
             priority

@@ -2,7 +2,7 @@ import React from 'react';
 
 const SignatureSeries = () => {
   return (
-    <section className="flex flex-col md:flex-row w-full min-h-screen md:min-h-[120vh] font-sans bg-[#171a1f] relative overflow-hidden">
+    <section className="flex flex-col md:flex-row w-full min-h-screen md:min-h-[140vh] font-sans bg-[#171a1f] relative overflow-hidden">
 
 
       {/* Left Content Side */}
@@ -15,7 +15,7 @@ const SignatureSeries = () => {
           {/* Logo */}
           <div className="mb-10 md:mb-12">
             <img 
-              src="/assets/pojetcts/XO_logo.png"
+              src="/assets/pojetcts/XO_logo.webp"
               alt="XO Jhamtani Signature Series" 
               className="h-24 md:h-28 object-contain"
             />
@@ -58,7 +58,7 @@ const SignatureSeries = () => {
       {/* Right Image Side */}
       <div className="w-full md:w-1/2 relative min-h-[60vh] md:min-h-[120vh] bg-[#111] diagonal-clip overflow-hidden">
         <img 
-          src="/assets/image_4.png"
+          src="/assets/image_4.webp"
           alt="Signature Series Excellence" 
           className="absolute inset-0 w-full h-full object-cover object-center"
         />

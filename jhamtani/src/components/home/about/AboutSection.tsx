@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, animate } from "framer-motion";
@@ -8,12 +8,12 @@ import { motion, animate } from "framer-motion";
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const statsContainerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const currentIndexRef = useRef(0);
   const isAnimating = useRef(false);
+  const lastWheelTimeRef = useRef(0);
 
   const stats = [
     { number: "40yrs+", label: "OF LEGACY" },
@@ -28,8 +28,12 @@ export default function AboutSection() {
     { number: "6.4M+", label: "SQ. FT. LAUNCHED" },
   ];
 
+  // Progress percentage matching active item index exactly
+  const activeProgressPercent =
+    stats.length > 1 ? (activeIndex / (stats.length - 1)) * 100 : 0;
+
   // Helper function to animate scroll to a specific item index
-  const animateToItem = (targetIndex: number) => {
+  const animateToItem = useCallback((targetIndex: number) => {
     const container = statsContainerRef.current;
     if (!container) return;
 
@@ -48,32 +52,28 @@ export default function AboutSection() {
     }
 
     isAnimating.current = true;
+    currentIndexRef.current = targetIndex;
+    setActiveIndex(targetIndex);
 
     animate(container.scrollTop, targetScroll, {
       duration: 0.45,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.25, 1, 0.5, 1],
       onUpdate: (val) => {
         if (container) {
           container.scrollTop = val;
-          handleStatsScroll();
         }
       },
       onComplete: () => {
         isAnimating.current = false;
       },
     });
-  };
+  }, [stats.length]);
 
-  // Track scroll position inside the right statistics box & find active item in view center
-  const handleStatsScroll = () => {
-    if (!statsContainerRef.current) return;
+  // Track manual scroll inside container to sync active item index
+  const handleStatsScroll = useCallback(() => {
+    if (!statsContainerRef.current || isAnimating.current) return;
     const container = statsContainerRef.current;
-    const { scrollTop, scrollHeight, clientHeight } = container;
-    const totalScrollable = scrollHeight - clientHeight;
-    if (totalScrollable > 0) {
-      setProgress(scrollTop / totalScrollable);
-    }
-
+    const { scrollTop, clientHeight } = container;
     const containerCenter = scrollTop + clientHeight / 2;
     const listEl = container.firstElementChild as HTMLElement;
     if (listEl) {
@@ -92,47 +92,53 @@ export default function AboutSection() {
       });
 
       setActiveIndex(closestIdx);
-      if (!isAnimating.current) {
-        currentIndexRef.current = closestIdx;
-      }
+      currentIndexRef.current = closestIdx;
     }
-  };
-
-  useEffect(() => {
-    handleStatsScroll();
   }, []);
 
-  // One item per scroll tick interception
+  // Intercept wheel events to lock page scroll until ALL stat items are completed
   useEffect(() => {
-    const container = statsContainerRef.current;
     const section = sectionRef.current;
-    if (!container || !section) return;
+    if (!section) return;
 
     const handleWheel = (e: WheelEvent) => {
-      const rect = section.getBoundingClientRect();
-      const isVisible = rect.top <= 160 && rect.bottom >= window.innerHeight - 160;
+      if (Math.abs(e.deltaY) < 5) return;
 
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Active when section top is near viewport
+      const isVisible = rect.top <= 200 && rect.bottom >= windowHeight - 200;
       if (!isVisible) return;
 
       const isScrollingDown = e.deltaY > 0;
       const isScrollingUp = e.deltaY < 0;
+      const now = Date.now();
 
-      if (isScrollingDown && currentIndexRef.current < stats.length - 1) {
-        e.preventDefault();
-        if (!isAnimating.current) {
-          const nextIndex = currentIndexRef.current + 1;
-          currentIndexRef.current = nextIndex;
-          setActiveIndex(nextIndex);
-          animateToItem(nextIndex);
+      if (isScrollingDown) {
+        // ALWAYS prevent page scroll until the last stat item (index stats.length - 1) is reached
+        if (currentIndexRef.current < stats.length - 1) {
+          e.preventDefault();
+
+          if (!isAnimating.current && now - lastWheelTimeRef.current > 350) {
+            lastWheelTimeRef.current = now;
+            const nextIndex = currentIndexRef.current + 1;
+            animateToItem(nextIndex);
+          }
         }
-      } else if (isScrollingUp && currentIndexRef.current > 0) {
-        e.preventDefault();
-        if (!isAnimating.current) {
-          const prevIndex = currentIndexRef.current - 1;
-          currentIndexRef.current = prevIndex;
-          setActiveIndex(prevIndex);
-          animateToItem(prevIndex);
+        // When at the last stat item, allow default page scroll to proceed to next section
+      } else if (isScrollingUp) {
+        // ALWAYS prevent page scroll until the first stat item (index 0) is reached
+        if (currentIndexRef.current > 0) {
+          e.preventDefault();
+
+          if (!isAnimating.current && now - lastWheelTimeRef.current > 350) {
+            lastWheelTimeRef.current = now;
+            const prevIndex = currentIndexRef.current - 1;
+            animateToItem(prevIndex);
+          }
         }
+        // When at the first stat item, allow default page scroll to proceed to previous section
       }
     };
 
@@ -140,12 +146,17 @@ export default function AboutSection() {
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, []);
+  }, [animateToItem, stats.length]);
+
+  const handleItemClick = (idx: number) => {
+    if (isAnimating.current) return;
+    animateToItem(idx);
+  };
 
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[#191f26] text-white py-16 md:py-24 border-t border-luxury-border overflow-hidden"
+      className="w-full min-h-screen bg-[#191f26] text-white py-16 md:py-24 border-t border-luxury-border overflow-hidden flex flex-col justify-center"
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -194,10 +205,10 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
-                className="relative w-full max-w-[420px] h-[260px] sm:h-[320px] mt-6 overflow-hidden"
+                className="relative w-full max-w-[420px] h-[260px] sm:h-[320px] mt-6 overflow-hidden group"
               >
                 <Image
-                  src="/assets/image_3.png"
+                  src="/assets/image_3.webp"
                   alt="Foundation and trust"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -207,34 +218,25 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Middle Separator Column (Smooth solid blue pill) */}
+          {/* Middle Separator Column (Clean luxury fill line matching active content) */}
           <div className="hidden lg:flex lg:col-span-1 justify-center relative h-[560px]">
             <div className="relative h-full w-[1.5px] bg-[#a0725b]/25 mx-auto flex items-center justify-center">
               {/* Active filled line portion */}
               <div
-                className="absolute top-0 left-0 w-full bg-[#]"
-                style={{ height: `${progress * 100}%` }}
-              />
-
-              {/* Solid blue capsule indicator (#0082c3) */}
-              <div
-                className="absolute left-1/2 w-[6px] h-10 bg-[#0082c3] rounded-full"
-                style={{
-                  top: `${progress * 100}%`,
-                  transform: "translate(-50%, -50%)",
-                }}
+                className="absolute top-0 left-0 w-full bg-[#a0725b] transition-all duration-500 ease-out"
+                style={{ height: `${activeProgressPercent}%` }}
               />
             </div>
           </div>
 
-          {/* Right Column (Scrolling list of stats with auto-active hover glow) */}
+          {/* Right Column (Scrolling list of stats with auto-active hover glow & smooth edge fade) */}
           <div className="lg:col-span-5 relative">
             <div
               ref={statsContainerRef}
               onScroll={handleStatsScroll}
-              className="max-h-[560px] overflow-y-auto space-y-3 scroll-smooth [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none] py-2"
+              className="max-h-[560px] overflow-y-auto [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none] [mask-image:linear-gradient(to_bottom,transparent_0%,black_12%,black_88%,transparent_100%)]"
             >
-              <div>
+              <div className="py-20 space-y-3">
                 {stats.map((stat, idx) => {
                   const isActive = hoveredIdx === idx || (hoveredIdx === null && idx === activeIndex);
 
@@ -247,6 +249,7 @@ export default function AboutSection() {
                       transition={{ duration: 0.5, delay: idx * 0.05, ease: "easeOut" }}
                       onMouseEnter={() => setHoveredIdx(idx)}
                       onMouseLeave={() => setHoveredIdx(null)}
+                      onClick={() => handleItemClick(idx)}
                       className={`group relative flex flex-col text-left cursor-pointer py-5 px-6 rounded-2xl transition-all duration-500 ease-out border-b border-[#a0725b]/20 last:border-b-0 overflow-hidden ${
                         isActive ? " translate-x-2" : ""
                       }`}
@@ -284,3 +287,5 @@ export default function AboutSection() {
     </section>
   );
 }
+
+

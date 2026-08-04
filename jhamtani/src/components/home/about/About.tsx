@@ -40,7 +40,7 @@ export default function About() {
         {/* About Image */}
         <div className="relative w-full max-w-[420px] h-[320px] sm:h-[380px] mt-6 overflow-hidden rounded-xl border border-luxury-border shadow-2xl group">
           <Image
-            src="/assets/image_3.png"
+            src="/assets/image_3.webp"
             alt="Foundation and trust"
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"

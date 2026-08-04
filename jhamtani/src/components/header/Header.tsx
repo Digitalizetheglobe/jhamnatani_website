@@ -45,7 +45,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="#" className="relative flex items-center">
             <Image
-              src="/assets/logo.png"
+              src="/assets/logo.webp"
               alt="Jhamtani Logo"
               width={145}
               height={70}
@@ -100,7 +100,7 @@ export default function Header() {
               <div className="flex items-center justify-between">
                 <Link href="#" className="relative flex items-center" onClick={() => setIsOpen(false)}>
                   <Image
-                    src="/assets/logo.png"
+                    src="/assets/logo.webp"
                     alt="Jhamtani Logo"
                     width={135}
                     height={50}

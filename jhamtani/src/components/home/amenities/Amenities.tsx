@@ -8,22 +8,22 @@ export default function Amenities() {
     {
       title: "of a Happier Life",
       desc: "Creating homes, experiences, and relationships that make life happier in every aspect.",
-      iconPath: "/assets/icon_1.png",
+      iconPath: "/assets/icon_1.webp",
     },
     {
       title: "of a Greater Tomorrow",
       desc: "Making decisions today that create lasting value for generations to come.",
-      iconPath: "/assets/icon_2.png",
+      iconPath: "/assets/icon_2.webp",
     },
     {
       title: "of Meaningful Impact",
       desc: "Creating a positive difference in every life we touch, from our customers, our people, our partners, to our communities.",
-      iconPath: "/assets/icon_3.png",
+      iconPath: "/assets/icon_3.webp",
     },
     {
       title: "of Evolving Every Day",
       desc: "Never stopping the process of learning. Growing with every home, every customer, every little thing, every time.",
-      iconPath: "/assets/icon_4.png",
+      iconPath: "/assets/icon_4.webp",
     },
   ];
 

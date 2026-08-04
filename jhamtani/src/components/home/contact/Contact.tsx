@@ -21,22 +21,22 @@ export default function Contact() {
 
   const listArticles = [
     {
-      img: "/assets/image_1.png",
+      img: "/assets/image_1.webp",
       title: "Lorem ipsum dolor sit amet,",
       subtitle: "consectetuer adipiscing elit,",
     },
     {
-      img: "/assets/image_8.png",
+      img: "/assets/image_8.webp",
       title: "Lorem ipsum dolor sit amet,",
       subtitle: "consectetuer adipiscing elit,",
     },
     {
-      img: "/assets/image_9.png",
+      img: "/assets/image_9.webp",
       title: "Lorem ipsum dolor sit amet,",
       subtitle: "consectetuer adipiscing elit,",
     },
     {
-      img: "/assets/image_10.png",
+      img: "/assets/image_10.webp",
       title: "Lorem ipsum dolor sit amet,",
       subtitle: "consectetuer adipiscing elit,",
     },
@@ -86,7 +86,7 @@ export default function Contact() {
               {/* Large Image */}
               <div className="relative w-full h-[280px] sm:h-[350px] rounded-[24px] overflow-hidden select-none bg-zinc-900">
                 <Image
-                  src="/assets/image_0.png"
+                  src="/assets/image_0.webp"
                   alt="Featured Media Headline"
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-103"
