@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-forum), Georgia, serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-inria: var(--font-inria-serif), serif;
+
+  --color-gold: #C5A880;
+  --color-gold-dark: #A68D68;
+  --color-gold-light: #E5D5C0;
+  --color-charcoal: #0C0C0C;
+  --color-luxury-card: #121212;
+  --color-luxury-border: rgba(197, 168, 128, 0.15);
+}
+
+@utility backdrop-blur-luxury {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+html, body {
+  scroll-behavior: smooth;
+  background-color: #000000;
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A880;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A68D68;
+}
