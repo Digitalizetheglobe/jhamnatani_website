@@ -30,10 +30,12 @@ export default function Timeline() {
         transition={{ duration: 0.8 }}
         className="relative z-20 text-left max-w-xs sm:max-w-md md:max-w-lg self-end pb-2 sm:pb-6 md:pb-10"
       >
-        <h2 className="font-serif text-[28px] sm:text-[38px] md:text-[48px] lg:text-[56px] leading-[1.08] text-[#C1AF86] tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
-          The Geography of
-          <span className="block text-[#C1AF86]">Promises Delivered!</span>
-        </h2>
+        <div className="bg-black/30 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none rounded-2xl p-4 lg:p-0">
+          <h2 className="font-serif text-[28px] sm:text-[38px] md:text-[48px] lg:text-[56px] leading-[1.08] text-[#C1AF86] tracking-wide drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
+            The Geography of
+            <span className="block text-[#C1AF86]">Promises Delivered!</span>
+          </h2>
+        </div>
       </motion.div>
     </section>
   );

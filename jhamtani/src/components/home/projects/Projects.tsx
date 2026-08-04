@@ -7,7 +7,7 @@ import { useState } from "react";
 import XOSeries from "./XOSeries";
 
 export default function Projects() {
-  const [activeSlide, setActiveSlide] = useState(3);
+  const [activeSlide, setActiveSlide] = useState(1);
   const totalSlides = 5;
 
   const projectsData = [
@@ -157,7 +157,7 @@ export default function Projects() {
           </div>
 
           {/* Right Panel: Branded Details Card (White Background) */}
-          <div className="lg:col-span-4 bg-white flex flex-col justify-between p-10 sm:p-14 lg:p-16 text-black text-left relative min-h-[400px]">
+          <div className="lg:col-span-4 bg-white flex flex-col justify-between p-6 sm:p-10 lg:p-16 text-black text-left relative min-h-[400px]">
             {/* Header Title */}
             <div className="space-y-2">
               <h2 className="font-serif text-[28px] sm:text-[34px] leading-tight text-zinc-900 font-normal">
@@ -179,7 +179,7 @@ export default function Projects() {
                 >
                   {activeProject.logo}
                   
-                  <p className="font-sans text-[14px] lg:text-[15px] leading-relaxed text-zinc-500 mt-6 max-w-[200px] text-left">
+                  <p className="font-sans text-[14px] lg:text-[15px] leading-relaxed text-zinc-500 mt-6 max-w-xs text-left">
                     {activeProject.desc}
                   </p>
                 </motion.div>
@@ -187,7 +187,7 @@ export default function Projects() {
             </div>
 
             {/* Bottom Area: Custom Nav controls & EXPLORE MORE */}
-            <div className="flex items-center justify-between mt-auto pt-6 select-none">
+            <div className="flex flex-wrap items-center justify-between gap-4 mt-auto pt-6 select-none">
               <div className="flex items-center space-x-3">
                 <button
                   onClick={handlePrev}

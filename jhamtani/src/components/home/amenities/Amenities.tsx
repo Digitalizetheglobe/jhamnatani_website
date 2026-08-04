@@ -75,7 +75,7 @@ export default function Amenities() {
                 className="flex flex-col items-center text-center group"
               >
                 {/* squircle card */}
-                <div className="w-[230px] h-[190px] bg-transparent border border-[#0082c3] rounded-[70px] flex items-center justify-center shadow-sm hover:scale-105 hover:shadow-md transition-all duration-300 select-none">
+                <div className="w-full max-w-[230px] h-[190px] bg-transparent border border-[#0082c3] rounded-[70px] flex items-center justify-center shadow-sm hover:scale-105 hover:shadow-md transition-all duration-300 select-none">
                   <Image
                     src={p.iconPath}
                     alt={`Promise ${p.title}`}

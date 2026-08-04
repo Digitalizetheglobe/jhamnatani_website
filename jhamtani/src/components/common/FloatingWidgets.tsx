@@ -63,7 +63,7 @@ export default function FloatingWidgets() {
   return (
     <>
       {/* 1. RIGHT SIDE STICKY BAR */}
-      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col bg-[#F5F2EB] shadow-2xl rounded-l-[20px] py-2 px-2 gap-2 items-center select-none">
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col bg-[#F5F2EB] shadow-2xl rounded-l-[20px] py-2 px-2 gap-2 items-center select-none">
         {/* WhatsApp Icon */}
         <a
           href="https://wa.me/917447447669"

@@ -43,7 +43,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-[#111622] text-white border-t border-luxury-border py-16 md:py-20 select-none">
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 space-y-12">
+      <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Main Grid: Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -53,7 +53,7 @@ export default function Footer() {
             <h3 className="font-serif text-[18px] md:text-[20px] tracking-wider text-[#C5A880] uppercase">
               Quick Links
             </h3>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <ul className="space-y-3">
                 {quickLinksColumn1.map((item) => (
                   <li key={item.label}>
@@ -98,7 +98,7 @@ export default function Footer() {
             <h3 className="font-serif text-[18px] md:text-[20px] tracking-wider text-[#C5A880] uppercase">
               Current Projects
             </h3>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <ul className="space-y-3">
                 {currentProjectsColumn1.map((item) => (
                   <li key={item.label}>

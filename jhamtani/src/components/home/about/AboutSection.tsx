@@ -141,13 +141,12 @@ export default function AboutSection() {
                   viewport={{ once: true, margin: "-10% 0px" }}
                   transition={{ duration: 0.5, delay: idx * 0.05, ease: "easeOut" }}
                   whileHover={{ x: 8 }}
-                  className="group relative flex flex-col text-left cursor-pointer py-5 px-6 rounded-2xl transition-all duration-500 ease-out hover:bg-[#C1AF86]/[0.05] border-b border-[#a0725b]/20 last:border-b-0 overflow-hidden"
+                  className="group relative flex flex-col text-left cursor-pointer py-5 px-6 rounded-2xl transition-all duration-500 ease-out border-b border-[#a0725b]/20 last:border-b-0 overflow-hidden"
                 >
                   {/* Glowing left accent line on hover */}
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 group-hover:h-3/4 bg-[#C1AF86] rounded-r transition-all duration-300 ease-out shadow-[0_0_12px_#C1AF86]" />
 
                   {/* Number: Turns #C1AF86 on hover with smooth scaling */}
-                  <span className="font-serif text-[48px] sm:text-[60px] md:text-[68px] lg:text-[76px] font-light leading-none text-[#a0725b]/50 group-hover:text-[#C1AF86] group-hover:drop-shadow-[0_0_20px_rgba(193,175,134,0.4)] group-hover:scale-[1.02] transition-all duration-300 tracking-tight select-none">
+                  <span className="font-serif text-[36px] sm:text-[60px] md:text-[68px] lg:text-[76px] font-light leading-none text-[#a0725b]/50 group-hover:text-[#C1AF86] group-hover:drop-shadow-[0_0_20px_rgba(193,175,134,0.4)] group-hover:scale-[1.02] transition-all duration-300 tracking-tight select-none">
                     {stat.number}
                   </span>
 

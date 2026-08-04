@@ -2,7 +2,7 @@ import React from 'react';
 
 const SignatureSeries = () => {
   return (
-    <section className="flex flex-col md:flex-row w-full min-h-[120vh] font-sans bg-[#171a1f] relative overflow-hidden">
+    <section className="flex flex-col md:flex-row w-full min-h-screen md:min-h-[120vh] font-sans bg-[#171a1f] relative overflow-hidden">
 
 
       {/* Left Content Side */}
@@ -56,7 +56,7 @@ const SignatureSeries = () => {
       </div>
 
       {/* Right Image Side */}
-      <div className="w-full md:w-1/2 relative min-h-[120vh] md:min-h-[140vh] bg-[#111] diagonal-clip overflow-hidden">
+      <div className="w-full md:w-1/2 relative min-h-[60vh] md:min-h-[120vh] bg-[#111] diagonal-clip overflow-hidden">
         <img 
           src="/assets/image_4.png"
           alt="Signature Series Excellence" 

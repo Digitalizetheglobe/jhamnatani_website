@@ -74,7 +74,7 @@ export default function Contact() {
               className="lg:col-span-7 bg-white rounded-[32px] p-6 flex flex-col justify-between group transition-all duration-500 overflow-hidden text-left"
             >
               {/* Text + Arrow Row */}
-              <div className="flex justify-between items-start space-x-4 mb-6">
+              <div className="flex justify-between items-start space-x-4 mb-6 min-w-0">
                 <p className="font-sans text-[14px] sm:text-[15px] leading-relaxed text-zinc-700">
                   <span className="text-[#a0725b] font-semibold">Lorem ipsum dolor sit amet, consectetuer adipiscing elit,</span> sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
                 </p>
