@@ -57,15 +57,15 @@ export default function Soon() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center justify-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 select-none"
+          className="flex items-center justify-center select-none"
         >
           <span className="font-inria font-light text-[#A0725B] text-4xl sm:text-6xl md:text-7xl lg:text-[85px] leading-none tracking-wide">
             An
           </span>
           <img 
-            src="/assets/pojetcts/XO_logo.webp" 
+            src="/assets/xo/XO.png" 
             alt="XO Logo" 
-            className="h-12 sm:h-20 md:h-24 lg:h-[105px] object-contain filter drop-shadow-[0_4px_25px_rgba(160,114,91,0.3)] hover:scale-103 transition-transform duration-500 cursor-default"
+            className="h-12 sm:h-20 md:h-24 lg:h-[220px] object-contain filter drop-shadow-[0_4px_25px_rgba(160,114,91,0.3)] hover:scale-103 transition-transform duration-500 cursor-default"
           />
           <span className="font-inria font-light text-[#A0725B] text-4xl sm:text-6xl md:text-7xl lg:text-[85px] leading-none tracking-wide">
             Soon!
