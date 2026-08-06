@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Menu, X, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,11 +23,13 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const pathname = usePathname();
+
   const navLinks = [
-    { label: "Our Story", href: "#about" },
-    { label: "Our Promises", href: "#promises" },
-    { label: "Our Projects", href: "#projects" },
-    { label: "XO Series", href: "#xo-series" },
+    { label: "Our Story", href: "/about" },
+    { label: "Our Promises", href: "/#promises" },
+    { label: "Our Projects", href: "/#projects" },
+    { label: "XO Series", href: "/xo" },
   ];
 
   return (
@@ -43,7 +46,7 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
-          <Link href="#" className="relative flex items-center">
+          <Link href="/" className="relative flex items-center">
             <Image
               src="/assets/logo.webp"
               alt="Jhamtani Logo"
@@ -58,19 +61,29 @@ export default function Header() {
           <div className="flex items-center space-x-8">
             {/* Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center space-x-4 font-sans text-[15px] font-normal text-white/80">
-              <Link href="#about" className="hover:text-gold transition-colors duration-300">
+              <Link 
+                href="/about" 
+                className={`transition-colors duration-300 ${
+                  pathname === "/about" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
+                }`}
+              >
                 Our Story
               </Link>
               <span className="text-white/20">|</span>
-              <Link href="#promises" className="hover:text-gold transition-colors duration-300">
+              <Link href="/#promises" className="hover:text-[#a0725b] transition-colors duration-300">
                 Our Promises
               </Link>
               <span className="text-white/20">|</span>
-              <Link href="#projects" className="hover:text-gold transition-colors duration-300">
+              <Link href="/#projects" className="hover:text-[#a0725b] transition-colors duration-300">
                 Our Projects
               </Link>
               <span className="text-white/20">|</span>
-              <Link href="#xo-series" className="hover:text-gold transition-colors duration-300">
+              <Link 
+                href="/xo" 
+                className={`transition-colors duration-300 ${
+                  pathname === "/xo" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
+                }`}
+              >
                 XO Series
               </Link>
             </nav>
@@ -98,7 +111,7 @@ export default function Header() {
           >
             <div>
               <div className="flex items-center justify-between">
-                <Link href="#" className="relative flex items-center" onClick={() => setIsOpen(false)}>
+                <Link href="/" className="relative flex items-center" onClick={() => setIsOpen(false)}>
                   <Image
                     src="/assets/logo.webp"
                     alt="Jhamtani Logo"
@@ -116,16 +129,21 @@ export default function Header() {
               </div>
 
               <nav className="mt-20 flex flex-col space-y-8">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="font-sans text-3xl text-white/80 hover:text-gold transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`font-sans text-3xl transition-colors ${
+                        isActive ? "text-[#C5A880] font-medium" : "text-white/80 hover:text-gold"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </nav>
             </div>
 
