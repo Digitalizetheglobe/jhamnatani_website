@@ -6,32 +6,27 @@ import { motion } from "framer-motion";
 
 export default function AboutContent() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const values = [
-    {
-      title: "Uncompromising Quality",
-      description:
-        "Every structure built under the Jhamtani banner reflects precision engineering, top-tier materials, and meticulous craftsmanship.",
-      number: "01",
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
     },
-    {
-      title: "Customer-Centric Philosophy",
-      description:
-        "We prioritize the needs, comfort, and aspirations of our homeowners, ensuring complete transparency and peace of mind.",
-      number: "02",
+  };
+
+  const childVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 1, 0.5, 1],
+      },
     },
-    {
-      title: "Timely Delivery",
-      description:
-        "Respecting time and commitments is fundamental to our promise. We deliver projects with strict adherence to timelines.",
-      number: "03",
-    },
-    {
-      title: "Innovative Architecture",
-      description:
-        "Blending modern luxury with functional living spaces, our designs create timeless landmarks across Pune.",
-      number: "04",
-    },
-  ];
+  };
 
   return (
     <div className="w-full bg-[#191f26] text-white pb-2">
@@ -39,10 +34,10 @@ export default function AboutContent() {
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 items-center mb-20">
         {/* Left Side Image (Flush to left screen edge, extending up into Hero section, horizontally flipped) */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 2 , x: 0 }}
+          initial={{ opacity: 0, scale: 0.95, x: -30 }}
+          whileInView={{ opacity: 1, scale: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1.0, ease: [0.25, 1, 0.5, 1] }}
           className="lg:col-span-6 relative -mt-20 sm:-mt-28 lg:-mt-10 z-30 h-[420px] sm:h-[540px] lg:h-[800px] rounded-tr-[20px] overflow-hidden shadow-2xl"
         >
           <div
@@ -61,16 +56,22 @@ export default function AboutContent() {
 
         {/* Right Side Text */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
           className="lg:col-span-6 px-6 sm:px-12 lg:px-16 xl:px-24 py-12 lg:py-20 space-y-8"
         >
-          <p className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl">
+          <motion.p
+            variants={childVariants}
+            className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl"
+          >
             There are promises that are spoken. And then there are promises that quietly become a way of working. For over four decades, Jhamtani has belonged to the latter.
-          </p>
-          <p className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl">
+          </motion.p>
+          <motion.p
+            variants={childVariants}
+            className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl"
+          >
             Long before a foundation is excavated or a skyline begins to rise, every decision is measured against a simple question - Will this continue to matter years from today? This single question has shaped everything we've built.
             {isExpanded ? (
               <motion.span
@@ -88,7 +89,7 @@ export default function AboutContent() {
                 Read more
               </span>
             )}
-          </p>
+          </motion.p>
 
           {isExpanded && (
             <motion.div 

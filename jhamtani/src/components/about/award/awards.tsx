@@ -46,7 +46,7 @@ export default function AwardsGridSection() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[#1B2026] py-24 px-8 xl:px-16 relative overflow-hidden select-none"
+      className="w-full bg-[#1B2026] py-24 px-6 sm:px-12 lg:px-16 relative overflow-hidden select-none"
     >
       <div className="max-w-7xl mx-auto flex flex-col items-center gap-16 relative z-10">
         

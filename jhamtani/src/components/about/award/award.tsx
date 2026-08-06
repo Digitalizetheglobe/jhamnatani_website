@@ -60,7 +60,7 @@ export default function AwardSection() {
       {/* Bottom blur and fade transition to blend seamlessly with the next #1B2026 section */}
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#1B2026] via-[#1B2026]0 to-transparent pointer-events-none z-0" />
 
-      <div className="max-w-7xl mx-auto w-full px-8 xl:px-16 grid grid-cols-12 gap-5 items-center z-10 relative">
+      <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 grid grid-cols-12 gap-5 items-center z-10 relative">
         <div className="col-span-12 lg:col-span-6 space-y-2 text-left">
           
           {/* Main Titles with overflow-hidden mask wrappers */}

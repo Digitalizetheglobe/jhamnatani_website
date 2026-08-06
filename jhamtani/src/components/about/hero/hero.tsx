@@ -37,7 +37,7 @@ const wordVariants: Variants = {
 
 export default function Hero() {
   return (
-    <section className="relative h-screen min-h-[950px] w-full flex pt-60 overflow-hidden">
+    <section className="relative h-screen min-h-[600px] sm:min-h-[800px] lg:min-h-[950px] w-full flex pt-36 sm:pt-48 lg:pt-60 overflow-hidden">
       {/* Background Image Container with horizontal flip */}
       <div
         className="absolute inset-0 z-0 overflow-hidden"
@@ -55,12 +55,12 @@ export default function Hero() {
       </div>
 
       {/* Hero content */}
-      <div className="relative z-20 max-w-7xl mx-auto w-full flex justify-start">
+      <div className="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 flex justify-start">
         <motion.h1
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="font-serif text-[38px] sm:text-[54px] md:text-[66px] lg:text-[60px] leading-[1.10] text-[#b88654] tracking-wide font-normal"
+          className="font-serif text-[38px] sm:text-[54px] md:text-[66px] lg:text-[72px] leading-[1.10] text-[#b88654] tracking-wide font-normal"
         >
           {lines.map((lineWords, lineIndex) => (
             <span key={lineIndex} className="block overflow-hidden">

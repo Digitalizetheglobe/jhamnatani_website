@@ -77,23 +77,50 @@ export default function Value() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const headerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 1, 0.5, 1],
+      },
+    },
+  };
+
   return (
     <section className="w-full bg-[#191F26] text-white py-16 sm:py-24">
-      <div className="max-w-7xl mx-auto space-y-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 space-y-16">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="space-y-6 max-w-7xl"
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="space-y-6"
         >
-          <h2 className="font-serif text-[38px] sm:text-[50px] md:text-[62px] leading-tight text-[#A0725B] font-normal">
+          <motion.h2
+            variants={textVariants}
+            className="font-serif text-[38px] sm:text-[50px] md:text-[62px] leading-tight text-[#A0725B] font-normal"
+          >
             Our Values That Enhance Our Promise
-          </h2>
+          </motion.h2>
 
-          <p className="font-sans text-[15px] sm:text-[16px] text-white/80 leading-relaxed tracking-wide">
-            Every organisation speaks about values. We prefer something more demanding - ‘Promises’. At Jhamtani, every acquisition, every drawing, every approval, every interaction and every handover is measured against four promises we first made to ourselves. Not because they define what we say. Because they define what we refuse to compromise.          </p>
+          <motion.p
+            variants={textVariants}
+            className="font-sans text-[15px] sm:text-[16px] text-white/80 leading-relaxed tracking-wide"
+          >
+            Every organisation speaks about values. We prefer something more demanding - ‘Promises’. At Jhamtani, every acquisition, every drawing, every approval, every interaction and every handover is measured against four promises we first made to ourselves. Not because they define what we say. Because they define what we refuse to compromise.          </motion.p>
         </motion.div>
 
         {/* Promises Accordion List with Only 3 Middle Dividers */}

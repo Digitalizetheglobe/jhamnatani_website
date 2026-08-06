@@ -66,47 +66,74 @@ export default function DirectorSection() {
   const activeDirector =
     directorsData.find((d) => d.id === activeDirectorId) || directorsData[2];
 
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 1, 0.5, 1],
+      },
+    },
+  };
+
   return (
     <section className="relative w-full bg-[#EEEBE7] overflow-hidden" style={{ minHeight: "680px" }}>
       {/* Main content wrapper with padding-bottom to clear the bottom bar */}
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-12 sm:pt-16 pb-32 sm:pb-40">
-
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="relative max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pt-12 sm:pt-16 pb-32 sm:pb-40"
+      >
         {/* Small subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          variants={itemVariants}
           className="font-serif text-[22px] sm:text-[28px] md:text-[34px] text-[#4a4642] font-normal mb-3 sm:mb-4"
         >
           The Architects Of Our Promise
         </motion.p>
 
         {/* Director large name */}
-        <AnimatePresence mode="wait">
-          <motion.h2
-            key={`name-${activeDirector.id}`}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35 }}
-            className="font-serif font-normal leading-[1.0] text-[#b88654] mb-6 sm:mb-8"
-            style={{ fontSize: "clamp(42px, 7.5vw, 100px)" }}
-          >
-            {activeDirector.name}
-          </motion.h2>
-        </AnimatePresence>
+        <motion.div variants={itemVariants} className="overflow-hidden mb-6 sm:mb-8">
+          <AnimatePresence mode="wait">
+            <motion.h2
+              key={`name-${activeDirector.id}`}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+              className="font-serif font-normal leading-[1.0] text-[#b88654]"
+              style={{ fontSize: "clamp(42px, 7.5vw, 100px)" }}
+            >
+              {activeDirector.name}
+            </motion.h2>
+          </AnimatePresence>
+        </motion.div>
 
         {/* Two-column: Left text | Right image (absolute) */}
-        <div className="relative">
+        <motion.div variants={itemVariants} className="relative">
           {/* Left text content — max ~half width */}
           <AnimatePresence mode="wait">
             <motion.div
               key={`content-${activeDirector.id}`}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4 }}
               className="w-full lg:w-1/2 space-y-5"
             >
               {/* Role */}
@@ -173,16 +200,24 @@ export default function DirectorSection() {
               />
             </motion.div>
           </AnimatePresence>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* ── Bottom Director Selector Bar ── */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 px-4 sm:px-8 flex justify-center">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 1, 0.5, 1] }}
+        className="absolute bottom-6 left-0 right-0 z-30 px-4 sm:px-8 flex justify-center"
+      >
         <div
           className="w-full max-w-7xl flex items-center justify-around py-6 px-4 sm:px-8 shadow-xl overflow-x-auto no-scrollbar"
           style={{
-            background: "#555d66",
-            borderRadius: "32px 32px 32px 32px",
+            background: "rgba(25, 31, 38, 0.85)",
+            backdropFilter: "blur(12px)",
+            borderRadius: "32px",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
           }}
         >
           {directorsData.map((d) => {
@@ -197,7 +232,7 @@ export default function DirectorSection() {
                 <div
                   className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden flex-shrink-0 border-2 transition-all duration-300 ${
                     isActive
-                      ? "border-cyan-400 ring-2 ring-cyan-400"
+                      ? "border-[#b88654] ring-2 ring-[#b88654]"
                       : "border-white/30"
                   }`}
                 >
@@ -222,7 +257,7 @@ export default function DirectorSection() {
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

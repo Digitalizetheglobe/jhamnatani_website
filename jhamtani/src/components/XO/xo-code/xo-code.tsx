@@ -42,7 +42,7 @@ export default function XOCode() {
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#A0725B]/3 rounded-full blur-[180px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto ">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="text-left mb-16 md:mb-20">
           <motion.h2 
@@ -65,14 +65,20 @@ export default function XOCode() {
           </motion.p>
         </div>
 
-        {/* XO Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 border border-white rounded-sm overflow-hidden">
+        {/* XO Grid with viewport scroll-entrance reveal */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
+          className="grid grid-cols-1 md:grid-cols-3 border border-white/10 rounded-sm overflow-hidden"
+        >
           {codes.map((item, index) => {
             // Determine responsive border styles
             const borderClasses = `
               relative flex flex-col justify-between p-8 sm:p-10 lg:p-12 h-[380px] sm:h-[420px] overflow-hidden group bg-[#111111]/30 hover:bg-black transition-colors duration-500 cursor-default
-              ${index !== 5 ? "border-b border-white" : ""}
-              ${index % 3 !== 2 ? "md:border-r border-white" : ""}
+              ${index !== 5 ? "border-b border-white/10" : ""}
+              ${index % 3 !== 2 ? "md:border-r border-white/10" : ""}
             `;
 
             return (
@@ -80,19 +86,19 @@ export default function XOCode() {
                 key={item.id}
                 className={borderClasses}
               >
-                {/* Default Text Content (Fades out on hover) */}
-                <div className="relative z-10 h-full flex flex-col justify-between group-hover:opacity-0 transition-opacity duration-500 ease-in-out">
+                {/* Default Text Content (Legible on hover with premium transition) */}
+                <div className="relative z-10 h-full flex flex-col justify-between transition-all duration-500 ease-in-out">
                   {/* Top: ID */}
-                  <div className="font-inria text-3xl sm:text-4xl text-[#A0725B] font-light tracking-wide">
+                  <div className="font-inria text-3xl sm:text-4xl text-[#A0725B] font-light tracking-wide transition-colors duration-500 group-hover:text-white">
                     {item.id}
                   </div>
 
                   {/* Bottom: Title & Description */}
-                  <div className="space-y-3">
-                    <h3 className="font-inria text-base sm:text-lg text-[#A0725B] font-medium leading-snug">
+                  <div className="space-y-3 transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-500 ease-out">
+                    <h3 className="font-inria text-base sm:text-lg text-[#A0725B] font-medium leading-snug transition-colors duration-500 group-hover:text-white">
                       {item.title}
                     </h3>
-                    <p className="font-sans text-xs sm:text-[13px] text-white leading-relaxed font-light">
+                    <p className="font-sans text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-light transition-colors duration-500 group-hover:text-zinc-100">
                       {item.description}
                     </p>
                   </div>
@@ -108,7 +114,7 @@ export default function XOCode() {
               </div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

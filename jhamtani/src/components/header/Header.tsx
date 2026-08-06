@@ -78,7 +78,7 @@ export default function Header() {
             : "bg-transparent py-6"
         }`}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="w-full px-6 sm:px-12 lg:px-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="relative flex items-center">
             <Image
@@ -164,103 +164,116 @@ export default function Header() {
                          right-6 top-6 lg:right-auto lg:top-[50%] lg:left-[59.15vw] lg:-translate-x-1/2 lg:-translate-y-1/2 focus:outline-none"
               aria-label="Close Menu"
             >
-              <svg viewBox="0 0 100 100" className="w-full h-full relative overflow-visible pointer-events-none">
-                {/* Circle outline with dashoffset closure and rotation on hover */}
+              {/* Dull circular background (remains static and subtle, no white hover overlay) */}
+              <div className="absolute inset-[3%] rounded-full bg-white/[0.03] border border-white/[0.05] pointer-events-none" />
+
+              <svg viewBox="0 0 100 100" className="w-full h-full absolute inset-0 overflow-visible pointer-events-none z-20">
+                {/* Circle outline - golden #A0725B by default, draws to white on hover */}
                 <motion.circle
                   cx="50"
                   cy="50"
-                  r="45"
-                  stroke="#C5A880"
-                  strokeWidth="1"
+                  r="47"
+                  strokeWidth="1.2"
                   fill="transparent"
                   strokeLinecap="round"
-                  initial={{ strokeDasharray: "189 283", rotate: 60 }}
+                  initial={{ strokeDasharray: "94 283", stroke: "#A0725B", rotate: -90 }}
                   animate={
                     isCloseHovered
-                      ? { strokeDasharray: "283 283", rotate: 420 }
-                      : { strokeDasharray: "189 283", rotate: 60 }
+                      ? { strokeDasharray: "283 283", stroke: "#ffffff", rotate: 270 }
+                      : { strokeDasharray: "94 283", stroke: "#A0725B", rotate: -90 }
                   }
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                   style={{ transformOrigin: "center" }}
                 />
               </svg>
-              {/* Thin X Icon in center */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 lg:w-9 lg:h-9 text-white/90" stroke="currentColor" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round">
+
+              {/* Thin X Icon in center (stays white) */}
+              <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
+                <svg 
+                  viewBox="0 0 24 24" 
+                  className="w-5 h-5 lg:w-9 lg:h-9 text-white/95 transition-colors duration-300" 
+                  stroke="currentColor" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
               </div>
             </motion.button>
 
-            {/* Drawer Panel with diagonal clip-path animation */}
-            <motion.div
-              initial={{ clipPath: clipPathClosed }}
-              animate={{ clipPath: clipPathOpen }}
-              exit={{ clipPath: clipPathClosed }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 left-0 h-screen w-full lg:w-[65vw] bg-black z-[100] flex flex-col justify-between p-8 lg:p-16 overflow-hidden border-r border-white/5"
-            >
-              {/* Top Bar inside Drawer */}
-              <div className="flex items-center justify-between">
-                <Link href="/" className="relative flex items-center" onClick={() => setIsOpen(false)}>
-                  <Image
-                    src="/assets/logo.webp"
-                    alt="Jhamtani Logo"
-                    width={145}
-                    height={70}
-                    priority
-                    className="h-14 w-auto object-contain brightness-0 invert"
-                  />
-                </Link>
-              </div>
-
-
-              {/* Navigation Links in Center */}
-              <div className="flex-1 flex flex-col justify-center pl-4 lg:pl-24 mt-12 lg:mt-0">
-                <nav className="flex flex-col space-y-6 lg:space-y-8">
-                  {navLinks.map((link, idx) => {
-                    const isActive = pathname === link.href;
-                    return (
-                      <motion.div
-                        key={link.label}
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.7, delay: 0.15 + idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                      >
-                        <Link
-                          href={link.href}
-                          onClick={() => setIsOpen(false)}
-                          className={`font-serif text-3xl lg:text-[54px] uppercase tracking-wider block w-fit transition-all duration-300 hover:translate-x-4 ${
-                            isActive ? "text-[#C5A880]" : "text-white/80 hover:text-[#C5A880]"
-                          }`}
-                        >
-                          {link.label}
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-                </nav>
-              </div>
-
-              {/* Chat Assist at Bottom */}
-              <div className="pl-4 lg:pl-24 mb-6 lg:mb-12">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Link
-                    href="#contact"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-center space-x-2 border border-[#C5A880]/30 py-4 px-8 w-full lg:w-fit font-sans text-[13px] tracking-widest text-[#C5A880] hover:bg-[#C5A880] hover:text-black transition-all duration-500 rounded-none uppercase font-light"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Chat Assist</span>
+            {/* Drawer Panel Wrapper with Perspective for premium 3D page-turn effect */}
+            <div className="fixed inset-0 z-[100] pointer-events-none" style={{ perspective: "2000px" }}>
+              <motion.div
+                initial={{ clipPath: clipPathClosed, rotateY: -75, opacity: 0 }}
+                animate={{ clipPath: clipPathOpen, rotateY: 0, opacity: 1 }}
+                exit={{ clipPath: clipPathClosed, rotateY: -75, opacity: 0 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                style={{ transformOrigin: "left center" }}
+                className="pointer-events-auto fixed top-0 left-0 h-screen w-full lg:w-[65vw] bg-black flex flex-col justify-between p-8 lg:p-16 overflow-hidden border-r border-white/5"
+              >
+                {/* Top Bar inside Drawer */}
+                <div className="flex items-center justify-between">
+                  <Link href="/" className="relative flex items-center" onClick={() => setIsOpen(false)}>
+                    <Image
+                      src="/assets/logo.webp"
+                      alt="Jhamtani Logo"
+                      width={145}
+                      height={70}
+                      priority
+                      className="h-14 w-auto object-contain brightness-0 invert"
+                    />
                   </Link>
-                </motion.div>
-              </div>
-            </motion.div>
+                </div>
+
+                {/* Navigation Links in Center */}
+                <div className="flex-1 flex flex-col justify-center pl-4 lg:pl-24 mt-12 lg:mt-0">
+                  <nav className="flex flex-col space-y-6 lg:space-y-8">
+                    {navLinks.map((link, idx) => {
+                      const isActive = pathname === link.href;
+                      return (
+                        <motion.div
+                          key={link.label}
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.7, delay: 0.15 + idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                          <Link
+                            href={link.href}
+                            onClick={() => setIsOpen(false)}
+                            className={`font-serif text-3xl lg:text-[54px] uppercase tracking-wider block w-fit transition-all duration-300 hover:translate-x-4 ${
+                              isActive ? "text-[#C5A880]" : "text-white/80 hover:text-[#C5A880]"
+                            }`}
+                          >
+                            {link.label}
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
+                  </nav>
+                </div>
+
+                {/* Chat Assist at Bottom */}
+                <div className="pl-4 lg:pl-24 mb-6 lg:mb-12">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <Link
+                      href="#contact"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center justify-center space-x-2 border border-[#C5A880]/30 py-4 px-8 w-full lg:w-fit font-sans text-[13px] tracking-widest text-[#C5A880] hover:bg-[#C5A880] hover:text-black transition-all duration-500 rounded-none uppercase font-light"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      <span>Chat Assist</span>
+                    </Link>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>

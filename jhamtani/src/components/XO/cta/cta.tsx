@@ -7,7 +7,7 @@ export default function CTA() {
   return (
     <section className="relative w-full bg-[#EEEBE7] overflow-hidden">
       {/* Top Content Bar */}
-      <div className="max-w-7xl mx-auto  py-10 sm:py-12 md:py-14 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 py-10 sm:py-12 md:py-14 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         {/* Left Column: Heading Text */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -49,15 +49,15 @@ export default function CTA() {
       </div>
 
       {/* Bottom Full-Width Image Banner */}
-      <div className="w-full overflow-hidden leading-none">
+      <div className="w-full overflow-hidden leading-none relative group">
         <motion.img 
-          initial={{ scale: 1.03, opacity: 0.9 }}
+          initial={{ scale: 1.05, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
           src="/assets/xo/cta.png" 
           alt="Two Signature Residences" 
-          className="w-full h-[50vh] sm:h-[55vh] md:h-[60vh] lg:h-[95vh] min-h-[100px] object-cover"
+          className="w-full h-[40vh] sm:h-[55vh] md:h-[60vh] lg:h-[90vh] min-h-[300px] object-cover transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-103"
         />
       </div>
     </section>

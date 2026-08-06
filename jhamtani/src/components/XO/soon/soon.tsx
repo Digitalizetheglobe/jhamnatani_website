@@ -65,7 +65,7 @@ export default function Soon() {
           <img 
             src="/assets/xo/XO.png" 
             alt="XO Logo" 
-            className="h-12 sm:h-20 md:h-24 lg:h-[220px] object-contain filter drop-shadow-[0_4px_25px_rgba(160,114,91,0.3)] hover:scale-103 transition-transform duration-500 cursor-default"
+            className="h-12 sm:h-20 md:h-24 lg:h-28 object-contain filter drop-shadow-[0_4px_25px_rgba(160,114,91,0.3)] hover:scale-103 transition-transform duration-500 cursor-default"
           />
           <span className="font-inria font-light text-[#A0725B] text-4xl sm:text-6xl md:text-7xl lg:text-[85px] leading-none tracking-wide">
             Soon!
