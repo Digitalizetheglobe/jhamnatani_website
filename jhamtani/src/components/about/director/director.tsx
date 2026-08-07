@@ -84,13 +84,13 @@ export default function DirectorSection() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 1, 0.5, 1],
+        ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
       },
     },
   };
 
   return (
-    <section className="relative w-full bg-[#EEEBE7] overflow-hidden" style={{ minHeight: "680px" }}>
+    <section className="relative w-full bg-[#EEEBE7] overflow-hidden" style={{ minHeight: "650px" }}>
       {/* Main content wrapper with padding-bottom to clear the bottom bar */}
       <motion.div
         variants={sectionVariants}
@@ -167,8 +167,8 @@ export default function DirectorSection() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.97 }}
               transition={{ duration: 0.4 }}
-              className="hidden lg:block absolute bottom-0 right-0 w-[48%] pointer-events-none"
-              style={{ top: "-120px", bottom: "-130px" }}
+              className="hidden lg:block absolute bottom-10 right-0 w-[48%] pointer-events-none"
+              style={{ top: "-320px", bottom: "-210px" }}
             >
               <div className="relative w-full h-full">
                 <Image
@@ -209,13 +209,12 @@ export default function DirectorSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 1, 0.5, 1] }}
-        className="absolute bottom-6 left-0 right-0 z-30 px-4 sm:px-8 flex justify-center"
+        className="absolute bottom-0 left-0 right-0 z-30 px-4 sm:px-8 flex justify-center"
       >
         <div
           className="w-full max-w-7xl flex items-center justify-around py-6 px-4 sm:px-8 shadow-xl overflow-x-auto no-scrollbar"
           style={{
-            background: "rgba(25, 31, 38, 0.85)",
-            backdropFilter: "blur(12px)",
+            background: "rgba(25, 31, 38, 0.78)",
             borderRadius: "32px",
             border: "1px solid rgba(255, 255, 255, 0.08)",
           }}

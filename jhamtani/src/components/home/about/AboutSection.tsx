@@ -8,6 +8,7 @@ import { motion, animate } from "framer-motion";
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const statsContainerRef = useRef<HTMLDivElement>(null);
+  const isMouseOverRightRef = useRef(false);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -110,6 +111,9 @@ export default function AboutSection() {
       // Active when section top is near viewport
       const isVisible = rect.top <= 200 && rect.bottom >= windowHeight - 200;
       if (!isVisible) return;
+
+      // Only capture/intercept wheel events when the mouse is hovering over the right section
+      if (!isMouseOverRightRef.current) return;
 
       const isScrollingDown = e.deltaY > 0;
       const isScrollingUp = e.deltaY < 0;
@@ -237,7 +241,15 @@ export default function AboutSection() {
           </div>
 
           {/* Right Column (Scrolling list of stats with auto-active hover glow & smooth edge fade) */}
-          <div className="lg:col-span-5 relative">
+          <div 
+            className="lg:col-span-5 relative"
+            onMouseEnter={() => {
+              isMouseOverRightRef.current = true;
+            }}
+            onMouseLeave={() => {
+              isMouseOverRightRef.current = false;
+            }}
+          >
             <div
               ref={statsContainerRef}
               onScroll={handleStatsScroll}

@@ -10,30 +10,20 @@ const lines = [
   ["legacy."],
 ];
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const wordVariants: Variants = {
-  hidden: {
-    y: "115%",
-    opacity: 0,
-  },
-  visible: {
-    y: "0%",
-    opacity: 1,
-    transition: {
-      duration: 0.85,
-      ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
-    },
-  },
-};
+// Pre-calculate character coordinates with global indices to ensure a seamless stagger timing
+let globalCharIndex = 0;
+const parsedLines = lines.map((lineWords) => {
+  return lineWords.map((word) => {
+    const chars = word.split("").map((char) => {
+      const idx = globalCharIndex;
+      globalCharIndex++;
+      return { char, idx };
+    });
+    // Stagger delay count accounts for space character spacing
+    globalCharIndex++;
+    return chars;
+  });
+});
 
 export default function Hero() {
   return (
@@ -56,26 +46,34 @@ export default function Hero() {
 
       {/* Hero content */}
       <div className="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 flex justify-start">
-        <motion.h1
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="font-serif text-[38px] sm:text-[54px] md:text-[66px] lg:text-[72px] leading-[1.10] text-[#b88654] tracking-wide font-normal"
+        <h1
+          className="font-serif text-[38px] sm:text-[54px] md:text-[66px] lg:text-[72px] leading-[1.10] text-[#b88654] tracking-wide font-normal select-none"
         >
-          {lines.map((lineWords, lineIndex) => (
-            <span key={lineIndex} className="block overflow-hidden">
-              {lineWords.map((word, wordIndex) => (
-                <motion.span
-                  key={wordIndex}
-                  variants={wordVariants}
-                  className="inline-block mr-[0.28em]"
-                >
-                  {word}
-                </motion.span>
+          {parsedLines.map((lineWords, lineIndex) => (
+            <span key={lineIndex} className="block overflow-hidden py-1.5 -my-1.5">
+              {lineWords.map((wordChars, wordIndex) => (
+                <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.28em]">
+                  {wordChars.map(({ char, idx }) => (
+                    <span key={idx} className="relative inline-flex overflow-hidden">
+                      <motion.span
+                        initial={{ y: "115%", opacity: 0 }}
+                        animate={{ y: "0%", opacity: 1 }}
+                        transition={{
+                          duration: 1.25,
+                          delay: 0.15 + idx * 0.035,
+                          ease: [0.16, 1, 0.3, 1],
+                        }}
+                        className="inline-block"
+                      >
+                        {char}
+                      </motion.span>
+                    </span>
+                  ))}
+                </span>
               ))}
             </span>
           ))}
-        </motion.h1>
+        </h1>
       </div>
 
     </section>

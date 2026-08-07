@@ -7,6 +7,42 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+}
+
+function WaveText({ text, letterDelay = 20 }: WaveTextProps) {
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center gap-[0.02em] select-none" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.25em] inline-block" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden">
+              <span
+                className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform [backface-visibility:hidden]"
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className="absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform [backface-visibility:hidden]"
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -52,12 +88,28 @@ export default function Header() {
 
   const pathname = usePathname();
 
+  // Scroll to top instantly on pathname change to fix smooth scrolling route bugs
+  useEffect(() => {
+    const html = document.documentElement;
+    const originalScrollBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+    window.scrollTo(0, 0);
+    html.style.scrollBehavior = originalScrollBehavior;
+  }, [pathname]);
+
   const navLinks = [
     { label: "Our Story", href: "/about" },
-    { label: "Our Promises", href: "/#promises" },
-    { label: "Our Projects", href: "/#projects" },
+    { label: "Our Promises", href: "/" },
+    { label: "Our Projects", href: "/" },
     { label: "XO Series", href: "/xo" },
   ];
+
+  const handleLinkClick = (href: string) => {
+    setIsOpen(false);
+    if (pathname === href) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   // Clip path configurations for luxury transition reveal
   const clipPathOpen = isMobile
@@ -97,28 +149,38 @@ export default function Header() {
             <nav className="hidden lg:flex items-center space-x-4 font-sans text-[15px] font-normal text-white/80">
               <Link 
                 href="/about" 
-                className={`transition-colors duration-300 ${
+                onClick={() => handleLinkClick("/about")}
+                className={`group relative transition-colors duration-300 ${
                   pathname === "/about" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
-                Our Story
+                <WaveText text="Our Story" />
               </Link>
               <span className="text-white/20">|</span>
-              <Link href="/#promises" className="hover:text-[#a0725b] transition-colors duration-300">
-                Our Promises
+              <Link 
+                href="/" 
+                onClick={() => handleLinkClick("/")}
+                className="group relative hover:text-[#a0725b] transition-colors duration-300"
+              >
+                <WaveText text="Our Promises" />
               </Link>
               <span className="text-white/20">|</span>
-              <Link href="/#projects" className="hover:text-[#a0725b] transition-colors duration-300">
-                Our Projects
+              <Link 
+                href="/" 
+                onClick={() => handleLinkClick("/")}
+                className="group relative hover:text-[#a0725b] transition-colors duration-300"
+              >
+                <WaveText text="Our Projects" />
               </Link>
               <span className="text-white/20">|</span>
               <Link 
                 href="/xo" 
-                className={`transition-colors duration-300 ${
+                onClick={() => handleLinkClick("/xo")}
+                className={`group relative transition-colors duration-300 ${
                   pathname === "/xo" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
-                XO Series
+                <WaveText text="XO Series" />
               </Link>
             </nav>
 
@@ -168,22 +230,30 @@ export default function Header() {
               <div className="absolute inset-[3%] rounded-full bg-white/[0.03] border border-white/[0.05] pointer-events-none" />
 
               <svg viewBox="0 0 100 100" className="w-full h-full absolute inset-0 overflow-visible pointer-events-none z-20">
-                {/* Circle outline - golden #A0725B by default, draws to white on hover */}
-                <motion.circle
+                {/* Base golden circle outline */}
+                <circle
                   cx="50"
                   cy="50"
                   r="47"
                   strokeWidth="1.2"
                   fill="transparent"
+                  stroke="#A0725B"
+                />
+
+                {/* Premium animated white circle overlay */}
+                <motion.circle
+                  cx="50"
+                  cy="50"
+                  r="47"
+                  strokeWidth="1.25"
+                  fill="transparent"
+                  stroke="#ffffff"
                   strokeLinecap="round"
-                  initial={{ strokeDasharray: "94 283", stroke: "#A0725B", rotate: -90 }}
-                  animate={
-                    isCloseHovered
-                      ? { strokeDasharray: "283 283", stroke: "#ffffff", rotate: 270 }
-                      : { strokeDasharray: "94 283", stroke: "#A0725B", rotate: -90 }
-                  }
-                  transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ transformOrigin: "center" }}
+                  strokeDasharray="295.3"
+                  initial={{ strokeDashoffset: 295.3 }}
+                  animate={{ strokeDashoffset: isCloseHovered ? 0 : 295.3 }}
+                  transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ transformOrigin: "center", rotate: -90 }}
                 />
               </svg>
 
@@ -242,12 +312,12 @@ export default function Header() {
                         >
                           <Link
                             href={link.href}
-                            onClick={() => setIsOpen(false)}
-                            className={`font-serif text-3xl lg:text-[54px] uppercase tracking-wider block w-fit transition-all duration-300 hover:translate-x-4 ${
+                            onClick={() => handleLinkClick(link.href)}
+                            className={`group font-serif text-3xl lg:text-[54px] uppercase tracking-wider block w-fit transition-all duration-300 hover:translate-x-4 ${
                               isActive ? "text-[#C5A880]" : "text-white/80 hover:text-[#C5A880]"
                             }`}
                           >
-                            {link.label}
+                            <WaveText text={link.label} letterDelay={25} />
                           </Link>
                         </motion.div>
                       );

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,7 +89,11 @@ export default function AboutTimeline() {
 
     const angle = (Math.atan2(dy, dx) * 180) / Math.PI - 90;
 
-    return { x, y, angle };
+    return {
+      x: Number(x.toFixed(2)),
+      y: Number(y.toFixed(2)),
+      angle: Number(angle.toFixed(2)),
+    };
   };
 
   // Scroll to a specific year milestone
@@ -274,16 +279,9 @@ export default function AboutTimeline() {
     return () => clearInterval(interval);
   }, [activeIndex]);
 
-  // Staggered fade-in of project content
+  // Staggered fade-in of project content (now handled by Framer Motion characters)
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".project-item",
-        { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }
-      );
-    }, projectListRef);
-
-    return () => ctx.revert();
+    // Empty hook to preserve structure without GSAP transition conflicts
   }, [activeIndex, projectSubIndex]);
 
   // Compute text transformations and styling dynamically for initial render
@@ -423,7 +421,7 @@ export default function AboutTimeline() {
             {/* Right Column: Dynamic Project Content */}
             <div className="col-span-7 flex flex-col h-full pt-24 gap-6 relative">
               <div className="space-y-4">
-                <h2 className="font-serif text-[38px] xl:text-[48px] leading-tight text-[#9A6B4F] font-normal">
+                <h2 className="font-serif text-[38px] xl:text-[48px] leading-tight text-[#A0725B] font-normal">
                   The Timeline of <br />
                   Promises Delivered
                 </h2>
@@ -434,10 +432,30 @@ export default function AboutTimeline() {
                 {timelineData[activeIndex].projects.length > 0 && (
                   <div
                     key={`${activeIndex}-${projectSubIndex}`}
-                    className="project-item font-sans font-bold text-[18px] text-[#2B2B2B] tracking-wider uppercase select-none"
-                    style={{ opacity: 0 }}
+                    className="project-item font-serif font-normal text-[20px] md:text-[30px] text-[#A0725B] tracking-wider uppercase select-none flex flex-wrap gap-[0.02em]"
+                    style={{ opacity: 1 }}
                   >
-                    {timelineData[activeIndex].projects[projectSubIndex]}
+                    {timelineData[activeIndex].projects[projectSubIndex].split("").map((char, index) => {
+                      if (char === " ") {
+                        return <span key={index} className="w-[0.25em] inline-block" />;
+                      }
+                      return (
+                        <span key={index} className="relative inline-flex overflow-hidden py-1 -my-1">
+                          <motion.span
+                            initial={{ y: "115%", opacity: 0 }}
+                            animate={{ y: "0%", opacity: 1 }}
+                            transition={{
+                              duration: 0.85,
+                              delay: index * 0.03, // 30ms stagger per letter
+                              ease: [0.16, 1, 0.3, 1],
+                            }}
+                            className="inline-block"
+                          >
+                            {char}
+                          </motion.span>
+                        </span>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -477,7 +495,7 @@ export default function AboutTimeline() {
                   {data.projects.map((proj) => (
                     <div
                       key={proj}
-                      className="font-sans font-bold text-[15px] text-[#2B2B2B] tracking-wider uppercase pl-4 border-l border-[#C7A189]/60 py-1"
+                      className="font-serif font-normal text-[17px] text-[#2B2B2B] tracking-wider uppercase pl-4 border-l border-[#C7A189]/60 py-1"
                     >
                       {proj}
                     </div>

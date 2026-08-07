@@ -19,6 +19,42 @@ interface PromiseValue {
   points: string[];
 }
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+}
+
+function WaveText({ text, letterDelay = 15 }: WaveTextProps) {
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex flex-wrap items-center gap-[0.02em] select-none" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.25em] inline-block" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden py-0.5 -my-0.5">
+              <span
+                className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform [backface-visibility:hidden]"
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className="absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform [backface-visibility:hidden]"
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 const promisesData: PromiseValue[] = [
   {
     id: "happier-life",
@@ -93,13 +129,23 @@ export default function Value() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 1, 0.5, 1],
+        ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
       },
     },
   };
 
   return (
     <section className="w-full bg-[#191F26] text-white py-16 sm:py-24">
+      <style dangerouslySetInnerHTML={{__html: `
+        .value-arrow-circle-path {
+          stroke-dasharray: 298.5;
+          stroke-dashoffset: 298.5;
+          transition: stroke-dashoffset 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .group:hover .value-arrow-circle-path {
+          stroke-dashoffset: 0;
+        }
+      `}} />
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 space-y-16">
         {/* Section Header */}
         <motion.div
@@ -152,8 +198,8 @@ export default function Value() {
 
                     {/* Titles */}
                     <div className="space-y-1">
-                      <h3 className="font-serif text-[22px] sm:text-[26px] md:text-[30px] text-[#A0725B] font-normal leading-snug group-hover:text-[#d69f68] transition-colors duration-300">
-                        {item.title}
+                      <h3 className="font-serif text-[22px] sm:text-[26px] md:text-[30px] text-[#A0725B] font-normal leading-snug transition-colors duration-300">
+                        <WaveText text={item.title} />
                       </h3>
                       <p className="font-sans text-[14px] sm:text-[15px] text-white font-normal">
                         {item.quote}
@@ -163,11 +209,30 @@ export default function Value() {
 
                   {/* Right Arrow Action Circle */}
                   <div
-                    className={`flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#A0725B]/70 group-hover:border-[#A0725B] flex items-center justify-center text-[#A0725B] transition-all duration-300 ${
+                    className={`relative flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#A0725B] transition-all duration-300 ${
                       isOpen ? "bg-[#A0725B] text-black group-hover:text-black rotate-180" : ""
                     }`}
                   >
-                    <ArrowDown className="w-5 h-5 transition-transform duration-300" />
+                    {/* SVG Borders */}
+                    <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
+                      {/* Base gold border (hidden when active to avoid clash) */}
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="47.5"
+                        className={`fill-none stroke-[#A0725B]/70 stroke-[1.5] transition-opacity duration-300 ${
+                          isOpen ? "opacity-0" : "opacity-100"
+                        }`}
+                      />
+                      {/* Animated active border (White) */}
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="47.5"
+                        className="fill-none stroke-white stroke-[2] value-arrow-circle-path"
+                      />
+                    </svg>
+                    <ArrowDown className="w-5 h-5 relative z-10 transition-transform duration-300" />
                   </div>
                 </button>
 
