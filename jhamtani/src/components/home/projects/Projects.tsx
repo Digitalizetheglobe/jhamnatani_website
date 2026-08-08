@@ -142,16 +142,17 @@ export default function Projects() {
 
     // Set initial positions
     const startX = dir === 'next' ? 100 : -100;
-    const startImgX = dir === 'next' ? -15 : 15;
+    const startImgX = dir === 'next' ? -20 : 20;
 
     gsap.set(toSlide, {
       xPercent: startX,
       opacity: 1,
       zIndex: 10,
     });
+    // Start at scale 1.0 and zoom IN during transition
     gsap.set(toImage, {
       xPercent: startImgX,
-      scale: 1.06,
+      scale: 1.0,
     });
     gsap.set(fromSlide, { zIndex: 5 });
 
@@ -181,35 +182,47 @@ export default function Projects() {
         gsap.set(fromNumber, { opacity: 0, y: 0 });
         gsap.set(toNumber, { zIndex: 10, y: 0 });
 
+        // Keep the active slide zoomed in, reset the outgoing one
+        gsap.set(fromImage, { scale: 1.0, xPercent: 0 });
+        gsap.set(toImage, { scale: 1.12, xPercent: 0 });
+
         prevSlideRef.current = current;
         isTransitioning.current = false;
       }
     });
 
-    // 1. Slide transitions (Left panel image)
+    // 1. Slide transitions (Left panel container) - Creates the boundary slide
     tl.to(fromSlide, {
       xPercent: dir === 'next' ? -100 : 100,
-      duration: 0.9,
+      duration: 1.3,
       ease: "power4.inOut"
     }, 0);
 
     tl.to(toSlide, {
       xPercent: 0,
-      duration: 0.9,
+      duration: 1.3,
       ease: "power4.inOut"
     }, 0);
 
-    // 2. Parallax sliding of the inner image
+    // 2. Parallax sliding (Mirror effect) & Zoom In
     tl.to(fromImage, {
-      xPercent: dir === 'next' ? 15 : -15,
-      duration: 0.9,
+      xPercent: dir === 'next' ? 20 : -20,
+      scale: 1.0, // Zoom out the leaving image
+      duration: 1.3,
       ease: "power4.inOut"
     }, 0);
 
     tl.to(toImage, {
       xPercent: 0,
-      scale: 1.0,
-      duration: 0.9,
+      scale: 1.12, // Zoom IN the entering image
+      duration: 1.8, // Slower duration for a soft zoom-in settle
+      ease: "power3.out"
+    }, 0);
+
+    // Dim the previous slide
+    tl.to(fromSlide, {
+      opacity: 0.5,
+      duration: 1.3,
       ease: "power4.inOut"
     }, 0);
 
@@ -288,7 +301,7 @@ export default function Projects() {
                 <span
                   key={project.id}
                   id={`slide-number-${idx + 1}`}
-                  className={`absolute bottom-0 right-0 font-serif text-[70px] sm:text-[100px] lg:text-[125px] font-light leading-none text-white select-none tracking-tighter drop-shadow-md transition-opacity duration-300 ${
+                  className={`absolute bottom-0 right-0 font-serif text-[70px] sm:text-[100px] lg:text-[70px] font-light leading-none text-white select-none tracking-tighter drop-shadow-md transition-opacity duration-300 ${
                     idx + 1 === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
                   }`}
                 >

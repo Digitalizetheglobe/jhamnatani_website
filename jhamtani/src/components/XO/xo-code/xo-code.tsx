@@ -104,9 +104,9 @@ export default function XOCode() {
                   </div>
                 </div>
 
-                {/* Hover Image Overlay (Fades in on hover) */}
+                {/* Hover Image Overlay (Subtly visible by default, fully fades in on hover) */}
                 <div 
-                  className="absolute inset-0 z-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out scale-105 group-hover:scale-100 transition-transform duration-700 ease-out"
+                  className="absolute inset-0 z-0 bg-cover bg-center opacity-15 group-hover:opacity-100 transition-opacity duration-700 ease-in-out scale-105 group-hover:scale-100 transition-transform duration-700 ease-out"
                   style={{
                     backgroundImage: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.6) 100%), url('/assets/xo/xo_code.png')"
                   }}

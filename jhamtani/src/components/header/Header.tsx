@@ -130,7 +130,7 @@ export default function Header() {
             : "bg-transparent py-6"
         }`}
       >
-        <div className="w-full px-6 sm:px-12 lg:px-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="relative flex items-center">
             <Image

@@ -17,13 +17,13 @@ export default function AboutSection() {
   const lastWheelTimeRef = useRef(0);
 
   const stats = [
-    { number: "40yrs+", label: "OF LEGACY" },
+    { number: "40+ Yrs", label: "YEARS OF LEGACY" },
     { number: "13K+", label: "HAPPY FACES" },
     { number: "8", label: "ONGOING PROJECTS" },
     { number: "4M+", label: "SQ. FT. DELIVERED" },
     { number: "4.8M+", label: "SQ. FT. IN PIPELINE" },
     { number: "24", label: "COMPLETED PROJECTS" },
-    { number: "16Yrs +", label: "IN REAL ESTATE" },
+    { number: "16+ Yrs", label: "IN REAL ESTATE" },
     { number: "32", label: "TOTAL PROJECTS" },
     { number: "2.4M+", label: "SQ. FT. UNDER CONSTRUCTION" },
     { number: "6.4M+", label: "SQ. FT. LAUNCHED" },

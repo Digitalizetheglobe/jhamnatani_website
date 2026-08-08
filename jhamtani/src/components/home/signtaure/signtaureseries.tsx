@@ -1,4 +1,41 @@
 import React from 'react';
+import Link from 'next/link';
+
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+}
+
+function WaveText({ text, letterDelay = 15 }: WaveTextProps) {
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center gap-[0.02em] select-none" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.25em] inline-block" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden">
+              <span
+                className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform [backface-visibility:hidden]"
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className="absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform [backface-visibility:hidden]"
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
 
 const SignatureSeries = () => {
   return (
@@ -22,7 +59,7 @@ const SignatureSeries = () => {
           </div>
 
           {/* Headline */}
-          <h2 className="text-[#f5f5f5] text-3xl md:text-4xl lg:text-[40px] font-serif font-light tracking-wide mb-10 md:mb-12 leading-[1.3]">
+          <h2 className="text-[#f5f5f5] text-3xl md:text-4xl lg:text-[38px] font-serif font-light tracking-wide mb-10 md:mb-12 leading-[1.1]">
             Where our promise reaches its <br className="hidden md:block" /> finest expression.
           </h2>
 
@@ -48,9 +85,12 @@ const SignatureSeries = () => {
 
           {/* Button */}
           <div>
-            <button className="border border-[#C5A880] text-[#C5A880] px-8 py-3 rounded-full text-[10px] tracking-widest uppercase hover:bg-[#C5A880] hover:text-[#171a1f] transition-all duration-300 font-semibold cursor-pointer">
-              Explore The Extraordinaire
-            </button>
+            <Link 
+              href="/xo"
+              className="group relative inline-flex items-center justify-center border border-[#C5A880] text-[#C5A880] px-8 py-3 rounded-full text-[10px] tracking-widest uppercase hover:bg-[#C5A880] hover:text-[#171a1f] transition-all duration-300 font-semibold cursor-pointer overflow-hidden"
+            >
+              <WaveText text="Explore The Extraordinaire" letterDelay={15} />
+            </Link>
           </div>
         </div>
       </div>

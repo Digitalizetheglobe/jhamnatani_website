@@ -59,7 +59,7 @@ export default function Hero() {
               initial={{ y: "100%" }}
               animate={{ y: "0%" }}
               transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="block font-normal italic"
+              className="block font-normal"
             >
               Superiorly Rare.
             </motion.span>
