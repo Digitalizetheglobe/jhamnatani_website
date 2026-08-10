@@ -99,7 +99,7 @@ export default function Header() {
 
   const navLinks = [
     { label: "Our Story", href: "/about" },
-    { label: "Our Promises", href: "/" },
+    { label: "Our Promises", href: "/permission" },
     { label: "Our Projects", href: "/" },
     { label: "XO Series", href: "/xo" },
   ];
@@ -158,9 +158,11 @@ export default function Header() {
               </Link>
               <span className="text-white/20">|</span>
               <Link 
-                href="/" 
-                onClick={() => handleLinkClick("/")}
-                className="group relative hover:text-[#a0725b] transition-colors duration-300"
+                href="/permission" 
+                onClick={() => handleLinkClick("/permission")}
+                className={`group relative transition-colors duration-300 ${
+                  pathname === "/permission" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
+                }`}
               >
                 <WaveText text="Our Promises" />
               </Link>
