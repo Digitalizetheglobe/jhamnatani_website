@@ -17,7 +17,7 @@ const directorsData: Director[] = [
   {
     id: "parmanand",
     name: "Mr. Parmanand Jhamtani",
-    role: "Chairman | Founder | Entrepreneur | The Vision That Started It All",
+    role: "Chairman | Founder | Entrepreneur",
     bio: [
       "Long before Jhamtani became one of Pune's most respected real estate brands, Mr Parmanand Jhamtani built his entrepreneurial journey on a simple belief-that trust is the strongest foundation any business can have.",
       "Beginning with construction materials and steadily expanding into real estate, he laid the groundwork for an organisation built on integrity, discipline and lasting relationships. More than four decades later, while the business has evolved across residential, commercial and lifestyle ventures, the principles that guide it remain exactly as he envisioned."
@@ -93,42 +93,41 @@ export default function DirectorSection() {
   };
 
   return (
-    <section className="relative w-full bg-[#EEEBE7] overflow-hidden min-h-[700px] lg:min-h-[750px]">
+    <section className="relative w-full bg-[#EEEBE7] overflow-hidden min-h-[640px] lg:min-h-[700px] xl:min-h-[740px] pt-8 sm:pt-12 pb-32 sm:pb-36">
       {/* Main content wrapper */}
       <motion.div
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
-        className="relative max-w-5xl mx-auto px-6 sm:px-12 lg:px-16 pt-12 sm:pt-16 pb-36 sm:pb-44"
+        className="relative max-w-6xl mx-auto px-6 sm:px-10 lg:px-12"
       >
         {/* Section Header Subtitle */}
         <motion.p
           variants={itemVariants}
-          className="font-serif text-[22px] sm:text-[28px] md:text-[34px] text-[#2D2925] font-normal mb-2 sm:mb-4 tracking-tight"
+          className="font-serif text-[22px] sm:text-[26px] lg:text-[28px] text-[#2D2925] font-normal mb-1 sm:mb-2 tracking-tight"
         >
           The Architects Of Our Promise
         </motion.p>
 
         {/* Dynamic Director Name Heading */}
-        <motion.div variants={itemVariants} className="overflow-hidden mb-6 sm:mb-8 relative z-10">
+        <motion.div variants={itemVariants} className="mb-4 sm:mb-6 relative z-10">
           <AnimatePresence mode="wait">
             <motion.h2
               key={`name-${activeDirector.id}`}
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -25 }}
-              transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-              className="font-serif font-normal leading-[1.05] text-[#B88654]"
-              style={{ fontSize: "clamp(38px, 6vw, 82px)" }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+              className="font-serif font-normal leading-[1.05] text-[#9E6C4C] text-[40px] sm:text-[60px] lg:text-[86px] tracking-normal"
             >
               {activeDirector.name}
             </motion.h2>
           </AnimatePresence>
         </motion.div>
 
-        {/* Content Container (Left Bio | Right Image) */}
-        <div className="relative z-30 min-h-[400px] lg:min-h-[460px]">
+        {/* Content Container */}
+        <div className="relative z-20 min-h-[380px] lg:min-h-[420px]">
           {/* Left Text Content Column */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -137,7 +136,7 @@ export default function DirectorSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.35 }}
-              className="w-full lg:w-[50%] space-y-4 z-10 relative pr-0 lg:pr-6"
+              className="w-full lg:w-[42%] xl:w-[40%] space-y-3.5 relative z-20 pr-0 lg:pr-4"
             >
               {/* Role */}
               <p className="font-sans font-bold text-[14px] sm:text-[15px] lg:text-[16px] text-[#2D2925] tracking-wide">
@@ -146,7 +145,7 @@ export default function DirectorSection() {
 
               {/* Qualifications */}
               {activeDirector.qualifications && activeDirector.qualifications.length > 0 && (
-                <div className="font-sans text-[13px] sm:text-[14px] font-semibold text-[#2D2925] leading-snug space-y-0.5 pt-0.5">
+                <div className="font-sans text-[13px] sm:text-[14px] font-bold text-[#2D2925] leading-snug space-y-0.5 pt-0.5">
                   {activeDirector.qualifications.map((q, idx) => (
                     <p key={idx}>{q}</p>
                   ))}
@@ -154,7 +153,7 @@ export default function DirectorSection() {
               )}
 
               {/* Bio Paragraphs */}
-              <div className="space-y-4 pt-2 font-sans text-[13.5px] sm:text-[14.5px] lg:text-[15px] text-[#4A443E] leading-relaxed">
+              <div className="space-y-3.5 pt-1 font-sans text-[13.5px] sm:text-[14px] lg:text-[14.5px] text-[#4A443E] leading-relaxed max-w-md">
                 {activeDirector.bio.map((para, idx) => (
                   <p key={idx}>{para}</p>
                 ))}
@@ -162,7 +161,7 @@ export default function DirectorSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Right Cutout Image Column - Desktop (positioned absolutely to match PDF layout) */}
+          {/* Right Cutout Image Column - Desktop (Positioned leftwards to align head at starting letter 'J' of Jhamtani) */}
           <AnimatePresence mode="wait">
             <motion.div
               key={`image-desktop-${activeDirector.id}`}
@@ -170,7 +169,7 @@ export default function DirectorSection() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-              className="hidden lg:block absolute right-[-5%] xl:right-[-2%] top-[-150px] bottom-[-300px] w-[85%] xl:w-[80%] pointer-events-none z-[50]"
+              className="hidden lg:block absolute left-[26%] lg:left-[28%] xl:left-[29%] top-[-95px] lg:top-[-105px] xl:top-[-65px] w-[500px] lg:w-[580px] xl:w-[740px] h-[580px] lg:h-[660px] xl:h-[720px] pointer-events-none z-10"
             >
               <div className="relative w-full h-full">
                 <Image
@@ -178,8 +177,8 @@ export default function DirectorSection() {
                   alt={activeDirector.name}
                   fill
                   priority
-                  sizes="(max-width: 1200px) 85vw, 1000px"
-                  className="object-contain object-bottom"
+                  sizes="(max-width: 1200px) 600px, 750px"
+                  className="object-contain object-top"
                 />
               </div>
             </motion.div>
@@ -193,7 +192,7 @@ export default function DirectorSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.35 }}
-              className="lg:hidden relative w-full h-[450px] sm:h-[550px] mt-6 pointer-events-none z-20"
+              className="lg:hidden relative w-full h-[380px] sm:h-[480px] mt-2 pointer-events-none z-10"
             >
               <Image
                 src={activeDirector.image}
@@ -201,7 +200,7 @@ export default function DirectorSection() {
                 fill
                 priority
                 sizes="100vw"
-                className="object-contain object-bottom"
+                className="object-contain object-center"
               />
             </motion.div>
           </AnimatePresence>
@@ -214,15 +213,15 @@ export default function DirectorSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 1, 0.5, 1] }}
-        className="absolute bottom-5 sm:bottom-6 left-0 right-0 z-30 px-3 sm:px-6 flex justify-center pointer-events-auto"
+        className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-30 px-3 sm:px-6 flex justify-center pointer-events-auto"
       >
         <div
-          className="w-full max-w-5xl flex items-center justify-between sm:justify-around py-3 sm:py-3.5 px-3 sm:px-6 shadow-2xl overflow-x-auto no-scrollbar"
+          className="w-full max-w-5xl flex items-center justify-between sm:justify-around py-3 sm:py-3.5 px-4 sm:px-8 shadow-2xl overflow-x-auto no-scrollbar"
           style={{
-            background: "rgba(42, 48, 54, 0.86)",
-            backdropFilter: "blur(14px)",
-            WebkitBackdropFilter: "blur(14px)",
-            borderRadius: "9999px",
+            background: "rgba(75, 80, 85, 0.88)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            borderRadius: "28px",
             border: "1px solid rgba(255, 255, 255, 0.12)",
           }}
         >
@@ -232,7 +231,7 @@ export default function DirectorSection() {
               <button
                 key={d.id}
                 onClick={() => setActiveDirectorId(d.id)}
-                className="flex items-center space-x-3 py-1.5 px-2.5 sm:px-4 rounded-full transition-all duration-300 cursor-pointer flex-shrink-0 hover:bg-white/10 focus:outline-none"
+                className="flex items-center space-x-3 py-1.5 px-2 sm:px-3 rounded-full transition-all duration-300 cursor-pointer flex-shrink-0 bg-transparent focus:outline-none"
               >
                 {/* Avatar with glowing active cyan ring */}
                 <div
@@ -272,4 +271,5 @@ export default function DirectorSection() {
     </section>
   );
 }
+
 
