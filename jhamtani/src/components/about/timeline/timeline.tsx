@@ -39,7 +39,6 @@ export default function AboutTimeline() {
   const projectListRef = useRef<HTMLDivElement>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [projectSubIndex, setProjectSubIndex] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(800);
   const heightRef = useRef(800);
 
@@ -57,14 +56,18 @@ export default function AboutTimeline() {
   const n = timelineData.length;
   const spacing = 0.15; // spacing parameter t along bezier curve
 
-  // Bezier curve calculations dynamically based on heightRef
+  // Bezier curve calculations dynamically based on heightRef with header clearance
   const getBezierPoint = (t: number) => {
     const clampedT = Math.max(0, Math.min(1, t));
     const h = heightRef.current;
-    const p0 = { x: 80, y: 0 };
-    const p1 = { x: 360, y: h * 0.25 };
-    const p2 = { x: 360, y: h * 0.75 };
-    const p3 = { x: 80, y: h };
+    const topOffset = 100; // Header clearance
+    const bottomOffset = 60;
+    const usableHeight = Math.max(300, h - topOffset - bottomOffset);
+
+    const p0 = { x: 80, y: topOffset };
+    const p1 = { x: 360, y: topOffset + usableHeight * 0.25 };
+    const p2 = { x: 360, y: topOffset + usableHeight * 0.75 };
+    const p3 = { x: 80, y: h - bottomOffset };
 
     const x =
       Math.pow(1 - clampedT, 3) * p0.x +
@@ -96,6 +99,95 @@ export default function AboutTimeline() {
     };
   };
 
+  // Continuous fluid progress mapping along bezier timeline
+  const getRegulatorProgress = (p: number, totalCount: number) => {
+    if (p <= 0) return 0;
+    if (p >= 1) return totalCount - 1;
+    return p * (totalCount - 1);
+  };
+
+  const isTransitioningRef = useRef(false);
+  const activeIndexRef = useRef(0);
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  // Handle wheel input: advance/rewind strictly 1 step per gesture with ultra-smooth cubic easing
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      const trigger = ScrollTrigger.getById("timeline-scroll");
+      if (!trigger) return;
+
+      const currentY = window.scrollY;
+      const start = trigger.start;
+      const end = trigger.end;
+
+      // Only hijack scroll when inside pinned timeline scroll bounds
+      if (currentY < start - 10 || currentY > end + 10) return;
+
+      // If already animating to a target year, block all subsequent wheel events
+      if (isTransitioningRef.current) {
+        e.preventDefault();
+        return;
+      }
+
+      const delta = e.deltaY;
+      if (Math.abs(delta) < 10) return;
+
+      const curr = activeIndexRef.current;
+
+      if (delta > 0 && curr < n - 1) {
+        // Scroll DOWN -> advance exactly 1 year step with smooth easing
+        e.preventDefault();
+        const next = curr + 1;
+        isTransitioningRef.current = true;
+
+        const targetScroll = start + (next / (n - 1)) * (end - start);
+        const obj = { y: window.scrollY };
+
+        gsap.to(obj, {
+          y: targetScroll,
+          duration: 0.85,
+          ease: "power3.inOut",
+          onUpdate: () => window.scrollTo(0, obj.y),
+          onComplete: () => {
+            setActiveIndex(next);
+            setTimeout(() => {
+              isTransitioningRef.current = false;
+            }, 250);
+          },
+        });
+      } else if (delta < 0 && curr > 0) {
+        // Scroll UP -> rewind exactly 1 year step with smooth easing
+        e.preventDefault();
+        const prev = curr - 1;
+        isTransitioningRef.current = true;
+
+        const targetScroll = start + (prev / (n - 1)) * (end - start);
+        const obj = { y: window.scrollY };
+
+        gsap.to(obj, {
+          y: targetScroll,
+          duration: 0.85,
+          ease: "power3.inOut",
+          onUpdate: () => window.scrollTo(0, obj.y),
+          onComplete: () => {
+            setActiveIndex(prev);
+            setTimeout(() => {
+              isTransitioningRef.current = false;
+            }, 250);
+          },
+        });
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [n]);
+
   // Scroll to a specific year milestone
   const scrollToIndex = (index: number) => {
     if (!containerRef.current) return;
@@ -107,9 +199,20 @@ export default function AboutTimeline() {
     const scrollRange = end - start;
     const targetScroll = start + (index / (n - 1)) * scrollRange;
 
-    window.scrollTo({
-      top: targetScroll,
-      behavior: "smooth",
+    isTransitioningRef.current = true;
+    const obj = { y: window.scrollY };
+
+    gsap.to(obj, {
+      y: targetScroll,
+      duration: 0.85,
+      ease: "power3.inOut",
+      onUpdate: () => window.scrollTo(0, obj.y),
+      onComplete: () => {
+        setActiveIndex(index);
+        setTimeout(() => {
+          isTransitioningRef.current = false;
+        }, 250);
+      },
     });
   };
 
@@ -150,17 +253,24 @@ export default function AboutTimeline() {
       { r: 24, opacity: 0, duration: 1.5, repeat: -1, ease: "power1.out" }
     );
 
-    // 3. Scroll Trigger configuration for pinning
+    // 3. Scroll Trigger configuration for pinning & seamless 1-to-1 scroll sync
     const mainTrigger = ScrollTrigger.create({
       id: "timeline-scroll",
       trigger: containerRef.current,
       start: "top top",
-      end: "+=500%", // 600vh scroll height (pins container for 5x viewport height)
+      end: "+=600%",
       pin: true,
-      scrub: 0.8,
+      pinSpacing: true,
+      scrub: true,
+      snap: {
+        snapTo: 1 / (n - 1),
+        duration: { min: 0.25, max: 0.5 },
+        delay: 0.05,
+        ease: "power2.inOut",
+      },
       onUpdate: (self) => {
         const p = self.progress;
-        const activeProgress = p * (n - 1);
+        const activeProgress = getRegulatorProgress(p, n);
         const roundedIdx = Math.round(activeProgress);
 
         // Update active index state
@@ -200,7 +310,7 @@ export default function AboutTimeline() {
             const weight = isCurrent ? "600" : "300";
 
             gsap.set(text, { 
-              style: `font-size: ${scale * 40}px; font-weight: ${weight}; fill: ${fill}; transition: fill 0.3s ease;` 
+              style: `font-size: ${scale * 40}px; font-weight: ${weight}; fill: ${fill}; transition: fill 0.35s ease, font-size 0.35s ease;` 
             });
           }
         });
@@ -252,37 +362,6 @@ export default function AboutTimeline() {
     };
   }, { scope: containerRef, dependencies: [] });
 
-  // Reset project sub-index when activeIndex changes
-  useEffect(() => {
-    setProjectSubIndex(0);
-  }, [activeIndex]);
-
-  // Cycle through projects if there are multiple projects for the active year
-  useEffect(() => {
-    const projects = timelineData[activeIndex].projects;
-    if (projects.length <= 1) return;
-
-    const interval = setInterval(() => {
-      // Fade out the current project name
-      gsap.to(".project-item", {
-        opacity: 0,
-        y: -10,
-        duration: 0.35,
-        ease: "power2.in",
-        onComplete: () => {
-          setProjectSubIndex((prev) => (prev + 1) % projects.length);
-        }
-      });
-    }, 3200); // cycle every 3.2 seconds
-
-    return () => clearInterval(interval);
-  }, [activeIndex]);
-
-  // Staggered fade-in of project content (now handled by Framer Motion characters)
-  useEffect(() => {
-    // Empty hook to preserve structure without GSAP transition conflicts
-  }, [activeIndex, projectSubIndex]);
-
   // Compute text transformations and styling dynamically for initial render
   const getYearTextStyle = (idx: number) => {
     const diff = Math.abs(idx - activeIndex);
@@ -318,7 +397,8 @@ export default function AboutTimeline() {
   };
 
   return (
-    <section ref={containerRef} className="w-full relative bg-[#FAF8F6] overflow-hidden select-none">
+    <div className="w-full bg-[#FAF8F6] relative">
+      <section ref={containerRef} className="w-full relative bg-[#FAF8F6] overflow-hidden select-none min-h-screen">
       
       {/* Background radial blurs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -337,7 +417,7 @@ export default function AboutTimeline() {
 
       {/* Desktop Version: Sticky Scroll Scrollytelling */}
       <div className="hidden lg:block w-full h-screen relative z-20">
-        <div className="sticky top-0 w-full h-screen flex items-center overflow-hidden">
+        <div className="sticky top-0 w-full h-screen flex items-center overflow-hidden pt-20 pb-6">
           <div className="max-w-7xl mx-auto w-full px-8 xl:px-16 grid grid-cols-12 gap-10 items-center h-full relative">
             
             {/* Left Column: Curved SVG Timeline */}
@@ -350,7 +430,7 @@ export default function AboutTimeline() {
                 {/* Background timeline curve path */}
                 <path
                   ref={pathRef}
-                  d={`M 80 0 C 360 ${viewportHeight * 0.25}, 360 ${viewportHeight * 0.75}, 80 ${viewportHeight}`}
+                  d={`M 80 100 C 360 ${100 + (viewportHeight - 160) * 0.25}, 360 ${100 + (viewportHeight - 160) * 0.75}, 80 ${viewportHeight - 60}`}
                   fill="none"
                   stroke="#C7A189"
                   strokeWidth="1.5"
@@ -424,46 +504,38 @@ export default function AboutTimeline() {
               </svg>
             </div>
 
-            {/* Right Column: Dynamic Project Content */}
-            <div className="col-span-7 flex flex-col h-full pt-24 gap-6 relative">
-              <div className="space-y-4">
-                <h2 className="font-serif text-[38px] xl:text-[48px] leading-tight text-[#A0725B] font-normal">
+            {/* Right Column: Unified Integrated Project Content */}
+            <div className="col-span-7 flex flex-col justify-center h-full space-y-6 lg:space-y-8 relative py-8">
+              <div className="space-y-2.5">
+                <span className="font-serif text-sm text-[#9A6B4F] tracking-widest uppercase block font-medium">
+                  Our Journey & Promises
+                </span>
+                <h2 className="font-serif text-[34px] sm:text-[40px] xl:text-[46px] leading-[1.12] text-[#A0725B] font-normal">
                   The Timeline of <br />
                   Promises Delivered
                 </h2>
               </div>
 
-              {/* Active Year Project Title aligned horizontally with the active year in the center */}
-              <div ref={projectListRef} className="absolute left-0 top-1/2 -translate-y-1/2">
-                {timelineData[activeIndex].projects.length > 0 && (
-                  <div
-                    key={`${activeIndex}-${projectSubIndex}`}
-                    className="project-item font-serif font-normal text-[20px] md:text-[30px] text-[#A0725B] tracking-wider uppercase select-none flex flex-wrap gap-[0.02em]"
-                    style={{ opacity: 1 }}
+              {/* Active Year Projects List (Centered & aligned) */}
+              <div ref={projectListRef} className="space-y-3.5 max-w-xl min-h-[150px] flex flex-col justify-center">
+                {timelineData[activeIndex].projects.map((proj, projIdx) => (
+                  <motion.div
+                    key={`${activeIndex}-${projIdx}`}
+                    initial={{ opacity: 0, x: -16, y: 8 }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{
+                      duration: 0.55,
+                      delay: projIdx * 0.08,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="flex items-center gap-3 font-serif font-normal text-[20px] md:text-[24px] xl:text-[28px] text-[#A0725B] tracking-wider uppercase select-none"
                   >
-                    {(timelineData[activeIndex].projects[projectSubIndex] || timelineData[activeIndex].projects[0]).split("").map((char, index) => {
-                      if (char === " ") {
-                        return <span key={index} className="w-[0.25em] inline-block" />;
-                      }
-                      return (
-                        <span key={index} className="relative inline-flex overflow-hidden py-1 -my-1">
-                          <motion.span
-                            initial={{ y: "115%", opacity: 0 }}
-                            animate={{ y: "0%", opacity: 1 }}
-                            transition={{
-                              duration: 0.85,
-                              delay: index * 0.03, // 30ms stagger per letter
-                              ease: [0.16, 1, 0.3, 1],
-                            }}
-                            className="inline-block"
-                          >
-                            {char}
-                          </motion.span>
-                        </span>
-                      );
-                    })}
-                  </div>
-                )}
+                    {timelineData[activeIndex].projects.length > 1 && (
+                      <span className="w-2 h-2 rounded-full bg-[#A0725B] shrink-0 opacity-80" />
+                    )}
+                    <span>{proj}</span>
+                  </motion.div>
+                ))}
               </div>
             </div>
 
@@ -514,5 +586,6 @@ export default function AboutTimeline() {
       </div>
 
     </section>
+  </div>
   );
 }
