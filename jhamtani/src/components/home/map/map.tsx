@@ -738,31 +738,32 @@ export default function InteractiveMap() {
             return (
               <div
                 key={loc.id}
-                className={`absolute z-20 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                className={`absolute z-20 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 cursor-none group/loc ${
                   isOtherActive ? "blur-[2px] opacity-40" : "blur-0 opacity-100"
                 }`}
                 style={{ left: `${loc.x}%`, top: `${loc.y}%` }}
+                onMouseEnter={() => handleDotHover(loc)}
+                onMouseLeave={() => handleDotHover(null)}
               >
+                {/* Expanded invisible hover area to make interaction much easier (covers text and dot) */}
+                <div className="absolute -inset-x-8 -top-4 -bottom-10 bg-transparent z-0" />
+
                 {/* Micro precise hover trigger bounds directly over the dot */}
-                <div
-                  className="w-5 h-5 flex items-center justify-center cursor-none"
-                  onMouseEnter={() => handleDotHover(loc)}
-                  onMouseLeave={() => handleDotHover(null)}
-                >
+                <div className="w-5 h-5 flex items-center justify-center relative z-10">
                   {/* Dot */}
                   <div className="relative flex items-center justify-center w-4 h-4 group pointer-events-none">
                     <span
                       className={`absolute inset-0 rounded-full transition-all duration-300 ${
                         isSelfActive
                           ? "bg-gold/20 scale-125"
-                          : "bg-white/0 group-hover:bg-gold/10 group-hover:scale-110"
+                          : "bg-white/0 group-hover/loc:bg-gold/10 group-hover/loc:scale-110"
                       }`}
                     />
                     <span
                       className={`w-2 h-2 rounded-full transition-all duration-300 border border-black ${
                         isSelfActive
                           ? "bg-gold scale-125 shadow-[0_0_10px_#C5A880]"
-                          : "bg-white/85 group-hover:bg-gold group-hover:scale-110"
+                          : "bg-white/85 group-hover/loc:bg-gold group-hover/loc:scale-110"
                       }`}
                     />
                   </div>
@@ -770,7 +771,7 @@ export default function InteractiveMap() {
 
                 {/* Label - proper gray/white color matching reference */}
                 <span
-                  className={`absolute top-6 left-1/2 transform -translate-x-1/2 text-[9px] tracking-widest uppercase font-sans font-medium whitespace-nowrap transition-all duration-300 pointer-events-none ${
+                  className={`absolute top-6 left-1/2 transform -translate-x-1/2 text-[9px] tracking-widest uppercase font-sans font-medium whitespace-nowrap transition-all duration-300 pointer-events-none z-10 ${
                     isSelfActive
                       ? "text-gold translate-y-0.5 opacity-100 font-semibold"
                       : "text-gray-300 opacity-80"
