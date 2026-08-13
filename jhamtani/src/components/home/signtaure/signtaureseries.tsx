@@ -59,7 +59,7 @@ const SignatureSeries = () => {
           </div>
 
           {/* Headline */}
-          <h2 className="text-[#f5f5f5] text-3xl md:text-4xl lg:text-[38px] font-serif font-light tracking-wide mb-10 md:mb-12 leading-[1.1]">
+          <h2 className="text-[#f5f5f5] text-3xl md:text-4xl lg:text-[33px] font-serif font-light tracking-wide mb-10 md:mb-12 leading-[1.1]">
             Where our promise reaches its <br className="hidden md:block" /> finest expression.
           </h2>
 

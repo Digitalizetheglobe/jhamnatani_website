@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export default function Hero() {
   return (
     <section 
-      className="relative w-full h-[115vh] min-h-[550px] sm:min-h-[750px] lg:min-h-[950px] flex items-center justify-start overflow-hidden"
+      className="relative w-full h-screen min-h-[600px] lg:min-h-[750px] flex items-center justify-start overflow-hidden"
     >
       {/* Background container that handles the horizontal flip */}
       <div className="absolute inset-0 overflow-hidden z-0" style={{ transform: "scaleX(-1)" }}>
@@ -40,7 +40,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 text-left -translate-y-12 md:-translate-y-16">
         <div className="max-w-4xl">
           {/* Main Headline with Luxury Reveal Effect */}
-          <h1 className="font-inria font-light text-[#A0725B] text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] tracking-wide mb-12 sm:mb-14 select-none">
+          <h1 className="font-serif font-light text-[#A0725B] text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] tracking-wide mb-12 sm:mb-14 select-none">
           {/* Line 1 */}
           <div className="overflow-hidden block py-1">
             <motion.span

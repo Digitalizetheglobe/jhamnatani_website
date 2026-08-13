@@ -77,7 +77,7 @@ export default function CTA() {
           {/* Button 2: Solid Filled with White Border and Drop Shadow */}
           <a 
             href="#ace-villas"
-            className="group inline-block px-8 py-3.5 rounded-full bg-[#A0725B] border border-white text-white text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-[0.15em] hover:bg-[#8C5E47] transition-all duration-300 shadow-[0_12px_28px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.45)] select-none text-center min-w-[190px] sm:min-w-[210px]"
+            className="group inline-block px-8 py-3.5 rounded-full bg-[#A0725B] border border-white text-white text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-[0.15em] hover:bg-[#8C5E47] transition-all duration-300 select-none text-center min-w-[190px] sm:min-w-[210px]"
           >
             <WaveText text="XO Ace Villas" />
           </a>

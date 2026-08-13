@@ -8,32 +8,38 @@ export default function XOCode() {
     {
       id: "X01",
       title: "Landmark Addresses",
-      description: "The city remembers certain locations. XO begins there."
+      description: "The city remembers certain locations. XO begins there.",
+      image: "/assets/xo/xo_1.png"
     },
     {
       id: "X02",
       title: "The Luxury of Remaining Relevant.",
-      description: "Designed to outlive fashion. Built to outlast generations. Because statements shouldn't have an expiry date."
+      description: "Designed to outlive fashion. Built to outlast generations. Because statements shouldn't have an expiry date.",
+      image: "/assets/xo/xo_2.png"
     },
     {
       id: "X03",
       title: "Grandeur Without Compromise",
-      description: "Because luxury isn't measured in square feet. It's measured in freedom of expression, even for a home."
+      description: "Because luxury isn't measured in square feet. It's measured in freedom of expression, even for a home.",
+      image: "/assets/xo/xo_3.png"
     },
     {
       id: "X04",
       title: "Uncompromising Artistry",
-      description: "Deliberate design in every detail. Sourced globally, crafted locally to stand the test of time."
+      description: "Deliberate design in every detail. Sourced globally, crafted locally to stand the test of time.",
+      image: "/assets/xo/xo_4.png"
     },
     {
       id: "X05",
       title: "Sublime Finesse",
-      description: "Seen at first glance. Admired for a lifetime. Perfection Lives In The Details."
+      description: "Seen at first glance. Admired for a lifetime. Perfection Lives In The Details.",
+      image: "/assets/xo/xo_5.png"
     },
     {
       id: "X06",
       title: "Intelligent Living",
-      description: "Technology that disappears into experience. Present but never intrusive."
+      description: "Technology that disappears into experience. Present but never intrusive.",
+      image: "/assets/xo/xo_6.png"
     }
   ];
 
@@ -45,7 +51,7 @@ export default function XOCode() {
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="text-left mb-16 md:mb-20">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -54,7 +60,7 @@ export default function XOCode() {
           >
             The XO Code
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -66,7 +72,7 @@ export default function XOCode() {
         </div>
 
         {/* XO Grid with viewport scroll-entrance reveal */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -82,7 +88,7 @@ export default function XOCode() {
             `;
 
             return (
-              <div 
+              <div
                 key={item.id}
                 className={borderClasses}
               >
@@ -105,10 +111,10 @@ export default function XOCode() {
                 </div>
 
                 {/* Hover Image Overlay (Subtly visible by default, fully fades in on hover) */}
-                <div 
-                  className="absolute inset-0 z-0 bg-cover bg-center opacity-15 group-hover:opacity-100 transition-opacity duration-700 ease-in-out scale-105 group-hover:scale-100 transition-transform duration-700 ease-out"
+                <div
+                  className="absolute inset-0 z-0 bg-cover bg-center opacity-30 group-hover:opacity-100 transition-opacity duration-700 ease-in-out scale-105 group-hover:scale-100 transition-transform duration-700 ease-out"
                   style={{
-                    backgroundImage: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.6) 100%), url('/assets/xo/xo_code.png')"
+                    backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.6) 100%), url('${item.image}')`
                   }}
                 />
               </div>
