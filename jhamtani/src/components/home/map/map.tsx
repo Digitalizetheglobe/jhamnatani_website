@@ -718,7 +718,9 @@ export default function InteractiveMap() {
 
           {/* Pune City Centre Point */}
           <div
-            className="absolute z-10 flex flex-col items-center justify-center transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            className={`absolute z-10 flex flex-col items-center justify-center transform -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-all duration-300 ${
+              activeLocation ? "blur-[2px] opacity-40" : "blur-0 opacity-100"
+            }`}
             style={{ left: "50%", top: "50%" }}
           >
             <span className="w-3 h-3 bg-gold rounded-full animate-ping absolute opacity-70" />
@@ -731,10 +733,14 @@ export default function InteractiveMap() {
           {/* Location Dots & Labels */}
           {LOCATIONS_DATA.map((loc) => {
             const isSelfActive = activeLocation?.id === loc.id;
+            const isOtherActive = activeLocation !== null && !isSelfActive;
+            
             return (
               <div
                 key={loc.id}
-                className="absolute z-20 transform -translate-x-1/2 -translate-y-1/2"
+                className={`absolute z-20 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                  isOtherActive ? "blur-[2px] opacity-40" : "blur-0 opacity-100"
+                }`}
                 style={{ left: `${loc.x}%`, top: `${loc.y}%` }}
               >
                 {/* Micro precise hover trigger bounds directly over the dot */}

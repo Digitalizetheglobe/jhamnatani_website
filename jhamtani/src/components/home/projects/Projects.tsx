@@ -154,21 +154,22 @@ export default function Projects() {
       xPercent: startImgX,
       scale: 1.0,
     });
-    gsap.set(fromSlide, { zIndex: 5 });
+    // Explicitly set opacity 1 so it doesn't disappear when React changes the class
+    gsap.set(fromSlide, { zIndex: 5, opacity: 1 });
 
     gsap.set(toContent, {
       opacity: 0,
       y: 30,
       zIndex: 10,
     });
-    gsap.set(fromContent, { zIndex: 5 });
+    gsap.set(fromContent, { zIndex: 5, opacity: 1 });
 
     gsap.set(toNumber, {
       opacity: 0,
       y: dir === 'next' ? 50 : -50,
       zIndex: 10,
     });
-    gsap.set(fromNumber, { zIndex: 5 });
+    gsap.set(fromNumber, { zIndex: 5, opacity: 1 });
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -191,9 +192,9 @@ export default function Projects() {
       }
     });
 
-    // 1. Slide transitions (Left panel container) - Creates the boundary slide
+    // 1. Slide transitions (Left panel container) - Creates the overlap slide effect
     tl.to(fromSlide, {
-      xPercent: dir === 'next' ? -100 : 100,
+      xPercent: dir === 'next' ? -20 : 20, // Slide slightly back instead of full -100
       duration: 1.3,
       ease: "power4.inOut"
     }, 0);
@@ -219,7 +220,7 @@ export default function Projects() {
       ease: "power3.out"
     }, 0);
 
-    // Dim the previous slide
+    // Dim the previous slide slightly to enhance the overlap depth
     tl.to(fromSlide, {
       opacity: 0.5,
       duration: 1.3,
@@ -279,9 +280,11 @@ export default function Projects() {
               <div
                 key={project.id}
                 id={`slide-img-container-${idx + 1}`}
-                className={`absolute inset-0 w-full h-full overflow-hidden ${
-                  idx + 1 === activeSlide ? "z-10 opacity-100" : "z-0 opacity-0"
-                }`}
+                className="absolute inset-0 w-full h-full overflow-hidden"
+                style={{
+                  opacity: idx === 0 ? 1 : 0,
+                  zIndex: idx === 0 ? 10 : 0
+                }}
               >
                 <div className="slide-img-inner absolute inset-0 w-full h-full">
                   <Image
@@ -301,9 +304,11 @@ export default function Projects() {
                 <span
                   key={project.id}
                   id={`slide-number-${idx + 1}`}
-                  className={`absolute bottom-0 right-0 font-serif text-[70px] sm:text-[100px] lg:text-[70px] font-light leading-none text-white select-none tracking-tighter drop-shadow-md transition-opacity duration-300 ${
-                    idx + 1 === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-                  }`}
+                  className="absolute bottom-0 right-0 font-serif text-[70px] sm:text-[100px] lg:text-[70px] font-light leading-none text-white select-none tracking-tighter drop-shadow-md"
+                  style={{
+                    opacity: idx === 0 ? 1 : 0,
+                    zIndex: idx === 0 ? 10 : 0
+                  }}
                 >
                   0{idx + 1}
                 </span>
@@ -327,9 +332,11 @@ export default function Projects() {
                 <div
                   key={project.id}
                   id={`slide-content-${idx + 1}`}
-                  className={`absolute inset-x-0 top-0 flex flex-col items-start justify-start w-full transition-opacity duration-300 ${
-                    idx + 1 === activeSlide ? "z-10 opacity-100" : "z-0 opacity-0 pointer-events-none"
-                  }`}
+                  className={`absolute inset-x-0 top-0 flex flex-col items-start justify-start w-full ${idx === 0 ? "" : "pointer-events-none"}`}
+                  style={{
+                    opacity: idx === 0 ? 1 : 0,
+                    zIndex: idx === 0 ? 10 : 0
+                  }}
                 >
                   <div className="relative w-56 sm:w-64 lg:w-72 h-28 sm:h-36 lg:h-40">
                     <Image
