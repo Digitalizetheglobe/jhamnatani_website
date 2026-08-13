@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 const SECTIONS = [
   {
@@ -60,6 +60,14 @@ export default function Hero() {
     }
   });
 
+  const handleSectionClick = (index: number) => {
+    if (!containerRef.current) return;
+    const containerTop = containerRef.current.offsetTop;
+    const containerHeight = containerRef.current.offsetHeight;
+    const targetScroll = containerTop + (index / SECTIONS.length) * containerHeight + 50;
+    window.scrollTo({ top: targetScroll, behavior: "smooth" });
+  };
+
   const containerVariants = {
     hidden: {},
     visible: {
@@ -84,22 +92,22 @@ export default function Hero() {
   return (
     <div ref={containerRef} className="relative w-full bg-[#EFECE6] h-[300vh]">
       {/* Sticky viewport container */}
-      <section className="sticky top-0 w-full text-[#2B2B2B] overflow-hidden h-screen pt-20 sm:pt-24 lg:pt-28 flex flex-col lg:flex-row">
+      <section className="sticky top-0 w-full text-[#2B2B2B] overflow-hidden h-screen pt-16 sm:pt-20 lg:pt-24 flex flex-col lg:flex-row">
         {/* Left Content Area */}
         <div className="w-full lg:w-1/2 flex justify-end h-full">
-          <div className="w-full max-w-[640px] px-6 sm:px-10 lg:px-14 py-2 lg:py-4 flex flex-col justify-center h-full space-y-4 sm:space-y-5 overflow-y-auto lg:overflow-visible">
+          <div className="w-full max-w-[640px] px-6 sm:px-10 lg:px-14 py-4 lg:py-6 flex flex-col justify-center h-full space-y-4 sm:space-y-5 overflow-y-auto lg:overflow-visible">
             {/* Top Fixed Area: Main Headline & Descriptive Text */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              className="space-y-4 sm:space-y-5"
+              className="space-y-3 sm:space-y-4"
             >
               {/* Main Headline */}
               <motion.h1
                 variants={itemVariants}
-                className="font-serif text-3xl sm:text-4xl lg:text-[40px] leading-[1.12] text-[#A0725B] font-light tracking-tight"
+                className="font-serif text-2xl sm:text-3xl lg:text-[36px] leading-[1.15] text-[#A0725B] font-light tracking-tight"
               >
                 A promise that <br />
                 doesn't end at possession.
@@ -108,7 +116,7 @@ export default function Hero() {
               {/* Descriptive Text Paragraphs */}
               <motion.div
                 variants={itemVariants}
-                className="space-y-2 font-sans text-xs sm:text-sm text-[#2B2B2B]/90 leading-relaxed"
+                className="space-y-1.5 font-sans text-xs sm:text-sm text-[#2B2B2B]/90 leading-relaxed"
               >
                 <p>The day you receive your keys isn't the end of our relationship.</p>
                 <p>
@@ -120,64 +128,118 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            {/* Dynamic Scroll Content Area (Points based on active section) */}
-            <div className="pt-1 sm:pt-2">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-                  className="space-y-2.5 sm:space-y-3"
-                >
-                  <h2 className="font-serif text-xl sm:text-2xl lg:text-[28px] text-[#A0725B] font-light">
-                    {SECTIONS[activeIndex].title}
-                  </h2>
+            {/* Continuous Vertical Content Accordion (Showing active + peek previews) */}
+            <div className="space-y-2.5 sm:space-y-3 pt-1">
+              {SECTIONS.map((section, idx) => {
+                const isActive = idx === activeIndex;
+                const isUpcoming = idx > activeIndex;
 
-                  <ul className="space-y-1.5 sm:space-y-2 font-sans text-xs sm:text-sm text-[#2B2B2B] font-medium">
-                    {SECTIONS[activeIndex].points.map((point, idx) => (
-                      <motion.li
-                        key={idx}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.35, delay: idx * 0.05 }}
-                        className="flex items-start gap-2.5"
-                      >
-                        <span className="w-1.5 h-1.5 bg-[#A0725B] shrink-0 mt-1.5 rounded-[1px]" />
-                        <span>{point}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </AnimatePresence>
+                return (
+                  <motion.div
+                    key={section.id}
+                    layout
+                    onClick={() => handleSectionClick(idx)}
+                    transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+                    className={`transition-all duration-300 cursor-pointer overflow-hidden ${
+                      isActive
+                        ? "p-3.5 sm:p-4"
+                        : "p-2.5 sm:p-3"
+                    }`}
+                  >
+                    {/* Section Header with Step Badge */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+
+                        <h2
+                          className={`font-serif transition-all duration-300 ${
+                            isActive
+                              ? "text-base sm:text-lg lg:text-xl text-[#A0725B] font-medium"
+                              : "text-sm sm:text-base text-[#2B2B2B]/80 font-normal"
+                          }`}
+                        >
+                          {section.title}
+                        </h2>
+                      </div>
+
+                      {!isActive && (
+                        <span className="text-[10px] sm:text-[11px] font-sans tracking-wide text-[#A0725B]/80 uppercase font-medium">
+                          {isUpcoming ? "Next Section ↓" : "Viewed ✓"}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Section Content Points (Expanded when active) */}
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: isActive ? "auto" : 0,
+                        opacity: isActive ? 1 : 0,
+                        marginTop: isActive ? 10 : 0,
+                      }}
+                      transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <ul className="space-y-1.5 font-sans text-xs sm:text-sm text-[#2B2B2B] font-medium pl-1">
+                        {section.points.map((point, pIdx) => (
+                          <motion.li
+                            key={pIdx}
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -8 }}
+                            transition={{ duration: 0.3, delay: isActive ? pIdx * 0.04 : 0 }}
+                            className="flex items-start gap-2.5"
+                          >
+                            <span className="w-1.5 h-1.5 bg-[#A0725B] shrink-0 mt-1.5 rounded-[1px]" />
+                            <span>{point}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
 
-        {/* Right Side Image Banner (Cross-fading background per active section) */}
+        {/* Right Side Image Banner Stack (Layered sliding curtain reveal, zero white space) */}
         <div className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[400px] lg:h-full overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ scale: 1.06, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.98, opacity: 0 }}
-              transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-              className="absolute inset-0 w-full h-full"
-            >
-              <Image
-                src={SECTIONS[activeIndex].image}
-                alt={SECTIONS[activeIndex].title}
-                fill
-                priority
-                className="object-cover object-center"
-              />
-            </motion.div>
-          </AnimatePresence>
+          {SECTIONS.map((section, idx) => {
+            const isActive = idx === activeIndex;
+            const isPassed = idx < activeIndex;
+            const isUpcoming = idx > activeIndex;
+
+            return (
+              <motion.div
+                key={section.id}
+                initial={false}
+                animate={{
+                  y: isUpcoming ? "100%" : "0%",
+                  opacity: isUpcoming ? 0 : 1,
+                  scale: isPassed ? 0.97 : 1,
+                }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.25, 1, 0.5, 1],
+                }}
+                style={{ zIndex: idx }}
+                className="absolute inset-0 w-full h-full overflow-hidden"
+              >
+                <Image
+                  src={section.image}
+                  alt={section.title}
+                  fill
+                  priority={idx === 0}
+                  className="object-cover object-center"
+                />
+                {/* Visual shadow overlay at top edge of sliding layer */}
+                {idx > 0 && (
+                  <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black/25 to-transparent pointer-events-none" />
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       </section>
     </div>
   );
 }
-
