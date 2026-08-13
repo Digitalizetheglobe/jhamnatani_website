@@ -161,12 +161,7 @@ export default function Hero() {
                         </h2>
                       </div>
 
-                      {!isActive && (
-                        <span className="text-[10px] sm:text-[11px] font-sans tracking-wide text-[#A0725B]/80 uppercase font-medium">
-                          {isUpcoming ? "Next Section ↓" : "Viewed ✓"}
-                        </span>
-                      )}
-                    </div>
+                                       </div>
 
                     {/* Section Content Points (Expanded when active) */}
                     <motion.div
