@@ -25,8 +25,8 @@ export default function About() {
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none z-10" />
 
         {/* Content Container (Right aligned on desktop, centered on smaller screens, shifted upwards and slightly to the left) */}
-        <div className="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 flex justify-center md:justify-end items-start pt-12 sm:pt-16 -translate-y-10 md:-translate-y-20 lg:-translate-y-45">
-          <div className="max-w-md lg:max-w-[450px] text-left space-y-6 sm:space-y-8 -translate-x-3 md:-translate-x-8 lg:-translate-x-40">
+        <div className="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 flex justify-center md:justify-end items-start pt-12 sm:pt-16 -translate-y-10 md:-translate-y-20 lg:-translate-y-50">
+          <div className="max-w-md lg:max-w-[450px] text-left space-y-6 sm:space-y-8 -translate-x-3 md:-translate-x-8 lg:-translate-x-33">
             {/* Paragraph Block 1 */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
