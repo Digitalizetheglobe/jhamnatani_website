@@ -23,7 +23,7 @@ html, body {
   scroll-padding-top: 80px;
   background-color: #000000;
   color: #FFFFFF;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Custom Scrollbar */

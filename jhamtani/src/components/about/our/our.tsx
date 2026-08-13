@@ -97,14 +97,14 @@ export default function Our() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.0, ease: [0.25, 1, 0.5, 1] }}
-          className="relative w-full h-[450px] sm:h-[600px] md:h-[720px] lg:h-[800px] overflow-hidden shadow-xl rounded-[16px] group"
+          className="relative w-full h-[360px] sm:h-[480px] md:h-[560px] lg:h-[620px] overflow-hidden shadow-xl rounded-[16px] group"
         >
           <Image
             src="/assets/about/our.png"
             alt="Our Story - Jhamtani"
             fill
             priority
-            className="object-cover object-center transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
+            className="object-cover object-top transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
           />
         </motion.div>
       </div>

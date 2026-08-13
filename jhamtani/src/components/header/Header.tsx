@@ -118,6 +118,8 @@ export default function Header() {
 
   const clipPathClosed = "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)";
 
+  const isSolidPage = pathname === "/hum-aapke-saath" || pathname === "/j-tribe";
+
   return (
     <>
       <motion.header
@@ -125,8 +127,8 @@ export default function Header() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-black/90 backdrop-blur-luxury py-4 border-b border-luxury-border"
+          isScrolled || isSolidPage
+            ? "bg-[#14171C] backdrop-blur-luxury py-4 border-b border-[#C5A880]/20 shadow-lg"
             : "bg-transparent py-6"
         }`}
       >

@@ -9,6 +9,7 @@ import Blog from "@/components/home/blog/Blog";
 import Contact from "@/components/home/contact/Contact";
 import Footer from "@/components/footer/Footer";
 import SignatureSeries from '@/components/home/signtaure/signtaureseries';
+import InteractiveMap from "@/components/home/map/map";
 
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         <Amenities />
         <Projects />
         <SignatureSeries/>
+        <InteractiveMap />
         <Timeline />
         <Testimonial />
         <Blog />

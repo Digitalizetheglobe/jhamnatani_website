@@ -47,7 +47,7 @@ export default function Hero() {
       {/* Hero content */}
       <div className="relative z-20 max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 flex justify-start">
         <h1
-          className="font-serif text-[38px] sm:text-[54px] md:text-[66px] lg:text-[72px] leading-[1.10] text-[#b88654] tracking-wide font-normal select-none"
+          className="font-serif text-[38px] sm:text-[54px] md:text-[66px] lg:text-[55px] leading-[1.10] text-[#A0725B] tracking-wide font-normal select-none"
         >
           {parsedLines.map((lineWords, lineIndex) => (
             <span key={lineIndex} className="block overflow-hidden py-1.5 -my-1.5">

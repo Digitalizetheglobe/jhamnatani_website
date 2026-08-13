@@ -1,11 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export default function AboutContent() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "start 25%"],
+  });
+
+  // Positioned slightly higher (-65px) initially.
+  // On scroll down, it moves naturally downward with the page until it reaches 0px (target position),
+  // where it becomes fixed in position for the rest of the scroll.
+  const rawY = useTransform(scrollYProgress, [0, 1], [-65, 0]);
+  const y = useSpring(rawY, { stiffness: 120, damping: 25, mass: 0.5 });
 
   const containerVariants = {
     hidden: {},
@@ -29,16 +41,17 @@ export default function AboutContent() {
   };
 
   return (
-    <div className="w-full bg-[#191f26] text-white pb-2">
+    <div ref={containerRef} className="w-full bg-[#191f26] text-white pb-2 relative z-20">
       {/* Story Section - Flush to left edge & overlapping Hero */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 items-center mb-20">
-        {/* Left Side Image (Flush to left screen edge, extending up into Hero section, horizontally flipped) */}
+        {/* Left Side Image (Slightly elevated, moves down into place on scroll) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, x: -30 }}
-          whileInView={{ opacity: 1, scale: 1, x: 0 }}
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.0, ease: [0.25, 1, 0.5, 1] }}
-          className="lg:col-span-6 relative -mt-20 sm:-mt-28 lg:-mt-10 z-30 h-[420px] sm:h-[540px] lg:h-[800px] rounded-tr-[20px] overflow-hidden shadow-2xl"
+          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+          style={{ y }}
+          className="lg:col-span-6 relative -mt-16 sm:-mt-24 lg:-mt-14 z-30 h-[420px] sm:h-[540px] lg:h-[800px] rounded-tr-[20px] overflow-hidden shadow-2xl"
         >
           <div
             className="relative w-full h-full"
@@ -59,7 +72,7 @@ export default function AboutContent() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "100px" }}
           className="lg:col-span-6 px-6 sm:px-12 lg:px-16 xl:px-24 py-12 lg:py-20 space-y-8"
         >
           <motion.p

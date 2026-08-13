@@ -13,7 +13,7 @@ export default function Footer() {
   const quickLinksColumn2 = [
     { label: "PROJECT LOCATIONS", href: "#" },
     { label: "MAHARERA", href: "#" },
-    { label: "CHANNEL PARTNERS", href: "#" },
+    { label: "CHANNEL PARTNERS", href: "/channel-partner" },
     { label: "MEDIA PUBLICATIONS", href: "#" },
   ];
 
