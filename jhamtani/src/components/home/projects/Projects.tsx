@@ -141,21 +141,35 @@ export default function Projects() {
     ]);
 
     // Set initial positions
-    const startX = dir === 'next' ? 100 : -100;
-    const startImgX = dir === 'next' ? -20 : 20;
+    const isNext = dir === 'next';
+    
+    // Angled 'triangle cut' clip-path wipe transition
+    const startClip = isNext 
+      ? "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)" // Wipe from left
+      : "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)"; // Wipe from right
+
+    const endClip = isNext
+      ? "polygon(0% 0%, 130% 0%, 100% 100%, 0% 100%)"
+      : "polygon(-30% 0%, 100% 0%, 100% 100%, 0% 100%)";
 
     gsap.set(toSlide, {
-      xPercent: startX,
+      xPercent: 0,
+      clipPath: startClip,
       opacity: 1,
       zIndex: 10,
     });
-    // Start at scale 1.0 and zoom IN during transition
+    // Start at scale 1.0 and slight offset for internal parallax
     gsap.set(toImage, {
-      xPercent: startImgX,
+      xPercent: isNext ? 10 : -10,
       scale: 1.0,
     });
-    // Explicitly set opacity 1 so it doesn't disappear when React changes the class
-    gsap.set(fromSlide, { zIndex: 5, opacity: 1 });
+    // Explicitly set opacity 1 and full clipPath so it doesn't disappear
+    gsap.set(fromSlide, { 
+      zIndex: 5, 
+      opacity: 1,
+      xPercent: 0,
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
+    });
 
     gsap.set(toContent, {
       opacity: 0,
@@ -166,7 +180,7 @@ export default function Projects() {
 
     gsap.set(toNumber, {
       opacity: 0,
-      y: dir === 'next' ? 50 : -50,
+      y: isNext ? 50 : -50,
       zIndex: 10,
     });
     gsap.set(fromNumber, { zIndex: 5, opacity: 1 });
@@ -174,8 +188,8 @@ export default function Projects() {
     const tl = gsap.timeline({
       onComplete: () => {
         // Cleanup after transition
-        gsap.set(fromSlide, { opacity: 0, xPercent: 0 });
-        gsap.set(toSlide, { zIndex: 10, xPercent: 0 });
+        gsap.set(fromSlide, { opacity: 0, xPercent: 0, clearProps: "clipPath" });
+        gsap.set(toSlide, { zIndex: 10, xPercent: 0, clearProps: "clipPath" });
         
         gsap.set(fromContent, { opacity: 0, y: 0 });
         gsap.set(toContent, { zIndex: 10, y: 0 });
@@ -192,22 +206,24 @@ export default function Projects() {
       }
     });
 
-    // 1. Slide transitions (Left panel container) - Creates the overlap slide effect
+    // 1. Slide transitions (Angled Clip-Path Wipe)
+    // The old slide slightly pushes back for parallax depth
     tl.to(fromSlide, {
-      xPercent: dir === 'next' ? -20 : 20, // Slide slightly back instead of full -100
+      xPercent: isNext ? 15 : -15, 
       duration: 1.3,
       ease: "power4.inOut"
     }, 0);
 
+    // The new slide wipes in using the slanted polygon cut
     tl.to(toSlide, {
-      xPercent: 0,
+      clipPath: endClip,
       duration: 1.3,
       ease: "power4.inOut"
     }, 0);
 
     // 2. Parallax sliding (Mirror effect) & Zoom In
     tl.to(fromImage, {
-      xPercent: dir === 'next' ? 20 : -20,
+      xPercent: isNext ? -5 : 5, // subtle internal parallax
       scale: 1.0, // Zoom out the leaving image
       duration: 1.3,
       ease: "power4.inOut"
@@ -222,7 +238,7 @@ export default function Projects() {
 
     // Dim the previous slide slightly to enhance the overlap depth
     tl.to(fromSlide, {
-      opacity: 0.5,
+      opacity: 0.4,
       duration: 1.3,
       ease: "power4.inOut"
     }, 0);
