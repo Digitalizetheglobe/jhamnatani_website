@@ -23,7 +23,7 @@ export default function Home() {
         <Projects />
         <SignatureSeries/>
         <InteractiveMap />
-        <Timeline />
+        {/* <Timeline /> */}
         <Testimonial />
         <Blog />
         <Contact />

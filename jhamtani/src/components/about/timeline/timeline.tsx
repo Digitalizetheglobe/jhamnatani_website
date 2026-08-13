@@ -55,7 +55,7 @@ export default function AboutTimeline() {
   }, []);
 
   const n = timelineData.length;
-  const spacing = 0.25; // spacing parameter t along bezier curve
+  const spacing = 0.15; // spacing parameter t along bezier curve
 
   // Bezier curve calculations dynamically based on heightRef
   const getBezierPoint = (t: number) => {
@@ -187,7 +187,7 @@ export default function AboutTimeline() {
 
             // Scale and opacity adjustments based on distance to center
             const dist = Math.abs(t - 0.5);
-            const opacity = Math.max(0, 1 - dist * 2.0);
+            const opacity = Math.max(0, 1 - dist * 1.5);
             const scale = Math.max(0.6, 1 - dist * 0.8);
 
             if (group) {
@@ -196,8 +196,7 @@ export default function AboutTimeline() {
 
             // Apply style mapping dynamically
             const isCurrent = idx === roundedIdx;
-            const diff = Math.abs(idx - roundedIdx);
-            const fill = isCurrent ? "#9A6B4F" : diff === 1 ? "#C7A189" : "#D8D8D8";
+            const fill = isCurrent ? "#9A6B4F" : "#C7A189"; // active dark, others light
             const weight = isCurrent ? "600" : "300";
 
             gsap.set(text, { 
@@ -297,14 +296,21 @@ export default function AboutTimeline() {
     } else if (diff === 1) {
       return {
         fill: "#C7A189",
-        opacity: 0.35,
+        opacity: 0.8,
         fontSize: "26px",
+        fontWeight: "300"
+      };
+    } else if (diff === 2) {
+      return {
+        fill: "#C7A189",
+        opacity: 0.5,
+        fontSize: "20px",
         fontWeight: "300"
       };
     } else {
       return {
-        fill: "#D8D8D8",
-        opacity: 0.12,
+        fill: "#C7A189",
+        opacity: 0.1,
         fontSize: "20px",
         fontWeight: "300"
       };
@@ -368,7 +374,7 @@ export default function AboutTimeline() {
                       onClick={() => scrollToIndex(idx)}
                       className="cursor-pointer group"
                       style={{
-                        opacity: Math.max(0, 1 - Math.abs(tInitial - 0.5) * 2.0),
+                        opacity: Math.max(0, 1 - Math.abs(tInitial - 0.5) * 1.5),
                       }}
                     >
                       {/* Circle node dot */}
@@ -377,7 +383,7 @@ export default function AboutTimeline() {
                         cx={pt.x}
                         cy={pt.y}
                         r={isActive ? 5 : 4}
-                        fill={isActive ? "#9A6B4F" : "#D8D8D8"}
+                        fill={isActive ? "#9A6B4F" : "#C7A189"}
                         className="timeline-node transition-colors duration-300 group-hover:fill-[#9A6B4F]"
                       />
 
@@ -435,7 +441,7 @@ export default function AboutTimeline() {
                     className="project-item font-serif font-normal text-[20px] md:text-[30px] text-[#A0725B] tracking-wider uppercase select-none flex flex-wrap gap-[0.02em]"
                     style={{ opacity: 1 }}
                   >
-                    {timelineData[activeIndex].projects[projectSubIndex].split("").map((char, index) => {
+                    {(timelineData[activeIndex].projects[projectSubIndex] || timelineData[activeIndex].projects[0]).split("").map((char, index) => {
                       if (char === " ") {
                         return <span key={index} className="w-[0.25em] inline-block" />;
                       }
