@@ -22,7 +22,7 @@ const directorsData: Director[] = [
       "Long before Jhamtani became one of Pune's most respected real estate brands, Mr Parmanand Jhamtani built his entrepreneurial journey on a simple belief-that trust is the strongest foundation any business can have.",
       "Beginning with construction materials and steadily expanding into real estate, he laid the groundwork for an organisation built on integrity, discipline and lasting relationships. More than four decades later, while the business has evolved across residential, commercial and lifestyle ventures, the principles that guide it remain exactly as he envisioned."
     ],
-    image: "/assets/about/parmanand.png",
+    image: "/assets/about/parmanand1.png",
   },
   {
     id: "anup",
@@ -111,7 +111,7 @@ export default function DirectorSection() {
         </motion.p>
 
         {/* Dynamic Director Name Heading */}
-        <motion.div variants={itemVariants} className="overflow-hidden mb-6 sm:mb-8">
+        <motion.div variants={itemVariants} className="overflow-hidden mb-6 sm:mb-8 relative z-10">
           <AnimatePresence mode="wait">
             <motion.h2
               key={`name-${activeDirector.id}`}
@@ -128,7 +128,7 @@ export default function DirectorSection() {
         </motion.div>
 
         {/* Content Container (Left Bio | Right Image) */}
-        <div className="relative min-h-[400px] lg:min-h-[460px]">
+        <div className="relative z-30 min-h-[400px] lg:min-h-[460px]">
           {/* Left Text Content Column */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -170,7 +170,7 @@ export default function DirectorSection() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-              className="hidden lg:block absolute right-0 top-[-100px] bottom-[-160px] w-[50%] xl:w-[48%] pointer-events-none z-20"
+              className="hidden lg:block absolute right-[-5%] xl:right-[-2%] top-[-150px] bottom-[-300px] w-[85%] xl:w-[80%] pointer-events-none z-[50]"
             >
               <div className="relative w-full h-full">
                 <Image
@@ -178,7 +178,7 @@ export default function DirectorSection() {
                   alt={activeDirector.name}
                   fill
                   priority
-                  sizes="(max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 1200px) 85vw, 1000px"
                   className="object-contain object-bottom"
                 />
               </div>
@@ -193,7 +193,7 @@ export default function DirectorSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.35 }}
-              className="lg:hidden relative w-full h-[360px] sm:h-[440px] mt-6 pointer-events-none"
+              className="lg:hidden relative w-full h-[450px] sm:h-[550px] mt-6 pointer-events-none z-20"
             >
               <Image
                 src={activeDirector.image}
