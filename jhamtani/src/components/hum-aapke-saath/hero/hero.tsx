@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
@@ -45,6 +45,16 @@ export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+    }
+    setActiveIndex(0);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -64,7 +74,9 @@ export default function Hero() {
     if (!containerRef.current) return;
     const containerTop = containerRef.current.offsetTop;
     const containerHeight = containerRef.current.offsetHeight;
-    const targetScroll = containerTop + (index / SECTIONS.length) * containerHeight + 50;
+    const totalScrollable = containerHeight - window.innerHeight;
+    const targetFraction = index / (SECTIONS.length - 1);
+    const targetScroll = containerTop + targetFraction * totalScrollable;
     window.scrollTo({ top: targetScroll, behavior: "smooth" });
   };
 
@@ -84,7 +96,7 @@ export default function Hero() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
       },
     },
   };
@@ -128,30 +140,22 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            {/* Continuous Vertical Content Accordion (Showing active + peek previews) */}
+            {/* Continuous Vertical Content Accordion */}
             <div className="space-y-2.5 sm:space-y-3 pt-1">
               {SECTIONS.map((section, idx) => {
                 const isActive = idx === activeIndex;
-                const isUpcoming = idx > activeIndex;
 
                 return (
-                  <motion.div
+                  <div
                     key={section.id}
-                    layout
                     onClick={() => handleSectionClick(idx)}
-                    transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-                    className={`transition-all duration-300 cursor-pointer overflow-hidden ${
-                      isActive
-                        ? "p-3.5 sm:p-4"
-                        : "p-2.5 sm:p-3"
-                    }`}
+                    className="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden py-2 sm:py-2.5"
                   >
-                    {/* Section Header with Step Badge */}
+                    {/* Section Header */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
-
                         <h2
-                          className={`font-serif transition-all duration-300 ${
+                          className={`font-serif transition-colors duration-500 ${
                             isActive
                               ? "text-base sm:text-lg lg:text-xl text-[#A0725B] font-medium"
                               : "text-sm sm:text-base text-[#2B2B2B]/80 font-normal"
@@ -160,8 +164,7 @@ export default function Hero() {
                           {section.title}
                         </h2>
                       </div>
-
-                                       </div>
+                    </div>
 
                     {/* Section Content Points (Expanded when active) */}
                     <motion.div
@@ -169,18 +172,18 @@ export default function Hero() {
                       animate={{
                         height: isActive ? "auto" : 0,
                         opacity: isActive ? 1 : 0,
-                        marginTop: isActive ? 10 : 0,
+                        marginTop: isActive ? 12 : 0,
                       }}
-                      transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+                      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <ul className="space-y-1.5 font-sans text-xs sm:text-sm text-[#2B2B2B] font-medium pl-1">
+                      <ul className="space-y-2 font-sans text-xs sm:text-sm text-[#2B2B2B] font-medium pl-1">
                         {section.points.map((point, pIdx) => (
                           <motion.li
                             key={pIdx}
-                            initial={{ opacity: 0, x: -8 }}
-                            animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -8 }}
-                            transition={{ duration: 0.3, delay: isActive ? pIdx * 0.04 : 0 }}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -10 }}
+                            transition={{ duration: 0.4, delay: isActive ? pIdx * 0.05 : 0, ease: [0.16, 1, 0.3, 1] }}
                             className="flex items-start gap-2.5"
                           >
                             <span className="w-1.5 h-1.5 bg-[#A0725B] shrink-0 mt-1.5 rounded-[1px]" />
@@ -189,14 +192,14 @@ export default function Hero() {
                         ))}
                       </ul>
                     </motion.div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
           </div>
         </div>
 
-        {/* Right Side Image Banner Stack (Layered sliding curtain reveal, zero white space) */}
+        {/* Right Side Image Banner Stack (Layered sliding curtain reveal) */}
         <div className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[400px] lg:h-full overflow-hidden">
           {SECTIONS.map((section, idx) => {
             const isActive = idx === activeIndex;
@@ -210,11 +213,11 @@ export default function Hero() {
                 animate={{
                   y: isUpcoming ? "100%" : "0%",
                   opacity: isUpcoming ? 0 : 1,
-                  scale: isPassed ? 0.97 : 1,
+                  scale: isPassed ? 0.95 : 1,
                 }}
                 transition={{
-                  duration: 0.8,
-                  ease: [0.25, 1, 0.5, 1],
+                  duration: 0.9,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
                 style={{ zIndex: idx }}
                 className="absolute inset-0 w-full h-full overflow-hidden"
@@ -228,7 +231,7 @@ export default function Hero() {
                 />
                 {/* Visual shadow overlay at top edge of sliding layer */}
                 {idx > 0 && (
-                  <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black/25 to-transparent pointer-events-none" />
+                  <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
                 )}
               </motion.div>
             );
