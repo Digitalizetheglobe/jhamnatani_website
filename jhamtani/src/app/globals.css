@@ -40,3 +40,15 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
   background: #A68D68;
 }
+
+/* Map popup animation */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(calc(-100% + 10px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-100%);
+  }
+}
