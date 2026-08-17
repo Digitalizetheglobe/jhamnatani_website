@@ -1,12 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  UserCheck,
-  Sprout,
-  BarChart3,
-  Sparkles,
   ArrowDown,
   CheckCircle2,
 } from "lucide-react";
@@ -15,7 +12,7 @@ interface PromiseValue {
   id: string;
   title: string;
   quote: string;
-  icon: React.ElementType;
+  icon: string;
   points: string[];
 }
 
@@ -60,7 +57,7 @@ const promisesData: PromiseValue[] = [
     id: "happier-life",
     title: "The Promise of a Happier Life",
     quote: "Projects are built with concrete. Happiness is built with intent.",
-    icon: UserCheck,
+    icon: "/assets/icon_1.webp",
     points: [
       "Every decision starts with the customer.",
       "Every space is designed for everyday happiness.",
@@ -72,7 +69,7 @@ const promisesData: PromiseValue[] = [
     id: "evolving-everyday",
     title: "The Promise of Evolving Every Day",
     quote: "The day we stop learning is the day we stop leading.",
-    icon: Sprout,
+    icon: "/assets/icon_4.webp",
     points: [
       "We learn from every experience.",
       "We improve every process.",
@@ -84,7 +81,7 @@ const promisesData: PromiseValue[] = [
     id: "greater-tomorrow",
     title: "The Promise of a Greater Tomorrow",
     quote: "Tomorrow is built by the choices we make today.",
-    icon: BarChart3,
+    icon: "/assets/icon_2.webp",
     points: [
       "We think beyond today.",
       "We choose quality without compromise.",
@@ -96,7 +93,7 @@ const promisesData: PromiseValue[] = [
     id: "meaningful-impact",
     title: "The Promise of Meaningful Impact",
     quote: "Success means little unless it makes someone's life better.",
-    icon: Sparkles,
+    icon: "/assets/icon_3.webp",
     points: [
       "We stand by our customers through every stage.",
       "We value every person behind every project.",
@@ -172,7 +169,6 @@ export default function Value() {
         {/* Promises Accordion List with Only 3 Middle Dividers */}
         <div className="divide-y divide-white">
           {promisesData.map((item, index) => {
-            const IconComponent = item.icon;
             const isOpen = openIndex === index;
 
             return (
@@ -187,13 +183,18 @@ export default function Value() {
                 {/* Accordion Header / Button */}
                 <button
                   onClick={() => toggleAccordion(index)}
-                  className="w-full py-7 sm:py-8 flex items-center justify-between text-left transition-colors duration-300 focus:outline-none cursor-pointer"
+                  className="w-full py-3 flex items-center justify-between text-left transition-colors duration-300 focus:outline-none cursor-pointer"
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center space-x-6 sm:space-x-8 pr-4">
                     {/* Left Line Art Icon (No background box) */}
-                    <div className="flex-shrink-0 text-white/90 group-hover:text-[#A0725B] transition-colors duration-300">
-                      <IconComponent className="w-10 h-10 sm:w-12 sm:h-12 stroke-[1.2]" />
+                    <div className="flex-shrink-0 w-14 h-14 sm:w-20 sm:h-20 relative flex items-center justify-center">
+                      <Image
+                        src={item.icon}
+                        alt={item.title}
+                        fill
+                        className="object-contain transition-all duration-300 invert opacity-90 group-hover:opacity-100 group-hover:scale-105"
+                      />
                     </div>
 
                     {/* Titles */}
