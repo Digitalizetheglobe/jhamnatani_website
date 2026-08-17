@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -9,6 +9,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function AwardSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash === "#awards") {
+      const timer = setTimeout(() => {
+        const element = document.getElementById("awards");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 500); // Allow GSAP and layouts to finish computing first
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   useGSAP(() => {
     // 1. Premium masked text lines reveal
@@ -49,6 +61,7 @@ export default function AwardSection() {
   return (
     <section
       ref={sectionRef}
+      id="awards"
       className="w-full min-h-screen bg-[url('/assets/about/award.png')] bg-cover bg-center bg-no-repeat flex items-center justify-start relative overflow-hidden select-none"
     >
       {/* Solid background overlay with color #1B2026 */}

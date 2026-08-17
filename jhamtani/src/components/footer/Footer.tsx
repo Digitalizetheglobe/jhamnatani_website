@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Footer() {
   const quickLinksColumn1 = [
-    { label: "OUR LEGACY", href: "#" },
-    { label: "AWARDS & ACHIEVEMENTS", href: "#" },
+    { label: "OUR LEGACY", href: "/about" },
+    { label: "AWARDS & ACHIEVEMENTS", href: "/about#awards" },
     { label: "CUSTOMER TESTIMONIALS", href: "#" },
     { label: "PROJECT BROCHURES", href: "#" },
   ];
@@ -41,6 +41,18 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href === "/about#awards") {
+      if (typeof window !== "undefined" && window.location.pathname === "/about") {
+        e.preventDefault();
+        const element = document.getElementById("awards");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+  };
+
   return (
     <footer className="w-full bg-[#111622] text-white border-t border-luxury-border py-16 md:py-20 select-none">
       <div className="max-w-7xl mx-auto space-y-12">
@@ -59,6 +71,7 @@ export default function Footer() {
                   <li key={item.label}>
                     <Link
                       href={item.href}
+                      onClick={(e) => handleLinkClick(e, item.href)}
                       className="font-sans text-[11px] font-medium text-zinc-400 hover:text-[#C5A880] transition-colors duration-300 tracking-wider leading-relaxed block"
                     >
                       {item.label}
