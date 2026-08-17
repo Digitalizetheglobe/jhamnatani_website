@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, animate } from "framer-motion";
+import { motion, animate, AnimatePresence } from "framer-motion";
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -11,6 +11,7 @@ export default function AboutSection() {
   const isMouseOverRightRef = useRef(false);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const currentIndexRef = useRef(0);
   const isAnimating = useRef(false);
@@ -190,19 +191,37 @@ export default function AboutSection() {
                   commitment to the people who will one day call these spaces their own.
                   A name that is synonymous with the trust of thousands of residents,
                   Jhamtani is Pune’s fastest-growing real estate brand.
+                  {!isExpanded && (
+                    <button
+                      onClick={() => setIsExpanded(true)}
+                      className="inline-block font-sans italic font-light text-[17px] text-[#5B584C] hover:text-[#C1AF86] transition-colors duration-300 ml-1.5 underline-offset-4 cursor-pointer bg-transparent border-none p-0 align-baseline"
+                    >
+                      Read more
+                    </button>
+                  )}
                 </p>
-                <p>
-                  At Jhamtani, we believe the spaces we create have the power to influence how people live,
-                  work, connect and grow. This belief influences every decision we make, from where we build to
-                  how we build. Because creating projects has never been our end goal; creating a better way of
-                  living has.
-                  <Link
-                    href="/about"
-                    className="inline-block font-sans italic font-light text-[17px] text-[#5B584C] hover:text-[#C1AF86] transition-colors duration-300 ml-1.5  underline-offset-4"
-                  >
-                    Read more
-                  </Link>
-                </p>
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      At Jhamtani, we believe the spaces we create have the power to influence how people live,
+                      work, connect and grow. This belief influences every decision we make, from where we build to
+                      how we build. Because creating projects has never been our end goal; creating a better way of
+                      living has.
+                      <button
+                        onClick={() => setIsExpanded(false)}
+                        className="inline-block font-sans italic font-light text-[17px] text-[#5B584C] hover:text-[#C1AF86] transition-colors duration-300 ml-1.5 underline-offset-4 cursor-pointer bg-transparent border-none p-0 align-baseline"
+                      >
+                        Read less
+                      </button>
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
               {/* About Image with smooth entrance & hover scale */}
