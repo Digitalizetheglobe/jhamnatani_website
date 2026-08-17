@@ -190,6 +190,12 @@ export default function AboutSection() {
                   commitment to the people who will one day call these spaces their own.
                   A name that is synonymous with the trust of thousands of residents,
                   Jhamtani is Pune’s fastest-growing real estate brand.
+                </p>
+                <p>
+                  At Jhamtani, we believe the spaces we create have the power to influence how people live,
+                  work, connect and grow. This belief influences every decision we make, from where we build to
+                  how we build. Because creating projects has never been our end goal; creating a better way of
+                  living has.
                   <Link
                     href="/about"
                     className="inline-block font-sans italic font-light text-[17px] text-[#5B584C] hover:text-[#C1AF86] transition-colors duration-300 ml-1.5  underline-offset-4"
