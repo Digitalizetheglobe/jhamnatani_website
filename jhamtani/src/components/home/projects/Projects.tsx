@@ -56,7 +56,7 @@ export default function Projects() {
       title: "ACE Ayodha",
       location: "Pune",
       type: "Residential",
-      image: "/assets/ace-ayodha/hero.jpg",
+      image: "/assets/ace-ayodha/hero.webp",
       desc: "The Ideal Way of Living. Premium residences featuring exceptional craftsmanship.",
       logo: "/assets/logo.webp",
       link: "/ace-ayodha",
