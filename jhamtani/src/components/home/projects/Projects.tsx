@@ -4,13 +4,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 
 export default function Projects() {
   const [activeSlide, setActiveSlide] = useState(1);
   const prevSlideRef = useRef(1);
   const isTransitioning = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const totalSlides = 5;
+  const totalSlides = 6;
 
   // Auto-slide every 6 seconds
   const autoAdvance = useCallback(() => {
@@ -52,48 +53,63 @@ export default function Projects() {
   const projectsData = [
     {
       id: 1,
+      title: "ACE Ayodha",
+      location: "Pune",
+      type: "Residential",
+      image: "/assets/ace-ayodha/hero.jpg",
+      desc: "The Ideal Way of Living. Premium residences featuring exceptional craftsmanship.",
+      logo: "/assets/logo.webp",
+      link: "/ace-ayodha",
+    },
+    {
+      id: 2,
       title: "ACE Atmosphere",
       location: "Ravet",
       type: "Residential",
       image: "/assets/pojetcts/ace_atmosphere.webp",
       desc: "Pune’s first 24×7 Lifestyle with all-day open amenities.",
       logo: "/assets/pojetcts/ace_atmosphere_logo.webp",
+      link: "#",
     },
     {
-      id: 2,
+      id: 3,
       title: "Jhamtani Abundance",
       location: "Mundhwa",
       type: "Residential",
       image: "/assets/pojetcts/Abundacne_Elevaion.webp",
       desc: "A signature statement of luxury residential living in Mundhwa.",
       logo: "/assets/pojetcts/Abundacne logo.webp",
+      link: "#",
     },
     {
-      id: 3,
+      id: 4,
       title: "ACE Villas",
       location: "Koregaon Park NX",
       type: "Villas",
       image: "/assets/pojetcts/ace_villas.webp",
       desc: "Unrivaled luxury estate villas reserved for a select few.",
       logo: "/assets/pojetcts/ace_villas_logo.webp",
+      link: "#",
     },
     {
-      id: 4,
+      id: 5,
       title: "Jhamtani Bizcore",
       location: "Koregaon Park NX",
       type: "Commercial",
       image: "/assets/pojetcts/bizcore_image.webp",
       desc: "Premium boutique office spaces and dynamic retail hubs.",
       logo: "/assets/pojetcts/bizcore_logo.webp",
+      link: "#",
     },
     {
-      id: 5,
+      id: 6,
       title: "ACE Aster",
       location: "Ravet",
       type: "Residential",
       image: "/assets/pojetcts/ace_aster.webp",
       desc: "Bespoke contemporary residences crafted for absolute comfort.",
       logo: "/assets/pojetcts/aster_logo.webp",
+      link: "#",
     },
   ];
 
@@ -276,7 +292,7 @@ export default function Projects() {
   }, { dependencies: [activeSlide], scope: containerRef });
 
   return (
-    <div id="projects" ref={containerRef} className="w-full flex flex-col scroll-mt-20">
+    <div ref={containerRef} className="w-full flex flex-col scroll-mt-20">
       <style dangerouslySetInnerHTML={{__html: `
         .hover-circle-path {
           stroke-dashoffset: 295.3;
@@ -432,7 +448,10 @@ export default function Projects() {
                   {activeSlide}/{totalSlides}
                 </span>
               </div>
-              <button className="group relative flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3 border border-[#a0725b] hover:bg-[#a0725b] hover:text-white rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest text-[#a0725b] transition-all duration-300 cursor-pointer z-10 overflow-hidden">
+              <Link
+                href={projectsData[activeSlide - 1]?.link || "#"}
+                className="group relative flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3 border border-[#a0725b] hover:bg-[#a0725b] hover:text-white rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest text-[#a0725b] transition-all duration-300 cursor-pointer z-10 overflow-hidden"
+              >
                 <span className="sr-only">EXPLORE MORE</span>
                 <span className="relative flex items-center gap-[0.12em]" aria-hidden="true">
                   {"EXPLORE MORE".split("").map((char, index) => {
@@ -457,7 +476,7 @@ export default function Projects() {
                     );
                   })}
                 </span>
-              </button>
+              </Link>
             </div>
           </div>
           

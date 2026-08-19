@@ -88,8 +88,21 @@ export default function Header() {
 
   const pathname = usePathname();
 
-  // Scroll to top instantly on pathname change to fix smooth scrolling route bugs
+  // Scroll to top instantly on pathname change to fix smooth scrolling route bugs,
+  // unless there's an anchor hash (e.g. #projects) in the URL.
   useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const targetId = hash.substring(1);
+      const element = document.getElementById(targetId);
+      if (element) {
+        // Wait briefly for the DOM / assets to render
+        const timer = setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    }
     const html = document.documentElement;
     const originalScrollBehavior = html.style.scrollBehavior;
     html.style.scrollBehavior = "auto";
@@ -100,7 +113,7 @@ export default function Header() {
   const navLinks = [
     { label: "Our Story", href: "/about" },
     { label: "Our Promises", href: "/permission" },
-    { label: "Our Projects", href: "/" },
+    { label: "Our Projects", href: "/ace-ayodha" },
     { label: "XO Series", href: "/xo" },
   ];
 
@@ -152,7 +165,7 @@ export default function Header() {
               <Link 
                 href="/about" 
                 onClick={() => handleLinkClick("/about")}
-                className={`group relative transition-colors duration-300 ${
+                className={`group relative transition-colors duration-300 whitespace-nowrap ${
                   pathname === "/about" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
@@ -162,7 +175,7 @@ export default function Header() {
               <Link 
                 href="/permission" 
                 onClick={() => handleLinkClick("/permission")}
-                className={`group relative transition-colors duration-300 ${
+                className={`group relative transition-colors duration-300 whitespace-nowrap ${
                   pathname === "/permission" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
@@ -170,9 +183,9 @@ export default function Header() {
               </Link>
               <span className="text-white/20">|</span>
               <Link 
-                href="/" 
-                onClick={() => handleLinkClick("/")}
-                className="group relative hover:text-[#a0725b] transition-colors duration-300"
+                href="/ace-ayodha" 
+                onClick={() => handleLinkClick("/ace-ayodha")}
+                className="group relative hover:text-[#a0725b] transition-colors duration-300 whitespace-nowrap"
               >
                 <WaveText text="Our Projects" />
               </Link>
@@ -180,7 +193,7 @@ export default function Header() {
               <Link 
                 href="/xo" 
                 onClick={() => handleLinkClick("/xo")}
-                className={`group relative transition-colors duration-300 ${
+                className={`group relative transition-colors duration-300 whitespace-nowrap ${
                   pathname === "/xo" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
@@ -188,7 +201,7 @@ export default function Header() {
               </Link>
             </nav>
 
-            {/* Hamburger Button (Pill styled to match reference video) */}
+            {/* Hamburger Button */}
             <button
               onClick={() => setIsOpen(true)}
               className="flex items-center space-x-3 border border-[#C5A880]/30 hover:border-[#C5A880] px-5 py-2.5 rounded-full text-white/90 hover:text-[#C5A880] transition-all duration-300 cursor-pointer"

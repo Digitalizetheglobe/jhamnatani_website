@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, SquarePen, MessageSquare, X, Send, Phone, Mail } from "lucide-react";
 
@@ -37,6 +37,19 @@ export default function FloatingWidgets() {
     project: "",
     message: "",
   });
+
+  useEffect(() => {
+    const handleOpenEnquiry = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const project = customEvent.detail?.project || "";
+      if (project) {
+        setFormData((prev) => ({ ...prev, project }));
+      }
+      setIsEnquiryOpen(true);
+    };
+    window.addEventListener("open-enquiry", handleOpenEnquiry);
+    return () => window.removeEventListener("open-enquiry", handleOpenEnquiry);
+  }, []);
 
   const handleEnquirySubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -347,6 +360,7 @@ export default function FloatingWidgets() {
                       className="bg-zinc-900/60 border border-zinc-800 px-4 py-3 rounded-lg text-white/80 focus:outline-none focus:border-zinc-600 transition-colors font-sans text-sm"
                     >
                       <option value="">Select a Project</option>
+                      <option value="Ace Ayodha">Ace Ayodha (Thergaon)</option>
                       <option value="ACE Atmosphere">ACE Atmosphere (Ravet)</option>
                       <option value="Jhamtani Abundance">Jhamtani Abundance (Mundhwa)</option>
                       <option value="ACE Villas">ACE Villas (Koregaon Park NX)</option>
