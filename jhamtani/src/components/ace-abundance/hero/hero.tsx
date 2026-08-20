@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
 export default function Hero() {
-  const line1 = "The Ideal Way of";
+  const line1 = "A Rarer Expression  of";
   const line2 = "Living";
 
   // Framer Motion animation variants
