@@ -159,7 +159,7 @@ export default function AboutSection() {
       ref={sectionRef}
       className="w-full min-h-screen bg-[#191f26] text-white py-16 md:py-24 border-t border-luxury-border overflow-hidden flex flex-col justify-center"
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
           {/* Left Column (Fixed / Stationary Content with Animations) */}
@@ -171,11 +171,12 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="font-serif text-[36px] sm:text-[46px] md:text-[54px] lg:text-[60px] leading-[1.08] tracking-wide text-[#a0725b]"
+                className="font-serif text-[36px] sm:text-[46px] md:text-[54px] lg:text-[50px] leading-[1.08] tracking-wide text-[#a0725b]"
               >
-                Before every brick
-                <span className="block text-[#a0725b]">comes a promise.</span>
+                The Legacy of Delivering
+                <span className="block text-[#a0725b]">What’s Committed</span>
               </motion.h2>
+
 
               {/* Description with stagger fade-in */}
               <motion.div
@@ -186,9 +187,6 @@ export default function AboutSection() {
                 className="space-y-4 font-sans text-[15px] sm:text-[17px] leading-relaxed text-white/75 max-w-xl"
               >
                 <p>
-                  The strongest foundations are built long before construction begins.
-                  They're built on trust, thoughtful decisions, and an unwavering
-                  commitment to the people who will one day call these spaces their own.
                   A name that is synonymous with the trust of thousands of residents,
                   Jhamtani is Pune’s fastest-growing real estate brand.
                   {!isExpanded && (

@@ -19,7 +19,7 @@ export default function Hero() {
       </div>
 
       {/* Hero content */}
-      <div className="absolute inset-0 z-20 max-w-7xl mx-auto w-full flex flex-col justify-end pb-20 md:pb-32 text-left">
+      <div className="absolute inset-0 z-20 max-w-6xl mx-auto w-full flex flex-col justify-end pb-20 md:pb-32 text-left">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

@@ -55,7 +55,7 @@ function WaveText({ text, letterDelay = 15 }: WaveTextProps) {
 const promisesData: PromiseValue[] = [
   {
     id: "happier-life",
-    title: "The Promise of a Happier Life",
+    title: "The Promise of Customer Happiness",
     quote: "Projects are built with concrete. Happiness is built with intent.",
     icon: "/assets/icon_1.webp",
     points: [
@@ -66,20 +66,8 @@ const promisesData: PromiseValue[] = [
     ],
   },
   {
-    id: "evolving-everyday",
-    title: "The Promise of Evolving Every Day",
-    quote: "The day we stop learning is the day we stop leading.",
-    icon: "/assets/icon_4.webp",
-    points: [
-      "We learn from every experience.",
-      "We improve every process.",
-      "We implement feedback",
-      "We never stop raising the bar.",
-    ],
-  },
-  {
     id: "greater-tomorrow",
-    title: "The Promise of a Greater Tomorrow",
+    title: "The Promise of Thinking Long Term",
     quote: "Tomorrow is built by the choices we make today.",
     icon: "/assets/icon_2.webp",
     points: [
@@ -90,10 +78,22 @@ const promisesData: PromiseValue[] = [
     ],
   },
   {
-    id: "meaningful-impact",
-    title: "The Promise of Meaningful Impact",
-    quote: "Success means little unless it makes someone's life better.",
+    id: "evolving-everyday",
+    title: "The Promise of Getting Better than Yesterday",
+    quote: "The day we stop learning is the day we stop leading.",
     icon: "/assets/icon_3.webp",
+    points: [
+      "We learn from every experience.",
+      "We improve every process.",
+      "We implement feedback",
+      "We never stop raising the bar.",
+    ],
+  },
+  {
+    id: "meaningful-impact",
+    title: "The Promise of Creating Positive Impact on Every Life Touched",
+    quote: "Success means little unless it makes someone's life better.",
+    icon: "/assets/icon_4.webp",
     points: [
       "We stand by our customers through every stage.",
       "We value every person behind every project.",
@@ -163,7 +163,7 @@ export default function Value() {
             variants={textVariants}
             className="font-sans text-[15px] sm:text-[16px] text-white/80 leading-relaxed tracking-wide"
           >
-            Every organisation speaks about values. We prefer something more demanding - ‘Promises’. At Jhamtani, every acquisition, every drawing, every approval, every interaction and every handover is measured against four promises we first made to ourselves. Not because they define what we say. Because they define what we refuse to compromise.          </motion.p>
+            Every organisation speaks about values. We prefer something more demanding - ‘Promises’. At Jhamtani, every acquisition, every drawing, every approval, every interaction and every handover is measured against four promises we first made to ourselves. </motion.p>
         </motion.div>
 
         {/* Promises Accordion List with Only 3 Middle Dividers */}

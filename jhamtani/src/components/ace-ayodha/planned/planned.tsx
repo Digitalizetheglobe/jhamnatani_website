@@ -8,12 +8,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/ace-ayodha/thought_1.jpg",
+    image: "/assets/ace-ayodha/thought_1.webp",
     alt: "Thoughtfully Planned Interior - Living Room Artistic Impression",
   },
   {
     id: 2,
-    image: "/assets/ace-ayodha/hero.jpg",
+    image: "/assets/ace-ayodha/hero.webp",
     alt: "Ace Ayodha Premium Residences - Exterior Artistic Impression",
   },
 ];

@@ -113,7 +113,7 @@ export default function Header() {
   const navLinks = [
     { label: "Our Story", href: "/about" },
     { label: "Our Promises", href: "/permission" },
-    { label: "Our Projects", href: "/ace-ayodha" },
+    { label: "Our Projects", href: "/projects" },
     { label: "XO Series", href: "/xo" },
   ];
 
@@ -183,8 +183,8 @@ export default function Header() {
               </Link>
               <span className="text-white/20">|</span>
               <Link 
-                href="/ace-ayodha" 
-                onClick={() => handleLinkClick("/ace-ayodha")}
+                href="/projects" 
+                onClick={() => handleLinkClick("/projects")}
                 className="group relative hover:text-[#a0725b] transition-colors duration-300 whitespace-nowrap"
               >
                 <WaveText text="Our Projects" />

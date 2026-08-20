@@ -7,57 +7,57 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const galleryItems = [
   {
     id: 1,
-    image: "/assets/ace-ayodha/gallery/the-grand-courtyard.jpg",
+    image: "/assets/ace-ayodha/gallery/the-grand-courtyard.webp",
     title: "The Grand Courtyard",
   },
   {
     id: 2,
-    image: "/assets/ace-ayodha/gallery/the-indoor-play-lounge.jpg",
+    image: "/assets/ace-ayodha/gallery/the-indoor-play-lounge.webp",
     title: "The Indoor Play Lounge",
   },
   {
     id: 3,
-    image: "/assets/ace-ayodha/gallery/the-little-explorers-studio.jpg",
+    image: "/assets/ace-ayodha/gallery/the-little-explorers-studio.webp",
     title: "The Little Explorers' Studio",
   },
   {
     id: 4,
-    image: "/assets/ace-ayodha/gallery/the-living-lounge.jpg",
+    image: "/assets/ace-ayodha/gallery/the-living-lounge.webp",
     title: "The Living Lounge",
   },
   {
     id: 5,
-    image: "/assets/ace-ayodha/gallery/the-open-air-lounge.jpg",
+    image: "/assets/ace-ayodha/gallery/the-open-air-lounge.webp",
     title: "The Open-Air Lounge",
   },
   {
     id: 6,
-    image: "/assets/ace-ayodha/gallery/the-wellness-court.jpg",
+    image: "/assets/ace-ayodha/gallery/the-wellness-court.webp",
     title: "The Wellness Court",
   },
   {
     id: 7,
-    image: "/assets/ace-ayodha/gallery/the-wellness-studio.jpg",
+    image: "/assets/ace-ayodha/gallery/the-wellness-studio.webp",
     title: "The Wellness Studio",
   },
   {
     id: 8,
-    image: "/assets/ace-ayodha/gallery/childrens-play-garden.jpg",
+    image: "/assets/ace-ayodha/gallery/childrens-play-garden.webp",
     title: "Children's Play Garden",
   },
   {
     id: 9,
-    image: "/assets/ace-ayodha/gallery/divine-tranquility.jpeg",
+    image: "/assets/ace-ayodha/gallery/divine-tranquility.webp",
     title: "Divine Tranquility",
   },
   {
     id: 10,
-    image: "/assets/ace-ayodha/gallery/the-court-in-the-sky.jpg",
+    image: "/assets/ace-ayodha/gallery/the-court-in-the-sky.webp",
     title: "The Court in the Sky",
   },
   {
     id: 11,
-    image: "/assets/ace-ayodha/gallery/the-elegant-kitchen.jpg",
+    image: "/assets/ace-ayodha/gallery/the-elegant-kitchen.webp",
     title: "The Elegant Kitchen",
   },
 ];

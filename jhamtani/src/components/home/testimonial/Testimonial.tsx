@@ -21,9 +21,9 @@ export default function Testimonial() {
           <h2 className="font-serif text-[36px] sm:text-[48px] lg:text-[54px] leading-tight text-[#a0725b] font-normal">
             Their Stories. Our Legacy.
           </h2>
-          <p className="font-sans text-[12px] sm:text-[13px] text-zinc-800 font-semibold tracking-[0.2em] uppercase leading-none">
+          {/* <p className="font-sans text-[12px] sm:text-[13px] text-zinc-800 font-semibold tracking-[0.2em] uppercase leading-none">
             The promise they live every day
-          </p>
+          </p> */}
         </motion.div>
 
         {/* Visual Collage of Testimonials */}

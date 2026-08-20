@@ -46,12 +46,6 @@ export default function Our() {
             Our Story
           </motion.h2>
 
-          <motion.p
-            variants={itemVariants}
-            className="font-sans text-[16px] sm:text-[18px] md:text-[19px] font-medium text-[#2b2b2b] leading-relaxed"
-          >
-            Every real estate brand’s journey begins with building. Ours began by understanding it.
-          </motion.p>
 
           <motion.p
             variants={itemVariants}

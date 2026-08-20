@@ -79,8 +79,7 @@ export default function AboutContent() {
             variants={childVariants}
             className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl"
           >
-            There are promises that are spoken. And then there are promises that quietly become a way of working. For over four decades, Jhamtani has belonged to the latter.
-          </motion.p>
+There are promises that are spoken. And then some promises quietly become a way of working. For over four decades, Jhamtani has belonged to the latter.          </motion.p>
           <motion.p
             variants={childVariants}
             className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl"
@@ -93,6 +92,12 @@ export default function AboutContent() {
                 transition={{ duration: 0.3 }}
               >
                 {" "}The 24 communities that have become home to over 13,000 families. More than 4 million square feet thoughtfully delivered. And over 6.4 million square feet envisioned for tomorrow.
+                <span 
+                  onClick={() => setIsExpanded(false)}
+                  className="text-[#b88654] italic cursor-pointer hover:underline ml-1 font-semibold"
+                >
+                  Read less
+                </span>
               </motion.span>
             ) : (
               <span 
@@ -103,25 +108,6 @@ export default function AboutContent() {
               </span>
             )}
           </motion.p>
-
-          {isExpanded && (
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="space-y-8"
-            >
-              <p className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl">
-                Yet, these aren't the milestones that define us. They are simply the outcome of something far more enduring; a promise honoured, project after project.
-                <span 
-                  onClick={() => setIsExpanded(false)}
-                  className="text-[#b88654] italic cursor-pointer hover:underline ml-1 font-semibold"
-                >
-                  Read less
-                </span>
-              </p>
-            </motion.div>
-          )}
         </motion.div>
       </div>
 

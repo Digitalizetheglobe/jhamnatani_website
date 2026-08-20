@@ -6,22 +6,22 @@ import { motion } from "framer-motion";
 export default function Amenities() {
   const promises = [
     {
-      title: "of a Happier Life",
+      title: "Customer Happiness",
       desc: "Creating homes, experiences, and relationships that make life happier in every aspect.",
       iconPath: "/assets/icon_1.webp",
     },
     {
-      title: "of a Greater Tomorrow",
+      title: "Thinking Long Term",
       desc: "Making decisions today that create lasting value for generations to come.",
       iconPath: "/assets/icon_2.webp",
     },
     {
-      title: "of Meaningful Impact",
+      title: "Getting ⁠Better than Yesterday",
       desc: "Creating a positive difference in every life we touch, from our customers, our people, our partners, to our communities.",
       iconPath: "/assets/icon_3.webp",
     },
     {
-      title: "of Evolving Every Day",
+      title: "Creating Positive Impact on Every Life Touched",
       desc: "Never stopping the process of learning. Growing with every home, every customer, every little thing, every time.",
       iconPath: "/assets/icon_4.webp",
     },
@@ -55,8 +55,7 @@ export default function Amenities() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="font-sans text-[16px] sm:text-[17px] leading-relaxed text-[#010101]"
           >
-            A promise isn't made at the end of the journey. It's reflected in every
-            choice along the way. These four promises are the principles that quietly shape
+            These four promises are the principles that quietly shape
             every Jhamtani development, every choice we make, every community we create,
             and every relationship we nurture.
           </motion.p>
@@ -95,9 +94,9 @@ export default function Amenities() {
                 </h3>
                 
                 {/* Description */}
-                <p className="font-sans text-[15px] md:text-[15px] leading-relaxed text-[#000] mt-3 max-w-[300px] line-clamp-3">
+                {/* <p className="font-sans text-[15px] md:text-[15px] leading-relaxed text-[#000] mt-3 max-w-[300px] line-clamp-3">
                   {p.desc}
-                </p>
+                </p> */}
               </motion.div>
             );
           })}

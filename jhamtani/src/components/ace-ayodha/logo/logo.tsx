@@ -7,7 +7,7 @@ export default function Logo() {
         {/* Left side: Ace Ayodha logo */}
         <div className="relative flex items-center shrink-0">
           <Image
-            src="/assets/ace-ayodha/logo_1.png"
+            src="/assets/ace-ayodha/logo_1.webp"
             alt="ACE Ayodha Logo"
             width={350}
             height={106}

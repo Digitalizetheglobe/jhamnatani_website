@@ -79,8 +79,7 @@ const SignatureSeries = () => {
             XO Series represents our most considered collection of
             homes, bringing together exceptional architecture, curated
             experiences and uncompromising quality into one
-            extraordinary address. Crafted with greater thought,
-            greater detail and greater distinction.
+            extraordinary address.
           </p>
 
           {/* Button */}

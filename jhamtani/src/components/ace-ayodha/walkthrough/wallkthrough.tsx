@@ -66,7 +66,7 @@ export default function Walkthrough() {
         >
           {/* Preview Image */}
           <img
-            src="/assets/ace-ayodha/gallery_1.jpg"
+            src="/assets/ace-ayodha/gallery_1.webp"
             alt="Project Walkthrough Video Preview"
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
           />

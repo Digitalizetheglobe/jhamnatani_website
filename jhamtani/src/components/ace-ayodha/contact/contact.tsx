@@ -354,7 +354,7 @@ export default function Contact() {
             <div className="flex items-start gap-4 pt-2">
               {/* RERA QR code image */}
               <img
-                src="/assets/ace-ayodha/rera.jpg"
+                src="/assets/ace-ayodha/rera.webp"
                 alt="MahaRERA Registration QR Code"
                 className="w-16 h-16 sm:w-20 sm:h-25 object-contain border border-zinc-200"
               />
@@ -386,7 +386,7 @@ export default function Contact() {
           {/* Right Block: Brand Logo */}
           <div className="shrink-0 flex items-center justify-center md:justify-center w-full md:w-auto mt-4 md:mt-0">
             <img
-              src="/assets/ace-ayodha/logo_1.png"
+              src="/assets/ace-ayodha/logo_1.webp"
               alt="ACE Ayodhya Logo"
               className="w-auto h-24 sm:h-28 md:h-50 object-contain mix-blend-multiply"
             />

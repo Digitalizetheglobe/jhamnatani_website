@@ -58,9 +58,9 @@ export default function Contact() {
             <h2 className="font-serif text-[36px] sm:text-[44px] lg:text-[48px] leading-tight text-[#a0725b] font-normal">
               Making Headlines for the Right Reasons
             </h2>
-            <p className="font-sans text-[14px] sm:text-[15px] text-zinc-700 leading-relaxed font-light">
+            {/* <p className="font-sans text-[14px] sm:text-[15px] text-zinc-700 leading-relaxed font-light">
               Our promises delivered that are in the media spotlight
-            </p>
+            </p> */}
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-4">
