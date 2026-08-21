@@ -45,8 +45,8 @@ const projectsData: ProjectItem[] = [
     type: "Residential",
     image: "/assets/projects/ace-villas.jpg",
     desc: "Bespoke ultra-luxury villas. A sanctuary of privacy, elegance, and high-end living in Koregaon Park NX.",
-    link: "ACE Villas",
-    isLocal: false,
+    link: "/ace-villas",
+    isLocal: true,
   },
   {
     id: 4,

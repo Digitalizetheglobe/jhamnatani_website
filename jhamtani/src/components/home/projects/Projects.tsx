@@ -89,7 +89,7 @@ export default function Projects() {
       image: "/assets/pojetcts/ace_villas.webp",
       desc: "Unrivaled luxury estate villas reserved for a select few.",
       logo: "/assets/pojetcts/ace_villas_logo.webp",
-      link: "#",
+      link: "/ace-villas",
     },
     {
       id: 5,

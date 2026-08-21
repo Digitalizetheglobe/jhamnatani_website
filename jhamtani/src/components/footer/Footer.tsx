@@ -26,7 +26,7 @@ export default function Footer() {
   const currentProjectsColumn1 = [
     { label: "ACE AYODHYA - THERGAON", href: "#" },
     { label: "JHAMTANI ABUNDANCE - MUNDHWA", href: "#" },
-    { label: "ACE VILLAS - KOREGAON PARK NX", href: "#" },
+    { label: "ACE VILLAS - KOREGAON PARK NX", href: "/ace-villas" },
     { label: "ACE ATMOSPHERE - RAVET", href: "#" },
   ];
 
