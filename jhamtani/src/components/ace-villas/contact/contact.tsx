@@ -343,10 +343,10 @@ export default function Contact() {
               </p>
               <p>
                 <strong className="font-semibold text-zinc-900">Contact : </strong>
-                +91 73533 00533
+                +91 80506 41122
                 <span className="mx-3 text-zinc-400">|</span>
                 <strong className="font-semibold text-zinc-900">Email : </strong>
-                enquiry@jhamtani.com
+                sales.acevillas@jhamtani.com
               </p>
             </div>
 
@@ -354,7 +354,7 @@ export default function Contact() {
             <div className="flex items-start gap-4 pt-2">
               {/* RERA QR code image */}
               <Image
-                src="/assets/ace-ayodha/rera.webp"
+                src="/assets/ace-villas/qr-code.webp"
                 alt="MahaRERA Registration QR Code"
                 width={80}
                 height={80}
@@ -371,7 +371,7 @@ export default function Contact() {
                     className="w-10 h-10 object-contain shrink-0"
                   />
                   <span className="font-sans font-bold text-[18px] sm:text-[28px] text-zinc-950 tracking-wide leading-none">
-                    PR1261012600416
+                    P52100048327
                   </span>
                 </div>
                 <a
