@@ -19,10 +19,10 @@ export default function AboutSection() {
 
   const stats = [
     { number: "40+ Yrs", label: "YEARS OF LEGACY" },
+    { number: "16+ Yrs", label: "IN REAL ESTATE" },
     { number: "13K+", label: "HAPPY FACES" },
     { number: "8", label: "ONGOING PROJECTS" },
     { number: "24", label: "COMPLETED PROJECTS" },
-    { number: "16+ Yrs", label: "IN REAL ESTATE" },
     { number: "32", label: "TOTAL PROJECTS" },
   ];
 

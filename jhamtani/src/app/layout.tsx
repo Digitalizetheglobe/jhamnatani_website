@@ -52,9 +52,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${forum.variable} ${plusJakartaSans.variable} ${inriaSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col text-white selection:bg-[#C5A880] selection:text-black font-sans">
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col text-white selection:bg-[#C5A880] selection:text-black font-sans"
+      >
         {children}
         <FloatingWidgets />
       </body>

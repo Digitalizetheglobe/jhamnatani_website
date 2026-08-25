@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Cistern / Tank -->
+  <rect x="18" y="10" width="28" height="18" rx="2" />
+  <circle cx="32" cy="15" r="2" />
+  
+  <!-- Toilet Bowl Seat -->
+  <ellipse cx="32" cy="36" rx="14" ry="10" />
+  <path d="M22 36v8c0 5 4.5 9 10 9s10-4 10-9v-8" />
+  
+  <!-- Base -->
+  <path d="M26 53h12l2 4H24l2-4z" />
+</svg>

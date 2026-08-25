@@ -1,13 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import "leaflet/dist/leaflet.css";
 
 interface LocationItem {
   name: string;
   distance: string;
   time: string;
+  lat: number;
+  lng: number;
   query: string;
 }
 
@@ -15,6 +18,8 @@ interface LocationGroup {
   category: string;
   items: LocationItem[];
 }
+
+const PROJECT_COORDS: [number, number] = [18.6186, 73.7745];
 
 const locationsData: LocationGroup[] = [
   {
@@ -24,6 +29,8 @@ const locationsData: LocationGroup[] = [
         name: "Spandan Hospital",
         distance: "2 km",
         time: "5 mins",
+        lat: 18.619,
+        lng: 73.785,
         query: "Spandan Hospital, Thergaon, Pune",
       },
     ],
@@ -35,6 +42,8 @@ const locationsData: LocationGroup[] = [
         name: "Phoenix Mall of the Millennium",
         distance: "2 km",
         time: "6 mins",
+        lat: 18.6015,
+        lng: 73.765,
         query: "Phoenix Mall of the Millennium, Wakad, Pune",
       },
     ],
@@ -46,12 +55,16 @@ const locationsData: LocationGroup[] = [
         name: "Orchid International School",
         distance: "3.5 km",
         time: "8 mins",
+        lat: 18.615,
+        lng: 73.751,
         query: "Orchid International School, Tathawade, Pune",
       },
       {
         name: "Podar International School",
         distance: "3.5 km",
         time: "8 mins",
+        lat: 18.598,
+        lng: 73.768,
         query: "Podar International School, Wakad, Pune",
       },
     ],
@@ -63,24 +76,32 @@ const locationsData: LocationGroup[] = [
         name: "Mumbai–Pune Express Highway",
         distance: "4 km",
         time: "9 mins",
+        lat: 18.6475,
+        lng: 73.742,
         query: "Sentosa Resorts, Ravet, Pune",
       },
       {
         name: "Proposed Metro Stations",
         distance: "4 km",
         time: "10 mins",
+        lat: 18.636,
+        lng: 73.785,
         query: "Chinchwad Metro Station, Pune",
       },
       {
         name: "Rajiv Gandhi IT Park, Hinjawadi",
         distance: "8 km",
         time: "15 mins",
+        lat: 18.5912,
+        lng: 73.738,
         query: "Rajiv Gandhi Infotech Park, Hinjawadi, Pune",
       },
       {
         name: "Balewadi High Street",
         distance: "8.5 km",
         time: "16 mins",
+        lat: 18.5775,
+        lng: 73.776,
         query: "Balewadi High Street, Balewadi, Pune",
       },
     ],
@@ -90,23 +111,146 @@ const locationsData: LocationGroup[] = [
 export default function MapSection() {
   const [expandedCategory, setExpandedCategory] = useState("Hospital");
   const [selectedItem, setSelectedItem] = useState<LocationItem | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const projectMarkerRef = useRef<any>(null);
+  const selectedMarkerRef = useRef<any>(null);
+  const polylineRef = useRef<any>(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+    let isMounted = true;
+
+    async function initMap() {
+      if (typeof window === "undefined" || !mapContainerRef.current) return;
+      const L = (await import("leaflet")).default;
+
+      if (!isMounted) return;
+
+      if (!mapInstanceRef.current && mapContainerRef.current) {
+        // Initialize Map
+        const map = L.map(mapContainerRef.current, {
+          center: PROJECT_COORDS,
+          zoom: 14,
+          zoomControl: false,
+          attributionControl: false,
+        });
+
+        // Add Dark Matter / CartoDB Dark Tiles
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png", {
+          subdomains: "abcd",
+          maxZoom: 19,
+        }).addTo(map);
+
+        // Zoom control in top-left
+        L.control.zoom({ position: "topleft" }).addTo(map);
+
+        // Project Custom Pin Icon
+        const projectPinHtml = `
+          <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;">
+            <div style="background:rgba(25,31,38,0.95);border:1px solid #A0725B;color:#FFFFFF;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap;box-shadow:0 4px 15px rgba(0,0,0,0.5);margin-bottom:6px;font-family:sans-serif;letter-spacing:0.04em;">
+              Ace Ayodha
+            </div>
+            <div style="position:relative;width:24px;height:24px;background:#A0725B;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FFFFFF;box-shadow:0 0 15px rgba(160,114,91,0.8);">
+              <div style="width:8px;height:8px;background:#FFFFFF;border-radius:50%;"></div>
+            </div>
+          </div>
+        `;
+
+        const projectIcon = L.divIcon({
+          html: projectPinHtml,
+          className: "custom-project-pin",
+          iconSize: [140, 60],
+          iconAnchor: [70, 55],
+        });
+
+        const projectMarker = L.marker(PROJECT_COORDS, { icon: projectIcon }).addTo(map);
+        projectMarkerRef.current = projectMarker;
+        mapInstanceRef.current = map;
+      }
+    }
+
+    initMap();
+
+    return () => {
+      isMounted = false;
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
     };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Update map when selectedItem changes
+  useEffect(() => {
+    async function updateMapMarkers() {
+      if (!mapInstanceRef.current) return;
+      const L = (await import("leaflet")).default;
+      const map = mapInstanceRef.current;
+
+      // Remove previous selected marker and route
+      if (selectedMarkerRef.current) {
+        map.removeLayer(selectedMarkerRef.current);
+        selectedMarkerRef.current = null;
+      }
+      if (polylineRef.current) {
+        map.removeLayer(polylineRef.current);
+        polylineRef.current = null;
+      }
+
+      if (!selectedItem) {
+        // Fly back to project location
+        map.flyTo(PROJECT_COORDS, 14, { duration: 1.2 });
+      } else {
+        // Create selected location pin
+        const targetPinHtml = `
+          <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;">
+            <div style="background:#A0725B;color:#FFFFFF;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap;box-shadow:0 4px 15px rgba(0,0,0,0.5);margin-bottom:6px;font-family:sans-serif;letter-spacing:0.04em;">
+              ${selectedItem.name} (${selectedItem.distance})
+            </div>
+            <div style="position:relative;width:22px;height:22px;background:#FFFFFF;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #A0725B;box-shadow:0 0 15px rgba(255,255,255,0.8);">
+              <div style="width:7px;height:7px;background:#A0725B;border-radius:50%;"></div>
+            </div>
+          </div>
+        `;
+
+        const targetIcon = L.divIcon({
+          html: targetPinHtml,
+          className: "custom-target-pin",
+          iconSize: [160, 60],
+          iconAnchor: [80, 55],
+        });
+
+        const targetMarker = L.marker([selectedItem.lat, selectedItem.lng], { icon: targetIcon }).addTo(map);
+        selectedMarkerRef.current = targetMarker;
+
+        // Draw clean connecting line between Ace Ayodha and selected location
+        const line = L.polyline([PROJECT_COORDS, [selectedItem.lat, selectedItem.lng]], {
+          color: "#A0725B",
+          weight: 2.5,
+          dashArray: "6, 8",
+          opacity: 0.85,
+        }).addTo(map);
+        polylineRef.current = line;
+
+        // Fit bounds to show both pins comfortably
+        const bounds = L.latLngBounds([PROJECT_COORDS, [selectedItem.lat, selectedItem.lng]]);
+        map.flyToBounds(bounds, {
+          padding: [80, 80],
+          duration: 1.2,
+          maxZoom: 15,
+        });
+      }
+    }
+
+    updateMapMarkers();
+  }, [selectedItem]);
 
   const handleCategoryClick = (categoryName: string) => {
     setExpandedCategory(expandedCategory === categoryName ? "" : categoryName);
   };
 
   const handleItemSelect = (item: LocationItem) => {
-    // Toggle selection: if clicked again, deselect and return to project-only view
     if (selectedItem?.name === item.name) {
       setSelectedItem(null);
     } else {
@@ -114,30 +258,17 @@ export default function MapSection() {
     }
   };
 
-  // Construct Google Maps search embed URL for the selected location or project only
-  const getMapEmbedUrl = () => {
-    const originAddress = "Ace Ayodhya, Near Dange Chowk, Thergaon, Pune, Maharashtra 411033";
-
-    if (!selectedItem) {
-      // 1. Initial State: Highlight project location only
-      return `https://maps.google.com/maps?q=${encodeURIComponent(originAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
-    }
-
-    // 2. Interactive State: Show dynamic route directions
-    return `https://maps.google.com/maps?saddr=${encodeURIComponent(originAddress)}&daddr=${encodeURIComponent(selectedItem.query)}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
-  };
-
   return (
     <section className="relative w-full bg-[#191F26] pt-20 select-none overflow-hidden">
       {/* Header Block */}
-      <div className="max-w-6xl mx-auto mb-12">
+      <div className="max-w-6xl mx-auto mb-20 px-6 sm:px-12 lg:px-16">
         <div className="max-w-3xl text-left">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="font-serif font-light text-[36px] sm:text-[46px] lg:text-[52px] leading-tight text-[#A0725B] tracking-wide"
+            className="font-serif font-light text-[36px] sm:text-[46px] lg:text-[52px] leading-tight text-[#A0725B] tracking-wide max-w-xl"
           >
             Connected to What Matters.
           </motion.h2>
@@ -147,32 +278,22 @@ export default function MapSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="font-sans text-[14px] sm:text-[15px] text-[#EEEBE7] leading-relaxed mt-4 max-w-xl"
+            className="font-sans text-[14px] sm:text-[15px] text-[#EEEBE7] leading-relaxed mt-4 max-w-2xl"
           >
-            Ace Ayodha places everyday conveniences, key employment hubs and major city <br className="hidden sm:inline" /> connections within easy reach.
+            Ace Ayodha places everyday conveniences, key employment hubs and major city connections within easy reach.
           </motion.p>
         </div>
       </div>
 
       {/* Main Layout Area */}
       <div className="relative w-full flex flex-col md:block">
-        {/* Full-Bleed Map Container with CSS Cropping to hide Google Top-Left Card */}
-        <div className="relative w-full h-[320px] sm:h-[420px] md:h-[600px] lg:h-[700px] bg-zinc-950 overflow-hidden">
-          {/* Google Maps Styled Dark Iframe - Shifted up/left to crop card */}
-          <iframe
-            key={selectedItem ? selectedItem.name : "project-only"}
-            src={getMapEmbedUrl()}
-            className="absolute -top-[190px] -left-[10px] w-[calc(100%+20px)] h-[calc(100%+205px)] border-0 opacity-80"
-            style={{
-              filter: "invert(90%) hue-rotate(180deg) brightness(95%) contrast(110%)",
-            }}
-            allowFullScreen
-            loading="lazy"
-          />
+        {/* Clean Interactive Leaflet Map */}
+        <div className="relative w-full h-[360px] sm:h-[450px] md:h-[600px] lg:h-[700px] bg-[#14191F] overflow-hidden">
+          <div ref={mapContainerRef} className="w-full h-full z-0" />
 
           {/* Vignette Gradients */}
           <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#191F26] to-transparent pointer-events-none z-10" />
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#191F26]/30 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#191F26]/60 to-transparent pointer-events-none z-10" />
 
           {/* Dynamic Distance Overlay Card */}
           <AnimatePresence>
@@ -214,28 +335,29 @@ export default function MapSection() {
           </AnimatePresence>
         </div>
 
-        {/* Accordion List Panel */}
-        <div className="w-full md:absolute md:top-1/2 md:-translate-y-1/2 md:right-12 lg:right-16 z-30 md:w-[360px] bg-[#F5F2EC] text-zinc-800 p-6 sm:p-8 shadow-2xl md:border md:border-white/10">
+        {/* Accordion List Panel - Glassmorphism Effect */}
+        <div className="w-full md:absolute md:top-1/2 md:-translate-y-1/2 md:right-12 lg:right-16 z-30 md:w-[360px] bg-[#191F26]/75 backdrop-blur-xl border border-white/20 text-white p-6 sm:p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] rounded-sm">
           {/* Active Mode Tag */}
-          <div className="text-[10px] uppercase tracking-[0.1em] text-[#A0725B] font-bold mb-3 border-b border-[#A0725B]/20 pb-2">
-            {!selectedItem ? "Showing: Project Location" : "Showing: Connection Route"}
+          <div className="text-[10px] uppercase tracking-[0.1em] text-[#C5A880] font-bold mb-3 border-b border-white/15 pb-2 flex items-center justify-between">
+            <span>{!selectedItem ? "Showing: Project Location" : `Showing: ${selectedItem.name}`}</span>
+            <span className="w-2 h-2 rounded-full bg-[#A0725B] animate-pulse" />
           </div>
 
           <div className="flex flex-col gap-1">
             {locationsData.map((group, idx) => (
-              <div key={idx} className="border-b border-[#A0725B]/20 last:border-b-0">
+              <div key={idx} className="border-b border-white/10 last:border-b-0">
                 {/* Category Header */}
                 <button
                   onClick={() => handleCategoryClick(group.category)}
-                  className="w-full flex justify-between items-center py-4 text-left outline-none cursor-pointer"
+                  className="w-full flex justify-between items-center py-4 text-left outline-none cursor-pointer group"
                 >
-                  <span className="font-serif font-light text-[17px] sm:text-[18px] text-[#A0725B] tracking-wide">
+                  <span className="font-serif font-light text-[17px] sm:text-[18px] text-[#E5D2B8] group-hover:text-white transition-colors tracking-wide">
                     {group.category}
                   </span>
                   {expandedCategory === group.category ? (
-                    <ChevronUp className="w-4 h-4 text-[#A0725B]" />
+                    <ChevronUp className="w-4 h-4 text-[#C5A880]" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-[#A0725B]" />
+                    <ChevronDown className="w-4 h-4 text-zinc-400 group-hover:text-white" />
                   )}
                 </button>
 
@@ -258,8 +380,8 @@ export default function MapSection() {
                               onClick={() => handleItemSelect(item)}
                               className={`w-full flex justify-between items-center py-2 px-3 text-left transition-all duration-300 rounded-[2px] outline-none cursor-pointer ${
                                 isSelected
-                                  ? "bg-[#A0725B]/10 text-[#A0725B] font-medium"
-                                  : "text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/40"
+                                  ? "bg-[#A0725B]/30 text-[#E5D2B8] border border-[#A0725B]/50 font-semibold shadow-sm"
+                                  : "text-zinc-300 hover:text-white hover:bg-white/10"
                               }`}
                             >
                               <span className="text-[13px] sm:text-[14px]">
@@ -267,7 +389,7 @@ export default function MapSection() {
                               </span>
                               <span
                                 className={`text-[12px] pl-3 whitespace-nowrap ${
-                                  isSelected ? "text-[#A0725B] font-semibold" : "text-zinc-400"
+                                  isSelected ? "text-[#E5D2B8] font-semibold" : "text-zinc-400"
                                 }`}
                               >
                                 {item.distance}
@@ -287,22 +409,21 @@ export default function MapSection() {
           <button
             onClick={() => {
               if (!selectedItem) {
-                // Dispatch custom event to trigger enquiry modal
                 const event = new CustomEvent("open-enquiry", {
-                  detail: { project: "Ace Ayodha" },
+                  detail: { project: "Ace Ayodha (Location)" },
                 });
                 window.dispatchEvent(event);
               } else {
                 const dest = selectedItem.query;
                 window.open(
-                  `https://www.google.com/maps/dir/Ace+Ayodhya,+Near+Dange+Chowk,+Thergaon,+Pune,+Maharashtra/${encodeURIComponent(dest)}`,
+                  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest)}`,
                   "_blank"
                 );
               }
             }}
-            className="w-full mt-6 border border-[#A0725B] text-[#A0725B] hover:bg-[#A0725B] hover:text-white rounded-full py-2.5 text-xs sm:text-sm tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_15px_rgba(160,114,91,0.15)] active:scale-95"
+            className="w-full mt-6 border border-[#A0725B] text-white hover:bg-[#A0725B] hover:text-white rounded-full py-2.5 text-xs sm:text-sm tracking-wide bg-white/5 backdrop-blur-sm cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(160,114,91,0.3)] active:scale-95"
           >
-            {!selectedItem ? " Explore Location " : "Open Driving Directions"}
+            {!selectedItem ? "Explore Location" : "Open in Google Maps"}
           </button>
         </div>
       </div>

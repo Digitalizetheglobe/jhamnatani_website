@@ -6,12 +6,95 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 
+const projectsData = [
+  {
+    id: 1,
+    title: "ACE Ayodha",
+    location: "Thergaon, Pune",
+    type: "Residential",
+    image: "/assets/ace-ayodha/hero.webp",
+    desc: "The Ideal Way of Living. Premium luxury residences featuring exceptional craftsmanship and architecture in Thergaon.",
+    logo: "/assets/ace-ayodha/logo_1.webp",
+    link: "/ace-ayodha",
+  },
+  {
+    id: 2,
+    title: "ACE Abundance",
+    location: "Mundhwa, Pune",
+    type: "Residential",
+    image: "/assets/pojetcts/Abundacne_Elevaion.webp",
+    desc: "Experience abundance in design and luxury. Elegant residential living spaces crafted for modern comfort in Mundhwa.",
+    logo: "/assets/pojetcts/Abundacne logo.webp",
+    link: "/ace-abundance",
+  },
+  {
+    id: 3,
+    title: "ACE Villas",
+    location: "Koregaon Park NX, Pune",
+    type: "Residential",
+    image: "/assets/pojetcts/ace_villas.webp",
+    desc: "Bespoke ultra-luxury villas. A sanctuary of privacy, elegance, and high-end living in Koregaon Park NX.",
+    logo: "/assets/pojetcts/ace_villas_logo.webp",
+    link: "/ace-villas",
+  },
+  {
+    id: 4,
+    title: "ACE Atmosphere",
+    location: "Ravet, Pune",
+    type: "Residential",
+    image: "/assets/pojetcts/ace_atmosphere.webp",
+    desc: "Pune’s first 24×7 lifestyle concept with all-day open amenities and modern layouts in Ravet.",
+    logo: "/assets/pojetcts/ace_atmosphere_logo.webp",
+    link: "/ace-atmosphere",
+  },
+  {
+    id: 5,
+    title: "ACE Aster",
+    location: "Ravet, Pune",
+    type: "Residential",
+    image: "/assets/pojetcts/ace_aster.webp",
+    desc: "Perfect balance of elegance and value. Beautifully designed family apartments in Ravet.",
+    logo: "/assets/pojetcts/aster_logo.webp",
+    link: "/ace-aster",
+  },
+  {
+    id: 6,
+    title: "Jhamtani Bizcore",
+    location: "Koregaon Park NX, Pune",
+    type: "Commercial",
+    image: "/assets/pojetcts/bizcore_image.webp",
+    desc: "Serviced Studio Apartments at Koregaon Park NX.",
+    logo: "/assets/pojetcts/bizcore_logo.webp",
+    link: "/jhamtani-bizcore",
+  },
+  {
+    id: 7,
+    title: "Jhamtani Elevate",
+    location: "Mundhwa, Pune",
+    type: "Residential",
+    image: "/assets/projects/jhamtani-elevate.jpg",
+    desc: "Modern co-living and residential spaces. Elevating your everyday standard of living in Mundhwa.",
+    logo: "/assets/pojetcts/Elevate logo.webp",
+    link: "/jhamtani-elevate",
+  },
+  {
+    id: 8,
+    title: "Jhamtani SpaceBiz",
+    location: "Baner, Pune",
+    type: "Commercial",
+    image: "/assets/projects/jhamtani-spacebiz.jpg",
+    desc: "State-of-the-art office spaces and corporate showrooms in Baner.",
+    logo: "/assets/pojetcts/Spacebiz logo.webp",
+    link: "/jhamtani-spacebiz",
+  },
+];
+
 export default function Projects() {
   const [activeSlide, setActiveSlide] = useState(1);
   const prevSlideRef = useRef(1);
   const isTransitioning = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const totalSlides = 6;
+  const totalSlides = projectsData.length;
 
   // Auto-slide every 6 seconds
   const autoAdvance = useCallback(() => {
@@ -49,69 +132,6 @@ export default function Projects() {
     .to(btn, { scale: 0.92, duration: 0.08, ease: "power2.out" })
     .to(btn, { scale: 1.0, duration: 0.12, ease: "power2.inOut" });
   };
-
-  const projectsData = [
-    {
-      id: 1,
-      title: "ACE Ayodha",
-      location: "Pune",
-      type: "Residential",
-      image: "/assets/ace-ayodha/hero.webp",
-      desc: "The Ideal Way of Living. Premium residences featuring exceptional craftsmanship.",
-      logo: "/assets/logo.webp",
-      link: "/ace-ayodha",
-    },
-    {
-      id: 2,
-      title: "ACE Atmosphere",
-      location: "Ravet",
-      type: "Residential",
-      image: "/assets/pojetcts/ace_atmosphere.webp",
-      desc: "Pune’s first 24×7 Lifestyle with all-day open amenities.",
-      logo: "/assets/pojetcts/ace_atmosphere_logo.webp",
-      link: "#",
-    },
-    {
-      id: 3,
-      title: "Jhamtani Abundance",
-      location: "Mundhwa",
-      type: "Residential",
-      image: "/assets/pojetcts/Abundacne_Elevaion.webp",
-      desc: "A signature statement of luxury residential living in Mundhwa.",
-      logo: "/assets/pojetcts/Abundacne logo.webp",
-      link: "#",
-    },
-    {
-      id: 4,
-      title: "ACE Villas",
-      location: "Koregaon Park NX",
-      type: "Villas",
-      image: "/assets/pojetcts/ace_villas.webp",
-      desc: "Unrivaled luxury estate villas reserved for a select few.",
-      logo: "/assets/pojetcts/ace_villas_logo.webp",
-      link: "/ace-villas",
-    },
-    {
-      id: 5,
-      title: "Jhamtani Bizcore",
-      location: "Koregaon Park NX",
-      type: "Commercial",
-      image: "/assets/pojetcts/bizcore_image.webp",
-      desc: "Premium boutique office spaces and dynamic retail hubs.",
-      logo: "/assets/pojetcts/bizcore_logo.webp",
-      link: "#",
-    },
-    {
-      id: 6,
-      title: "ACE Aster",
-      location: "Ravet",
-      type: "Residential",
-      image: "/assets/pojetcts/ace_aster.webp",
-      desc: "Bespoke contemporary residences crafted for absolute comfort.",
-      logo: "/assets/pojetcts/aster_logo.webp",
-      link: "#",
-    },
-  ];
 
   useGSAP(() => {
     const prev = prevSlideRef.current;
@@ -342,7 +362,7 @@ export default function Projects() {
                     zIndex: idx === 0 ? 10 : 0
                   }}
                 >
-                  0{idx + 1}
+                  {String(idx + 1).padStart(2, "0")}
                 </span>
               ))}
             </div>

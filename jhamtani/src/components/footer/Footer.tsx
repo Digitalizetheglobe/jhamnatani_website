@@ -11,10 +11,10 @@ export default function Footer() {
   ];
 
   const quickLinksColumn2 = [
-    { label: "PROJECT LOCATIONS", href: "#" },
-    { label: "MAHARERA", href: "#" },
+    { label: "PROJECT LOCATIONS", href: "/project-locations" },
+    { label: "MAHARERA", href: "/maharera" },
     { label: "CHANNEL PARTNERS", href: "/channel-partner" },
-    { label: "MEDIA PUBLICATIONS", href: "#" },
+    { label: "MEDIA PUBLICATIONS", href: "/media-publications" },
   ];
 
   const quickLinksColumn3 = [
@@ -24,17 +24,17 @@ export default function Footer() {
   ];
 
   const currentProjectsColumn1 = [
-    { label: "ACE AYODHYA - THERGAON", href: "#" },
-    { label: "JHAMTANI ABUNDANCE - MUNDHWA", href: "#" },
+    { label: "ACE AYODHYA - THERGAON", href: "/ace-ayodha" },
+    { label: "JHAMTANI ABUNDANCE - MUNDHWA", href: "/ace-abundance" },
     { label: "ACE VILLAS - KOREGAON PARK NX", href: "/ace-villas" },
-    { label: "ACE ATMOSPHERE - RAVET", href: "#" },
+    { label: "ACE ATMOSPHERE - RAVET", href: "/ace-atmosphere" },
   ];
 
   const currentProjectsColumn2 = [
-    { label: "ACE ASTER - RAVET", href: "#" },
-    { label: "JHAMTANI BIZCORE - KOREGAON PARK NX", href: "#" },
-    { label: "JHAMTANI ELEVATE - MUNDHWA", href: "#" },
-    { label: "JHAMTANI SPACEBIZ - BANER", href: "#" },
+    { label: "ACE ASTER - RAVET", href: "/ace-aster" },
+    { label: "JHAMTANI BIZCORE - KOREGAON PARK NX", href: "/jhamtani-bizcore" },
+    { label: "JHAMTANI ELEVATE - MUNDHWA", href: "/jhamtani-elevate" },
+    { label: "JHAMTANI SPACEBIZ - BANER", href: "/jhamtani-spacebiz" },
   ];
 
   const scrollToTop = () => {
