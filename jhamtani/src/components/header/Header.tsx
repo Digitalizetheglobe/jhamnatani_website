@@ -115,6 +115,7 @@ export default function Header() {
     { label: "Our Promises", href: "/permission" },
     { label: "Our Projects", href: "/projects" },
     { label: "XO Series", href: "/xo" },
+    { label: "Contact Us", href: "/contact" },
   ];
 
   const handleLinkClick = (href: string) => {

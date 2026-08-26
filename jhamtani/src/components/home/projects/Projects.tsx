@@ -61,7 +61,7 @@ const projectsData = [
     id: 6,
     title: "Jhamtani Bizcore",
     location: "Koregaon Park NX, Pune",
-    type: "Commercial",
+    type: "Studio",
     image: "/assets/pojetcts/bizcore_image.webp",
     desc: "Serviced Studio Apartments at Koregaon Park NX.",
     logo: "/assets/pojetcts/bizcore_logo.webp",
@@ -71,7 +71,7 @@ const projectsData = [
     id: 7,
     title: "Jhamtani Elevate",
     location: "Mundhwa, Pune",
-    type: "Residential",
+    type: "Studio",
     image: "/assets/projects/jhamtani-elevate.jpg",
     desc: "Modern co-living and residential spaces. Elevating your everyday standard of living in Mundhwa.",
     logo: "/assets/pojetcts/Elevate logo.webp",
@@ -384,7 +384,7 @@ export default function Projects() {
                 <div
                   key={project.id}
                   id={`slide-content-${idx + 1}`}
-                  className={`absolute inset-x-0 top-0 flex flex-col items-start justify-start w-full ${idx === 0 ? "" : "pointer-events-none"}`}
+                  className={`absolute inset-x-0 top-0 flex flex-col items-c justify-center w-full ${idx === 0 ? "" : "pointer-events-none"}`}
                   style={{
                     opacity: idx === 0 ? 1 : 0,
                     zIndex: idx === 0 ? 10 : 0

@@ -7,7 +7,7 @@ export default function Footer() {
     { label: "OUR LEGACY", href: "/about" },
     { label: "AWARDS & ACHIEVEMENTS", href: "/about#awards" },
     { label: "CUSTOMER TESTIMONIALS", href: "#" },
-    { label: "PROJECT BROCHURES", href: "#" },
+    { label: "PROJECT BROCHURES", href: "/download-brochure" },
   ];
 
   const quickLinksColumn2 = [
@@ -18,9 +18,10 @@ export default function Footer() {
   ];
 
   const quickLinksColumn3 = [
-    { label: "SITE UPDATES", href: "#" },
-    { label: "MONTHLY NEWSLETTER", href: "#" },
-    { label: "PRIVACY POLICY", href: "#" },
+    { label: "SITE UPDATES", href: "/site-updates" },
+    { label: "MONTHLY NEWSLETTER", href: "/monthlynewsletters" },
+    { label: "PRIVACY POLICY", href: "/privacypolicy" },
+    { label: "CONTACT US", href: "/contact" },
   ];
 
   const currentProjectsColumn1 = [

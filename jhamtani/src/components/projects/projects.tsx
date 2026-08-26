@@ -4,15 +4,17 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Building, Home, LayoutGrid } from "lucide-react";
+import { ArrowRight, Building, Home, LayoutGrid, Sparkles } from "lucide-react";
+
+type ProjectCategory = "Residential" | "Commercial" | "Studio";
 
 interface ProjectItem {
   id: number;
   title: string;
   location: string;
-  type: "Residential" | "Commercial";
+  type: string;
+  categories: ProjectCategory[];
   image: string;
-  desc: string;
   link: string;
   isLocal: boolean;
 }
@@ -23,8 +25,8 @@ const projectsData: ProjectItem[] = [
     title: "Ace Ayodha",
     location: "Thergaon, Pune",
     type: "Residential",
+    categories: ["Residential"],
     image: "/assets/ace-ayodha/hero.webp",
-    desc: "The Ideal Way of Living. Premium luxury residences featuring exceptional craftsmanship and architecture in Thergaon.",
     link: "/ace-ayodha",
     isLocal: true,
   },
@@ -33,8 +35,8 @@ const projectsData: ProjectItem[] = [
     title: "Ace Abundance",
     location: "Mundhwa, Pune",
     type: "Residential",
+    categories: ["Residential"],
     image: "/assets/projects/ace-abundance.jpg",
-    desc: "Experience abundance in design and luxury. Elegant residential living spaces crafted for modern comfort in Mundhwa.",
     link: "/ace-abundance",
     isLocal: true,
   },
@@ -43,8 +45,8 @@ const projectsData: ProjectItem[] = [
     title: "Ace Villas",
     location: "Koregaon Park NX, Pune",
     type: "Residential",
+    categories: ["Residential"],
     image: "/assets/projects/ace-villas.jpg",
-    desc: "Bespoke ultra-luxury villas. A sanctuary of privacy, elegance, and high-end living in Koregaon Park NX.",
     link: "/ace-villas",
     isLocal: true,
   },
@@ -53,8 +55,8 @@ const projectsData: ProjectItem[] = [
     title: "Ace Atmosphere",
     location: "Ravet, Pune",
     type: "Residential",
+    categories: ["Residential"],
     image: "/assets/projects/ace-atmosphere.jpg",
-    desc: "Pune’s first 24×7 lifestyle concept with all-day open amenities and modern layouts in Ravet.",
     link: "/ace-atmosphere",
     isLocal: true,
   },
@@ -63,8 +65,8 @@ const projectsData: ProjectItem[] = [
     title: "Ace Aster",
     location: "Ravet, Pune",
     type: "Residential",
+    categories: ["Residential"],
     image: "/assets/projects/ace-aster.jpg",
-    desc: "Perfect balance of elegance and value. Beautifully designed family apartments in Ravet.",
     link: "/ace-aster",
     isLocal: true,
   },
@@ -72,9 +74,9 @@ const projectsData: ProjectItem[] = [
     id: 6,
     title: "Jhamtani Bizcore",
     location: "Koregaon Park NX, Pune",
-    type: "Residential",
+    type: "Studio",
+    categories: ["Studio"],
     image: "/assets/projects/jhamtani-bizcore.jpg",
-    desc: "Premium boutique commercial spaces. The ideal business destination in Koregaon Park NX.",
     link: "/jhamtani-bizcore",
     isLocal: true,
   },
@@ -82,9 +84,9 @@ const projectsData: ProjectItem[] = [
     id: 7,
     title: "Jhamtani Elevate",
     location: "Mundhwa, Pune",
-    type: "Residential",
+    type: "Studio",
+    categories: ["Studio"],
     image: "/assets/projects/jhamtani-elevate.jpg",
-    desc: "Modern co-living and residential spaces. Elevating your everyday standard of living in Mundhwa.",
     link: "/jhamtani-elevate",
     isLocal: true,
   },
@@ -93,19 +95,19 @@ const projectsData: ProjectItem[] = [
     title: "Jhamtani SpaceBiz",
     location: "Baner, Pune",
     type: "Commercial",
+    categories: ["Commercial"],
     image: "/assets/projects/jhamtani-spacebiz.jpg",
-    desc: "State-of-the-art office spaces and corporate showrooms in Baner.",
     link: "/jhamtani-spacebiz",
     isLocal: true,
   },
 ];
 
 export default function ProjectsComponent() {
-  const [filter, setFilter] = useState<"All" | "Residential" | "Commercial">("All");
+  const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
 
   const filteredProjects = projectsData.filter((project) => {
     if (filter === "All") return true;
-    return project.type === filter;
+    return project.categories.includes(filter);
   });
 
   const handleEnquireClick = (projectName: string) => {
@@ -145,10 +147,10 @@ export default function ProjectsComponent() {
 
       <div className="max-w-6xl mx-auto px-6 mt-16 sm:mt-20">
         {/* Filter Navigation Bar */}
-        <div className="flex justify-center items-center gap-4 border-b border-zinc-200/60 pb-6 mb-12 sm:mb-16">
+        <div className="flex justify-center items-center gap-3 sm:gap-4 border-b border-zinc-200/60 pb-6 mb-12 sm:mb-16 flex-wrap">
           <button
             onClick={() => setFilter("All")}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+            className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
               filter === "All"
                 ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-amber-900/10"
                 : "border-zinc-300 text-zinc-600 bg-transparent hover:border-[#A0725B] hover:text-[#A0725B]"
@@ -159,7 +161,7 @@ export default function ProjectsComponent() {
           </button>
           <button
             onClick={() => setFilter("Residential")}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+            className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
               filter === "Residential"
                 ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-amber-900/10"
                 : "border-zinc-300 text-zinc-600 bg-transparent hover:border-[#A0725B] hover:text-[#A0725B]"
@@ -170,7 +172,7 @@ export default function ProjectsComponent() {
           </button>
           <button
             onClick={() => setFilter("Commercial")}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+            className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
               filter === "Commercial"
                 ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-amber-900/10"
                 : "border-zinc-300 text-zinc-600 bg-transparent hover:border-[#A0725B] hover:text-[#A0725B]"
@@ -178,6 +180,17 @@ export default function ProjectsComponent() {
           >
             <Building className="w-3.5 h-3.5" />
             Commercial
+          </button>
+          <button
+            onClick={() => setFilter("Studio")}
+            className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+              filter === "Studio"
+                ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-amber-900/10"
+                : "border-zinc-300 text-zinc-600 bg-transparent hover:border-[#A0725B] hover:text-[#A0725B]"
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            Studio
           </button>
         </div>
 
@@ -218,24 +231,21 @@ export default function ProjectsComponent() {
                 </div>
 
                 {/* Content Block */}
-                <div className="flex flex-col flex-1 p-6 sm:p-8 text-left">
-                  {/* Category and Location Info */}
-                  <span className="font-sans text-[11px] uppercase tracking-widest text-[#A0725B] font-semibold">
-                    {project.type} &bull; {project.location}
-                  </span>
+                <div className="flex flex-col flex-1 p-6 sm:p-8 text-left justify-between">
+                  <div>
+                    {/* Category and Location Info */}
+                    <span className="font-sans text-[11px] uppercase tracking-widest text-[#A0725B] font-semibold">
+                      {project.type} &bull; {project.location}
+                    </span>
 
-                  {/* Title */}
-                  <h3 className="font-serif font-light text-[22px] sm:text-[24px] text-zinc-950 mt-2 leading-tight group-hover:text-[#A0725B] transition-colors duration-300">
-                    {project.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="font-sans text-[13px] text-zinc-600 leading-relaxed font-light mt-3 mb-6 flex-1">
-                    {project.desc}
-                  </p>
+                    {/* Title */}
+                    <h3 className="font-serif font-light text-[22px] sm:text-[24px] text-zinc-950 mt-2 leading-tight group-hover:text-[#A0725B] transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                  </div>
 
                   {/* CTA Actions */}
-                  <div className="pt-4 border-t border-zinc-100 flex items-center">
+                  <div className="pt-6 mt-6 border-t border-zinc-100 flex items-center">
                     {project.isLocal ? (
                       <Link
                         href={project.link}

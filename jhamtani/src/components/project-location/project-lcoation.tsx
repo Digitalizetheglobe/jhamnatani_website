@@ -9,7 +9,7 @@ interface LocationItem {
   id: number;
   title: string;
   project: string;
-  type: "Residential" | "Commercial";
+  type: "Residential" | "Commercial" | "Studio";
   tag: string;
   image: string;
   mapUrl: string;
@@ -77,7 +77,7 @@ const locationsData: LocationItem[] = [
     id: 6,
     title: "Koregaon Park NX, Pune",
     project: "Jhamtani Bizcore",
-    type: "Residential",
+    type: "Studio",
     tag: "Serviced Studio Apartments & Commercial",
     image: "/assets/pojetcts/bizcore_image.webp",
     mapUrl: "https://maps.app.goo.gl/efy7ZLxVURwiotWM6",
@@ -88,7 +88,7 @@ const locationsData: LocationItem[] = [
     id: 7,
     title: "Mundhwa, Pune",
     project: "Jhamtani Elevate",
-    type: "Residential",
+    type: "Studio",
     tag: "Modern Co-Living & Luxury Spaces",
     image: "/assets/projects/jhamtani-elevate.jpg",
     mapUrl: "https://maps.app.goo.gl/NvMzvwJx6e4xpBxC7",
@@ -109,7 +109,7 @@ const locationsData: LocationItem[] = [
 ];
 
 export default function ProjectLocation() {
-  const [filter, setFilter] = useState<"All" | "Residential" | "Commercial">("All");
+  const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
 
   const filteredLocations = locationsData.filter((item) => {
     if (filter === "All") return true;
@@ -149,7 +149,7 @@ export default function ProjectLocation() {
         
         {/* Filter Navigation Bar (Warm Champagne Theme) */}
         <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 pb-8 mb-12 sm:mb-16 border-b border-[#A0725B]/20">
-          {(["All", "Residential", "Commercial"] as const).map((type) => {
+          {(["All", "Residential", "Commercial", "Studio"] as const).map((type) => {
             const count =
               type === "All"
                 ? locationsData.length
@@ -167,6 +167,7 @@ export default function ProjectLocation() {
               >
                 {type === "Residential" && <Home className="w-3.5 h-3.5" />}
                 {type === "Commercial" && <Building2 className="w-3.5 h-3.5" />}
+                {type === "Studio" && <Sparkles className="w-3.5 h-3.5" />}
                 {type === "All" && <Sparkles className="w-3.5 h-3.5" />}
                 <span>{type === "All" ? "All Locations" : type}</span>
                 <span

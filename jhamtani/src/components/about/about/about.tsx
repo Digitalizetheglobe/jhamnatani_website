@@ -91,7 +91,7 @@ There are promises that are spoken. And then some promises quietly become a way 
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                {" "}The 24 communities that have become home to over 13,000 families. More than 4 million square feet thoughtfully delivered. And over 6.4 million square feet envisioned for tomorrow.
+                {" "}The 24 communities that have become home to over 13,000+  hapyy faces. More than 4 million square feet thoughtfully delivered. And over 6.4 million square feet envisioned for tomorrow.
                 <span 
                   onClick={() => setIsExpanded(false)}
                   className="text-[#b88654] italic cursor-pointer hover:underline ml-1 font-semibold"

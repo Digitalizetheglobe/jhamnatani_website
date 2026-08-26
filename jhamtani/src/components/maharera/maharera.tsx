@@ -21,7 +21,7 @@ interface MahaReraProject {
   id: number;
   title: string;
   location: string;
-  type: "Residential" | "Commercial";
+  type: "Residential" | "Commercial" | "Studio";
   reraNo: string;
   pdfUrl: string;
   image: string;
@@ -95,7 +95,7 @@ const reraProjects: MahaReraProject[] = [
     id: 6,
     title: "Jhamtani Bizcore",
     location: "Koregaon Park NX, Pune",
-    type: "Residential",
+    type: "Studio",
     reraNo: "P52100054261",
     pdfUrl: "/assets/maha-rera/Jhamtani-Bizcore.pdf",
     image: "/assets/pojetcts/bizcore_image.webp",
@@ -107,7 +107,7 @@ const reraProjects: MahaReraProject[] = [
     id: 7,
     title: "Jhamtani Elevate",
     location: "Mundhwa, Pune",
-    type: "Residential",
+    type: "Studio",
     reraNo: "P52100078567",
     pdfUrl: "/assets/maha-rera/Jhamtani-Elevate.pdf",
     image: "/assets/projects/jhamtani-elevate.jpg",
@@ -130,7 +130,7 @@ const reraProjects: MahaReraProject[] = [
 ];
 
 export default function MahaReraComponent() {
-  const [filter, setFilter] = useState<"All" | "Residential" | "Commercial">("All");
+  const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedId, setCopiedId] = useState<number | null>(null);
 
@@ -223,7 +223,7 @@ export default function MahaReraComponent() {
           
           {/* Category Filter Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-            {(["All", "Residential", "Commercial"] as const).map((type) => {
+            {(["All", "Residential", "Commercial", "Studio"] as const).map((type) => {
               const count =
                 type === "All"
                   ? reraProjects.length
@@ -241,6 +241,7 @@ export default function MahaReraComponent() {
                 >
                   {type === "Residential" && <Home className="w-3.5 h-3.5" />}
                   {type === "Commercial" && <Building2 className="w-3.5 h-3.5" />}
+                  {type === "Studio" && <Sparkles className="w-3.5 h-3.5" />}
                   {type === "All" && <Sparkles className="w-3.5 h-3.5" />}
                   <span>{type === "All" ? "All Projects" : type}</span>
                   <span
