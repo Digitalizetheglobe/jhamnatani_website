@@ -112,13 +112,13 @@ function WaveText({ text, letterDelay = 25, groupHoverClass = "group-hover" }: W
   return (
     <>
       <span className="sr-only">{text}</span>
-      <span className="relative flex items-center justify-center gap-[0.12em]" aria-hidden="true">
+      <span className="relative inline-flex items-center justify-center gap-[0.08em] whitespace-nowrap shrink-0" aria-hidden="true">
         {text.split("").map((char, index) => {
           if (char === " ") {
-            return <span key={index} className="w-[0.3em] inline-block" />;
+            return <span key={index} className="w-[0.3em] inline-block shrink-0" />;
           }
           return (
-            <span key={index} className="relative inline-flex overflow-hidden">
+            <span key={index} className="relative inline-flex overflow-hidden shrink-0">
               <span
                 className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
                   groupHoverClass === "group-hover/link"
@@ -169,7 +169,7 @@ export default function ProjectsComponent() {
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/projects.webp"
             alt="Jhamtani Projects Banner"
             fill
             priority
@@ -178,6 +178,7 @@ export default function ProjectsComponent() {
           />
           {/* Dark Overlay for readability and premium look */}
           <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A880]/60 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-4xl">

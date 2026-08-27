@@ -58,6 +58,50 @@ const mediaArticles: MediaArticle[] = [
   },
 ];
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center justify-center gap-[0.12em]" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 export default function MediaPublicationsComponent() {
   const [filter, setFilter] = useState<string>("All");
 
@@ -75,7 +119,7 @@ export default function MediaPublicationsComponent() {
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/publication.webp"
             alt="Jhamtani Media Publications Banner"
             fill
             priority
@@ -84,11 +128,10 @@ export default function MediaPublicationsComponent() {
           />
           {/* Dark Overlay for readability and premium look */}
           <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A880]/60 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-4xl flex flex-col items-center">
-
-
           <h1 className="font-serif font-light text-[40px] sm:text-[54px] lg:text-[66px] text-[#C5A880] tracking-[0.2em] leading-none uppercase">
             MEDIA PUBLICATIONS
           </h1>
@@ -100,41 +143,8 @@ export default function MediaPublicationsComponent() {
       </div>
 
       {/* 2. Main Content Container */}
-      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 mt-14 sm:mt-18">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 mt-14 sm:mt-30">
         
-        {/* Highlights Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-14 sm:mb-16">
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20 shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <TrendingUp className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">National Coverage</p>
-              <p className="text-[12px] text-zinc-600 font-light">Featured in top financial publications</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20 shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <Award className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">Brand Authority</p>
-              <p className="text-[12px] text-zinc-600 font-light">Industry-recognized leadership</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20 shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">Thought Leadership</p>
-              <p className="text-[12px] text-zinc-600 font-light">Market insights &amp; urban living trends</p>
-            </div>
-          </div>
-        </div>
-
         {/* 3. Articles Grid */}
         <motion.div
           layout
@@ -218,17 +228,16 @@ export default function MediaPublicationsComponent() {
                     href={article.articleUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-full text-xs font-semibold tracking-wider uppercase border border-[#A0725B] text-[#A0725B] hover:bg-[#A0725B] hover:text-white transition-all duration-300 cursor-pointer shadow-sm group/btn"
+                    className="group/btn relative w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-[#8C5E47] transition-all duration-300 shadow-md cursor-pointer overflow-hidden border border-[#A0725B]"
                   >
-                    <span>Read Full Article</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                    <WaveText text="READ FULL ARTICLE" letterDelay={15} groupHoverClass="group-hover/btn" />
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 shrink-0" />
                   </a>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
         </motion.div>
-
 
       </div>
     </section>

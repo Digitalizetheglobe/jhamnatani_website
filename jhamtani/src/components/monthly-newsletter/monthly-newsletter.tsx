@@ -42,7 +42,7 @@ export interface NewsletterEdition {
 export const newslettersData: NewsletterEdition[] = [
   {
     id: "july-2026",
-    title: "Annual Magazine July 2026",
+    title: "Monthly Buzz June 2026",
     month: "July",
     year: 2026,
     badge: "Special Annual Edition",
@@ -677,6 +677,50 @@ export function BookFlipReaderModal({
   );
 }
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center justify-center gap-[0.08em] whitespace-nowrap shrink-0" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block shrink-0" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden shrink-0">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 /* -------------------------------------------------------------
    MAIN COMPONENT PAGE
 -------------------------------------------------------------- */
@@ -719,7 +763,7 @@ export default function MonthlyNewsletterComponent() {
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/newsletter.webp"
             alt="Jhamtani Monthly Newsletters Banner"
             fill
             priority
@@ -732,18 +776,7 @@ export default function MonthlyNewsletterComponent() {
         </div>
 
         <div className="relative z-10 max-w-4xl flex flex-col items-center pt-8">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#C5A880]/30 backdrop-blur-md mb-5"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-pulse" />
-            <span className="text-[11px] font-medium tracking-[0.2em] text-[#C5A880] uppercase">
-              HOME &nbsp;/&nbsp; MONTHLY NEWSLETTER
-            </span>
-          </motion.div>
-
+      
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -778,21 +811,24 @@ export default function MonthlyNewsletterComponent() {
                   ? newslettersData.length
                   : newslettersData.filter((i) => i.year.toString() === year).length;
               const isActive = selectedYear === year;
+              const label = year === "All" ? "ALL EDITIONS" : `${year} EDITIONS`;
               return (
                 <button
                   key={year}
                   onClick={() => setSelectedYear(year)}
-                  className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+                  className={`group relative flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#A0725B] cursor-pointer transition-all duration-300 z-10 overflow-hidden ${
                     isActive
-                      ? "bg-[#A0725B] border-[#A0725B] text-white shadow-md shadow-[#A0725B]/20 font-semibold"
-                      : "border-[#A0725B]/30 text-zinc-700 bg-white/70 hover:bg-[#A0725B]/10 hover:border-[#A0725B] hover:text-[#A0725B]"
+                      ? "bg-[#A0725B] text-white shadow-lg shadow-amber-900/15"
+                      : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
                   }`}
                 >
-                  <Calendar className="w-3.5 h-3.5" />
-                  <span>{year === "All" ? "All Editions" : `${year} Editions`}</span>
+                  <Calendar className="w-3.5 h-3.5 shrink-0" />
+                  <WaveText text={label} letterDelay={20} />
                   <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-                      isActive ? "bg-white/20 text-white" : "bg-[#A0725B]/15 text-[#A0725B]"
+                    className={`text-[10px] px-2 py-0.5 rounded-full font-semibold transition-colors duration-300 ${
+                      isActive
+                        ? "bg-white/20 text-white"
+                        : "bg-[#A0725B]/15 text-[#A0725B] group-hover:bg-white/20 group-hover:text-white"
                     }`}
                   >
                     {count}
@@ -924,20 +960,11 @@ export default function MonthlyNewsletterComponent() {
                 <div className="p-6 pt-0 space-y-2.5">
                   <button
                     onClick={() => setActiveReaderEdition(item)}
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-zinc-900 transition-all duration-300 shadow-md cursor-pointer group/btn"
+                    className="group/btn relative w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-[#8C5E47] transition-all duration-300 shadow-md cursor-pointer overflow-hidden border border-[#A0725B]"
                   >
-                    <BookOpen className="w-4 h-4 transition-transform group-hover/btn:-translate-y-0.5" />
-                    <span>Open Flipbook</span>
+                    <BookOpen className="w-4 h-4 transition-transform duration-300 group-hover/btn:-translate-y-0.5 shrink-0" />
+                    <WaveText text="OPEN FLIPBOOK" letterDelay={15} groupHoverClass="group-hover/btn" />
                   </button>
-
-                  <a
-                    href={item.pdfUrl}
-                    download
-                    className="w-full inline-flex items-center justify-center gap-1.5 py-2 text-xs font-semibold tracking-wider text-zinc-700 hover:text-[#A0725B] transition-colors cursor-pointer"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Download PDF Offline</span>
-                  </a>
                 </div>
               </motion.div>
             ))}

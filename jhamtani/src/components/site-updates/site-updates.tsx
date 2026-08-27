@@ -26,7 +26,7 @@ type ProjectCategory = "Residential" | "Commercial" | "Studio";
 
 interface ProjectUpdate {
   id: string;
-  title: string; // Exact match to original site e.g. "ACE ABODE - MAY"
+  title: string;
   projectName: string;
   month: string;
   tagline: string;
@@ -154,6 +154,50 @@ const siteUpdatesData: ProjectUpdate[] = [
   },
 ];
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center justify-center gap-[0.08em] whitespace-nowrap shrink-0" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block shrink-0" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden shrink-0">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 export default function SiteUpdatesComponent() {
   const [filterType, setFilterType] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
   const [activeProjectTab, setActiveProjectTab] = useState<string>("all");
@@ -215,7 +259,7 @@ export default function SiteUpdatesComponent() {
       <section className="relative w-full h-[340px] sm:h-[400px] lg:h-[440px] flex items-center justify-center text-center px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/site-updates.webp"
             alt="Jhamtani Site Updates Hero Banner"
             fill
             priority
@@ -229,19 +273,6 @@ export default function SiteUpdatesComponent() {
         </div>
 
         <div className="relative z-10 max-w-4xl flex flex-col items-center pt-8">
-          {/* Breadcrumb Pill */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#C5A880]/30 backdrop-blur-md mb-6"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-pulse" />
-            <span className="text-[11px] font-medium tracking-[0.2em] text-[#C5A880] uppercase">
-              HOME &nbsp;/&nbsp; SITE UPDATES
-            </span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -311,8 +342,8 @@ export default function SiteUpdatesComponent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mt-12 sm:mt-14">
         <div className="flex flex-col items-center space-y-6 pb-8 border-b border-[#A0725B]/20">
           
-          {/* Main Category Tabs (Segmented Control) */}
-          <div className="inline-flex items-center justify-center p-1.5 rounded-full bg-[#EDE4DA] border border-[#A0725B]/30 shadow-inner">
+          {/* Main Category Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
             {[
               { label: "ALL", value: "All", count: siteUpdatesData.length },
               {
@@ -339,18 +370,18 @@ export default function SiteUpdatesComponent() {
                     setFilterType(tab.value as any);
                     setActiveProjectTab("all");
                   }}
-                  className={`relative px-4 sm:px-6 py-2 rounded-full text-xs sm:text-[13px] font-semibold tracking-wider uppercase transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
+                  className={`group relative flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#A0725B] cursor-pointer transition-all duration-300 z-10 overflow-hidden ${
                     isActive
-                      ? "bg-[#A0725B] text-white shadow-md scale-[1.02]"
-                      : "text-zinc-700 hover:text-zinc-950 hover:bg-white/50"
+                      ? "bg-[#A0725B] text-white shadow-lg shadow-amber-900/15"
+                      : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
                   }`}
                 >
-                  <span>{tab.label}</span>
+                  <WaveText text={tab.label} letterDelay={20} />
                   <span
-                    className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                    className={`text-[10px] px-2 py-0.5 rounded-full font-semibold transition-colors duration-300 ${
                       isActive
                         ? "bg-white/20 text-white"
-                        : "bg-black/5 text-zinc-500"
+                        : "bg-[#A0725B]/15 text-[#A0725B] group-hover:bg-white/20 group-hover:text-white"
                     }`}
                   >
                     {tab.count}
@@ -362,8 +393,8 @@ export default function SiteUpdatesComponent() {
 
           {/* Secondary Quick Jump Strip */}
           <div className="w-full flex items-center justify-center">
-            <div className="flex items-center gap-2 overflow-x-auto max-w-full px-2 py-1 scrollbar-none">
-              <span className="text-[11px] font-semibold text-[#A0725B] uppercase tracking-widest shrink-0 mr-1 flex items-center gap-1.5">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-5xl px-2 py-1">
+              <span className="text-[11px] font-semibold text-[#A0725B] uppercase tracking-widest mr-1 flex items-center gap-1.5 whitespace-nowrap">
                 <SlidersHorizontal className="w-3.5 h-3.5" /> Direct Jump:
               </span>
               
@@ -372,13 +403,13 @@ export default function SiteUpdatesComponent() {
                   setActiveProjectTab("all");
                   window.scrollTo({ top: 500, behavior: "smooth" });
                 }}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer border ${
+                className={`group relative px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-300 cursor-pointer border border-[#A0725B] overflow-hidden ${
                   activeProjectTab === "all"
-                    ? "bg-[#A0725B] text-white border-[#A0725B] shadow-sm"
-                    : "bg-white/70 text-zinc-700 hover:bg-white hover:border-[#A0725B]/40 border-zinc-200"
+                    ? "bg-[#A0725B] text-white shadow-sm"
+                    : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
                 }`}
               >
-                All Projects
+                <WaveText text="ALL PROJECTS" letterDelay={15} />
               </button>
 
               {siteUpdatesData
@@ -395,13 +426,13 @@ export default function SiteUpdatesComponent() {
                           el.scrollIntoView({ behavior: "smooth", block: "start" });
                         }
                       }}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer border ${
+                      className={`group relative px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-300 cursor-pointer border border-[#A0725B] overflow-hidden ${
                         isSelected
-                          ? "bg-[#A0725B] text-white border-[#A0725B] shadow-sm"
-                          : "bg-white/70 text-zinc-700 hover:bg-white hover:border-[#A0725B]/40 border-zinc-200"
+                          ? "bg-[#A0725B] text-white shadow-sm"
+                          : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
                       }`}
                     >
-                      {project.projectName}
+                      <WaveText text={project.projectName.toUpperCase()} letterDelay={15} />
                     </button>
                   );
                 })}
@@ -458,10 +489,10 @@ export default function SiteUpdatesComponent() {
               <div className="flex items-center gap-3 shrink-0">
                 <Link
                   href={project.link}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider border border-[#A0725B] text-[#A0725B] hover:bg-[#A0725B] hover:text-white transition-all duration-300 shadow-sm group/btn cursor-pointer"
+                  className="group/btn relative inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-[#8C5E47] transition-all duration-300 shadow-md cursor-pointer overflow-hidden border border-[#A0725B]"
                 >
-                  <span>Explore Project</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                  <WaveText text="EXPLORE PROJECT" letterDelay={15} groupHoverClass="group-hover/btn" />
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 shrink-0" />
                 </Link>
               </div>
             </div>
@@ -528,15 +559,16 @@ export default function SiteUpdatesComponent() {
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end">
               <a
                 href="tel:+917447447669"
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#C5A880] text-black font-semibold text-xs tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-md cursor-pointer"
+                className="group/call relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#C5A880] text-black font-semibold text-xs tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-md cursor-pointer overflow-hidden"
               >
-                <PhoneCall className="w-4 h-4" /> Call +91 7447447669
+                <PhoneCall className="w-4 h-4 shrink-0" />
+                <WaveText text="CALL +91 7447447669" letterDelay={15} groupHoverClass="group-hover/btn" />
               </a>
               <Link
                 href="/channel-partner"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/25 hover:border-[#C5A880] hover:text-[#C5A880] text-white font-medium text-xs tracking-wider uppercase transition-all duration-300 cursor-pointer"
+                className="group/req relative inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/25 hover:border-[#C5A880] hover:text-[#C5A880] text-white font-medium text-xs tracking-wider uppercase transition-all duration-300 cursor-pointer overflow-hidden"
               >
-                Request Inspection Pass
+                <WaveText text="REQUEST INSPECTION PASS" letterDelay={15} groupHoverClass="group-hover/btn" />
               </Link>
             </div>
           </div>

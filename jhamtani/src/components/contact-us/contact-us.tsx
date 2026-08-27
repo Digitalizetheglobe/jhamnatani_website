@@ -19,6 +19,50 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center justify-center gap-[0.08em] whitespace-nowrap shrink-0" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block shrink-0" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden shrink-0">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 export default function ContactUsComponent() {
   const [formData, setFormData] = useState({
     name: "",
@@ -87,7 +131,7 @@ export default function ContactUsComponent() {
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/contact.webp"
             alt="Jhamtani Contact Us Banner"
             fill
             priority
@@ -100,17 +144,7 @@ export default function ContactUsComponent() {
         </div>
 
         <div className="relative z-10 max-w-4xl flex flex-col items-center pt-8">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#C5A880]/30 backdrop-blur-md mb-5"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-pulse" />
-            <span className="text-[11px] font-medium tracking-[0.2em] text-[#C5A880] uppercase">
-              HOME &nbsp;/&nbsp; CONTACT
-            </span>
-          </motion.div>
+          
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -338,10 +372,10 @@ export default function ContactUsComponent() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-3.5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-zinc-900 transition-all duration-300 shadow-lg cursor-pointer disabled:opacity-50"
+                      className="group/btn relative w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-10 py-3.5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-[#8C5E47] transition-all duration-300 shadow-lg cursor-pointer disabled:opacity-50 overflow-hidden border border-[#A0725B]"
                     >
-                      <Send className="w-4 h-4" />
-                      <span>{isSubmitting ? "Submitting..." : "Submit Enquiry"}</span>
+                      <Send className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 shrink-0" />
+                      <WaveText text={isSubmitting ? "SUBMITTING..." : "SUBMIT ENQUIRY"} letterDelay={15} groupHoverClass="group-hover/btn" />
                     </button>
                   </form>
                 )}
@@ -350,17 +384,17 @@ export default function ContactUsComponent() {
           </div>
         </div>
 
-        {/* 3. Site Experience Centres Grid */}
-        <div className="mt-20 sm:mt-24">
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#A0725B] block mb-2">
-              SALES HUBS
+        {/* 3. Sales Lounges & Experience Centres */}
+        <div className="mt-16 sm:mt-20">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-[11px] font-semibold text-[#A0725B] uppercase tracking-[0.25em]">
+              EXPERIENCE OUR SPACES
             </span>
-            <h3 className="font-serif text-3xl sm:text-4xl text-zinc-900 font-light">
-              Site Experience Centres
+            <h3 className="font-serif text-3xl sm:text-4xl text-zinc-900 font-light mt-1">
+              Sales Lounges Across Pune
             </h3>
             <p className="text-xs sm:text-sm text-zinc-600 font-light mt-2">
-              Visit our project experience centres across Pune for immersive mock-up walk-throughs and advisory.
+              Walk into any of our dedicated on-site experience centres for project walkthroughs and personalized consultations.
             </p>
           </div>
 
@@ -368,35 +402,37 @@ export default function ContactUsComponent() {
             {experienceCentres.map((centre, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-white border border-[#A0725B]/20 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between text-left space-y-4"
+                className="p-6 rounded-2xl bg-[#F3ECE4] border border-[#A0725B]/25 hover:border-[#A0725B]/60 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="space-y-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#FAF5F0] text-[#A0725B] flex items-center justify-center border border-[#A0725B]/20">
-                    <Building2 className="w-4 h-4" />
-                  </div>
-                  <h4 className="font-serif text-lg text-zinc-900 font-medium leading-snug">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-[#A0725B] bg-[#A0725B]/10 px-2.5 py-0.5 rounded-full">
+                    {centre.type}
+                  </span>
+                  <h4 className="font-serif text-xl text-zinc-900 font-normal mt-2">
                     {centre.name}
                   </h4>
                   {centre.subtext && (
-                    <p className="text-[11px] text-[#A0725B] font-semibold tracking-wider uppercase">
+                    <p className="text-xs text-zinc-600 font-light">
                       {centre.subtext}
                     </p>
                   )}
-                  <p className="text-xs text-zinc-500 font-light flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-zinc-400" />
+                  <p className="text-xs text-zinc-500 font-medium flex items-center gap-1.5 pt-2">
+                    <MapPin className="w-3.5 h-3.5 text-[#A0725B]" />
                     <span>{centre.location}</span>
                   </p>
                 </div>
 
-                <a
-                  href={centre.mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-[#A0725B] hover:text-zinc-950 font-semibold pt-2 border-t border-zinc-100 transition-colors"
-                >
-                  <span>Get Directions</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
+                <div className="pt-5 mt-4 border-t border-[#A0725B]/15">
+                  <a
+                    href={centre.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/map inline-flex items-center gap-1.5 text-xs font-semibold text-[#A0725B] hover:text-[#8C5E47] transition-colors cursor-pointer uppercase tracking-wider"
+                  >
+                    <WaveText text="Get Directions" letterDelay={15} groupHoverClass="group-hover/btn" />
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/map:translate-x-1" />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -423,10 +459,10 @@ export default function ContactUsComponent() {
               href="https://maps.app.goo.gl/nXNbJS46SHJopH2E7"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#A0725B] text-white text-xs font-semibold tracking-wider uppercase hover:bg-zinc-900 transition-colors shadow-sm cursor-pointer"
+              className="group/btn relative inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#A0725B] text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#8C5E47] transition-all duration-300 shadow-sm cursor-pointer overflow-hidden border border-[#A0725B]"
             >
-              <span>Open in Google Maps</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <WaveText text="OPEN IN GOOGLE MAPS" letterDelay={15} groupHoverClass="group-hover/btn" />
+              <ExternalLink className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 shrink-0" />
             </a>
           </div>
 

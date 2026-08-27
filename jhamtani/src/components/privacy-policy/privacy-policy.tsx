@@ -170,7 +170,7 @@ export default function PrivacyPolicyComponent() {
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/privacy.webp"
             alt="Jhamtani Privacy Policy Banner"
             fill
             priority
@@ -183,18 +183,6 @@ export default function PrivacyPolicyComponent() {
         </div>
 
         <div className="relative z-10 max-w-4xl flex flex-col items-center pt-8">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#C5A880]/30 backdrop-blur-md mb-5"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-pulse" />
-            <span className="text-[11px] font-medium tracking-[0.2em] text-[#C5A880] uppercase">
-              HOME &nbsp;/&nbsp; PRIVACY POLICY
-            </span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

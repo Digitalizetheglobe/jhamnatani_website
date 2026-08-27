@@ -134,13 +134,26 @@ export default function MapSection() {
           zoom: 14,
           zoomControl: false,
           attributionControl: false,
+          scrollWheelZoom: false,
+          doubleClickZoom: false,
+          touchZoom: false,
+          boxZoom: false,
         });
 
-        // Add Dark Matter / CartoDB Dark Tiles
-        L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png", {
-          subdomains: "abcd",
-          maxZoom: 19,
-        }).addTo(map);
+        // Add Clean Dark Canvas Base & Reference (No API Key watermark)
+        L.tileLayer(
+          "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+          {
+            maxZoom: 16,
+          }
+        ).addTo(map);
+
+        L.tileLayer(
+          "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
+          {
+            maxZoom: 16,
+          }
+        ).addTo(map);
 
         // Zoom control in top-left
         L.control.zoom({ position: "topleft" }).addTo(map);
@@ -183,6 +196,8 @@ export default function MapSection() {
 
   // Update map when selectedItem changes
   useEffect(() => {
+    let isCancelled = false;
+
     async function updateMapMarkers() {
       if (!mapInstanceRef.current) return;
       const L = (await import("leaflet")).default;
@@ -224,16 +239,62 @@ export default function MapSection() {
         const targetMarker = L.marker([selectedItem.lat, selectedItem.lng], { icon: targetIcon }).addTo(map);
         selectedMarkerRef.current = targetMarker;
 
-        // Draw clean connecting line between Ace Ayodha and selected location
-        const line = L.polyline([PROJECT_COORDS, [selectedItem.lat, selectedItem.lng]], {
+        // Fetch real road route (like Google Directions) using OSRM driving engine
+        try {
+          const res = await fetch(
+            `https://router.project-osrm.org/route/v1/driving/${PROJECT_COORDS[1]},${PROJECT_COORDS[0]};${selectedItem.lng},${selectedItem.lat}?overview=full&geometries=geojson`
+          );
+          if (isCancelled) return;
+
+          const data = await res.json();
+          if (data.code === "Ok" && data.routes && data.routes[0]?.geometry?.coordinates) {
+            const roadPoints = data.routes[0].geometry.coordinates.map(
+              (coord: [number, number]) => [coord[1], coord[0]] as [number, number]
+            );
+
+            // Casing layer for contrast against the dark basemap
+            const routeCasing = L.polyline(roadPoints, {
+              color: "#0B0E12",
+              weight: 6,
+              opacity: 0.8,
+              lineCap: "round",
+              lineJoin: "round",
+            });
+
+            // Main Google-directions style road navigation line
+            const routeLine = L.polyline(roadPoints, {
+              color: "#C5A880",
+              weight: 3.5,
+              opacity: 0.95,
+              lineCap: "round",
+              lineJoin: "round",
+            });
+
+            const routeGroup = L.featureGroup([routeCasing, routeLine]).addTo(map);
+            polylineRef.current = routeGroup;
+
+            // Fit bounds to display the whole road route
+            map.flyToBounds(routeGroup.getBounds(), {
+              padding: [80, 80],
+              duration: 1.2,
+              maxZoom: 15,
+            });
+            return;
+          }
+        } catch (err) {
+          console.warn("Could not fetch real road path, falling back to direct line:", err);
+        }
+
+        // Fallback straight connecting line if route calculation is unavailable
+        if (isCancelled) return;
+        const fallbackLine = L.polyline([PROJECT_COORDS, [selectedItem.lat, selectedItem.lng]], {
           color: "#A0725B",
           weight: 2.5,
           dashArray: "6, 8",
           opacity: 0.85,
         }).addTo(map);
-        polylineRef.current = line;
+        polylineRef.current = fallbackLine;
 
-        // Fit bounds to show both pins comfortably
         const bounds = L.latLngBounds([PROJECT_COORDS, [selectedItem.lat, selectedItem.lng]]);
         map.flyToBounds(bounds, {
           padding: [80, 80],
@@ -244,6 +305,10 @@ export default function MapSection() {
     }
 
     updateMapMarkers();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [selectedItem]);
 
   const handleCategoryClick = (categoryName: string) => {

@@ -323,6 +323,50 @@ const projectsFilterList = [
   "Ace Aura",
 ];
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center justify-center gap-[0.08em] whitespace-nowrap shrink-0" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block shrink-0" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden shrink-0">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 export default function CustomerTestimonialsComponent() {
   const [selectedProject, setSelectedProject] = useState<string>("All");
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
@@ -333,13 +377,13 @@ export default function CustomerTestimonialsComponent() {
       : testimonialsData.filter((item) => item.project === selectedProject);
 
   return (
-    <section className="relative w-full bg-[#FAF5F0] text-zinc-900 min-h-screen select-none pb-28">
+    <section className="relative w-full bg-[#FAF5F0] text-zinc-900 min-h-screen select-none pb-16">
       {/* 1. Page Title Hero Banner */}
       <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[420px] flex items-center justify-center text-center px-6 overflow-hidden">
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/testimonial.webp"
             alt="Jhamtani Customer Testimonials Banner"
             fill
             priority
@@ -352,17 +396,7 @@ export default function CustomerTestimonialsComponent() {
         </div>
 
         <div className="relative z-10 max-w-4xl flex flex-col items-center pt-8">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#C5A880]/30 backdrop-blur-md mb-5"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-pulse" />
-            <span className="text-[11px] font-medium tracking-[0.2em] text-[#C5A880] uppercase">
-              HOME &nbsp;/&nbsp; CUSTOMER TESTIMONIALS
-            </span>
-          </motion.div>
+
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -395,23 +429,24 @@ export default function CustomerTestimonialsComponent() {
               proj === "All"
                 ? testimonialsData.length
                 : testimonialsData.filter((i) => i.project === proj).length;
+            const label = proj === "All" ? "ALL" : proj.toUpperCase();
 
             return (
               <button
                 key={proj}
                 onClick={() => setSelectedProject(proj)}
-                className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+                className={`group relative flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#A0725B] cursor-pointer transition-all duration-300 z-10 overflow-hidden ${
                   isSelected
-                    ? "bg-[#A0725B] text-white shadow-lg scale-105"
-                    : "bg-[#F3ECE4] text-zinc-700 hover:bg-[#EAE0D5] hover:text-zinc-950 border border-[#A0725B]/20"
+                    ? "bg-[#A0725B] text-white shadow-lg shadow-amber-900/15"
+                    : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
                 }`}
               >
-                <span>{proj}</span>
+                <WaveText text={label} letterDelay={20} />
                 <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
+                  className={`text-[10px] px-2 py-0.5 rounded-full font-semibold transition-colors duration-300 ${
                     isSelected
                       ? "bg-white/20 text-white"
-                      : "bg-black/5 text-zinc-600"
+                      : "bg-[#A0725B]/15 text-[#A0725B] group-hover:bg-white/20 group-hover:text-white"
                   }`}
                 >
                   {count}
@@ -489,10 +524,10 @@ export default function CustomerTestimonialsComponent() {
 
                       <button
                         onClick={() => setActiveVideoId(item.youtubeId)}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-[#A0725B] hover:text-zinc-950 transition-colors cursor-pointer uppercase tracking-wider"
+                        className="group/btn inline-flex items-center gap-1.5 text-xs font-semibold text-[#A0725B] hover:text-[#8C5E47] transition-colors cursor-pointer uppercase tracking-wider"
                       >
-                        <span>Play</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
+                        <WaveText text="PLAY" letterDelay={15} groupHoverClass="group-hover/btn" />
+                        <ChevronRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
                       </button>
                     </div>
                   </div>
@@ -502,28 +537,7 @@ export default function CustomerTestimonialsComponent() {
           </AnimatePresence>
         </motion.div>
 
-        {/* 4. Luxury Community Trust Banner */}
-        <div className="mt-20 sm:mt-24 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#1C202A] via-[#111622] to-[#0A0D14] text-white border border-[#C5A880]/30 shadow-2xl relative overflow-hidden text-center space-y-6">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-[#C5A880]/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#A0725B]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-3xl mx-auto space-y-5">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#C5A880]/30">
-              <Sparkles className="w-4 h-4 text-[#C5A880]" />
-              <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#C5A880]">
-                JHAMTANI FAMILY
-              </span>
-            </div>
-
-            <h3 className="font-serif font-light text-3xl sm:text-4xl text-white">
-              Over 5,000+ Happy Families Call Jhamtani Home
-            </h3>
-
-            <p className="text-xs sm:text-sm text-zinc-300 font-light max-w-xl mx-auto leading-relaxed">
-              Every home delivered represents a fulfilled promise of luxury, architecture, and enduring community bonding across Pune.
-            </p>
-          </div>
-        </div>
 
       </div>
 

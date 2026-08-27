@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Download,
   FileText,
-  CheckCircle2,
   Copy,
   ExternalLink,
   ShieldCheck,
@@ -129,6 +128,50 @@ const reraProjects: MahaReraProject[] = [
   },
 ];
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center justify-center gap-[0.08em] whitespace-nowrap shrink-0" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block shrink-0" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden shrink-0">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 export default function MahaReraComponent() {
   const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -152,13 +195,13 @@ export default function MahaReraComponent() {
   });
 
   return (
-    <section className="relative w-full bg-[#FAF5F0] text-zinc-900 min-h-screen select-none overflow-hidden pb-32">
+    <section className="relative w-full bg-[#FAF5F0] text-zinc-900 min-h-screen select-none overflow-hidden pb-20">
       {/* 1. Page Title Hero Banner */}
       <div className="relative w-full h-[340px] sm:h-[400px] lg:h-[450px] flex items-center justify-center text-center px-6 overflow-hidden">
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/maharera.webp"
             alt="Jhamtani MahaRERA Certifications Banner"
             fill
             priority
@@ -167,11 +210,10 @@ export default function MahaReraComponent() {
           />
           {/* Dark Overlay for readability and premium look */}
           <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A880]/60 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-4xl flex flex-col items-center">
-
-
           <h1 className="font-serif font-light text-[42px] sm:text-[58px] lg:text-[70px] text-[#C5A880] tracking-[0.2em] leading-none uppercase">
             MahaRERA
           </h1>
@@ -185,39 +227,6 @@ export default function MahaReraComponent() {
       {/* 2. Main Container */}
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-12 sm:mt-16">
         
-        {/* Quick Highlights Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12 sm:mb-14">
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">100% Transparency</p>
-              <p className="text-[12px] text-zinc-600 font-light">All projects registered with MahaRERA</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <FileText className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">Official PDF Documents</p>
-              <p className="text-[12px] text-zinc-600 font-light">Direct download of verified certificates</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <CheckCircle2 className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">Govt. Verification</p>
-              <p className="text-[12px] text-zinc-600 font-light">MahaRERA online portal verified</p>
-            </div>
-          </div>
-        </div>
-
         {/* Filter & Search Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-5 pb-8 mb-12 sm:mb-14 border-b border-[#A0725B]/20">
           
@@ -229,26 +238,27 @@ export default function MahaReraComponent() {
                   ? reraProjects.length
                   : reraProjects.filter((i) => i.type === type).length;
               const isActive = filter === type;
+              const label = type === "All" ? "ALL PROJECTS" : type.toUpperCase();
               return (
                 <button
                   key={type}
                   onClick={() => setFilter(type)}
-                  className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+                  className={`group relative flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#A0725B] cursor-pointer transition-all duration-300 z-10 overflow-hidden ${
                     isActive
-                      ? "bg-[#A0725B] border-[#A0725B] text-white shadow-md shadow-[#A0725B]/20 font-semibold"
-                      : "border-[#A0725B]/30 text-zinc-700 bg-white/70 hover:bg-[#A0725B]/10 hover:border-[#A0725B] hover:text-[#A0725B]"
+                      ? "bg-[#A0725B] text-white shadow-lg shadow-amber-900/15"
+                      : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
                   }`}
                 >
-                  {type === "Residential" && <Home className="w-3.5 h-3.5" />}
-                  {type === "Commercial" && <Building2 className="w-3.5 h-3.5" />}
-                  {type === "Studio" && <Sparkles className="w-3.5 h-3.5" />}
-                  {type === "All" && <Sparkles className="w-3.5 h-3.5" />}
-                  <span>{type === "All" ? "All Projects" : type}</span>
+                  {type === "Residential" && <Home className="w-3.5 h-3.5 shrink-0" />}
+                  {type === "Commercial" && <Building2 className="w-3.5 h-3.5 shrink-0" />}
+                  {type === "Studio" && <Sparkles className="w-3.5 h-3.5 shrink-0" />}
+                  {type === "All" && <FileText className="w-3.5 h-3.5 shrink-0" />}
+                  <WaveText text={label} letterDelay={20} />
                   <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+                    className={`text-[10px] px-2 py-0.5 rounded-full font-semibold transition-colors duration-300 ${
                       isActive
                         ? "bg-white/20 text-white"
-                        : "bg-[#A0725B]/15 text-[#A0725B]"
+                        : "bg-[#A0725B]/15 text-[#A0725B] group-hover:bg-white/20 group-hover:text-white"
                     }`}
                   >
                     {count}
@@ -318,18 +328,6 @@ export default function MahaReraComponent() {
                       <ShieldCheck className="w-3 h-3 text-[#C5A880]" />
                       <span>RERA Approved</span>
                     </div>
-
-                    {/* Logo Overlay at Bottom Left of Image */}
-                    <div className="absolute bottom-3 left-4 right-4 z-10 flex items-end justify-between">
-                      <div className="relative w-36 h-12">
-                        <Image
-                          src={item.logo}
-                          alt={`${item.title} Logo`}
-                          fill
-                          className="object-contain object-left drop-shadow-md brightness-0 invert"
-                        />
-                      </div>
-                    </div>
                   </div>
 
                   {/* Card Body */}
@@ -374,17 +372,17 @@ export default function MahaReraComponent() {
                 </div>
 
                 {/* Card Action Buttons Footer */}
-                <div className="p-6 sm:p-7 pt-0 flex items-center gap-2 border-t border-[#A0725B]/15 mt-2">
+                <div className="p-6 sm:p-7 pt-0 flex items-center gap-2.5 border-t border-[#A0725B]/15 mt-2">
                   {/* Direct Download PDF Button */}
                   <a
                     href={item.pdfUrl}
                     download
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-[11px] sm:text-xs font-semibold tracking-wider uppercase bg-[#A0725B] hover:bg-[#8B5E48] text-white transition-all duration-300 shadow-md shadow-[#A0725B]/20 cursor-pointer group/btn whitespace-nowrap"
+                    className="group/btn relative flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full text-[11px] sm:text-xs font-bold tracking-widest uppercase bg-[#A0725B] hover:bg-[#8C5E47] text-white transition-all duration-300 shadow-md cursor-pointer overflow-hidden border border-[#A0725B]"
                   >
-                    <Download className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover/btn:translate-y-0.5" />
-                    <span className="whitespace-nowrap">Download PDF</span>
+                    <Download className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover/btn:-translate-y-0.5" />
+                    <WaveText text="DOWNLOAD PDF" letterDelay={15} groupHoverClass="group-hover/btn" />
                   </a>
 
                   {/* View Certificate Online Link */}
@@ -392,11 +390,11 @@ export default function MahaReraComponent() {
                     href={item.pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 py-2.5 px-3.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wider uppercase border border-[#A0725B] text-[#A0725B] hover:bg-[#A0725B] hover:text-white transition-all duration-300 cursor-pointer shrink-0 whitespace-nowrap"
+                    className="group/link inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-full text-[11px] sm:text-xs font-bold tracking-widest uppercase border border-[#A0725B] text-[#A0725B] hover:bg-[#A0725B] hover:text-white transition-all duration-300 cursor-pointer shrink-0 overflow-hidden"
                     title="View Document Online"
                   >
-                    <span className="whitespace-nowrap">View</span>
-                    <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                    <WaveText text="VIEW" letterDelay={15} groupHoverClass="group-hover/link" />
+                    <ExternalLink className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                   </a>
                 </div>
               </motion.div>
@@ -412,7 +410,7 @@ export default function MahaReraComponent() {
                 setFilter("All");
                 setSearchQuery("");
               }}
-              className="mt-4 px-6 py-2 rounded-full text-xs font-semibold uppercase bg-[#A0725B] text-white"
+              className="mt-4 px-6 py-2 rounded-full text-xs font-semibold uppercase bg-[#A0725B] text-white cursor-pointer"
             >
               Reset Filters
             </button>

@@ -108,6 +108,50 @@ const locationsData: LocationItem[] = [
   },
 ];
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center justify-center gap-[0.08em] whitespace-nowrap shrink-0" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block shrink-0" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden shrink-0">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 export default function ProjectLocation() {
   const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
 
@@ -118,12 +162,12 @@ export default function ProjectLocation() {
 
   return (
     <section className="relative w-full bg-[#FAF5F0] text-zinc-900 min-h-screen select-none overflow-hidden pb-28">
-      {/* 1. Page Title Hero Banner (Warm Beige Luxury Aesthetic) */}
+      {/* 1. Page Title Hero Banner */}
       <div className="relative w-full h-[320px] sm:h-[380px] lg:h-[420px] flex items-center justify-center text-center px-6 overflow-hidden">
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/project-location.webp"
             alt="Jhamtani Project Locations Banner"
             fill
             priority
@@ -132,6 +176,7 @@ export default function ProjectLocation() {
           />
           {/* Elegant Dark Bronze/Charcoal Overlay */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]" />
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A880]/60 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-4xl">
@@ -147,34 +192,35 @@ export default function ProjectLocation() {
       {/* 2. Main Content Container */}
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-12 sm:mt-16">
         
-        {/* Filter Navigation Bar (Warm Champagne Theme) */}
-        <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 pb-8 mb-12 sm:mb-16 border-b border-[#A0725B]/20">
+        {/* Filter Navigation Bar */}
+        <div className="flex flex-wrap justify-center items-center gap-2.5 sm:gap-3 pb-8 mb-12 sm:mb-16 border-b border-[#A0725B]/20">
           {(["All", "Residential", "Commercial", "Studio"] as const).map((type) => {
             const count =
               type === "All"
                 ? locationsData.length
                 : locationsData.filter((i) => i.type === type).length;
             const isActive = filter === type;
+            const label = type === "All" ? "ALL LOCATIONS" : type.toUpperCase();
             return (
               <button
                 key={type}
                 onClick={() => setFilter(type)}
-                className={`flex items-center gap-2.5 px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+                className={`group relative flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#A0725B] cursor-pointer transition-all duration-300 z-10 overflow-hidden ${
                   isActive
-                    ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-[#A0725B]/25"
-                    : "border-[#A0725B]/30 text-zinc-700 bg-white/60 hover:bg-[#A0725B]/10 hover:border-[#A0725B] hover:text-[#A0725B]"
+                    ? "bg-[#A0725B] text-white shadow-lg shadow-amber-900/15"
+                    : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
                 }`}
               >
-                {type === "Residential" && <Home className="w-3.5 h-3.5" />}
-                {type === "Commercial" && <Building2 className="w-3.5 h-3.5" />}
-                {type === "Studio" && <Sparkles className="w-3.5 h-3.5" />}
-                {type === "All" && <Sparkles className="w-3.5 h-3.5" />}
-                <span>{type === "All" ? "All Locations" : type}</span>
+                {type === "Residential" && <Home className="w-3.5 h-3.5 shrink-0" />}
+                {type === "Commercial" && <Building2 className="w-3.5 h-3.5 shrink-0" />}
+                {type === "Studio" && <Sparkles className="w-3.5 h-3.5 shrink-0" />}
+                {type === "All" && <MapPin className="w-3.5 h-3.5 shrink-0" />}
+                <WaveText text={label} letterDelay={20} />
                 <span
-                  className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+                  className={`text-[10px] px-2 py-0.5 rounded-full font-semibold transition-colors duration-300 ${
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-[#A0725B]/15 text-[#A0725B]"
+                      : "bg-[#A0725B]/15 text-[#A0725B] group-hover:bg-white/20 group-hover:text-white"
                   }`}
                 >
                   {count}
@@ -184,7 +230,7 @@ export default function ProjectLocation() {
           })}
         </div>
 
-        {/* 3. Locations Grid (Seamless Warm Luxury Cards) */}
+        {/* 3. Locations Grid */}
         <motion.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch"
@@ -267,11 +313,11 @@ export default function ProjectLocation() {
                       href={item.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-full text-xs font-semibold tracking-wider uppercase border border-[#A0725B] text-[#A0725B] hover:bg-[#A0725B] hover:text-white transition-all duration-300 cursor-pointer shadow-sm group/btn"
+                      className="group/btn relative w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-[#8C5E47] transition-all duration-300 shadow-md cursor-pointer overflow-hidden border border-[#A0725B]"
                     >
-                      <MapPin className="w-3.5 h-3.5" />
-                      <span>View on Google Maps</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                      <MapPin className="w-3.5 h-3.5 shrink-0" />
+                      <WaveText text="VIEW ON GOOGLE MAPS" letterDelay={15} groupHoverClass="group-hover/btn" />
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 shrink-0" />
                     </a>
                   </div>
                 </div>
