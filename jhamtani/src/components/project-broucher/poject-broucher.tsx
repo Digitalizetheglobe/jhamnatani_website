@@ -129,13 +129,57 @@ const brochuresData: BrochureItem[] = [
     location: "Baner, Pune",
     type: "Commercial",
     categories: ["Commercial"],
-    tagline: "Grade A Commercial Spaces in Baner",
+    tagline: "Premium Business Space",
     pdfUrl: "/assets/broucher/Spacebiz-Brochure-A4.pdf",
     image: "/assets/pojetcts/jhamtani-spacebiz.webp",
     logo: "/assets/pojetcts/Spacebiz logo.webp",
     projectLink: "/jhamtani-spacebiz",
   },
 ];
+
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative inline-flex items-center justify-center gap-[0.12em]" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
 
 export default function ProjectBrochureComponent() {
   const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
@@ -208,17 +252,7 @@ export default function ProjectBrochureComponent() {
         </div>
 
         <div className="relative z-10 max-w-4xl flex flex-col items-center pt-8">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#C5A880]/30 backdrop-blur-md mb-5"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-pulse" />
-            <span className="text-[11px] font-medium tracking-[0.2em] text-[#C5A880] uppercase">
-              HOME &nbsp;/&nbsp; DOWNLOAD BROCHURE
-            </span>
-          </motion.div>
+
 
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -241,40 +275,8 @@ export default function ProjectBrochureComponent() {
       </div>
 
       {/* 2. Main Content Container */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-12 sm:mt-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-20 sm:mt-23">
         
-        {/* Quick Highlights Info Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12 sm:mb-14">
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20 shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <FileText className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">Complete Masterplans</p>
-              <p className="text-[12px] text-zinc-600 font-light">Accurate dimensioned unit floorplans</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20 shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">MahaRERA Approved</p>
-              <p className="text-[12px] text-zinc-600 font-light">Official compliance &amp; legal specifications</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5 p-4 rounded-xl bg-[#F3ECE4] border border-[#A0725B]/20 shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
-              <Download className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-wider text-zinc-900 uppercase">Instant PDF Access</p>
-              <p className="text-[12px] text-zinc-600 font-light">High-resolution downloadable brochures</p>
-            </div>
-          </div>
-        </div>
 
         {/* Filter Navigation Bar */}
         <div className="flex flex-wrap justify-center items-center gap-2.5 sm:gap-3 pb-8 mb-12 sm:mb-16 border-b border-[#A0725B]/20">
@@ -284,26 +286,27 @@ export default function ProjectBrochureComponent() {
                 ? brochuresData.length
                 : brochuresData.filter((i) => i.categories.includes(type)).length;
             const isActive = filter === type;
+            const label = type === "All" ? "ALL BROCHURES" : type.toUpperCase();
             return (
               <button
                 key={type}
                 onClick={() => setFilter(type)}
-                className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+                className={`group relative flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#A0725B] cursor-pointer transition-all duration-300 z-10 overflow-hidden ${
                   isActive
-                    ? "bg-[#A0725B] border-[#A0725B] text-white shadow-md shadow-[#A0725B]/20 font-semibold"
-                    : "border-[#A0725B]/30 text-zinc-700 bg-white/70 hover:bg-[#A0725B]/10 hover:border-[#A0725B] hover:text-[#A0725B]"
+                    ? "bg-[#A0725B] text-white shadow-lg shadow-amber-900/15"
+                    : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
                 }`}
               >
-                {type === "Residential" && <Home className="w-3.5 h-3.5" />}
-                {type === "Commercial" && <Building2 className="w-3.5 h-3.5" />}
-                {type === "Studio" && <Sparkles className="w-3.5 h-3.5" />}
-                {type === "All" && <FileText className="w-3.5 h-3.5" />}
-                <span>{type === "All" ? "All Brochures" : type}</span>
+                {type === "Residential" && <Home className="w-3.5 h-3.5 shrink-0" />}
+                {type === "Commercial" && <Building2 className="w-3.5 h-3.5 shrink-0" />}
+                {type === "Studio" && <Sparkles className="w-3.5 h-3.5 shrink-0" />}
+                {type === "All" && <FileText className="w-3.5 h-3.5 shrink-0" />}
+                <WaveText text={label} letterDelay={20} />
                 <span
-                  className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+                  className={`text-[10px] px-2 py-0.5 rounded-full font-semibold transition-colors duration-300 ${
                     isActive
                       ? "bg-white/20 text-white"
-                      : "bg-[#A0725B]/15 text-[#A0725B]"
+                      : "bg-[#A0725B]/15 text-[#A0725B] group-hover:bg-white/20 group-hover:text-white"
                   }`}
                 >
                   {count}
@@ -381,18 +384,18 @@ export default function ProjectBrochureComponent() {
                 <div className="p-6 pt-0 space-y-2.5">
                   <button
                     onClick={() => handleOpenModal(item)}
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-zinc-900 transition-all duration-300 shadow-md cursor-pointer group/btn"
+                    className="group/btn relative w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-[#8C5E47] transition-all duration-300 shadow-md cursor-pointer overflow-hidden border border-[#A0725B]"
                   >
-                    <Download className="w-4 h-4 transition-transform group-hover/btn:-translate-y-0.5" />
-                    <span>Download Brochure</span>
+                    <Download className="w-4 h-4 transition-transform duration-300 group-hover/btn:-translate-y-0.5 shrink-0" />
+                    <WaveText text="DOWNLOAD BROCHURE" letterDelay={20} groupHoverClass="group-hover/btn" />
                   </button>
 
                   <Link
                     href={item.projectLink}
-                    className="w-full inline-flex items-center justify-center gap-1.5 py-2 text-xs font-semibold tracking-wider text-[#A0725B] hover:text-zinc-900 transition-colors cursor-pointer"
+                    className="group/link w-full inline-flex items-center justify-center gap-1.5 py-2 text-xs font-semibold tracking-wider text-[#A0725B] hover:text-[#8C5E47] transition-colors cursor-pointer"
                   >
-                    <span>View Project Details</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    <WaveText text="View Project Details" letterDelay={15} groupHoverClass="group-hover/link" />
+                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 shrink-0" />
                   </Link>
                 </div>
               </motion.div>

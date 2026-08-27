@@ -71,7 +71,7 @@ export default function CTA() {
             href="#ace-abundance"
             className="group inline-block px-8 py-3.5 rounded-full border border-[#A0725B] bg-white text-[#A0725B] text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-[0.15em] hover:bg-[#A0725B] hover:text-white transition-all duration-300 select-none text-center min-w-[190px] sm:min-w-[210px] shadow-sm"
           >
-            <WaveText text="XO Ace Abundance" />
+            <WaveText text="Ace Abundance" />
           </a>
 
           {/* Button 2: Solid Filled with White Border and Drop Shadow */}
@@ -79,7 +79,7 @@ export default function CTA() {
             href="#ace-villas"
             className="group inline-block px-8 py-3.5 rounded-full bg-[#A0725B] border border-white text-white text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-[0.15em] hover:bg-[#8C5E47] transition-all duration-300 select-none text-center min-w-[190px] sm:min-w-[210px]"
           >
-            <WaveText text="XO Ace Villas" />
+            <WaveText text="Ace Villas" />
           </a>
         </motion.div>
       </div>

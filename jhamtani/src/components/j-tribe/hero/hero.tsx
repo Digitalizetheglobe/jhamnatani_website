@@ -36,35 +36,58 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Force reset scroll to top when mounting
     if (typeof window !== "undefined") {
       if ("scrollRestoration" in window.history) {
         window.history.scrollRestoration = "manual";
       }
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" as any });
     }
     setActiveIndex(0);
+
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const totalScrollable = rect.height - windowHeight;
+
+      if (totalScrollable <= 0) {
+        setActiveIndex(0);
+        return;
+      }
+
+      // Progress from 0 (top of container) to 1 (bottom of container)
+      const currentScroll = -rect.top;
+      const progress = Math.max(0, Math.min(1, currentScroll / totalScrollable));
+
+      if (progress < 0.5) {
+        setActiveIndex(0);
+      } else {
+        setActiveIndex(1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    
+    // Trigger frame checks on initial mount to ensure section 0 is active
+    handleScroll();
+    const t1 = setTimeout(handleScroll, 50);
+    const t2 = setTimeout(handleScroll, 150);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (latest < 0.5) {
-      setActiveIndex(0);
-    } else {
-      setActiveIndex(1);
-    }
-  });
 
   const handleSectionClick = (index: number) => {
     if (!containerRef.current) return;
-    const containerTop = containerRef.current.offsetTop;
+    const containerTop = containerRef.current.getBoundingClientRect().top + window.scrollY;
     const containerHeight = containerRef.current.offsetHeight;
     const totalScrollable = containerHeight - window.innerHeight;
-    const targetFraction = index / (SECTIONS.length - 1);
-    const targetScroll = containerTop + targetFraction * totalScrollable;
+    const targetFractions = [0.1, 0.8];
+    const targetScroll = containerTop + targetFractions[index] * totalScrollable;
     window.scrollTo({ top: targetScroll, behavior: "smooth" });
   };
 
@@ -126,7 +149,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Continuous Vertical Content Accordion */}
-            <div className="space-y-2.5 sm:space-y-3 pt-1">
+            <div className="space-y-3 sm:space-y-4 pt-2">
               {SECTIONS.map((section, idx) => {
                 const isActive = idx === activeIndex;
 
@@ -134,16 +157,16 @@ export default function Hero() {
                   <div
                     key={section.id}
                     onClick={() => handleSectionClick(idx)}
-                    className="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden py-2 sm:py-2.5"
+                    className="group transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden pb-3 sm:pb-4 border-b border-[#2B2B2B]/10 last:border-b-0"
                   >
                     {/* Section Header */}
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-3">
                         <h2
-                          className={`font-serif transition-colors duration-500 ${
+                          className={`font-serif transition-all duration-500 ${
                             isActive
-                              ? "text-base sm:text-lg lg:text-xl text-[#A0725B] font-medium"
-                              : "text-sm sm:text-base text-[#2B2B2B]/80 font-normal"
+                              ? "text-xl sm:text-2xl lg:text-[34px] text-[#A0725B] font-medium leading-tight"
+                              : "text-xl sm:text-2xl lg:text-[34px] text-[#2B2B2B]/35 group-hover:text-[#2B2B2B]/65 font-light leading-tight"
                           }`}
                         >
                           {section.title}
@@ -157,12 +180,12 @@ export default function Hero() {
                       animate={{
                         height: isActive ? "auto" : 0,
                         opacity: isActive ? 1 : 0,
-                        marginTop: isActive ? 12 : 0,
+                        marginTop: isActive ? 14 : 0,
                       }}
                       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <ul className="space-y-2 font-sans text-xs sm:text-sm text-[#2B2B2B] font-medium pl-1">
+                      <ul className="space-y-2.5 font-sans text-xs sm:text-[14px] text-[#2B2B2B] leading-relaxed pl-1">
                         {section.points.map((point, pIdx) => (
                           <motion.li
                             key={pIdx}
@@ -171,8 +194,8 @@ export default function Hero() {
                             transition={{ duration: 0.4, delay: isActive ? pIdx * 0.05 : 0, ease: [0.16, 1, 0.3, 1] }}
                             className="flex items-start gap-2.5"
                           >
-                            <span className="w-1.5 h-1.5 bg-[#A0725B] shrink-0 mt-1.5 rounded-[1px]" />
-                            <span>{point}</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#A0725B] shrink-0 mt-2" />
+                            <span className="font-normal">{point}</span>
                           </motion.li>
                         ))}
                       </ul>

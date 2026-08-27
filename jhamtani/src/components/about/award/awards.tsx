@@ -108,7 +108,7 @@ export default function AwardsGridSection() {
           onClick={() => setShowAll(!showAll)}
           className="border border-[#C7A189] text-[#FAF8F6] hover:bg-[#C7A189] hover:text-[#121212] px-9 py-3.5 rounded-full font-sans tracking-widest text-[11px] font-medium uppercase transition-all duration-300 cursor-pointer shadow-md mt-2 active:scale-95"
         >
-          {showAll ? "Show Less" : `Explore All (${ALL_AWARDS.length} Awards)`}
+          {showAll ? "Show Less" : `Explore All`}
         </button>
 
       </div>
