@@ -28,7 +28,7 @@ import {
   Loader2,
 } from "lucide-react";
 
-interface NewsletterEdition {
+export interface NewsletterEdition {
   id: string;
   title: string;
   month: string;
@@ -39,7 +39,7 @@ interface NewsletterEdition {
   date: string;
 }
 
-const newslettersData: NewsletterEdition[] = [
+export const newslettersData: NewsletterEdition[] = [
   {
     id: "july-2026",
     title: "Annual Magazine July 2026",
@@ -214,7 +214,7 @@ const newslettersData: NewsletterEdition[] = [
 /* -------------------------------------------------------------
    INTERACTIVE FLIPBOOK MODAL COMPONENT (PDF.JS POWERED)
 -------------------------------------------------------------- */
-function BookFlipReaderModal({
+export function BookFlipReaderModal({
   edition,
   onClose,
 }: {

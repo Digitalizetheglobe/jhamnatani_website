@@ -115,6 +115,7 @@ export default function Header() {
     { label: "Our Promises", href: "/permission" },
     { label: "Our Projects", href: "/projects" },
     { label: "XO Series", href: "/xo" },
+    { label: "Blogs", href: "/blogs" },
     { label: "Contact Us", href: "/contact" },
   ];
 
@@ -142,7 +143,7 @@ export default function Header() {
         transition={{ duration: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled || isSolidPage
-            ? "bg-[#14171C] backdrop-blur-luxury py-4 border-b border-[#C5A880]/20 shadow-lg"
+            ? "bg-[#14171C] backdrop-blur-luxury py-4 shadow-lg"
             : "bg-transparent py-6"
         }`}
       >

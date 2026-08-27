@@ -6,7 +6,7 @@ export default function Footer() {
   const quickLinksColumn1 = [
     { label: "OUR LEGACY", href: "/about" },
     { label: "AWARDS & ACHIEVEMENTS", href: "/about#awards" },
-    { label: "CUSTOMER TESTIMONIALS", href: "#" },
+    { label: "CUSTOMER TESTIMONIALS", href: "/customer-testimonials" },
     { label: "PROJECT BROCHURES", href: "/download-brochure" },
   ];
 

@@ -86,7 +86,7 @@ const projectsData: ProjectItem[] = [
     location: "Mundhwa, Pune",
     type: "Studio",
     categories: ["Studio"],
-    image: "/assets/projects/jhamtani-elevate.jpg",
+    image: "/assets/pojetcts/jhamtani-elevate.webp",
     link: "/jhamtani-elevate",
     isLocal: true,
   },
@@ -96,11 +96,56 @@ const projectsData: ProjectItem[] = [
     location: "Baner, Pune",
     type: "Commercial",
     categories: ["Commercial"],
-    image: "/assets/projects/jhamtani-spacebiz.jpg",
+    image: "/assets/pojetcts/jhamtani-spacebiz.webp",
     link: "/jhamtani-spacebiz",
     isLocal: true,
   },
 ];
+
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/link";
+}
+
+function WaveText({ text, letterDelay = 25, groupHoverClass = "group-hover" }: WaveTextProps) {
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span className="relative flex items-center justify-center gap-[0.12em]" aria-hidden="true">
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block" />;
+          }
+          return (
+            <span key={index} className="relative inline-flex overflow-hidden">
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+                  groupHoverClass === "group-hover/link"
+                    ? "group-hover/link:-translate-y-full"
+                    : "group-hover:-translate-y-full"
+                } will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+                  groupHoverClass === "group-hover/link"
+                    ? "group-hover/link:-translate-y-full"
+                    : "group-hover:-translate-y-full"
+                } will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
 
 export default function ProjectsComponent() {
   const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
@@ -150,47 +195,47 @@ export default function ProjectsComponent() {
         <div className="flex justify-center items-center gap-3 sm:gap-4 border-b border-zinc-200/60 pb-6 mb-12 sm:mb-16 flex-wrap">
           <button
             onClick={() => setFilter("All")}
-            className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+            className={`group relative flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 border border-[#a0725b] rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer z-10 overflow-hidden ${
               filter === "All"
-                ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-amber-900/10"
-                : "border-zinc-300 text-zinc-600 bg-transparent hover:border-[#A0725B] hover:text-[#A0725B]"
+                ? "bg-[#a0725b] text-white shadow-lg shadow-amber-900/15"
+                : "bg-transparent text-[#a0725b] hover:bg-[#a0725b] hover:text-white"
             }`}
           >
             <LayoutGrid className="w-3.5 h-3.5" />
-            All Projects
+            <WaveText text="ALL PROJECTS" letterDelay={20} />
           </button>
           <button
             onClick={() => setFilter("Residential")}
-            className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+            className={`group relative flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 border border-[#a0725b] rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer z-10 overflow-hidden ${
               filter === "Residential"
-                ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-amber-900/10"
-                : "border-zinc-300 text-zinc-600 bg-transparent hover:border-[#A0725B] hover:text-[#A0725B]"
+                ? "bg-[#a0725b] text-white shadow-lg shadow-amber-900/15"
+                : "bg-transparent text-[#a0725b] hover:bg-[#a0725b] hover:text-white"
             }`}
           >
             <Home className="w-3.5 h-3.5" />
-            Residential
+            <WaveText text="RESIDENTIAL" letterDelay={20} />
           </button>
           <button
             onClick={() => setFilter("Commercial")}
-            className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+            className={`group relative flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 border border-[#a0725b] rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer z-10 overflow-hidden ${
               filter === "Commercial"
-                ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-amber-900/10"
-                : "border-zinc-300 text-zinc-600 bg-transparent hover:border-[#A0725B] hover:text-[#A0725B]"
+                ? "bg-[#a0725b] text-white shadow-lg shadow-amber-900/15"
+                : "bg-transparent text-[#a0725b] hover:bg-[#a0725b] hover:text-white"
             }`}
           >
             <Building className="w-3.5 h-3.5" />
-            Commercial
+            <WaveText text="COMMERCIAL" letterDelay={20} />
           </button>
           <button
             onClick={() => setFilter("Studio")}
-            className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm tracking-widest uppercase font-medium border cursor-pointer transition-all duration-300 ${
+            className={`group relative flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 border border-[#a0725b] rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer z-10 overflow-hidden ${
               filter === "Studio"
-                ? "bg-[#A0725B] border-[#A0725B] text-white shadow-lg shadow-amber-900/10"
-                : "border-zinc-300 text-zinc-600 bg-transparent hover:border-[#A0725B] hover:text-[#A0725B]"
+                ? "bg-[#a0725b] text-white shadow-lg shadow-amber-900/15"
+                : "bg-transparent text-[#a0725b] hover:bg-[#a0725b] hover:text-white"
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
-            Studio
+            <WaveText text="STUDIO" letterDelay={20} />
           </button>
         </div>
 
@@ -249,17 +294,17 @@ export default function ProjectsComponent() {
                     {project.isLocal ? (
                       <Link
                         href={project.link}
-                        className="flex items-center gap-2 text-xs tracking-wider uppercase font-semibold text-[#A0725B] hover:text-zinc-950 transition-colors group/link"
+                        className="group/link flex items-center gap-2 text-xs tracking-wider uppercase font-semibold text-[#A0725B] hover:text-zinc-950 transition-colors cursor-pointer"
                       >
-                        Explore Project
+                        <WaveText text="EXPLORE PROJECT" letterDelay={20} groupHoverClass="group-hover/link" />
                         <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
                       </Link>
                     ) : (
                       <button
                         onClick={() => handleEnquireClick(project.link)}
-                        className="flex items-center gap-2 text-xs tracking-wider uppercase font-semibold text-[#A0725B] hover:text-zinc-950 transition-colors group/link cursor-pointer bg-transparent border-0 p-0"
+                        className="group/link flex items-center gap-2 text-xs tracking-wider uppercase font-semibold text-[#A0725B] hover:text-zinc-950 transition-colors cursor-pointer bg-transparent border-0 p-0"
                       >
-                        Enquire Now
+                        <WaveText text="ENQUIRE NOW" letterDelay={20} groupHoverClass="group-hover/link" />
                         <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
                       </button>
                     )}

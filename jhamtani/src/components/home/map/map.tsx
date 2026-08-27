@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { gsap } from "gsap";
 
 // Types
@@ -9,6 +12,7 @@ interface Project {
   image: string;
   category: string;
   details?: string;
+  link: string;
 }
 
 interface LocationData {
@@ -27,7 +31,7 @@ interface BgDot {
   y: number;
 }
 
-// 4 main interactive locations — have real images
+// Interactive locations with active projects & real images
 const LOCATIONS_DATA: LocationData[] = [
   {
     id: "thergaon",
@@ -39,8 +43,9 @@ const LOCATIONS_DATA: LocationData[] = [
       {
         name: "Ace Ayodhya",
         image: "/assets/map/thergaon.png",
-        category: "Premium Residences",
-        details: "Ace Ayodhya in Thergaon - Luxurious modern residential apartments with world-class amenities."
+        category: "Premium 2 & 3 BHK Homes",
+        details: "Ace Ayodhya in Thergaon - Luxurious modern residential residences with world-class amenities.",
+        link: "/ace-ayodha",
       }
     ]
   },
@@ -54,14 +59,16 @@ const LOCATIONS_DATA: LocationData[] = [
       {
         name: "ACE ATMOSPHERE",
         image: "/assets/map/ravet-1.png",
-        category: "Premium Residences",
-        details: "Luxurious 2 & 3 BHK homes in the heart of Ravet, featuring state-of-the-art amenities and architectural excellence."
+        category: "Premium 3 & 4 BHK Homes",
+        details: "Luxurious homes in the heart of Ravet featuring 24x7 lifestyle amenities.",
+        link: "/ace-atmosphere",
       },
       {
         name: "Ace Aster",
         image: "/assets/map/ravet-2.png",
-        category: "Elite Living",
-        details: "Experience elevated lifestyles with premium high-rise residences designed for modern convenience."
+        category: "Spacious 2 & 3 BHK Homes",
+        details: "Elevated lifestyles with high-rise residences designed for modern convenience.",
+        link: "/ace-aster",
       }
     ]
   },
@@ -73,22 +80,24 @@ const LOCATIONS_DATA: LocationData[] = [
     zone: "east",
     projects: [
       {
-        name: "Ace Abundance - Mundhwa",
+        name: "Ace Abundance",
         image: "/assets/map/mundhwa.png",
-        category: "Premium Residences",
-        details: "Luxurious residences in Mundhwa offering modern amenities and excellent connectivity."
+        category: "Ultra-Luxury 3 & 4.5 Bed",
+        details: "Ultra-luxurious residences in Mundhwa offering unmatched panoramic views.",
+        link: "/ace-abundance",
       },
       {
-        name: "Jhamtani Elevate - Mundhwa",
+        name: "Jhamtani Elevate",
         image: "/assets/map/mundhwa-2.png",
-        category: "Elite Living",
-        details: "Premium gated community featuring state-of-the-art clubhouse and landscaped gardens."
+        category: "Studio Apartments",
+        details: "Modern studio residences and co-living spaces in vibrant Mundhwa.",
+        link: "/jhamtani-elevate",
       }
     ]
   },
   {
     id: "koregaon-park",
-    name: "Koregaon Park",
+    name: "Koregaon Park NX",
     x: 60,
     y: 38,
     zone: "central",
@@ -96,26 +105,40 @@ const LOCATIONS_DATA: LocationData[] = [
       {
         name: "ACE Villas",
         image: "/assets/map/koregaon.png",
-        category: "Luxury Residences",
-        details: "Ultra-premium residences in the heart of Koregaon Park — Pune's most prestigious address."
+        category: "Ultra-Luxury Villas",
+        details: "Bespoke ultra-luxury private villas in Koregaon Park NX.",
+        link: "/ace-villas",
       },
       {
         name: "Jhamtani BIZCORE",
         image: "/assets/map/koregaon-2.png",
-        category: "Premium Apartments",
-        details: "Exclusive high-rise apartments with panoramic city views in Pune's most sought-after locality."
+        category: "Serviced Studio Apartments",
+        details: "High-yield serviced studio apartments in prime Koregaon Park NX.",
+        link: "/jhamtani-bizcore",
+      }
+    ]
+  },
+  {
+    id: "baner",
+    name: "Baner",
+    x: 46,
+    y: 31,
+    zone: "west",
+    projects: [
+      {
+        name: "Jhamtani Spacebiz",
+        image: "/assets/projects/jhamtani-spacebiz.jpg",
+        category: "Grade A Commercial",
+        details: "State-of-the-art office spaces and corporate showrooms in Baner.",
+        link: "/jhamtani-spacebiz",
       }
     ]
   }
 ];
 
-// Background dots — visible on map for context, no hover interaction
+// Background dots — visible on map for context
 const BACKGROUND_DOTS: BgDot[] = [
   { id: "wakad",            name: "Wakad",              x: 32, y: 28 },
-  { id: "baner",            name: "Baner",               x: 46, y: 31 },
-  { id: "hinjawadi",        name: "Hinjawadi IT Park",   x: 23, y: 35 },
-  { id: "life-republic",    name: "Life Republic",       x: 18, y: 46 },
-  { id: "godrej-24",        name: "Godrej 24",           x: 25, y: 56 },
   { id: "pimple-saudagar",  name: "Pimple Saudagar",     x: 48, y: 10 },
   { id: "pimpri-chinchwad", name: "Pimpri Chinchwad",    x: 48, y: 18 },
   { id: "mca-stadium",      name: "MCA Stadium",         x: 64, y: 16 },
@@ -129,9 +152,6 @@ const BACKGROUND_DOTS: BgDot[] = [
   { id: "hadapsar",         name: "Hadapsar",            x: 61, y: 62 },
   { id: "solapur-highway",  name: "Solapur Highway",     x: 65, y: 84 },
   { id: "manjari",          name: "Manjari",             x: 73, y: 56 },
-  { id: "godrej-greens",    name: "Godrej River Greens", x: 79, y: 21 },
-  { id: "vtp-earth",        name: "VTP Earth One",       x: 82, y: 39 },
-  { id: "gera-world",       name: "Gera World of Joy",   x: 80, y: 66 },
   { id: "puraniks",         name: "Puraniks Abitante",   x: 70, y: 72 },
   { id: "katraj",           name: "Katraj",              x: 49, y: 70 },
   { id: "lullanagar",       name: "Lullanagar",          x: 50, y: 85 },
@@ -149,7 +169,7 @@ export default function InteractiveMap() {
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
 
-  // Cursor tracking — fixed position so clientX/Y is always exact
+  // Cursor tracking
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -195,7 +215,7 @@ export default function InteractiveMap() {
     };
   }, []);
 
-  // Hover handler — enter immediately, leave with small debounce to prevent flicker
+  // Hover handler with debounce so moving onto popup card doesn't close it
   const handleEnter = (loc: LocationData) => {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
@@ -216,7 +236,14 @@ export default function InteractiveMap() {
         scale: 1, borderColor: "rgba(255,255,255,0.4)",
         backgroundColor: "transparent", duration: 0.25
       });
-    }, 100);
+    }, 280);
+  };
+
+  const handlePopupEnter = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
   };
 
   return (
@@ -277,7 +304,7 @@ export default function InteractiveMap() {
             </span>
           </div>
 
-          {/* ── Background dots (dim, no interaction) ── */}
+          {/* ── Background dots (calm context dots) ── */}
           {BACKGROUND_DOTS.map((dot) => {
             const isAnyHovered = activeLocation !== null;
             return (
@@ -289,15 +316,15 @@ export default function InteractiveMap() {
                 <span
                   className={`rounded-full border border-black/20 transition-all duration-300 ${
                     isAnyHovered
-                      ? "w-2 h-2 bg-blue-500/25 border-blue-400/20 blur-[1.2px] opacity-35"
-                      : "w-2 h-2 bg-white/30"
+                      ? "w-1.5 h-1.5 bg-zinc-600/30 blur-[0.8px] opacity-25"
+                      : "w-1.5 h-1.5 bg-white/25"
                   }`}
                 />
                 <span
                   className={`text-[8px] tracking-widest uppercase font-sans whitespace-nowrap transition-all duration-300 ${
                     isAnyHovered
-                      ? "text-blue-300/20 font-light blur-[1.2px]"
-                      : "text-white/35 font-medium"
+                      ? "text-zinc-600/20 blur-[0.8px]"
+                      : "text-white/30 font-light"
                   }`}
                 >
                   {dot.name}
@@ -306,41 +333,47 @@ export default function InteractiveMap() {
             );
           })}
 
-          {/* ── Interactive main locations ── */}
+          {/* ── Interactive project locations with blinking pulse ── */}
           {LOCATIONS_DATA.map((loc) => {
             const isActive = activeLocation?.id === loc.id;
             const isAnyHovered = activeLocation !== null;
             const isOtherHovered = isAnyHovered && !isActive;
+
             return (
               <div
                 key={loc.id}
-                className="absolute z-20 cursor-none"
+                className="absolute z-30 cursor-pointer"
                 style={{ left: `${loc.x}%`, top: `${loc.y}%`, transform: "translate(-50%, -50%)" }}
                 onMouseEnter={() => handleEnter(loc)}
                 onMouseLeave={handleLeave}
               >
-                <div className="flex flex-col items-center gap-1">
-                  <div className="relative w-5 h-5 flex items-center justify-center">
-                    {isActive && (
-                      <span className="absolute inset-0 rounded-full bg-gold/40 animate-ping" />
-                    )}
+                <div className="flex flex-col items-center gap-1.5 group">
+                  {/* Blinking Pulsating Dot Container */}
+                  <div className="relative w-7 h-7 flex items-center justify-center">
+                    {/* Continuous Blinking Radar Wave (Clarifies projects present) */}
+                    <span className="absolute inset-0 rounded-full bg-[#C5A880]/30 animate-ping" />
+                    <span className="absolute w-5 h-5 rounded-full bg-[#C5A880]/40 animate-pulse" />
+                    
+                    {/* Center Core Dot */}
                     <span
-                      className={`relative z-10 rounded-full border border-black/50 transition-all duration-300 ${
+                      className={`relative z-10 rounded-full border-2 border-black transition-all duration-300 ${
                         isActive
-                          ? "w-3.5 h-3.5 bg-gold shadow-[0_0_14px_4px_rgba(197,168,128,0.6)]"
+                          ? "w-4 h-4 bg-[#C5A880] shadow-[0_0_18px_6px_rgba(197,168,128,0.9)] scale-125"
                           : isOtherHovered
-                          ? "w-2 h-2 bg-blue-500/25 border-blue-400/20 blur-[1.2px] opacity-35"
-                          : "w-2 h-2 bg-white/30"
+                          ? "w-2.5 h-2.5 bg-[#C5A880]/40 blur-[0.5px]"
+                          : "w-3 h-3 bg-[#C5A880] shadow-[0_0_12px_rgba(197,168,128,0.7)] group-hover:scale-110"
                       }`}
                     />
                   </div>
+
+                  {/* Location Name Label */}
                   <span
-                    className={`text-[8px] tracking-widest uppercase font-sans whitespace-nowrap transition-all duration-300 ${
+                    className={`text-[9px] tracking-widest uppercase font-sans whitespace-nowrap transition-all duration-300 font-semibold ${
                       isActive
-                        ? "text-gold font-bold animate-pulse"
+                        ? "text-[#C5A880] scale-110"
                         : isOtherHovered
-                        ? "text-blue-300/20 font-light blur-[1.2px]"
-                        : "text-white/35 font-medium"
+                        ? "text-[#C5A880]/40 blur-[0.5px]"
+                        : "text-[#C5A880] group-hover:text-white"
                     }`}
                   >
                     {loc.name}
@@ -350,21 +383,29 @@ export default function InteractiveMap() {
             );
           })}
 
-          {/* Image popup */}
-          {activeLocation && activeLocation.projects.some(p => p.image) && (
+          {/* Clean Standalone Image Popup with Direct Project Links */}
+          {activeLocation && activeLocation.projects.length > 0 && (
             <div
               key={popupKey}
-              className="absolute z-50 pointer-events-none"
+              className="absolute z-50 pointer-events-auto"
               style={{
                 left: `${activeLocation.x}%`,
                 top: `${activeLocation.y}%`,
+                transform: "translate(-50%, -100%)",
                 animation: "fadeSlideUp 0.3s ease-out forwards"
               }}
+              onMouseEnter={handlePopupEnter}
+              onMouseLeave={handleLeave}
             >
               <div className="flex flex-col items-center">
-                <div className={`flex items-end gap-3 ${activeLocation.projects.length > 1 ? "flex-row" : "flex-col items-center"}`}>
+                <div className={`flex items-end gap-4 ${activeLocation.projects.length > 1 ? "flex-row" : "flex-col items-center"}`}>
                   {activeLocation.projects.filter(p => p.image).map((project, idx) => (
-                    <div key={idx} className="flex flex-col items-center">
+                    <Link
+                      key={idx}
+                      href={project.link}
+                      className="flex flex-col items-center group/proj cursor-pointer transition-transform duration-300 hover:scale-105"
+                    >
+                      {/* Standalone Cutout Building Image */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={project.image}
@@ -372,24 +413,19 @@ export default function InteractiveMap() {
                         className="h-28 sm:h-36 md:h-44 w-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)]"
                         onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                       />
-                      {activeLocation.projects.length > 1 && (
-                        <div className="mt-1 bg-black/80 border border-gold/40 px-2 py-0.5 rounded-full">
-                          <span className="text-[8px] font-sans font-semibold tracking-widest text-gold uppercase whitespace-nowrap">
-                            {project.name}
-                          </span>
-                        </div>
-                      )}
-                    </div>
+
+                      {/* Project Name Pill */}
+                      <div className="mt-1.5 bg-black/90 border border-gold/50 group-hover/proj:border-gold group-hover/proj:bg-black px-3 py-1 rounded-full shadow-2xl transition-all">
+                        <span className="text-[9px] font-sans font-semibold tracking-widest text-gold uppercase whitespace-nowrap flex items-center gap-1">
+                          <span>{project.name}</span>
+                          <span className="text-[10px] text-gold/70 group-hover/proj:text-gold">↗</span>
+                        </span>
+                      </div>
+                    </Link>
                   ))}
                 </div>
-                <div className="mt-2 bg-black/90 border border-gold/60 px-3 py-1 rounded-full shadow-xl">
-                  <span className="text-[9px] font-sans font-bold tracking-widest text-gold uppercase whitespace-nowrap">
-                    {activeLocation.projects.length > 1
-                      ? `${activeLocation.projects.length} Projects — ${activeLocation.name}`
-                      : `${activeLocation.projects[0].name} — ${activeLocation.name}`
-                    }
-                  </span>
-                </div>
+
+                {/* Center subtle pointer needle */}
                 <div className="w-px h-4 bg-gradient-to-b from-gold/60 to-transparent mt-1" />
               </div>
             </div>
@@ -399,11 +435,18 @@ export default function InteractiveMap() {
 
       {/* Legend */}
       <div className="absolute bottom-12 right-8 md:right-16 z-30 pointer-events-none">
-        <div className="bg-black/40 border border-white/5 rounded-lg px-4 py-3 flex flex-col gap-2 text-[10px] tracking-wider font-sans uppercase text-white/60">
-          <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-gold border border-black" /><span>Central Pune</span></div>
-          <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-white border border-black" /><span>West Pune</span></div>
-          <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-white/40 border border-black" /><span>East Pune</span></div>
-          <div className="flex items-center gap-2 text-gold"><span className="w-2 h-2 rounded-full bg-gold/40 border border-black animate-pulse" /><span>Upcoming</span></div>
+        <div className="bg-black/60 backdrop-blur-md border border-[#C5A880]/20 rounded-xl px-4 py-3 flex flex-col gap-2 text-[10px] tracking-wider font-sans uppercase text-white/70 shadow-lg">
+          <div className="flex items-center gap-2.5">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A880] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#C5A880]" />
+            </span>
+            <span className="text-[#C5A880] font-semibold">Jhamtani Project Hubs</span>
+          </div>
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-white/30" />
+            <span className="text-zinc-400">Key City Landmarks</span>
+          </div>
         </div>
       </div>
     </section>

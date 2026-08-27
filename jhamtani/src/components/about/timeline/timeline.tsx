@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -43,6 +43,11 @@ export default function AboutTimeline() {
   const [viewportHeight, setViewportHeight] = useState(800);
   const heightRef = useRef(800);
 
+  const targetIndexRef = useRef(0);
+  const progressValRef = useRef({ value: 0 });
+  const progressTweenRef = useRef<gsap.core.Tween | null>(null);
+  const lastStepTimeRef = useRef(0);
+
   useEffect(() => {
     heightRef.current = window.innerHeight;
     setViewportHeight(window.innerHeight);
@@ -58,7 +63,7 @@ export default function AboutTimeline() {
   const spacing = 0.15; // spacing parameter t along bezier curve
 
   // Bezier curve calculations dynamically based on heightRef
-  const getBezierPoint = (t: number) => {
+  const getBezierPoint = useCallback((t: number) => {
     const clampedT = Math.max(0, Math.min(1, t));
     const h = heightRef.current;
     const p0 = { x: 80, y: 0 };
@@ -94,24 +99,190 @@ export default function AboutTimeline() {
       y: Number(y.toFixed(2)),
       angle: Number(angle.toFixed(2)),
     };
-  };
+  }, []);
 
-  // Scroll to a specific year milestone
-  const scrollToIndex = (index: number) => {
-    if (!containerRef.current) return;
-    const trigger = ScrollTrigger.getById("timeline-scroll");
-    if (!trigger) return;
+  // Smoothly render curve items at any fractional progress
+  const renderTimelineAtProgress = useCallback((activeProgress: number) => {
+    const roundedIdx = Math.round(activeProgress);
+    setActiveIndex((prev) => (prev !== roundedIdx ? roundedIdx : prev));
 
-    const start = trigger.start;
-    const end = trigger.end;
-    const scrollRange = end - start;
-    const targetScroll = start + (index / (n - 1)) * scrollRange;
+    timelineData.forEach((_, idx) => {
+      const t = (idx - activeProgress) * spacing + 0.5;
+      const pt = getBezierPoint(t);
 
-    window.scrollTo({
-      top: targetScroll,
-      behavior: "smooth",
+      const dot = document.getElementById(`dot-${idx}`);
+      const text = document.getElementById(`text-${idx}`);
+      const group = document.getElementById(`group-${idx}`);
+
+      if (dot && text) {
+        gsap.set(dot, { attr: { cx: pt.x, cy: pt.y } });
+        gsap.set(text, { attr: { x: pt.x + 25, y: pt.y + 8 } });
+
+        const isNearCenter = Math.abs(t - 0.5) < 0.05;
+        const r = isNearCenter ? 0 : pt.angle;
+        gsap.set(text, { attr: { transform: `rotate(${r}, ${pt.x + 25}, ${pt.y + 8})` } });
+
+        const dist = Math.abs(t - 0.5);
+        const opacity = Math.max(0, 1 - dist * 1.5);
+        const scale = Math.max(0.6, 1 - dist * 0.8);
+
+        if (group) {
+          gsap.set(group, { style: `opacity: ${opacity};` });
+        }
+
+        const isCurrent = idx === roundedIdx;
+        const fill = isCurrent ? "#9A6B4F" : "#C7A189";
+        const weight = isCurrent ? "600" : "300";
+
+        gsap.set(text, { 
+          style: `font-size: ${scale * 40}px; font-weight: ${weight}; fill: ${fill}; transition: fill 0.3s ease;` 
+        });
+      }
     });
-  };
+
+    const centerPt = getBezierPoint(0.5);
+    if (activeDotRef.current) {
+      gsap.set(activeDotRef.current, { attr: { cx: centerPt.x, cy: centerPt.y } });
+    }
+    if (activeDotGlowRef.current) {
+      gsap.set(activeDotGlowRef.current, { attr: { cx: centerPt.x, cy: centerPt.y } });
+    }
+  }, [getBezierPoint, spacing]);
+
+  // Stepped transition to a specific year milestone
+  const goToYear = useCallback((index: number, syncScroll = true) => {
+    const clampedIndex = Math.max(0, Math.min(n - 1, index));
+    targetIndexRef.current = clampedIndex;
+
+    if (progressTweenRef.current) {
+      progressTweenRef.current.kill();
+    }
+
+    progressTweenRef.current = gsap.to(progressValRef.current, {
+      value: clampedIndex,
+      duration: 0.55,
+      ease: "power2.out",
+      onUpdate: () => {
+        renderTimelineAtProgress(progressValRef.current.value);
+      },
+      onComplete: () => {
+        renderTimelineAtProgress(clampedIndex);
+      }
+    });
+
+    if (syncScroll) {
+      const trigger = ScrollTrigger.getById("timeline-scroll");
+      if (trigger) {
+        const targetY = trigger.start + (clampedIndex / (n - 1)) * (trigger.end - trigger.start);
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+      }
+    }
+  }, [n, renderTimelineAtProgress]);
+
+  const leftColumnRef = useRef<HTMLDivElement>(null);
+
+  // Discrete Wheel & Trackpad Stepper (1 step per physical gesture)
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const trigger = ScrollTrigger.getById("timeline-scroll");
+      if (!trigger) return;
+
+      const scrollY = window.scrollY;
+      // Check if timeline is occupying the primary viewport
+      const isInside = scrollY >= trigger.start - 25 && scrollY <= trigger.end + 25;
+      if (!isInside) return;
+
+      // Check if cursor is hovering over the left timeline area vs right whitespace area
+      const leftCol = leftColumnRef.current;
+      let isOverTimeline = false;
+
+      if (leftCol) {
+        const leftRect = leftCol.getBoundingClientRect();
+        isOverTimeline = e.clientX <= leftRect.right + 20;
+      } else {
+        isOverTimeline = e.clientX <= window.innerWidth * 0.45;
+      }
+
+      // If scrolling on the right white space area, bypass timeline and scroll page directly
+      if (!isOverTimeline) {
+        if (e.deltaY > 15) {
+          // Scroll directly down to next section
+          e.preventDefault();
+          window.scrollTo({
+            top: trigger.end + 80,
+            behavior: "smooth"
+          });
+        } else if (e.deltaY < -15) {
+          // Scroll directly up to previous section
+          e.preventDefault();
+          window.scrollTo({
+            top: Math.max(0, trigger.start - 80),
+            behavior: "smooth"
+          });
+        }
+        return;
+      }
+
+      // Cursor is on the left side: Execute step-by-step year timeline progression
+      const now = Date.now();
+      const timeSinceLast = now - lastStepTimeRef.current;
+
+      // Filter small noise
+      if (Math.abs(e.deltaY) < 12) return;
+
+      if (e.deltaY > 0) {
+        // Scroll Down -> Move strictly 1 year forward
+        if (targetIndexRef.current < n - 1) {
+          e.preventDefault();
+          if (timeSinceLast >= 500) {
+            lastStepTimeRef.current = now;
+            goToYear(targetIndexRef.current + 1, true);
+          }
+        }
+        // At 2026 (last year), allow natural downward page scroll into the next section
+      } else if (e.deltaY < 0) {
+        // Scroll Up -> Move strictly 1 year backward
+        if (targetIndexRef.current > 0) {
+          e.preventDefault();
+          if (timeSinceLast >= 500) {
+            lastStepTimeRef.current = now;
+            goToYear(targetIndexRef.current - 1, true);
+          }
+        }
+        // At 2010 (first year), allow natural upward page scroll into the previous section
+      }
+    };
+
+    // Keyboard navigation
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const rect = container.getBoundingClientRect();
+      const isVisible = rect.top <= 100 && rect.bottom >= window.innerHeight - 100;
+      if (!isVisible) return;
+
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        if (targetIndexRef.current < n - 1) {
+          e.preventDefault();
+          goToYear(targetIndexRef.current + 1, true);
+        }
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        if (targetIndexRef.current > 0) {
+          e.preventDefault();
+          goToYear(targetIndexRef.current - 1, true);
+        }
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [n, goToYear]);
 
   useGSAP(() => {
     if (!pathRef.current) return;
@@ -150,66 +321,14 @@ export default function AboutTimeline() {
       { r: 24, opacity: 0, duration: 1.5, repeat: -1, ease: "power1.out" }
     );
 
-    // 3. Scroll Trigger configuration for pinning
+    // 3. Pinning Trigger spanning all 15 years
     const mainTrigger = ScrollTrigger.create({
       id: "timeline-scroll",
       trigger: containerRef.current,
       start: "top top",
-      end: "+=500%", // 600vh scroll height (pins container for 5x viewport height)
+      end: () => `+=${(n - 1) * 700}`, // Long enough for all 15 years to display
       pin: true,
-      scrub: 0.8,
-      onUpdate: (self) => {
-        const p = self.progress;
-        const activeProgress = p * (n - 1);
-        const roundedIdx = Math.round(activeProgress);
-
-        // Update active index state
-        setActiveIndex((prev) => (prev !== roundedIdx ? roundedIdx : prev));
-
-        // Dynamically slide all year markers along the curve
-        timelineData.forEach((_, idx) => {
-          const t = (idx - activeProgress) * spacing + 0.5;
-          const pt = getBezierPoint(t);
-
-          const dot = document.getElementById(`dot-${idx}`);
-          const text = document.getElementById(`text-${idx}`);
-          const group = document.getElementById(`group-${idx}`);
-
-          if (dot && text) {
-            // Position dot and text dynamically
-            gsap.set(dot, { attr: { cx: pt.x, cy: pt.y } });
-            gsap.set(text, { attr: { x: pt.x + 25, y: pt.y + 8 } });
-
-            // Rotate text tangentially
-            const isNearCenter = Math.abs(t - 0.5) < 0.05;
-            const r = isNearCenter ? 0 : pt.angle;
-            gsap.set(text, { attr: { transform: `rotate(${r}, ${pt.x + 25}, ${pt.y + 8})` } });
-
-            // Scale and opacity adjustments based on distance to center
-            const dist = Math.abs(t - 0.5);
-            const opacity = Math.max(0, 1 - dist * 1.5);
-            const scale = Math.max(0.6, 1 - dist * 0.8);
-
-            if (group) {
-              gsap.set(group, { style: `opacity: ${opacity};` });
-            }
-
-            // Apply style mapping dynamically
-            const isCurrent = idx === roundedIdx;
-            const fill = isCurrent ? "#9A6B4F" : "#C7A189"; // active dark, others light
-            const weight = isCurrent ? "600" : "300";
-
-            gsap.set(text, { 
-              style: `font-size: ${scale * 40}px; font-weight: ${weight}; fill: ${fill}; transition: fill 0.3s ease;` 
-            });
-          }
-        });
-
-        // Loop active pulsing glow position (always fixed at center t=0.5 on desktop)
-        const centerPt = getBezierPoint(0.5);
-        gsap.set(activeDotRef.current, { attr: { cx: centerPt.x, cy: centerPt.y } });
-        gsap.set(activeDotGlowRef.current, { attr: { cx: centerPt.x, cy: centerPt.y } });
-      }
+      scrub: false,
     });
 
     // 4. Subtle background radial gradient moving loop
@@ -278,11 +397,6 @@ export default function AboutTimeline() {
     return () => clearInterval(interval);
   }, [activeIndex]);
 
-  // Staggered fade-in of project content (now handled by Framer Motion characters)
-  useEffect(() => {
-    // Empty hook to preserve structure without GSAP transition conflicts
-  }, [activeIndex, projectSubIndex]);
-
   // Compute text transformations and styling dynamically for initial render
   const getYearTextStyle = (idx: number) => {
     const diff = Math.abs(idx - activeIndex);
@@ -341,7 +455,7 @@ export default function AboutTimeline() {
           <div className="max-w-7xl mx-auto w-full px-8 xl:px-16 grid grid-cols-12 gap-10 items-center h-full relative">
             
             {/* Left Column: Curved SVG Timeline */}
-            <div className="col-span-5 h-full flex items-center justify-start overflow-visible relative">
+            <div ref={leftColumnRef} className="col-span-5 h-full flex items-center justify-start overflow-visible relative">
               <svg
                 viewBox={`0 0 480 ${viewportHeight}`}
                 preserveAspectRatio="xMinYMin slice"
@@ -371,7 +485,7 @@ export default function AboutTimeline() {
                     <g
                       key={data.year}
                       id={`group-${idx}`}
-                      onClick={() => scrollToIndex(idx)}
+                      onClick={() => goToYear(idx)}
                       className="cursor-pointer group"
                       style={{
                         opacity: Math.max(0, 1 - Math.abs(tInitial - 0.5) * 1.5),
@@ -446,63 +560,59 @@ export default function AboutTimeline() {
                         return <span key={index} className="w-[0.25em] inline-block" />;
                       }
                       return (
-                        <span key={index} className="relative inline-flex overflow-hidden py-1 -my-1">
-                          <motion.span
-                            initial={{ y: "115%", opacity: 0 }}
-                            animate={{ y: "0%", opacity: 1 }}
-                            transition={{
-                              duration: 0.85,
-                              delay: index * 0.03, // 30ms stagger per letter
-                              ease: [0.16, 1, 0.3, 1],
-                            }}
-                            className="inline-block"
-                          >
-                            {char}
-                          </motion.span>
-                        </span>
+                        <motion.span
+                          key={index}
+                          initial={{ opacity: 0, y: 15, rotateX: 45 }}
+                          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                          transition={{
+                            duration: 0.4,
+                            delay: index * 0.025,
+                            ease: [0.215, 0.61, 0.355, 1],
+                          }}
+                          className="inline-block"
+                        >
+                          {char}
+                        </motion.span>
                       );
                     })}
                   </div>
                 )}
               </div>
+
             </div>
 
           </div>
         </div>
       </div>
 
-      {/* Mobile/Tablet Version: Clean static vertical timeline */}
-      <div className="lg:hidden w-full px-6 py-20 relative z-20">
-        <div className="max-w-xl mx-auto">
-          <div className="space-y-3 mb-16">
-            <span className="font-serif text-[16px] text-[#9A6B4F] tracking-wider block uppercase">
-              Our Journey
+      {/* Mobile / Tablet Version: Clean Vertical Timeline */}
+      <div className="block lg:hidden w-full px-6 py-20 relative z-20">
+        <div className="max-w-xl mx-auto space-y-12">
+          
+          <div className="text-center space-y-3">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#A0725B] font-semibold">
+              LEGACY &amp; ACHIEVEMENTS
             </span>
-            <h2 className="font-serif text-[32px] text-[#2B2B2B] leading-tight font-normal">
-              The Timeline of <br />
-              Promises Delivered
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#A0725B]">
+              The Timeline of Promises Delivered
             </h2>
           </div>
-          
-          <div className="relative border-l border-[#C7A189]/40 pl-8 ml-2 space-y-12">
-            {timelineData.map((data) => (
-              <div
-                key={data.year}
-                className="mobile-item relative"
-              >
-                {/* Mobile Year Dot */}
-                <div className="absolute -left-[39px] top-1.5 w-3 h-3 rounded-full bg-[#9A6B4F] border-2 border-[#FAF8F6] shadow-sm" />
-                
-                <span className="font-serif text-[22px] font-semibold text-[#9A6B4F] block mb-3">
-                  {data.year}
-                </span>
-                
-                <div className="space-y-3">
-                  {data.projects.map((proj) => (
-                    <div
-                      key={proj}
-                      className="font-serif font-normal text-[17px] text-[#2B2B2B] tracking-wider uppercase pl-4 border-l border-[#C7A189]/60 py-1"
-                    >
+
+          <div className="relative pl-6 sm:pl-8 border-l border-[#C7A189]/40 space-y-10">
+            {timelineData.map((item, idx) => (
+              <div key={item.year} className="mobile-item relative space-y-2">
+                {/* Node dot on vertical line */}
+                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#FAF8F6] border-2 border-[#9A6B4F] flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#9A6B4F]" />
+                </div>
+
+                <div className="font-serif text-2xl text-[#9A6B4F] font-semibold">
+                  {item.year}
+                </div>
+
+                <div className="space-y-1.5">
+                  {item.projects.map((proj, pIdx) => (
+                    <div key={pIdx} className="text-sm sm:text-base text-zinc-800 font-light tracking-wide uppercase">
                       {proj}
                     </div>
                   ))}
@@ -510,6 +620,7 @@ export default function AboutTimeline() {
               </div>
             ))}
           </div>
+
         </div>
       </div>
 
