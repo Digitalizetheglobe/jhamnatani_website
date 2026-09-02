@@ -344,7 +344,7 @@ export default function CareerComponent() {
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/about/hero.jpg"
+            src="/assets/career.webp"
             alt="Jhamtani Careers Banner"
             fill
             priority
