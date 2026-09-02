@@ -8,13 +8,13 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/ace-ayodha/thought_1.webp",
-    alt: "Thoughtfully Planned Interior - Living Room Artistic Impression",
+    image: "/assets/ace-abundance/gallery/the-grand-terrace.webp",
+    alt: "The Grand Terrace - Ace Abundance",
   },
   {
     id: 2,
-    image: "/assets/ace-ayodha/hero.webp",
-    alt: "Ace Abundance Premium Residences - Exterior Artistic Impression",
+    image: "/assets/ace-abundance/gallery/the-signature-entrance.webp",
+    alt: "The Signature Entrance - Ace Abundance",
   },
 ];
 

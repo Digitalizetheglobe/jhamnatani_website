@@ -36,7 +36,7 @@ export default function Hero() {
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/projects/jhamtani-spacebiz.jpg"
+          src="/assets/jhamtani-spacebiz/banner.jpeg"
           alt="Jhamtani SpaceBiz - Premium Commercial Spaces in Baner, Pune"
           fill
           priority

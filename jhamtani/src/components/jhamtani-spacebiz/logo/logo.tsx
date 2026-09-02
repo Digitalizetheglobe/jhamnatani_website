@@ -12,7 +12,7 @@ export default function Logo() {
             width={350}
             height={106}
             priority
-            className="h-16 md:h-20 w-auto object-contain mix-blend-multiply"
+            className="h-16 md:h-25 w-auto object-contain mix-blend-multiply"
           />
         </div>
 

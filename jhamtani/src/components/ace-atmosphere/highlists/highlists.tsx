@@ -7,22 +7,22 @@ const highlights = [
     id: 1,
     title: "Open to Light and Views",
     desc: "High-rise homes welcome natural light, fresh air and expansive views.",
-    image: "/assets/ace-ayodha/highlight_1.webp",
-    alt: "24x7 Active Lifestyle - Modern Architecture",
+    image: "/assets/ace-atmosphere/designed-to-stand-above-time.webp",
+    alt: "Open to Light and Views - Ace Atmosphere",
   },
   {
     id: 2,
     title: "Life, at a Higher Level",
     desc: "Skywalks and elevated amenities create distinctive spaces to unwind above the city.",
-    image: "/assets/ace-ayodha/highlight_2.webp",
-    alt: "Prime Ravet Location - Outdoor Courtyard Garden",
+    image: "/assets/ace-atmosphere/an-open-track-in-the-open-sky.webp",
+    alt: "Life at a Higher Level - Ace Atmosphere Sky Amenities",
   },
   {
     id: 3,
     title: "Something for Every Generation",
     desc: "Landscaped, recreational and community spaces bring every age group together.",
-    image: "/assets/ace-ayodha/highlight_3.webp",
-    alt: "Expansive by Design - Modern Living",
+    image: "/assets/ace-atmosphere/a-landscape-designed-for-everyday-living.webp",
+    alt: "A Landscape Designed for Everyday Living - Ace Atmosphere",
   },
 ];
 

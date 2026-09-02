@@ -8,18 +8,23 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/projects/ace-atmosphere.jpg",
-    alt: "Ace Atmosphere - 24x7 Lifestyle Concept in Ravet",
+    image: "/assets/ace-atmosphere/the-first-impression-of-a-landmark.webp",
+    alt: "The First Impression of a Landmark - Ace Atmosphere",
   },
   {
     id: 2,
-    image: "/assets/pojetcts/ace_atmosphere.webp",
-    alt: "Ace Atmosphere Architectural Elevation - Ravet, Pune",
+    image: "/assets/ace-atmosphere/when-architecture-becomes-a-beacon.webp",
+    alt: "When Architecture Becomes a Beacon - Ace Atmosphere",
   },
   {
     id: 3,
-    image: "/assets/ace-ayodha/thought_1.webp",
-    alt: "Thoughtfully Planned Modern Living - Artistic Impression",
+    image: "/assets/ace-atmosphere/a-landmark-for-those-who-look-ahead.webp",
+    alt: "A Landmark for Those Who Look Ahead - Ace Atmosphere",
+  },
+  {
+    id: 4,
+    image: "/assets/ace-atmosphere/retail-that-rises-with-the-city.webp",
+    alt: "Retail That Rises with the City - Ace Atmosphere",
   },
 ];
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
 export default function Hero() {
-  const line1 = "A Rarer Expression  of";
+  const line1 = "A Rarer Expression of";
   const line2 = "Living";
 
   // Framer Motion animation variants
@@ -32,21 +32,21 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full h-screen min-h-[900px] flex items-center overflow-hidden bg-white select-none">
+    <section className="relative w-full h-screen min-h-[900px] flex items-center overflow-hidden bg-[#14191F] select-none">
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/ace-ayodha/hero.webp"
-          alt="Ace Ayodha - The Ideal Way of Living"
+          src="/assets/ace-abundance/Abundacne_Elevaion.webp"
+          alt="Ace Abundance - A Rarer Expression of Living"
           fill
           priority
           quality={100}
-          style={{ objectPosition: "10% 80%" }}
-          className="object-cover select-none scale-110"
+          style={{ objectPosition: "center 60%" }}
+          className="object-cover select-none scale-105"
         />
         {/* Soft elegant gradient overlays for readability and premium feel */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/30 pointer-events-none" />
       </div>
 
       {/* Hero content */}
@@ -55,9 +55,9 @@ export default function Hero() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-2xl text-left"
+          className="max-w-3xl text-left"
         >
-          <h1 className="font-serif font-normal text-[36px] sm:text-[48px] md:text-[54px] lg:text-[62px] leading-[1.1] text-[#1C2D37] tracking-wide">
+          <h1 className="font-serif font-normal text-[36px] sm:text-[48px] md:text-[54px] lg:text-[64px] leading-[1.15] text-white tracking-wide drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
             {/* Line 1 */}
             <span className="block overflow-hidden py-1">
               <motion.span variants={textVariants} className="inline-block">
@@ -66,7 +66,7 @@ export default function Hero() {
             </span>
             {/* Line 2 */}
             <span className="block overflow-hidden py-1">
-              <motion.span variants={textVariants} className="inline-block">
+              <motion.span variants={textVariants} className="inline-block text-[#E5D2B8]">
                 {line2}
               </motion.span>
             </span>
@@ -77,7 +77,7 @@ export default function Hero() {
       {/* Artist's Impression Vertical Label on the right edge */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center mr-2 md:mr-4 select-none pointer-events-none">
         <span 
-          className="text-[9px] sm:text-[10px] tracking-[0.25em] text-[#6A6A6A] font-sans font-medium uppercase whitespace-nowrap"
+          className="text-[9px] sm:text-[10px] tracking-[0.25em] text-white/70 font-sans font-medium uppercase whitespace-nowrap"
           style={{
             writingMode: "vertical-lr",
             transform: "rotate(180deg)",

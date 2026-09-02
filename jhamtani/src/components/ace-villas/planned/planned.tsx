@@ -8,18 +8,23 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/pojetcts/ace_villas.webp",
-    alt: "Ace Villas Bespoke Architecture - Exterior Artistic Impression",
+    image: "/assets/ace-villas/Pure indulgence at the garden lounge.png",
+    alt: "Pure Indulgence at the Garden Lounge - Ace Villas Artistic Impression",
   },
   {
     id: 2,
-    image: "/assets/ace-ayodha/thought_1.webp",
-    alt: "Thoughtfully Planned Interior - Living Room Artistic Impression",
+    image: "/assets/ace-villas/Where modern design meets everyday calm.png",
+    alt: "Where Modern Design Meets Everyday Calm - Ace Villas Artistic Impression",
   },
   {
     id: 3,
-    image: "/assets/ace-ayodha/hero.webp",
-    alt: "Ace Villas Private Sanctuary - Artistic Impression",
+    image: "/assets/ace-villas/Your own on theswimming pool top floor.png",
+    alt: "Your Own Top Floor Swimming Pool - Ace Villas Artistic Impression",
+  },
+  {
+    id: 4,
+    image: "/assets/ace-villas/Private Arrival Garden.png",
+    alt: "Private Arrival Garden - Ace Villas Artistic Impression",
   },
 ];
 

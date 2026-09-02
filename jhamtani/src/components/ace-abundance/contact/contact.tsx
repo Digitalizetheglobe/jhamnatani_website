@@ -355,7 +355,7 @@ export default function Contact() {
             <div className="flex items-start gap-4 pt-2">
               {/* RERA QR code image */}
               <img
-                src="/assets/ace-ayodha/rera.webp"
+                src="/assets/ace-abundance/rera.webp"
                 alt="MahaRERA Registration QR Code"
                 className="w-16 h-16 sm:w-20 sm:h-25 object-contain border border-zinc-200"
               />

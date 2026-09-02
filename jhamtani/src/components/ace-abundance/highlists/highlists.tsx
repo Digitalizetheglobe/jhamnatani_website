@@ -7,22 +7,22 @@ const highlights = [
     id: 1,
     title: "Connected, Yet Private",
     desc: "Close to Pune’s key lifestyle and commercial hubs yet distinctly calm and private.",
-    image: "/assets/ace-ayodha/highlight_1.webp",
-    alt: "Purposeful Planning - Bedroom Interior",
+    image: "/assets/ace-abundance/gallery/the-signature-entrance.webp",
+    alt: "The Signature Entrance - Ace Abundance",
   },
   {
     id: 2,
     title: "Expansive by Design",
     desc: "Spacious layouts and full-height windows create bright, open and composed interiors.",
-    image: "/assets/ace-ayodha/highlight_2.webp",
-    alt: "Private, Yet Connected - Outdoor Courtyard Garden",
+    image: "/assets/ace-abundance/gallery/the-open-air-happiness.webp",
+    alt: "The Open-Air Happiness - Ace Abundance",
   },
   {
     id: 3,
     title: "Well-Being, Thoughtfully Integrated",
     desc: "Wellness, recreation and social spaces are curated around everyday balance.",
-    image: "/assets/ace-ayodha/highlight_3.webp",
-    alt: "Well-Being, Built In - Modern Gym Fitness Center",
+    image: "/assets/ace-abundance/gallery/the-dip-in-the-serene-blues.webp",
+    alt: "The Dip in the Serene Blues - Ace Abundance",
   },
 ];
 

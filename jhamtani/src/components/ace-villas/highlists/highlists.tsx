@@ -7,22 +7,22 @@ const highlights = [
     id: 1,
     title: "A Precinct Set Apart",
     desc: "A quieter villa enclave in Koregaon Park NX, offering privacy with city conveniences close at hand.",
-    image: "/assets/pojetcts/ace_villas.webp",
-    alt: "Bespoke Architecture - Ace Villas Exterior",
+    image: "/assets/ace-villas/Private Arrival Garden.png",
+    alt: "Private Arrival Garden - Ace Villas",
   },
   {
     id: 2,
     title: "Architecture of Individuality",
     desc: "Three-side-open planning, double-height glazing and natural light create an expansive sense of space.",
-    image: "/assets/ace-ayodha/highlight_2.webp",
-    alt: "Private Courtyard & Greens - Ace Villas Landscaping",
+    image: "/assets/ace-villas/Where modern design meets everyday calm.png",
+    alt: "Where Modern Design Meets Everyday Calm - Ace Villas",
   },
   {
     id: 3,
     title: "Privileges Entirely Your Own",
     desc: "A private garden, rooftop pool, terraces, home elevator and basement extend life beyond the interiors.",
-    image: "/assets/ace-ayodha/highlight_3.webp",
-    alt: "The Signature Estate Club - Ace Villas Club Amenities",
+    image: "/assets/ace-villas/Your own on theswimming pool top floor.png",
+    alt: "Your Own Top Floor Swimming Pool - Ace Villas",
   },
 ];
 

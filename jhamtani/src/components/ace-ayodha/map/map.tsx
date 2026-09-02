@@ -326,7 +326,7 @@ export default function MapSection() {
   return (
     <section className="relative w-full bg-[#191F26] pt-20 select-none overflow-hidden">
       {/* Header Block */}
-      <div className="max-w-6xl mx-auto mb-20 px-6 sm:px-12 lg:px-16">
+      <div className="max-w-6xl mx-auto mb-20">
         <div className="max-w-3xl text-left">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

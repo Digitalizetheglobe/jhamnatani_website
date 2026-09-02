@@ -158,20 +158,28 @@ export default function Gallery() {
     setActiveIndex((prev) => (prev + 1) % total);
   };
 
+  // Compute signed shortest distance between card index and active index
+  const getSignedDiff = (idx: number) => {
+    let diff = (idx - activeIndex) % total;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    return diff;
+  };
+
   const handleCardClick = (idx: number) => {
-    const diff = (idx - activeIndex + total) % total;
-    if (diff === 1 || diff === -(total - 1)) {
+    const signedDiff = getSignedDiff(idx);
+    if (signedDiff === 1) {
       handleNext();
-    } else if (diff === total - 1 || diff === -1) {
+    } else if (signedDiff === -1) {
       handlePrev();
     }
   };
 
   const getCardStyles = (idx: number) => {
-    const diff = (idx - activeIndex + total) % total;
+    const signedDiff = getSignedDiff(idx);
 
-    if (diff === 0) {
-      // Active center card - shifted upward on desktop/tablet
+    if (signedDiff === 0) {
+      // Active center card - elevated
       return {
         x: 0,
         y: isMobile ? 0 : -25,
@@ -180,8 +188,8 @@ export default function Gallery() {
         zIndex: 20,
         pointerEvents: "auto" as const,
       };
-    } else if (diff === 1 || diff === -(total - 1)) {
-      // Right card - shifted downward on desktop/tablet to create staggered layout
+    } else if (signedDiff === 1) {
+      // Immediate right card
       return {
         x: offset,
         y: isMobile ? 0 : 25,
@@ -190,8 +198,8 @@ export default function Gallery() {
         zIndex: 10,
         pointerEvents: isMobile ? ("none" as const) : ("auto" as const),
       };
-    } else if (diff === total - 1 || diff === -1) {
-      // Left card - shifted downward on desktop/tablet to create staggered layout
+    } else if (signedDiff === -1) {
+      // Immediate left card
       return {
         x: -offset,
         y: isMobile ? 0 : 25,
@@ -200,10 +208,30 @@ export default function Gallery() {
         zIndex: 10,
         pointerEvents: isMobile ? ("none" as const) : ("auto" as const),
       };
-    } else {
-      // Offscreen / Hidden cards
+    } else if (signedDiff === 2) {
+      // Entering / exiting offscreen right
       return {
-        x: diff === 2 ? offset * 2 : -offset * 2,
+        x: offset * 1.6,
+        y: isMobile ? 0 : 25,
+        scale: 0.9,
+        opacity: 0,
+        zIndex: 2,
+        pointerEvents: "none" as const,
+      };
+    } else if (signedDiff === -2) {
+      // Entering / exiting offscreen left
+      return {
+        x: -offset * 1.6,
+        y: isMobile ? 0 : 25,
+        scale: 0.9,
+        opacity: 0,
+        zIndex: 2,
+        pointerEvents: "none" as const,
+      };
+    } else {
+      // Hidden cards parked further away on their respective side
+      return {
+        x: signedDiff > 0 ? offset * 2.2 : -offset * 2.2,
         y: 0,
         scale: 0.8,
         opacity: 0,
@@ -241,7 +269,7 @@ export default function Gallery() {
 
         {/* Carousel Container */}
         <div
-          className="relative mx-auto flex items-center justify-center transition-all duration-300"
+          className="relative mx-auto flex items-center justify-center"
           style={{
             width: `${cardWidth}px`,
             height: `${cardWidth * 1.35}px`,
@@ -249,29 +277,47 @@ export default function Gallery() {
         >
           <div className="absolute inset-0 flex items-center justify-center w-full h-full">
             {galleryItems.map((item, idx) => {
-              const diff = (idx - activeIndex + total) % total;
-              const isActive = diff === 0;
+              const signedDiff = getSignedDiff(idx);
+              const isActive = signedDiff === 0;
 
               return (
                 <motion.div
                   key={item.id}
-                  style={{ position: "absolute", width: "100%", height: "100%" }}
+                  style={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    willChange: "transform, opacity",
+                  }}
                   animate={getCardStyles(idx)}
                   transition={{
                     type: "spring",
-                    stiffness: 160,
-                    damping: 22,
+                    stiffness: 240,
+                    damping: 28,
+                    mass: 0.8,
+                  }}
+                  drag={isActive ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.15}
+                  onDragEnd={(_, info) => {
+                    if (info.offset.x < -50 || info.velocity.x < -300) {
+                      handleNext();
+                    } else if (info.offset.x > 50 || info.velocity.x > 300) {
+                      handlePrev();
+                    }
                   }}
                   onClick={() => handleCardClick(idx)}
-                  className={`overflow-hidden shadow-2xl transition-all duration-300 ${
-                    isActive ? "cursor-default" : "cursor-pointer"
+                  className={`overflow-hidden shadow-2xl ${
+                    isActive ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"
                   }`}
                 >
+                  {/* Standard HTML img for fast rendering and fluid animation */}
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover pointer-events-none select-none"
                     loading="eager"
+                    draggable={false}
                   />
 
                   {/* White overlay for dimming inactive cards */}

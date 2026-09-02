@@ -8,16 +8,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/projects/jhamtani-elevate.jpg",
+    image: "/assets/jhamtani-elevate/banner.jpeg",
     alt: "Jhamtani Elevate - Modern Architectural Living in Mundhwa",
   },
   {
     id: 2,
-    image: "/assets/jhamtani-elevate/An address that commands the skyline.webp",
-    alt: "Jhamtani Elevate Architectural Elevation - Skyline View",
-  },
-  {
-    id: 3,
     image: "/assets/jhamtani-elevate/Where work meets rest, seamlessly.webp",
     alt: "Thoughtfully Planned Modern Living - Artistic Impression",
   },

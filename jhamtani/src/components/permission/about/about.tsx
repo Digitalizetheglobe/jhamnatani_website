@@ -58,22 +58,6 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            Some promises stay with our homeowners. Some shape the way we work.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Some build stronger communities. And some inspire dreams far beyond our projects. Together, they build the kind of brand we aspire to be.
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             The following aren't just our initiatives. They're the many ways we choose to keep our word.

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- CCTV Wall Mount Bracket -->
+  <line x1="48" y1="36" x2="48" y2="52" stroke-width="2.5" />
+  <path d="M48 48h-8v-8l6-6" />
+  
+  <!-- Camera Body (Angled 24/7 Security Camera) -->
+  <polygon points="18,18 40,24 35,42 13,36" />
+  <!-- Sun/Weather Shield Hood -->
+  <path d="M14,14 L44,22" stroke-width="2.5" />
+  <!-- Camera Lens -->
+  <circle cx="21" cy="30" r="3" />
+  <circle cx="21" cy="30" r="1" fill="currentColor" />
+  
+  <!-- Indicator Light & Lines -->
+  <line x1="26" y1="23" x2="26" y2="25" />
+  <line x1="31" y1="25" x2="31" y2="27" />
+  
+  <!-- Surveillance Waves / Beam -->
+  <path d="M11 24l-3-2M9 36l-4 3M8 30l-4 0" stroke-width="1.5" />
+</svg>

@@ -8,18 +8,23 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/projects/ace-aster.jpg",
-    alt: "Ace Aster - Contemporary Living in Ravet",
+    image: "/assets/ace-aster/a-skyline-statement-day-and-night.webp",
+    alt: "A Skyline Statement, Day and Night - Ace Aster",
   },
   {
     id: 2,
-    image: "/assets/pojetcts/ace_aster.webp",
-    alt: "Ace Aster Architectural Elevation - Ravet, Pune",
+    image: "/assets/ace-aster/where-the-skyline-comes-alive.webp",
+    alt: "Where the Skyline Comes Alive - Ace Aster",
   },
   {
     id: 3,
-    image: "/assets/ace-ayodha/thought_1.webp",
-    alt: "Thoughtfully Planned Modern Living - Artistic Impression",
+    image: "/assets/ace-aster/where-evenings-unfold-beautifully.webp",
+    alt: "Where Evenings Unfold Beautifully - Ace Aster",
+  },
+  {
+    id: 4,
+    image: "/assets/ace-aster/cool-waters-calmer-days.webp",
+    alt: "Cool Waters, Calmer Days - Ace Aster",
   },
 ];
 

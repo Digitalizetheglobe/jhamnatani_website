@@ -6,56 +6,56 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const allAmenities = [
   // Row 1
-  { id: 1, name: "Main Entry Gateway", icon: "community-plaza" },
+  { id: 1, name: "Main Entry Gateway", icon: "Main Entry Gateway" },
   { id: 2, name: "Kids Pool", icon: "kids-pool" },
   { id: 3, name: "Kids Play Area With Pebble Pathway", icon: "childrens-play-area" },
-  { id: 4, name: "Jogging Track", icon: "outdoor-gym" },
-  { id: 5, name: "Water Body", icon: "swimming-pool" },
-  { id: 6, name: "Feature Wall", icon: "scribbling-wall" },
+  { id: 4, name: "Jogging Track", icon: "Jogging Track" },
+  { id: 5, name: "Water Body", icon: "Fountain" },
+  { id: 6, name: "Feature Wall", icon: "Feature Wall" },
 
   // Row 2
-  { id: 7, name: "Toilet", icon: "wellness-area" },
-  { id: 8, name: "Security Cabin", icon: "community-plaza" },
-  { id: 9, name: "BBQ Areas", icon: "open-cafeteria" },
+  { id: 7, name: "Toilet", icon: "Toilet" },
+  { id: 8, name: "Security Cabin", icon: "Security Cabin" },
+  { id: 9, name: "BBQ Areas", icon: "BBQ Areas" },
   { id: 10, name: "Aster Garden", icon: "zen-garden" },
-  { id: 11, name: "Gazebo Seating", icon: "seating-area" },
+  { id: 11, name: "Gazebo Seating", icon: "Gazebo Seating" },
   { id: 12, name: "Swimming Pool With Deck", icon: "swimming-pool" },
 
   // Row 3
-  { id: 13, name: "Lawn Pickleball Court", icon: "pickleball-court" },
-  { id: 14, name: "Changing Room And Toilet", icon: "wellness-area" },
+  { id: 13, name: "Lawn Pickleball Court", icon: "Lawn Pickleball Court" },
+  { id: 14, name: "Changing Room And Toilet", icon: "Changing Room and Toilet" },
   { id: 15, name: "Peripheral Liner Garden", icon: "activity-lawns" },
-  { id: 16, name: "Fire Tender Driveway With Paving Patterns", icon: "community-plaza" },
-  { id: 17, name: "Advertisement Panels", icon: "scribbling-wall" },
+  { id: 16, name: "Fire Tender Driveway With Paving Patterns", icon: "Fire Tender Driveway with Paving Patterns" },
+  { id: 17, name: "Advertisement Panels", icon: "Advertisement PanelsTender Driveway with Paving Patterns" },
   { id: 18, name: "Rock Climbing Wall With Sand Pit", icon: "rock-climbing-wall" },
 
   // Row 4
-  { id: 19, name: "Rest Room", icon: "lounge" },
-  { id: 20, name: "Senior Citizen Area", icon: "seating-area" },
+  { id: 19, name: "Rest Room", icon: "Rest Room" },
+  { id: 20, name: "Senior Citizen Area", icon: "Senior Citizen Area" },
   { id: 21, name: "Yoga Zumba", icon: "zumba-aerobics-area" },
-  { id: 22, name: "Viewing Deck", icon: "open-cafeteria" },
+  { id: 22, name: "Viewing Deck", icon: "Viewing Deck" },
   { id: 23, name: "Reading Corner", icon: "lounge" },
   { id: 24, name: "Reflexology Pathway", icon: "acupressure-pathway" },
 
   // Row 5
-  { id: 25, name: "Working Zone", icon: "lounge" },
+  { id: 25, name: "Working Zone", icon: "Working ZoneCorner" },
   { id: 26, name: "Game Board", icon: "indoor-games" },
-  { id: 27, name: "Pergola Seating", icon: "seating-area" },
+  { id: 27, name: "Pergola Seating", icon: "Pergola Seating" },
   { id: 28, name: "Zen Garden", icon: "zen-garden" },
-  { id: 29, name: "Club House", icon: "recreational-hall" },
-  { id: 30, name: "Multipurpose Hall", icon: "multipurpose-court" },
+  { id: 29, name: "Club House", icon: "Club House" },
+  { id: 30, name: "Multipurpose Hall", icon: "Multipurpose Hall" },
 
   // Row 6
   { id: 31, name: "Indoor Play Area", icon: "indoor-games" },
-  { id: 32, name: "Pantry", icon: "cafeteria" },
+  { id: 32, name: "Pantry", icon: "Pantry" },
   { id: 33, name: "AC Gym", icon: "ac-gym" },
-  { id: 34, name: "Steam/ Sauna (M/F)", icon: "wellness-area" },
+  { id: 34, name: "Steam/ Sauna (M/F)", icon: "Steam & Sauna" },
   { id: 35, name: "Outdoor Cafe Seating", icon: "open-cafeteria" },
-  { id: 36, name: "Library With Cafe", icon: "lounge" },
+  { id: 36, name: "Library With Cafe", icon: "Library with Cafe" },
 
   // Row 7
-  { id: 37, name: "Society Office", icon: "community-plaza" },
-  { id: 38, name: "Temple", icon: "wellness-area" },
+  { id: 37, name: "Society Office", icon: "Society Office" },
+  { id: 38, name: "Temple", icon: "Temple" },
   { id: 39, name: "Swing Plaza", icon: "childrens-play-area" },
   { id: 40, name: "Cricket Practice Pitch", icon: "box-cricket" },
 ];

@@ -27,63 +27,23 @@ const galleryItems = [
   },
   {
     id: 5,
-    image: "/assets/ace-villas/Dine under the open sky.webp",
-    title: "Dine Under the Open Sky",
+    image: "/assets/ace-villas/Private Arrival Garden.png",
+    title: "Private Arrival Garden",
   },
   {
     id: 6,
-    image: "/assets/ace-villas/Good food. Better ambience.webp",
-    title: "Good Food. Better Ambience.",
+    image: "/assets/ace-villas/Pure indulgence at the garden lounge.png",
+    title: "Pure Indulgence at the Garden Lounge",
   },
   {
     id: 7,
-    image: "/assets/ace-villas/The first step to elevated living..webp",
-    title: "The First Step to Elevated Living",
+    image: "/assets/ace-villas/Where modern design meets everyday calm.png",
+    title: "Where Modern Design Meets Everyday Calm",
   },
   {
     id: 8,
-    image: "/assets/ace-villas/Two purposes, one thoughtful design.webp",
-    title: "Two Purposes, One Thoughtful Design",
-  },
-  {
-    id: 9,
-    image: "/assets/ace-villas/Where work meets rest, seamlessly.webp",
-    title: "Where Work Meets Rest, Seamlessly",
-  },
-  {
-    id: 10,
-    image: "/assets/ace-villas/A lounge built for play.webp",
-    title: "A Lounge Built for Play",
-  },
-  {
-    id: 11,
-    image: "/assets/ace-villas/A personal space that adapts.webp",
-    title: "A Personal Space That Adapts",
-  },
-  {
-    id: 12,
-    image: "/assets/ace-villas/A room that grows with you.webp",
-    title: "A Room That Grows with You",
-  },
-  {
-    id: 13,
-    image: "/assets/ace-villas/A space designed for friendly competition.webp",
-    title: "A Space Designed for Friendly Competition",
-  },
-  {
-    id: 14,
-    image: "/assets/ace-villas/Balanced for productivity and comfort.webp",
-    title: "Balanced for Productivity and Comfort",
-  },
-  {
-    id: 15,
-    image: "/assets/ace-villas/Elevate-Construction-Update_.jpeg",
-    title: "Elevated Architectural Craftsmanship",
-  },
-  {
-    id: 16,
-    image: "/assets/ace-villas/jhamtani-elevate-mundhwa.webp",
-    title: "A Discreet Signature Enclave",
+    image: "/assets/ace-villas/Your own on theswimming pool top floor.png",
+    title: "Your Own Top Floor Swimming Pool",
   },
 ];
 
@@ -118,20 +78,28 @@ export default function Gallery() {
     setActiveIndex((prev) => (prev + 1) % total);
   };
 
+  // Compute signed shortest distance between card index and active index
+  const getSignedDiff = (idx: number) => {
+    let diff = (idx - activeIndex) % total;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    return diff;
+  };
+
   const handleCardClick = (idx: number) => {
-    const diff = (idx - activeIndex + total) % total;
-    if (diff === 1 || diff === -(total - 1)) {
+    const signedDiff = getSignedDiff(idx);
+    if (signedDiff === 1) {
       handleNext();
-    } else if (diff === total - 1 || diff === -1) {
+    } else if (signedDiff === -1) {
       handlePrev();
     }
   };
 
   const getCardStyles = (idx: number) => {
-    const diff = (idx - activeIndex + total) % total;
+    const signedDiff = getSignedDiff(idx);
 
-    if (diff === 0) {
-      // Active center card - shifted upward on desktop/tablet
+    if (signedDiff === 0) {
+      // Active center card - elevated
       return {
         x: 0,
         y: isMobile ? 0 : -25,
@@ -140,8 +108,8 @@ export default function Gallery() {
         zIndex: 20,
         pointerEvents: "auto" as const,
       };
-    } else if (diff === 1 || diff === -(total - 1)) {
-      // Right card - shifted downward on desktop/tablet to create staggered layout
+    } else if (signedDiff === 1) {
+      // Immediate right card
       return {
         x: offset,
         y: isMobile ? 0 : 25,
@@ -150,8 +118,8 @@ export default function Gallery() {
         zIndex: 10,
         pointerEvents: isMobile ? ("none" as const) : ("auto" as const),
       };
-    } else if (diff === total - 1 || diff === -1) {
-      // Left card - shifted downward on desktop/tablet to create staggered layout
+    } else if (signedDiff === -1) {
+      // Immediate left card
       return {
         x: -offset,
         y: isMobile ? 0 : 25,
@@ -160,10 +128,30 @@ export default function Gallery() {
         zIndex: 10,
         pointerEvents: isMobile ? ("none" as const) : ("auto" as const),
       };
-    } else {
-      // Offscreen / Hidden cards
+    } else if (signedDiff === 2) {
+      // Entering / exiting offscreen right
       return {
-        x: diff === 2 ? offset * 2 : -offset * 2,
+        x: offset * 1.6,
+        y: isMobile ? 0 : 25,
+        scale: 0.9,
+        opacity: 0,
+        zIndex: 2,
+        pointerEvents: "none" as const,
+      };
+    } else if (signedDiff === -2) {
+      // Entering / exiting offscreen left
+      return {
+        x: -offset * 1.6,
+        y: isMobile ? 0 : 25,
+        scale: 0.9,
+        opacity: 0,
+        zIndex: 2,
+        pointerEvents: "none" as const,
+      };
+    } else {
+      // Hidden cards parked further away on their respective side
+      return {
+        x: signedDiff > 0 ? offset * 2.2 : -offset * 2.2,
         y: 0,
         scale: 0.8,
         opacity: 0,
@@ -201,7 +189,7 @@ export default function Gallery() {
 
         {/* Carousel Container */}
         <div
-          className="relative mx-auto flex items-center justify-center transition-all duration-300"
+          className="relative mx-auto flex items-center justify-center"
           style={{
             width: `${cardWidth}px`,
             height: `${cardWidth * 1.35}px`,
@@ -209,29 +197,47 @@ export default function Gallery() {
         >
           <div className="absolute inset-0 flex items-center justify-center w-full h-full">
             {galleryItems.map((item, idx) => {
-              const diff = (idx - activeIndex + total) % total;
-              const isActive = diff === 0;
+              const signedDiff = getSignedDiff(idx);
+              const isActive = signedDiff === 0;
 
               return (
                 <motion.div
-                  key={item.id}
-                  style={{ position: "absolute", width: "100%", height: "100%" }}
+                  key={`${item.id}-${idx}`}
+                  style={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    willChange: "transform, opacity",
+                  }}
                   animate={getCardStyles(idx)}
                   transition={{
                     type: "spring",
-                    stiffness: 160,
-                    damping: 22,
+                    stiffness: 240,
+                    damping: 28,
+                    mass: 0.8,
+                  }}
+                  drag={isActive ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.15}
+                  onDragEnd={(_, info) => {
+                    if (info.offset.x < -50 || info.velocity.x < -300) {
+                      handleNext();
+                    } else if (info.offset.x > 50 || info.velocity.x > 300) {
+                      handlePrev();
+                    }
                   }}
                   onClick={() => handleCardClick(idx)}
-                  className={`overflow-hidden shadow-2xl transition-all duration-300 ${
-                    isActive ? "cursor-default" : "cursor-pointer"
+                  className={`overflow-hidden shadow-2xl ${
+                    isActive ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"
                   }`}
                 >
+                  {/* Standard HTML img for fast rendering and fluid animation */}
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover pointer-events-none select-none"
                     loading="eager"
+                    draggable={false}
                   />
 
                   {/* White overlay for dimming inactive cards */}
@@ -244,7 +250,7 @@ export default function Gallery() {
                   {/* Text Overlay for title legibility */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none z-10" />
 
-                  {/* Card Title Label */}
+                  {/* Card Title Label (Bottom Left) */}
                   <div className="absolute bottom-6 left-6 right-6 z-20">
                     <p className={`font-sans font-light text-[14px] sm:text-[16px] tracking-wide transition-colors duration-500 ${
                       isActive ? "text-white" : "text-zinc-600"
@@ -315,7 +321,15 @@ export default function Gallery() {
           </button>
 
           {/* View More Center Button */}
-          <button className="border border-[#A0725B] text-white hover:bg-[#A0725B] hover:text-white rounded-full px-8 py-2.5 text-xs sm:text-sm tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_15px_rgba(160,114,91,0.2)] active:scale-95">
+          <button
+            onClick={() => {
+              const event = new CustomEvent("open-enquiry", {
+                detail: { project: "ACE Villas (Gallery)" },
+              });
+              window.dispatchEvent(event);
+            }}
+            className="border border-[#A0725B] text-white hover:bg-[#A0725B] hover:text-white rounded-full px-8 py-2.5 text-xs sm:text-sm tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_15px_rgba(160,114,91,0.2)] active:scale-95"
+          >
             View More
           </button>
 

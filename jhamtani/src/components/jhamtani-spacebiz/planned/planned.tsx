@@ -8,18 +8,28 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/projects/jhamtani-spacebiz.jpg",
-    alt: "Jhamtani SpaceBiz - Prime Commercial Architecture in Baner",
+    image: "/assets/jhamtani-spacebiz/banner.jpeg",
+    alt: "Jhamtani SpaceBiz - A Vertical Statement of Ambition",
   },
   {
     id: 2,
-    image: "/assets/jhamtani-elevate/An address that commands the skyline.webp",
-    alt: "Jhamtani SpaceBiz Modern Commercial Facade & Showrooms",
+    image: "/assets/jhamtani-spacebiz/image-5.webp",
+    alt: "Jhamtani SpaceBiz - An Address for Those Who Think Higher",
   },
   {
     id: 3,
-    image: "/assets/jhamtani-elevate/Where work meets rest, seamlessly.webp",
-    alt: "Thoughtfully Engineered Executive Workspaces - Artistic Impression",
+    image: "/assets/jhamtani-spacebiz/image-2.webp",
+    alt: "Jhamtani SpaceBiz - Where Business Begins with Distinction",
+  },
+  {
+    id: 4,
+    image: "/assets/jhamtani-spacebiz/image-1.webp",
+    alt: "Jhamtani SpaceBiz - Designed for Brands, Built for Returns",
+  },
+  {
+    id: 5,
+    image: "/assets/jhamtani-spacebiz/image-3.webp",
+    alt: "Jhamtani SpaceBiz - Your Daily Dose of Discipline",
   },
 ];
 

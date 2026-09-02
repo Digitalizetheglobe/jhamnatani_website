@@ -7,22 +7,22 @@ const highlights = [
     id: 1,
     title: "Spacious by Design",
     desc: "Well-planned 2 & 3 BHK homes balance shared family spaces with personal privacy.",
-    image: "/assets/ace-ayodha/highlight_1.webp",
-    alt: "Contemporary Active Lifestyle - Modern Architecture",
+    image: "/assets/ace-aster/a-living-room-made-for-living.webp",
+    alt: "Spacious by Design - Ace Aster Living Room",
   },
   {
     id: 2,
     title: "Made for Every Generation",
     desc: "Play, fitness, leisure and senior-friendly spaces offer something for every age.",
-    image: "/assets/ace-ayodha/highlight_2.webp",
-    alt: "Prime Ravet Location - Outdoor Courtyard Garden",
+    image: "/assets/ace-aster/a-space-that-brings-people-together.webp",
+    alt: "Made for Every Generation - Ace Aster Community Spaces",
   },
   {
     id: 3,
     title: "Secure and Well Connected",
     desc: "Smart security brings peace of mind, while Ravet keeps everyday essentials within easy reach.",
-    image: "/assets/ace-ayodha/highlight_3.webp",
-    alt: "Expansive by Design - Modern Living",
+    image: "/assets/ace-aster/designed-as-a-sanctuary-built-as-a-landmark.webp",
+    alt: "Secure and Well Connected - Ace Aster Sanctuary",
   },
 ];
 

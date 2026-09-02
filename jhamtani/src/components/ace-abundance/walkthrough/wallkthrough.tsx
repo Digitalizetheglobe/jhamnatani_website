@@ -66,7 +66,7 @@ Take a closer look at the expansive residences, curated amenities and refined de
         >
           {/* Preview Image */}
           <img
-            src="/assets/ace-ayodha/gallery_1.webp"
+            src="/assets/ace-abundance/gallery/the-grand-terrace.webp"
             alt="Project Walkthrough Video Preview"
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
           />

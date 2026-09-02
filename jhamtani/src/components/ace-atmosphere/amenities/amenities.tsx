@@ -7,32 +7,32 @@ import { motion, AnimatePresence } from "framer-motion";
 const allAmenities = [
   // Row 1
   { id: 1, name: "Yoga Zone", icon: "aerial-yog" },
-  { id: 2, name: "Sky Walks", icon: "seating-area" },
-  { id: 3, name: "Japanese Garden", icon: "zen-garden" },
-  { id: 4, name: "Open Air Theatres", icon: "amphitheater" },
-  { id: 5, name: "Temple", icon: "wellness-area" },
+  { id: 2, name: "Sky Walks", icon: "Sky Walks" },
+  { id: 3, name: "Japanese Garden", icon: "Japanese Garden" },
+  { id: 4, name: "Open Air Theatres", icon: "Open Air Theatres" },
+  { id: 5, name: "Temple", icon: "Temple" },
   // Row 2
-  { id: 6, name: "Dog Park", icon: "activity-lawns" },
-  { id: 7, name: "Party Lawns", icon: "activity-lawns" },
+  { id: 6, name: "Dog Park", icon: "Dog Park" },
+  { id: 7, name: "Party Lawns", icon: "Party Lawnswns" },
   { id: 8, name: "Zen Garden", icon: "zen-garden" },
-  { id: 9, name: "Fountain", icon: "swimming-pool" },
-  { id: 10, name: "Sunset Viewing Deck", icon: "open-cafeteria" },
+  { id: 9, name: "Fountain", icon: "Fountain" },
+  { id: 10, name: "Sunset Viewing Deck", icon: "Sunset Viewing Deck" },
   // Row 3
-  { id: 11, name: "Reflexology Path", icon: "acupressure-pathway" },
-  { id: 12, name: "Jogging Track", icon: "outdoor-gym" },
+  { id: 11, name: "Reflexology Path", icon: "Reflexology Path" },
+  { id: 12, name: "Jogging Track", icon: "Jogging Track" },
   { id: 13, name: "Multipurpose Court", icon: "multipurpose-court" },
-  { id: 14, name: "Senior Citizens Park", icon: "seating-area" },
-  { id: 15, name: "Library", icon: "lounge" },
+  { id: 14, name: "Senior Citizens Park", icon: "Senior Citizen Area" },
+  { id: 15, name: "Library", icon: "Library" },
   // Row 4
-  { id: 16, name: "Gazebos", icon: "community-plaza" },
+  { id: 16, name: "Gazebos", icon: "Gazebos" },
   { id: 17, name: "Indoor Games", icon: "indoor-games" },
-  { id: 18, name: "Amphitheater", icon: "amphitheater" },
+  { id: 18, name: "Amphitheater", icon: "Amphitheatre" },
   { id: 19, name: "Kids Play Area", icon: "childrens-play-area" },
-  { id: 20, name: "Youth Club", icon: "recreational-hall" },
+  { id: 20, name: "Youth Club", icon: "Youth club" },
   // Row 5
-  { id: 21, name: "Mini Golf", icon: "golf-simulator" },
-  { id: 22, name: "Children Forest & Kids Park", icon: "sandpit" },
-  { id: 23, name: "Co-Working Space", icon: "lounge" },
+  { id: 21, name: "Mini Golf", icon: "Mini Golf" },
+  { id: 22, name: "Children Forest & Kids Park", icon: "creche" },
+  { id: 23, name: "Co-Working Space", icon: "Co-working Space" },
 ];
 
 export default function Amenities() {

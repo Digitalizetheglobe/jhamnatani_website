@@ -19,8 +19,8 @@ const directorsData: Director[] = [
     name: "Mr. Parmanand Jhamtani",
     role: "Chairman | Founder | Entrepreneur",
     bio: [
-      "Long before Jhamtani became one of Pune's most respected real estate brands, Mr Parmanand Jhamtani built his entrepreneurial journey on a simple belief-that trust is the strongest foundation any business can have.",
-      "Beginning with construction materials and steadily expanding into real estate, he laid the groundwork for an organisation built on integrity, discipline and lasting relationships. More than four decades later, while the business has evolved across residential, commercial and lifestyle ventures, the principles that guide it remain exactly as he envisioned."
+      "Long before Jhamtani became one of Pune's most respected real estate brands, Mr Parmanand Jhamtani built his entrepreneurial journey with construction materials and steadily expanding into real estate, he laid the groundwork for an organisation built on integrity, discipline and lasting relationships. More than four decades later, while the business has evolved across residential, commercial and lifestyle ventures, the principles that guide it remain exactly as he envisioned..",
+
     ],
     image: "/assets/about/parmanand1.png",
   },
@@ -32,8 +32,8 @@ const directorsData: Director[] = [
       "B.Tech (Marine Engineering) | CREDAI Business Leadership Programme, IIM Bengaluru",
     ],
     bio: [
-      "With over two decades of experience, Anup Jhamtani has transformed Jhamtani into one of Pune's most progressive real estate brands. His leadership spans strategy, acquisitions, finance, design, sales, marketing and execution-bringing together technical precision with long-term vision.",
-      "Beyond the organisation, his active leadership through CREDAI Pune Metro and the Sindhi Youth Builders Association reflects his commitment to shaping not just projects, but the future of the industry itself. His belief is simple: every project should leave behind stronger communities, greater trust and a lasting legacy."
+      "With over two decades of experience, Anup Jhamtani leadership spans strategy, acquisitions, finance, design, sales, marketing and execution-bringing together technical precision with long-term vision.",
+      "Beyond the organisation, his active leadership through CREDAI Pune Metro and the Sindhi Youth Builders Association reflects his commitment to shaping not just projects, but the future of the industry itself."
     ],
     image: "/assets/about/anup.png",
   },
@@ -48,16 +48,6 @@ const directorsData: Director[] = [
     bio: [
       "Since joining Jhamtani in 2010, Meenakshi Jhamtani has led the company's evolution into a process-driven, technology-enabled organisation. With expertise spanning finance, operations, sales, marketing and customer experience, she has strengthened every layer of the business-from ERP implementation and financial governance to CRM, J-Tribe, Hamesha Aapke Saath and the in-house design division.",
       "Her leadership ensures that every promise Jhamtani makes is backed by systems, consistency and a relentless focus on the customer."
-    ],
-    image: "/assets/about/meenakshi.png",
-  },
-  {
-    id: "bhavna",
-    name: "Mrs. Bhavna Jhamtani",
-    role: "President, Jhamtani Educational Trust",
-    bio: [
-      "Leading social welfare, community building, and educational initiatives across Pune, Mrs. Bhavna Jhamtani embodies the compassionate heart of Jhamtani.",
-      "Her work focuses on creating meaningful societal impact and nurturing future generations."
     ],
     image: "/assets/about/meenakshi.png",
   },

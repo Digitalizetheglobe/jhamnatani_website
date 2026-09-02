@@ -32,7 +32,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full h-screen min-h-[900px] flex items-center overflow-hidden bg-white select-none">
+    <section className="relative w-full h-screen min-h-[1150px] flex items-center overflow-hidden bg-white select-none">
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <Image

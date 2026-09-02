@@ -36,7 +36,7 @@ export default function Hero() {
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/jhamtani-elevate/A bold address that stands tall.webp"
+          src="/assets/jhamtani-elevate/banner.jpeg"
           alt="Jhamtani Elevate - Elevated Living in Mundhwa, Pune"
           fill
           priority
