@@ -42,9 +42,12 @@ export default function FloatingWidgets() {
     const handleOpenEnquiry = (e: Event) => {
       const customEvent = e as CustomEvent;
       const project = customEvent.detail?.project || "";
-      if (project) {
-        setFormData((prev) => ({ ...prev, project }));
-      }
+      const message = customEvent.detail?.message || "";
+      setFormData((prev) => ({
+        ...prev,
+        ...(project ? { project } : {}),
+        ...(message ? { message } : {}),
+      }));
       setIsEnquiryOpen(true);
     };
     window.addEventListener("open-enquiry", handleOpenEnquiry);
@@ -366,6 +369,8 @@ export default function FloatingWidgets() {
                       <option value="ACE Villas">ACE Villas (Koregaon Park NX)</option>
                       <option value="Jhamtani Bizcore">Jhamtani Bizcore (Koregaon Park NX)</option>
                       <option value="ACE Aster">ACE Aster (Ravet)</option>
+                      <option value="Jhamtani Elevate">Jhamtani Elevate (Mundhwa)</option>
+                      <option value="Jhamtani SpaceBiz">Jhamtani SpaceBiz (Baner)</option>
                     </select>
                   </div>
                 </div>

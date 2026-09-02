@@ -28,6 +28,60 @@ const slides = [
   },
 ];
 
+interface WaveTextProps {
+  text: string;
+  letterDelay?: number;
+  groupHoverClass?: "group-hover" | "group-hover/btn" | "group-hover/link";
+}
+
+function WaveText({
+  text,
+  letterDelay = 15,
+  groupHoverClass = "group-hover/btn",
+}: WaveTextProps) {
+  const hoverClass =
+    groupHoverClass === "group-hover/btn"
+      ? "group-hover/btn:-translate-y-full"
+      : groupHoverClass === "group-hover/link"
+      ? "group-hover/link:-translate-y-full"
+      : "group-hover:-translate-y-full";
+
+  return (
+    <>
+      <span className="sr-only">{text}</span>
+      <span
+        className="relative inline-flex items-center justify-center gap-[0.08em] whitespace-nowrap shrink-0"
+        aria-hidden="true"
+      >
+        {text.split("").map((char, index) => {
+          if (char === " ") {
+            return <span key={index} className="w-[0.3em] inline-block shrink-0" />;
+          }
+          return (
+            <span
+              key={index}
+              className="relative inline-flex overflow-hidden shrink-0"
+            >
+              <span
+                className={`inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+              <span
+                className={`absolute top-full left-0 inline-block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${hoverClass} will-change-transform [backface-visibility:hidden]`}
+                style={{ transitionDelay: `${index * letterDelay}ms` }}
+              >
+                {char}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </>
+  );
+}
+
 export default function Planned() {
   const [[page, direction], setPage] = useState([0, 0]);
 
@@ -66,7 +120,10 @@ export default function Planned() {
 
   const handleEnquiry = (action: string) => {
     const event = new CustomEvent("open-enquiry", {
-      detail: { project: `ACE Atmosphere (${action})` },
+      detail: {
+        project: "ACE Atmosphere",
+        message: `I am interested in ${action} for ACE Atmosphere.`,
+      },
     });
     window.dispatchEvent(event);
   };
@@ -95,27 +152,28 @@ export default function Planned() {
 
             {/* Description Paragraph */}
             <p className="font-sans text-sm sm:text-[15px] text-zinc-400 leading-relaxed max-w-md font-light mt-8 lg:mt-10">
-              Ace Atmosphere brings together light-filled homes, elevated leisure spaces and experiences for work, wellness and recreation within one vibrant setting.            </p>
+              Ace Atmosphere brings together light-filled homes, elevated leisure spaces and experiences for work, wellness and recreation within one vibrant setting.
+            </p>
 
-            {/* Premium Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-20 lg:mt-32">
+            {/* Premium Action Buttons - Single Line */}
+            <div className="flex items-center gap-2 sm:gap-3 lg:gap-3.5 mt-16 lg:mt-24 flex-nowrap overflow-x-auto lg:overflow-visible scrollbar-none">
               <button
-                onClick={() => handleEnquiry("Brochure")}
-                className="border border-[#A0725B] text-zinc-300 hover:text-white rounded-full px-3 py-1.5 text-xs sm:text-sm tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_15px_rgba(197,168,128,0.15)]"
+                onClick={() => handleEnquiry("Download Brochure")}
+                className="group/btn relative inline-flex items-center justify-center border border-[#A0725B] text-zinc-200 hover:text-white hover:bg-[#A0725B] rounded-full px-3.5 sm:px-4.5 py-2 text-[11px] sm:text-xs tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(160,114,91,0.3)] active:scale-95 overflow-hidden whitespace-nowrap shrink-0"
               >
-                Download Brochure
+                <WaveText text="Download Brochure" letterDelay={15} groupHoverClass="group-hover/btn" />
               </button>
               <button
-                onClick={() => handleEnquiry("Cost Sheet")}
-                className="border border-[#A0725B] text-zinc-300 hover:text-white rounded-full px-3 py-1.5 text-xs sm:text-sm tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_15px_rgba(197,168,128,0.15)]"
+                onClick={() => handleEnquiry("Get Cost Sheet")}
+                className="group/btn relative inline-flex items-center justify-center border border-[#A0725B] text-zinc-200 hover:text-white hover:bg-[#A0725B] rounded-full px-3.5 sm:px-4.5 py-2 text-[11px] sm:text-xs tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(160,114,91,0.3)] active:scale-95 overflow-hidden whitespace-nowrap shrink-0"
               >
-                Get Cost Sheet
+                <WaveText text="Get Cost Sheet" letterDelay={15} groupHoverClass="group-hover/btn" />
               </button>
               <button
-                onClick={() => handleEnquiry("Site Visit")}
-                className="border border-[#A0725B] text-zinc-300 hover:text-white rounded-full px-3 py-1.5 text-xs sm:text-sm tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_15px_rgba(197,168,128,0.15)]"
+                onClick={() => handleEnquiry("Schedule a Site Visit")}
+                className="group/btn relative inline-flex items-center justify-center border border-[#A0725B] text-zinc-200 hover:text-white hover:bg-[#A0725B] rounded-full px-3.5 sm:px-4.5 py-2 text-[11px] sm:text-xs tracking-wide bg-transparent cursor-pointer font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(160,114,91,0.3)] active:scale-95 overflow-hidden whitespace-nowrap shrink-0"
               >
-                Schedule a Site Visit
+                <WaveText text="Schedule a Site Visit" letterDelay={15} groupHoverClass="group-hover/btn" />
               </button>
             </div>
           </div>
