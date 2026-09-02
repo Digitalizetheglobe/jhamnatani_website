@@ -20,6 +20,7 @@ export default function Footer() {
   const quickLinksColumn3 = [
     { label: "SITE UPDATES", href: "/site-updates" },
     { label: "MONTHLY NEWSLETTER", href: "/monthlynewsletters" },
+    { label: "CAREERS", href: "/career" },
     { label: "PRIVACY POLICY", href: "/privacypolicy" },
     { label: "CONTACT US", href: "/contact" },
   ];
