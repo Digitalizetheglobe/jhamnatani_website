@@ -56,12 +56,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="space-y-4"
         >
-          <h1 className="font-serif text-[42px] sm:text-[56px] md:text-[68.9px] leading-tight text-white tracking-wider max-w-4xl">
-            Jhamtani
-            <span className="block mt-2 font-serif text-[36px] sm:text-[48px] md:text-[68.9px] text-white">
-              The Name Is A Promise
-            </span>
-          </h1>
+         
         </motion.div>
       </div>
     </section>
