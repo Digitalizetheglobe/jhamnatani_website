@@ -42,6 +42,11 @@ const inriaSerif = localFont({
 export const metadata: Metadata = {
   title: "Jhamtani | The Name Is A Promise",
   description: "Pune's premier luxury real estate developer. Creating exceptional architecture, curated experiences, and uncompromising quality.",
+  icons: {
+    icon: "/assets/favicon.ico",
+    shortcut: "/assets/favicon.ico",
+    apple: "/assets/favicon.ico",
+  },
 };
 
 export default function RootLayout({

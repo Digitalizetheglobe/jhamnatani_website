@@ -19,7 +19,7 @@ export default function Home() {
       <main>
         <Hero />
         <AboutSection />
-        <Amenities />
+        {/* <Amenities /> */}
         <Projects />
         <SignatureSeries/>
         <InteractiveMap />

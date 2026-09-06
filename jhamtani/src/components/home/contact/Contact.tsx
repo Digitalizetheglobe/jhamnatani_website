@@ -43,8 +43,8 @@ export default function Contact() {
   return (
     <div id="contact" className="w-full flex flex-col bg-white">
       {/* Media & Newsletter Spotlight (Beige/Cream Background) */}
-      <section className="w-full bg-[#eeebe7] text-zinc-900 px-6 sm:px-12 lg:px-24 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto space-y-12">
+      <section className="w-full bg-[#eeebe7] text-zinc-900 py-16 sm:py-20 md:py-24">
+        <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 space-y-12">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -32,9 +32,9 @@ export default function Testimonial() {
   return (
     <section
       id="testimonial"
-      className="w-full bg-[#FAF5F0] text-zinc-900 px-6 sm:px-12 lg:px-20 py-20 md:py-28 border-t border-[#A0725B]/20 select-none overflow-hidden"
+      className="w-full bg-[#FAF5F0] text-zinc-900 py-16 sm:py-20 md:py-28 border-t border-[#A0725B]/20 select-none overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto space-y-10">
+      <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 space-y-10">
         
         {/* Section Header */}
         <div className="w-full text-center">

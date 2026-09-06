@@ -82,7 +82,7 @@ export default function XOCode() {
           {codes.map((item, index) => {
             // Determine responsive border styles
             const borderClasses = `
-              relative flex flex-col justify-between p-8 sm:p-10 lg:p-12 h-[380px] sm:h-[420px] overflow-hidden group bg-[#111111]/30 hover:bg-black transition-colors duration-500 cursor-default
+              relative flex flex-col justify-between p-8 sm:p-10 lg:p-12 h-[380px] sm:h-[420px] overflow-hidden group bg-[#111111]/150 hover:bg-black transition-colors duration-500 cursor-default
               ${index !== 5 ? "border-b border-white/10" : ""}
               ${index % 3 !== 2 ? "md:border-r border-white/10" : ""}
             `;
@@ -95,10 +95,7 @@ export default function XOCode() {
                 {/* Default Text Content (Legible on hover with premium transition) */}
                 <div className="relative z-10 h-full flex flex-col justify-between transition-all duration-500 ease-in-out">
                   {/* Top: ID */}
-                  <div className="font-inria text-3xl sm:text-4xl text-[#A0725B] font-light tracking-wide transition-colors duration-500 group-hover:text-white">
-                    {item.id}
-                  </div>
-
+                 
                   {/* Bottom: Title & Description */}
                   <div className="space-y-3 transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-500 ease-out">
                     <h3 className="font-inria text-base sm:text-lg text-[#A0725B] font-medium leading-snug transition-colors duration-500 group-hover:text-white">

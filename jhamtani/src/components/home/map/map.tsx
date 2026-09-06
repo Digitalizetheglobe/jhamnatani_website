@@ -158,16 +158,23 @@ const BACKGROUND_DOTS: BgDot[] = [
   { id: "bavdhan",          name: "Bavdhan",             x: 41, y: 72 },
   { id: "sus-road",         name: "Sus Road",            x: 38, y: 83 },
   { id: "nanded",           name: "Nanded",              x: 34, y: 62 },
-];
-
-export default function InteractiveMap() {
+];export default function InteractiveMap() {
   const [activeLocation, setActiveLocation] = useState<LocationData | null>(null);
   const [popupKey, setPopupKey] = useState(0);
 
   const sectionRef = useRef<HTMLDivElement>(null);
+  const mapScrollRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
+
+  // Center the map on mobile on initial load
+  useEffect(() => {
+    if (mapScrollRef.current) {
+      const el = mapScrollRef.current;
+      el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+    }
+  }, []);
 
   // Cursor tracking
   useEffect(() => {
@@ -249,31 +256,34 @@ export default function InteractiveMap() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-black overflow-hidden py-16 flex flex-col justify-between cursor-none select-none"
+      className="relative w-full min-h-[550px] md:min-h-screen bg-black overflow-hidden py-10 md:py-16 flex flex-col justify-between cursor-auto md:cursor-none select-none"
     >
-      {/* Fixed cursor */}
+      {/* Fixed cursor for desktop */}
       <div
         ref={cursorDotRef}
-        className="pointer-events-none fixed w-2 h-2 bg-gold rounded-full z-[9999] opacity-0"
+        className="hidden md:block pointer-events-none fixed w-2 h-2 bg-gold rounded-full z-[9999] opacity-0"
         style={{ top: 0, left: 0 }}
       />
       <div
         ref={cursorRingRef}
-        className="pointer-events-none fixed w-9 h-9 border-2 border-white/40 rounded-full z-[9999] opacity-0"
+        className="hidden md:block pointer-events-none fixed w-9 h-9 border-2 border-white/40 rounded-full z-[9999] opacity-0"
         style={{ top: 0, left: 0 }}
       />
 
-      {/* Title block */}
-      <div className="absolute bottom-12 left-8 md:left-16 z-30 pointer-events-none max-w-md">
-        <h2 className="font-serif text-[32px] sm:text-[40px] md:text-[46px] leading-[1.1] text-gold tracking-wide">
+      {/* Title block (Bottom-Left) */}
+      <div className="absolute bottom-4 sm:bottom-8 md:bottom-12 left-4 sm:left-8 md:left-16 z-30 pointer-events-none max-w-[240px] sm:max-w-xs md:max-w-md">
+        <h2 className="font-serif text-[20px] sm:text-[32px] md:text-[46px] leading-[1.1] text-gold tracking-wide">
           The Geography of
           <span className="block mt-1">Promises Delivered!</span>
         </h2>
       </div>
 
       {/* Map area */}
-      <div className="relative flex-1 w-full max-w-7xl mx-auto flex items-center justify-center min-h-[500px] md:min-h-[750px] px-4">
-        <div className="relative w-full aspect-[16/9] max-h-[85vh]">
+      <div 
+        ref={mapScrollRef}
+        className="relative flex-1 w-full max-w-7xl mx-auto flex items-center justify-start md:justify-center px-2 sm:px-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden py-4 md:py-0"
+      >
+        <div className="relative w-[620px] sm:w-[780px] md:w-full aspect-[16/9] shrink-0 max-h-[85vh]">
 
           {/* SVG background rings */}
           <svg
@@ -342,10 +352,17 @@ export default function InteractiveMap() {
             return (
               <div
                 key={loc.id}
-                className="absolute z-30 cursor-pointer"
+                className="absolute z-30 cursor-pointer p-1"
                 style={{ left: `${loc.x}%`, top: `${loc.y}%`, transform: "translate(-50%, -50%)" }}
                 onMouseEnter={() => handleEnter(loc)}
                 onMouseLeave={handleLeave}
+                onClick={() => {
+                  if (isActive) {
+                    setActiveLocation(null);
+                  } else {
+                    handleEnter(loc);
+                  }
+                }}
               >
                 <div className="flex flex-col items-center gap-1.5 group">
                   {/* Blinking Pulsating Dot Container */}
@@ -433,18 +450,18 @@ export default function InteractiveMap() {
         </div>
       </div>
 
-      {/* Legend */}
-      <div className="absolute bottom-12 right-8 md:right-16 z-30 pointer-events-none">
-        <div className="bg-black/60 backdrop-blur-md border border-[#C5A880]/20 rounded-xl px-4 py-3 flex flex-col gap-2 text-[10px] tracking-wider font-sans uppercase text-white/70 shadow-lg">
-          <div className="flex items-center gap-2.5">
-            <span className="relative flex h-2.5 w-2.5">
+      {/* Legend (Bottom-Right) */}
+      <div className="absolute bottom-4 sm:bottom-8 md:bottom-12 right-4 sm:right-8 md:right-16 z-30 pointer-events-none scale-75 sm:scale-90 md:scale-100 origin-bottom-right">
+        <div className="bg-black/60 backdrop-blur-md border border-[#C5A880]/20 rounded-xl px-3 sm:px-4 py-2 sm:py-3 flex flex-col gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] tracking-wider font-sans uppercase text-white/70 shadow-lg">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A880] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#C5A880]" />
+              <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-[#C5A880]" />
             </span>
             <span className="text-[#C5A880] font-semibold">Jhamtani Project Hubs</span>
           </div>
-          <div className="flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-full bg-white/30" />
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-white/30" />
             <span className="text-zinc-400">Key City Landmarks</span>
           </div>
         </div>
@@ -452,3 +469,4 @@ export default function InteractiveMap() {
     </section>
   );
 }
+

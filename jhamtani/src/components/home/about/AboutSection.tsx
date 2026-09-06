@@ -157,9 +157,9 @@ export default function AboutSection() {
   return (
     <section
       ref={sectionRef}
-      className="w-full min-h-screen bg-[#191f26] text-white py-16 md:py-24 border-t border-luxury-border overflow-hidden flex flex-col justify-center"
+      className="w-full min-h-screen bg-[#191f26] text-white pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 lg:pb-24 border-t border-luxury-border overflow-hidden flex flex-col justify-center"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
           {/* Left Column (Fixed / Stationary Content with Animations) */}
@@ -171,12 +171,11 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="font-serif text-[36px] sm:text-[46px] md:text-[54px] lg:text-[50px] leading-[1.08] tracking-wide text-[#a0725b]"
+                className="font-serif text-[30px] sm:text-[42px] md:text-[50px] lg:text-[50px] leading-[1.12] lg:leading-[1.08] tracking-wide text-[#a0725b]"
               >
                 The Legacy of Delivering
                 <span className="block text-[#a0725b]">What’s Committed</span>
               </motion.h2>
-
 
               {/* Description with stagger fade-in */}
               <motion.div
@@ -192,7 +191,7 @@ export default function AboutSection() {
                   {!isExpanded && (
                     <button
                       onClick={() => setIsExpanded(true)}
-                      className="inline-block font-sans italic font-light text-[17px] text-[#5B584C] hover:text-[#C1AF86] transition-colors duration-300 ml-1.5 underline-offset-4 cursor-pointer bg-transparent border-none p-0 align-baseline"
+                      className="inline-block font-sans italic font-medium text-[16px] sm:text-[17px] text-[#C5A880] hover:text-white transition-colors duration-300 ml-2 underline underline-offset-4 cursor-pointer bg-transparent border-none p-0 align-baseline"
                     >
                       Read more
                     </button>
@@ -213,7 +212,7 @@ export default function AboutSection() {
                       living has.
                       <button
                         onClick={() => setIsExpanded(false)}
-                        className="inline-block font-sans italic font-light text-[17px] text-[#5B584C] hover:text-[#C1AF86] transition-colors duration-300 ml-1.5 underline-offset-4 cursor-pointer bg-transparent border-none p-0 align-baseline"
+                        className="inline-block font-sans italic font-medium text-[16px] sm:text-[17px] text-[#C5A880] hover:text-white transition-colors duration-300 ml-2 underline underline-offset-4 cursor-pointer bg-transparent border-none p-0 align-baseline"
                       >
                         Read less
                       </button>
@@ -228,7 +227,7 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
-                className="relative w-full max-w-[420px] h-[260px] sm:h-[320px] mt-6 overflow-hidden group"
+                className="relative w-full max-w-full sm:max-w-[420px] h-[220px] sm:h-[300px] lg:h-[320px] mt-4 sm:mt-6 overflow-hidden group"
               >
                 <Image
                   src="/assets/image_3.webp"
@@ -241,7 +240,7 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Middle Separator Column (Clean luxury fill line with blue capsule indicator) */}
+          {/* Middle Separator Column for Desktop (Clean luxury fill line with blue capsule indicator) */}
           <div className="hidden lg:flex lg:col-span-1 justify-center relative h-[560px]">
             <div className="relative h-full w-[1.5px] bg-[#5B584C]/30 mx-auto flex items-center justify-center">
               {/* Active filled line portion */}
@@ -252,16 +251,38 @@ export default function AboutSection() {
               {/* Blue capsule scrolling indicator matching requested design */}
               <motion.div
                 className="absolute w-[8px] h-10 bg-[#0082c3] rounded-full border border-white/30 z-10"
- 
                 animate={{ top: `${activeProgressPercent}%` }}
                 transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
               />
             </div>
           </div>
 
-          {/* Right Column (Scrolling list of stats with auto-active hover glow & smooth edge fade) */}
+          {/* Right Column - MOBILE VIEW (< lg): Elegant 2-column grid */}
+          <div className="block lg:hidden w-full pt-4">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 border-t border-[#a0725b]/20 pt-6">
+              {stats.map((stat, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.08, ease: "easeOut" }}
+                  className="flex flex-col text-left py-2 border-l-2 border-[#C1AF86]/40 pl-3 sm:pl-4"
+                >
+                  <span className="font-serif text-[28px] sm:text-[38px] font-light leading-none text-[#C1AF86] tracking-tight">
+                    {stat.number}
+                  </span>
+                  <span className="font-sans text-[11px] sm:text-[13px] font-medium leading-tight text-white/70 mt-1.5 uppercase tracking-wider">
+                    {stat.label}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - LAPTOP VIEW (>= lg): Exact interactive scrolling list */}
           <div 
-            className="lg:col-span-5 relative"
+            className="hidden lg:block lg:col-span-5 relative"
             onMouseEnter={() => {
               isMouseOverRightRef.current = true;
             }}
@@ -322,5 +343,6 @@ export default function AboutSection() {
     </section>
   );
 }
+
 
 

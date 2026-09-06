@@ -56,18 +56,18 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#111622] text-white border-t border-luxury-border py-16 md:py-20 select-none">
-      <div className="max-w-7xl mx-auto space-y-12">
+    <footer className="w-full bg-[#111622] text-white border-t border-luxury-border py-12 sm:py-16 md:py-20 select-none">
+      <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 space-y-12">
         
         {/* Main Grid: Columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
           
-          {/* 1. Quick Links Section (5 Cols) */}
-          <div className="lg:col-span-5 space-y-6 text-left">
+          {/* 1. Quick Links Section (6 Cols) */}
+          <div className="lg:col-span-6 space-y-6 text-left">
             <h3 className="font-serif text-[18px] md:text-[20px] tracking-wider text-[#C5A880] uppercase">
               Quick Links
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5">
               <ul className="space-y-3">
                 {quickLinksColumn1.map((item) => (
                   <li key={item.label}>
@@ -113,7 +113,7 @@ export default function Footer() {
             <h3 className="font-serif text-[18px] md:text-[20px] tracking-wider text-[#C5A880] uppercase">
               Current Projects
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
               <ul className="space-y-3">
                 {currentProjectsColumn1.map((item) => (
                   <li key={item.label}>
@@ -141,8 +141,8 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* 3. Scroll to Top Button (2 Cols) */}
-          <div className="lg:col-span-2 flex lg:justify-end justify-start">
+          {/* 3. Scroll to Top Button (1 Col) */}
+          <div className="lg:col-span-1 flex lg:justify-end justify-start">
             <style dangerouslySetInnerHTML={{__html: `
               .footer-scroll-top-circle-path {
                 stroke-dasharray: 298.5;
