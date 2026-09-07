@@ -11,6 +11,7 @@ interface LocationItem {
   project: string;
   type: "Residential" | "Commercial" | "Studio";
   tag: string;
+  address?: string;
   image: string;
   mapUrl: string;
   projectLink: string;
@@ -24,10 +25,12 @@ const locationsData: LocationItem[] = [
     project: "ACE Ayodhya",
     type: "Residential",
     tag: "2 & 3 BHK Premium Residences",
+    address:
+      "CTS No, Ace Ayodhya, Near Dange Chowk, On Aundh-Ravet BRTS Road, Sr. No. 15/1/A (P), 15/1C/1 (P, 2839 (P, Thergaon, Maharashtra 411033",
     image: "/assets/ace-ayodha/hero.webp",
-    mapUrl: "https://maps.app.goo.gl/xGQJPu5EGTvjVMCX8",
+    mapUrl: "https://maps.app.goo.gl/vYZwTtzdB66RBc659",
     projectLink: "/ace-ayodha",
-    coordinates: "18.6186° N, 73.7854° E",
+    coordinates: "18.6095° N, 73.7672° E",
   },
   {
     id: 2,
@@ -302,9 +305,16 @@ export default function ProjectLocation() {
                     </a>
 
                     {/* Subtitle / Tagline */}
-                    <p className="font-sans text-[13px] text-zinc-600 font-light leading-relaxed mt-2.5 line-clamp-2">
+                    <p className="font-sans text-[13px] text-zinc-600 font-light leading-relaxed mt-2.5">
                       {item.tag}
                     </p>
+
+                    {item.address && (
+                      <p className="font-sans text-[11px] text-zinc-500 font-light leading-relaxed mt-2 flex items-start gap-1">
+                        <MapPin className="w-3 h-3 text-[#A0725B] shrink-0 mt-0.5" />
+                        <span>{item.address}</span>
+                      </p>
+                    )}
                   </div>
 
                   {/* Single Action Button: Direct Open Google Maps */}

@@ -274,12 +274,119 @@ export default function CareerComponent() {
     experience: "",
     linkedin: "",
     coverNote: "",
+    consent: true,
   });
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    phone?: string;
+    position?: string;
+    experience?: string;
+    linkedin?: string;
+    resume?: string;
+    consent?: string;
+  }>({});
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const fileInputId = useId();
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, "");
+    if (val.length <= 10) {
+      setFormData((prev) => ({ ...prev, phone: val }));
+      if (errors.phone) {
+        setErrors((prev) => ({ ...prev, phone: undefined }));
+      }
+    }
+  };
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof typeof errors]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const handleResumeChange = (file: File | null) => {
+    setResumeFile(file);
+    if (errors.resume) {
+      setErrors((prev) => ({ ...prev, resume: undefined }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const tempErrors: typeof errors = {};
+    let isValid = true;
+
+    if (!formData.position.trim()) {
+      tempErrors.position = "Position is required.";
+      isValid = false;
+    }
+
+    if (!formData.name.trim()) {
+      tempErrors.name = "Full Name is required.";
+      isValid = false;
+    } else if (formData.name.trim().length < 2) {
+      tempErrors.name = "Name must be at least 2 characters.";
+      isValid = false;
+    }
+
+    if (!formData.phone) {
+      tempErrors.phone = "Phone number is required.";
+      isValid = false;
+    } else if (formData.phone.length !== 10) {
+      tempErrors.phone = "Phone number must be exactly 10 digits.";
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      tempErrors.email = "Email address is required.";
+      isValid = false;
+    } else if (!emailRegex.test(formData.email.trim())) {
+      tempErrors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    if (!formData.experience.trim()) {
+      tempErrors.experience = "Experience is required.";
+      isValid = false;
+    }
+
+    if (formData.linkedin.trim()) {
+      const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,6}\.?)(\/[\w.-]*)*\/?$/i;
+      if (!urlPattern.test(formData.linkedin.trim())) {
+        tempErrors.linkedin = "Please enter a valid URL.";
+        isValid = false;
+      }
+    }
+
+    if (!resumeFile) {
+      tempErrors.resume = "Please upload your resume.";
+      isValid = false;
+    } else {
+      const allowedExtensions = [".pdf", ".doc", ".docx"];
+      const fileName = resumeFile.name.toLowerCase();
+      const hasValidExt = allowedExtensions.some((ext) => fileName.endsWith(ext));
+      if (!hasValidExt) {
+        tempErrors.resume = "Resume must be a PDF, DOC, or DOCX file.";
+        isValid = false;
+      } else if (resumeFile.size > 10 * 1024 * 1024) {
+        tempErrors.resume = "Resume file size must be less than 10MB.";
+        isValid = false;
+      }
+    }
+
+    if (!formData.consent) {
+      tempErrors.consent = "You must authorize communication to proceed.";
+      isValid = false;
+    }
+
+    setErrors(tempErrors);
+    return isValid;
+  };
 
   const filteredJobs = JOB_OPENINGS.filter((job) => {
     const matchesDept =
@@ -302,15 +409,19 @@ export default function CareerComponent() {
     }
     setActiveJobModal(null);
     setSubmitSuccess(false);
+    setErrors({});
     setApplicationModalOpen(true);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitSuccess(true);
+      setErrors({});
     }, 1200);
   };
 
@@ -851,56 +962,62 @@ export default function CareerComponent() {
                     </button>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleFormSubmit} className="space-y-4">
+                  <form onSubmit={handleFormSubmit} noValidate className="space-y-4">
                     {/* Position */}
                     <div>
                       <label className="block font-sans text-xs uppercase tracking-wider text-zinc-600 mb-1">
-                        Position Applying For *
+                        Position Applying For <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
-                        required
                         value={formData.position}
-                        onChange={(e) =>
-                          setFormData({ ...formData, position: e.target.value })
-                        }
-                        className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all"
+                        onChange={(e) => handleInputChange("position", e.target.value)}
+                        className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                          errors.position ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                        } text-zinc-900 font-sans text-xs focus:outline-none transition-all`}
                         placeholder="e.g. Senior Project Architect"
                       />
+                      {errors.position && (
+                        <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.position}</p>
+                      )}
                     </div>
 
                     {/* Name & Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block font-sans text-xs uppercase tracking-wider text-zinc-600 mb-1">
-                          Full Name *
+                          Full Name <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="text"
-                          required
                           value={formData.name}
-                          onChange={(e) =>
-                            setFormData({ ...formData, name: e.target.value })
-                          }
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all"
+                          onChange={(e) => handleInputChange("name", e.target.value)}
+                          className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                            errors.name ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                          } text-zinc-900 font-sans text-xs focus:outline-none transition-all`}
                           placeholder="Your Full Name"
                         />
+                        {errors.name && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.name}</p>
+                        )}
                       </div>
 
                       <div>
                         <label className="block font-sans text-xs uppercase tracking-wider text-zinc-600 mb-1">
-                          Email Address *
+                          Email Address <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="email"
-                          required
                           value={formData.email}
-                          onChange={(e) =>
-                            setFormData({ ...formData, email: e.target.value })
-                          }
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all"
+                          onChange={(e) => handleInputChange("email", e.target.value)}
+                          className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                            errors.email ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                          } text-zinc-900 font-sans text-xs focus:outline-none transition-all`}
                           placeholder="name@example.com"
                         />
+                        {errors.email && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.email}</p>
+                        )}
                       </div>
                     </div>
 
@@ -908,34 +1025,40 @@ export default function CareerComponent() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block font-sans text-xs uppercase tracking-wider text-zinc-600 mb-1">
-                          Phone Number *
+                          Phone Number <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="tel"
-                          required
+                          inputMode="numeric"
+                          maxLength={10}
                           value={formData.phone}
-                          onChange={(e) =>
-                            setFormData({ ...formData, phone: e.target.value })
-                          }
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all"
-                          placeholder="+91 98765 43210"
+                          onChange={handlePhoneChange}
+                          className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                            errors.phone ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                          } text-zinc-900 font-sans text-xs focus:outline-none transition-all font-mono`}
+                          placeholder="10-digit Mobile Number"
                         />
+                        {errors.phone && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.phone}</p>
+                        )}
                       </div>
 
                       <div>
                         <label className="block font-sans text-xs uppercase tracking-wider text-zinc-600 mb-1">
-                          Experience (Years) *
+                          Experience (Years) <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="text"
-                          required
                           value={formData.experience}
-                          onChange={(e) =>
-                            setFormData({ ...formData, experience: e.target.value })
-                          }
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all"
+                          onChange={(e) => handleInputChange("experience", e.target.value)}
+                          className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                            errors.experience ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                          } text-zinc-900 font-sans text-xs focus:outline-none transition-all`}
                           placeholder="e.g. 5 Years"
                         />
+                        {errors.experience && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.experience}</p>
+                        )}
                       </div>
                     </div>
 
@@ -947,31 +1070,35 @@ export default function CareerComponent() {
                       <input
                         type="url"
                         value={formData.linkedin}
-                        onChange={(e) =>
-                          setFormData({ ...formData, linkedin: e.target.value })
-                        }
-                        className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all"
+                        onChange={(e) => handleInputChange("linkedin", e.target.value)}
+                        className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                          errors.linkedin ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                        } text-zinc-900 font-sans text-xs focus:outline-none transition-all`}
                         placeholder="https://linkedin.com/in/yourprofile"
                       />
+                      {errors.linkedin && (
+                        <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.linkedin}</p>
+                      )}
                     </div>
 
                     {/* Resume Upload */}
                     <div>
                       <label className="block font-sans text-xs uppercase tracking-wider text-zinc-600 mb-1">
-                        Upload Resume / CV (PDF, DOCX) *
+                        Upload Resume / CV (PDF, DOCX) <span className="text-red-500">*</span>
                       </label>
-                      <div className="relative border-2 border-dashed border-[#A0725B]/40 hover:border-[#A0725B] rounded-xl p-5 text-center bg-[#F3ECE4]/60 transition-colors">
+                      <div className={`relative border-2 border-dashed ${
+                        errors.resume ? "border-red-500 bg-red-50/20" : "border-[#A0725B]/40 hover:border-[#A0725B] bg-[#F3ECE4]/60"
+                      } rounded-xl p-5 text-center transition-colors`}>
                         <input
                           type="file"
                           id={fileInputId}
                           accept=".pdf,.doc,.docx"
                           onChange={(e) => {
                             if (e.target.files && e.target.files[0]) {
-                              setResumeFile(e.target.files[0]);
+                              handleResumeChange(e.target.files[0]);
                             }
                           }}
                           className="sr-only"
-                          required={!resumeFile}
                         />
                         <label
                           htmlFor={fileInputId}
@@ -998,6 +1125,9 @@ export default function CareerComponent() {
                           )}
                         </label>
                       </div>
+                      {errors.resume && (
+                        <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.resume}</p>
+                      )}
                     </div>
 
                     {/* Cover Note */}
@@ -1008,12 +1138,32 @@ export default function CareerComponent() {
                       <textarea
                         rows={2}
                         value={formData.coverNote}
-                        onChange={(e) =>
-                          setFormData({ ...formData, coverNote: e.target.value })
-                        }
+                        onChange={(e) => handleInputChange("coverNote", e.target.value)}
                         className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all resize-none"
                         placeholder="Tell us briefly about yourself..."
                       />
+                    </div>
+
+                    {/* Unified Consent Checkbox */}
+                    <div>
+                      <div className="flex items-start gap-2.5 pt-1">
+                        <input
+                          type="checkbox"
+                          id="career-app-consent"
+                          checked={formData.consent}
+                          onChange={(e) => handleInputChange("consent", e.target.checked)}
+                          className="mt-0.5 w-4 h-4 accent-[#A0725B] rounded cursor-pointer shrink-0"
+                        />
+                        <label
+                          htmlFor="career-app-consent"
+                          className="text-[11px] text-zinc-600 font-light leading-relaxed cursor-pointer select-none"
+                        >
+                          I authorize Jhamtani and its representative to contact me with updates and notifications via Email, SMS, WhatsApp, and Call. This will override the registry on DND / NDNC.
+                        </label>
+                      </div>
+                      {errors.consent && (
+                        <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.consent}</p>
+                      )}
                     </div>
 
                     {/* Actions */}

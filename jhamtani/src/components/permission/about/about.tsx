@@ -60,7 +60,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            The following aren't just our initiatives. They're the many ways we choose to keep our word.
+            The following aren&apos;t just our initiatives. They&apos;re the many ways we choose to keep our word.
           </motion.p>
         </div>
 
@@ -73,8 +73,8 @@ export default function About() {
           className="pt-6 sm:pt-10 flex flex-col md:flex-row items-center justify-center gap-10 md:gap-0"
         >
           {/* Left Initiative: Hamesha Aapke Saath */}
-          <div className="flex-1 flex flex-col items-center justify-center space-y-6 md:pr-12 lg:pr-16 w-full">
-            <div className="relative h-20 sm:h-24 md:h-28 w-48 sm:w-60 md:w-64 flex items-center justify-center">
+          <div className="flex-1 flex flex-col items-center justify-center space-y-4 md:space-y-5 px-4 lg:px-6 w-full text-center">
+            <div className="relative h-20 sm:h-24 md:h-28 w-44 sm:w-52 md:w-56 flex items-center justify-center">
               <Image
                 src="/assets/permission/aapke-saath.png"
                 alt="Hamesha Aapke Saath"
@@ -82,6 +82,9 @@ export default function About() {
                 className="object-contain"
               />
             </div>
+            <p className="font-sans text-xs sm:text-sm text-zinc-300 font-light max-w-xs leading-relaxed min-h-[40px] flex items-center justify-center">
+              Post-possession service for all our properties
+            </p>
             <Link
               href="/hum-aapke-saath"
               className="group px-6 sm:px-7 py-2.5 rounded-full border border-[#A0725B] text-[#fff] text-[11px] sm:text-xs uppercase tracking-widest hover:bg-[#A0725B] hover:text-white transition-all duration-300 cursor-pointer inline-block"
@@ -90,13 +93,13 @@ export default function About() {
             </Link>
           </div>
 
-          {/* Divider Line */}
-          <div className="hidden md:block w-[1px] h-36 bg-zinc-600/50 shrink-0 mx-4" />
+          {/* Divider Line 1 */}
+          <div className="hidden md:block w-[1px] h-48 bg-zinc-600/50 shrink-0 mx-2" />
           <div className="block md:hidden w-32 h-[1px] bg-zinc-600/50 my-2" />
 
-          {/* Right Initiative: J TRIBE */}
-          <div className="flex-1 flex flex-col items-center justify-center space-y-6 md:pl-12 lg:pl-16 w-full">
-            <div className="relative h-20 sm:h-24 md:h-28 w-48 sm:w-60 md:w-64 flex items-center justify-center">
+          {/* Middle Initiative: J TRIBE */}
+          <div className="flex-1 flex flex-col items-center justify-center space-y-4 md:space-y-5 px-4 lg:px-6 w-full text-center">
+            <div className="relative h-20 sm:h-24 md:h-28 w-44 sm:w-52 md:w-56 flex items-center justify-center">
               <Image
                 src="/assets/permission/j-tribe.png"
                 alt="J TRIBE"
@@ -104,8 +107,33 @@ export default function About() {
                 className="object-contain"
               />
             </div>
+            <p className="font-sans text-xs sm:text-sm text-zinc-300 font-light max-w-xs leading-relaxed min-h-[40px] flex items-center justify-center">
+              Bringing our residents together to create better communities
+            </p>
             <Link
               href="/j-tribe"
+              className="group px-6 sm:px-7 py-2.5 rounded-full border border-[#A0725B] text-[#fff] text-[11px] sm:text-xs uppercase tracking-widest hover:bg-[#A0725B] hover:text-white transition-all duration-300 cursor-pointer inline-block"
+            >
+              <WaveText text="EXPLORE MORE" />
+            </Link>
+          </div>
+
+          {/* Divider Line 2 */}
+          <div className="hidden md:block w-[1px] h-48 bg-zinc-600/50 shrink-0 mx-2" />
+          <div className="block md:hidden w-32 h-[1px] bg-zinc-600/50 my-2" />
+
+          {/* Right Initiative: Shakti Edge */}
+          <div className="flex-1 flex flex-col items-center justify-center space-y-4 md:space-y-5 px-4 lg:px-6 w-full text-center">
+            <div className="relative h-20 sm:h-24 md:h-28 w-44 sm:w-52 md:w-56 flex flex-col items-center justify-center">
+              <span className="font-serif text-[#C5A880] text-2xl sm:text-3xl md:text-3xl font-light tracking-[0.15em] uppercase leading-tight">
+                Shakti Edge
+              </span>
+            </div>
+            <p className="font-sans text-xs sm:text-sm text-zinc-300 font-light max-w-xs leading-relaxed min-h-[40px] flex items-center justify-center">
+              Empowering Women. Enabling Leaders.
+            </p>
+            <Link
+              href="/shakti-edge"
               className="group px-6 sm:px-7 py-2.5 rounded-full border border-[#A0725B] text-[#fff] text-[11px] sm:text-xs uppercase tracking-widest hover:bg-[#A0725B] hover:text-white transition-all duration-300 cursor-pointer inline-block"
             >
               <WaveText text="EXPLORE MORE" />
@@ -116,4 +144,3 @@ export default function About() {
     </section>
   );
 }
-

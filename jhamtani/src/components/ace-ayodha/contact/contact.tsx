@@ -88,10 +88,10 @@ export default function Contact() {
 
     // Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email) {
+    if (!formData.email.trim()) {
       tempErrors.email = "Email is required.";
       isValid = false;
-    } else if (!emailRegex.test(formData.email)) {
+    } else if (!emailRegex.test(formData.email.trim())) {
       tempErrors.email = "Please enter a valid email address.";
       isValid = false;
     }
@@ -169,7 +169,7 @@ export default function Contact() {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="w-full max-w-6xl mx-auto bg-[#191F26] p-8 sm:p-12 lg:p-16 shadow-2xl text-left"
         >
-          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+          <form onSubmit={handleSubmit} noValidate className="space-y-6 sm:space-y-8">
             {/* Input Grid (2 Columns) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Name field */}
@@ -201,6 +201,8 @@ export default function Contact() {
                 </label>
                 <input
                   type="tel"
+                  inputMode="numeric"
+                  maxLength={10}
                   name="phone"
                   value={formData.phone}
                   onChange={handlePhoneChange}
@@ -305,7 +307,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <span className="text-[12px] sm:text-[13px] text-zinc-400 font-light leading-snug tracking-wide select-none">
-                  I authorize Jhamtani Group and its representatives to contact me via phone calls, SMS, WhatsApp, and email regarding project updates, pricing, and marketing brochures.
+                  I authorize Jhamtani and its representative to contact me with updates and notifications via Email, SMS, WhatsApp, and Call. This will override the registry on DND / NDNC.
                 </span>
               </label>
               {errors.consent && (
@@ -339,7 +341,7 @@ export default function Contact() {
             <div className="space-y-3 font-sans text-sm text-zinc-700 leading-relaxed font-light">
               <p>
                 <strong className="font-semibold text-zinc-900">Site Address : </strong>
-                Near Dange Chowk, Aundh–Ravet BRTS Road, Thergaon, Pune
+                CTS No, Ace Ayodhya, Near Dange Chowk, On Aundh-Ravet BRTS Road, Sr. No. 15/1/A (P), 15/1C/1 (P, 2839 (P, Thergaon, Maharashtra 411033
               </p>
               <p>
                 <strong className="font-semibold text-zinc-900">Contact : </strong>
@@ -383,13 +385,25 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right Block: Brand Logo */}
-          <div className="shrink-0 flex items-center justify-center md:justify-center w-full md:w-auto mt-4 md:mt-0">
+          {/* Right Block: Brand Logo & Embedded Map Preview */}
+          <div className="shrink-0 flex flex-col items-center md:items-end w-full md:w-auto mt-4 md:mt-0 gap-4">
             <img
               src="/assets/ace-ayodha/logo_1.webp"
               alt="ACE Ayodhya Logo"
-              className="w-auto h-24 sm:h-28 md:h-50 object-contain mix-blend-multiply"
+              className="w-auto h-24 sm:h-28 md:h-36 object-contain mix-blend-multiply"
             />
+            <div className="w-full md:w-[320px] h-[160px] rounded-xl overflow-hidden border border-[#A0725B]/30 shadow-md">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.2131640725215!2d73.7671805749652!3d18.609479582501454!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b95110208c85%3A0x74b9282fb4f3dc1b!2sAce%20Ayodhya!5e0!3m2!1sen!2sin!4v1788775908444!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="Ace Ayodhya Google Maps Location"
+              />
+            </div>
           </div>
         </div>
       </div>

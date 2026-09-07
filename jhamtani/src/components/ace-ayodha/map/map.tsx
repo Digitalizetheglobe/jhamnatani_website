@@ -19,7 +19,7 @@ interface LocationGroup {
   items: LocationItem[];
 }
 
-const PROJECT_COORDS: [number, number] = [18.6186, 73.7745];
+const PROJECT_COORDS: [number, number] = [18.6094796, 73.7671806];
 
 const locationsData: LocationGroup[] = [
   {
@@ -162,7 +162,7 @@ export default function MapSection() {
         const projectPinHtml = `
           <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;">
             <div style="background:rgba(25,31,38,0.95);border:1px solid #A0725B;color:#FFFFFF;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap;box-shadow:0 4px 15px rgba(0,0,0,0.5);margin-bottom:6px;font-family:sans-serif;letter-spacing:0.04em;">
-              Ace Ayodha
+              Ace Ayodhya
             </div>
             <div style="position:relative;width:24px;height:24px;background:#A0725B;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FFFFFF;box-shadow:0 0 15px rgba(160,114,91,0.8);">
               <div style="width:8px;height:8px;background:#FFFFFF;border-radius:50%;"></div>
@@ -326,7 +326,7 @@ export default function MapSection() {
   return (
     <section className="relative w-full bg-[#191F26] pt-20 select-none overflow-hidden">
       {/* Header Block */}
-      <div className="max-w-6xl mx-auto mb-20">
+      <div className="max-w-7xl mx-auto mb-20 px-6 sm:px-12 lg:px-16">
         <div className="max-w-3xl text-left">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

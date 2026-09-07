@@ -11,17 +11,17 @@ export default function Amenities() {
       iconPath: "/assets/icon_1.webp",
     },
     {
-      title: "Thinking Long Term",
+      title: "Better Than Yesterday",
       desc: "Making decisions today that create lasting value for generations to come.",
       iconPath: "/assets/icon_2.webp",
     },
     {
-      title: "Getting ⁠Better than Yesterday",
+      title: "Think Long Term",
       desc: "Creating a positive difference in every life we touch, from our customers, our people, our partners, to our communities.",
       iconPath: "/assets/icon_3.webp",
     },
     {
-      title: "Creating Positive Impact on Every Life Touched",
+      title: "Positive Impact on Every Life Touched",
       desc: "Never stopping the process of learning. Growing with every home, every customer, every little thing, every time.",
       iconPath: "/assets/icon_4.webp",
     },
@@ -87,7 +87,6 @@ export default function Amenities() {
                 
                 {/* Title */}
                 <h3 className="font-serif text-[22px] md:text-[24px] leading-tight text-[#a0725b] mt-6">
-                  The Promise
                   <span className="block font-serif text-[22px] md:text-[24px] mt-1 text-[#a0725b]/90">
                     {p.title}
                   </span>

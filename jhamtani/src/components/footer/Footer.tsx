@@ -209,10 +209,15 @@ export default function Footer() {
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                   <circle cx="12" cy="10" r="3"/>
                 </svg>
-                <span>
-                  <strong className="text-white font-medium pr-1">HEAD OFFICE:</strong>
+                <a
+                  href="https://maps.app.goo.gl/nXNbJS46SHJopH2E7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#C5A880] transition-colors group"
+                >
+                  <strong className="text-white group-hover:text-[#C5A880] font-medium pr-1 transition-colors">HEAD OFFICE:</strong>
                   Office No. 1303/1309, Nandan Probiz, Balewadi High St., Baner, Pune, Maharashtra 411045
-                </span>
+                </a>
               </div>
               <div className="flex items-center space-x-3 text-zinc-300 font-sans text-[14px]">
                 <svg className="w-4 h-4 text-[#C5A880] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -229,9 +234,9 @@ export default function Footer() {
           {/* Social Icons (Right Side) */}
           <div className="flex items-center space-x-3 shrink-0 justify-center md:justify-end">
             <a
-              href="#"
+              href="https://www.instagram.com/jhamtani_group/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="w-10 h-10 rounded-md border border-white/20 hover:border-[#C5A880] hover:bg-[#C5A880]/10 text-white hover:text-[#C5A880] flex items-center justify-center transition-all duration-300"
               aria-label="Instagram"
             >
@@ -242,9 +247,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/Jhamtani/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="w-10 h-10 rounded-md border border-white/20 hover:border-[#C5A880] hover:bg-[#C5A880]/10 text-white hover:text-[#C5A880] flex items-center justify-center transition-all duration-300"
               aria-label="Facebook"
             >
@@ -253,9 +258,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/@jhamtani809"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="w-10 h-10 rounded-md border border-white/20 hover:border-[#C5A880] hover:bg-[#C5A880]/10 text-white hover:text-[#C5A880] flex items-center justify-center transition-all duration-300"
               aria-label="Youtube"
             >
@@ -265,9 +270,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/company/jhamtani/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="w-10 h-10 rounded-md border border-white/20 hover:border-[#C5A880] hover:bg-[#C5A880]/10 text-white hover:text-[#C5A880] flex items-center justify-center transition-all duration-300"
               aria-label="LinkedIn"
             >

@@ -88,10 +88,10 @@ export default function Contact() {
 
     // Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email) {
+    if (!formData.email.trim()) {
       tempErrors.email = "Email is required.";
       isValid = false;
-    } else if (!emailRegex.test(formData.email)) {
+    } else if (!emailRegex.test(formData.email.trim())) {
       tempErrors.email = "Please enter a valid email address.";
       isValid = false;
     }
@@ -143,33 +143,33 @@ export default function Contact() {
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="font-serif font-light text-[36px] sm:text-[46px] lg:text-[52px] leading-tight text-[#A0725B] tracking-wide"
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-zinc-900 leading-tight"
           >
-            Discover your place at Ace Abundance
+            Start Your Journey to <br />
+            <span className="italic font-light text-zinc-600">Pure Abundance.</span>
           </motion.h2>
-
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="font-sans text-[14px] sm:text-[15px] text-zinc-700 leading-relaxed font-light mt-4 max-w-2xl"
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-sans text-sm sm:text-base text-zinc-600 mt-4 tracking-wide font-light max-w-xl leading-relaxed"
           >
-              Explore available residences, floor plans and current pricing. Our team will help you identify the configuration that best complements the way you wish to live.
+            Our dedicated luxury relationship advisors are on hand to arrange your private preview of ACE Abundance.
           </motion.p>
         </div>
 
-        {/* Contact Form Card Container */}
+        {/* Contact Container Box */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className="w-full max-w-6xl mx-auto bg-[#191F26] p-8 sm:p-12 lg:p-16 shadow-2xl text-left"
         >
-          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+          <form onSubmit={handleSubmit} noValidate className="space-y-6 sm:space-y-8">
             {/* Input Grid (2 Columns) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Name field */}
@@ -201,6 +201,8 @@ export default function Contact() {
                 </label>
                 <input
                   type="tel"
+                  inputMode="numeric"
+                  maxLength={10}
                   name="phone"
                   value={formData.phone}
                   onChange={handlePhoneChange}
@@ -305,7 +307,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <span className="text-[12px] sm:text-[13px] text-zinc-400 font-light leading-snug tracking-wide select-none">
-                  I authorize Jhamtani Group and its representatives to contact me via phone calls, SMS, WhatsApp, and email regarding project updates, pricing, and marketing brochures.
+                  I authorize Jhamtani and its representative to contact me with updates and notifications via Email, SMS, WhatsApp, and Call. This will override the registry on DND / NDNC.
                 </span>
               </label>
               {errors.consent && (

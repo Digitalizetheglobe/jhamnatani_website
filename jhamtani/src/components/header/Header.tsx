@@ -115,8 +115,6 @@ export default function Header() {
     { label: "Our Promises", href: "/permission" },
     { label: "Our Projects", href: "/projects" },
     { label: "XO Series", href: "/xo" },
-    { label: "Blogs", href: "/blogs" },
-    { label: "Contact Us", href: "/contact" },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -133,7 +131,10 @@ export default function Header() {
 
   const clipPathClosed = "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)";
 
-  const isSolidPage = pathname === "/hum-aapke-saath" || pathname === "/j-tribe";
+  const isSolidPage =
+    pathname === "/hum-aapke-saath" ||
+    pathname === "/j-tribe" ||
+    pathname === "/shakti-edge";
 
   return (
     <>
@@ -351,14 +352,16 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <Link
-                      href="#contact"
-                      onClick={() => setIsOpen(false)}
-                      className="flex items-center justify-center space-x-2 border border-[#C5A880]/30 py-4 px-8 w-full lg:w-fit font-sans text-[13px] tracking-widest text-[#C5A880] hover:bg-[#C5A880] hover:text-black transition-all duration-500 rounded-none uppercase font-light"
+                    <button
+                      onClick={() => {
+                        setIsOpen(false);
+                        window.dispatchEvent(new CustomEvent("open-chat-assist"));
+                      }}
+                      className="flex items-center justify-center space-x-2 border border-[#C5A880]/30 py-4 px-8 w-full lg:w-fit font-sans text-[13px] tracking-widest text-[#C5A880] hover:bg-[#C5A880] hover:text-black transition-all duration-500 rounded-none uppercase font-light cursor-pointer"
                     >
                       <MessageSquare className="w-4 h-4" />
                       <span>Chat Assist</span>
-                    </Link>
+                    </button>
                   </motion.div>
                 </div>
               </motion.div>

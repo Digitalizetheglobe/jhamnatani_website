@@ -88,8 +88,69 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
     message: "",
     consent: true,
   });
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    phone?: string;
+    consent?: string;
+  }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, "");
+    if (val.length <= 10) {
+      setFormData((prev) => ({ ...prev, phone: val }));
+      if (errors.phone) {
+        setErrors((prev) => ({ ...prev, phone: undefined }));
+      }
+    }
+  };
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof typeof errors]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const tempErrors: typeof errors = {};
+    let isValid = true;
+
+    if (!formData.name.trim()) {
+      tempErrors.name = "Full Name is required.";
+      isValid = false;
+    } else if (formData.name.trim().length < 2) {
+      tempErrors.name = "Name must be at least 2 characters.";
+      isValid = false;
+    }
+
+    if (!formData.phone) {
+      tempErrors.phone = "Phone number is required.";
+      isValid = false;
+    } else if (formData.phone.length !== 10) {
+      tempErrors.phone = "Phone number must be exactly 10 digits.";
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      tempErrors.email = "Email address is required.";
+      isValid = false;
+    } else if (!emailRegex.test(formData.email.trim())) {
+      tempErrors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    if (!formData.consent) {
+      tempErrors.consent = "You must authorize communication to proceed.";
+      isValid = false;
+    }
+
+    setErrors(tempErrors);
+    return isValid;
+  };
 
   // Calculate Prev and Next posts
   const currentIndex = useMemo(() => {
@@ -135,6 +196,8 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -146,6 +209,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
         message: "",
         consent: true,
       });
+      setErrors({});
       setTimeout(() => setIsSubmitted(false), 5000);
     }, 800);
   };
@@ -637,61 +701,81 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-4">
+                <form onSubmit={handleFormSubmit} noValidate className="space-y-4">
                   <div>
                     <input
                       type="text"
-                      required
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) => handleInputChange("name", e.target.value)}
                       placeholder="Full Name *"
-                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/25 focus:border-[#A0725B] focus:outline-none text-xs text-zinc-900 transition-all placeholder:text-zinc-400"
+                      className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                        errors.name ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                      } focus:outline-none text-xs text-zinc-900 transition-all placeholder:text-zinc-400`}
                     />
+                    {errors.name && (
+                      <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.name}</p>
+                    )}
                   </div>
 
                   <div>
                     <input
                       type="email"
-                      required
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
                       placeholder="Email Address *"
-                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/25 focus:border-[#A0725B] focus:outline-none text-xs text-zinc-900 transition-all placeholder:text-zinc-400"
+                      className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                        errors.email ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                      } focus:outline-none text-xs text-zinc-900 transition-all placeholder:text-zinc-400`}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.email}</p>
+                    )}
                   </div>
 
                   <div>
                     <input
                       type="tel"
-                      required
+                      inputMode="numeric"
+                      maxLength={10}
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+                      onChange={handlePhoneChange}
                       placeholder="10-digit Phone Number *"
-                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/25 focus:border-[#A0725B] focus:outline-none text-xs text-zinc-900 transition-all placeholder:text-zinc-400 font-mono"
+                      className={`w-full px-4 py-2.5 rounded-xl bg-white border ${
+                        errors.phone ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                      } focus:outline-none text-xs text-zinc-900 transition-all placeholder:text-zinc-400 font-mono`}
                     />
+                    {errors.phone && (
+                      <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.phone}</p>
+                    )}
                   </div>
 
                   <div>
                     <textarea
                       rows={3}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) => handleInputChange("message", e.target.value)}
                       placeholder="Interested Project or Questions..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/25 focus:border-[#A0725B] focus:outline-none text-xs text-zinc-900 transition-all placeholder:text-zinc-400"
+                      className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/25 focus:border-[#A0725B] focus:outline-none text-xs text-zinc-900 transition-all placeholder:text-zinc-400 resize-none"
                     />
                   </div>
 
-                  <div className="flex items-start gap-2 pt-0.5">
-                    <input
-                      type="checkbox"
-                      id="sidebar-consent"
-                      checked={formData.consent}
-                      onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                      className="mt-1 w-3.5 h-3.5 accent-[#A0725B] rounded cursor-pointer shrink-0"
-                    />
-                    <label htmlFor="sidebar-consent" className="text-[10px] text-zinc-500 font-light leading-snug cursor-pointer select-none">
-                      I authorize Jhamtani and its representative to contact me with updates via Email, SMS, WhatsApp &amp; Call (overrides DND).
-                    </label>
+                  {/* Unified Consent Checkbox */}
+                  <div>
+                    <div className="flex items-start gap-2 pt-0.5">
+                      <input
+                        type="checkbox"
+                        id="sidebar-consent"
+                        checked={formData.consent}
+                        onChange={(e) => handleInputChange("consent", e.target.checked)}
+                        className="mt-1 w-3.5 h-3.5 accent-[#A0725B] rounded cursor-pointer shrink-0"
+                      />
+                      <label htmlFor="sidebar-consent" className="text-[10px] text-zinc-500 font-light leading-snug cursor-pointer select-none">
+                        I authorize Jhamtani and its representative to contact me with updates and notifications via Email, SMS, WhatsApp, and Call. This will override the registry on DND / NDNC.
+                      </label>
+                    </div>
+                    {errors.consent && (
+                      <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.consent}</p>
+                    )}
                   </div>
 
                   <button

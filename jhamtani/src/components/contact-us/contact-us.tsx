@@ -63,6 +63,14 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
   );
 }
 
+interface FormErrors {
+  name?: string;
+  mobile?: string;
+  email?: string;
+  message?: string;
+  consent?: string;
+}
+
 export default function ContactUsComponent() {
   const [formData, setFormData] = useState({
     name: "",
@@ -72,11 +80,74 @@ export default function ContactUsComponent() {
     consent: true,
   });
 
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, "");
+    if (val.length <= 10) {
+      setFormData((prev) => ({ ...prev, mobile: val }));
+      if (errors.mobile) {
+        setErrors((prev) => ({ ...prev, mobile: undefined }));
+      }
+    }
+  };
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof FormErrors]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const tempErrors: FormErrors = {};
+    let isValid = true;
+
+    if (!formData.name.trim()) {
+      tempErrors.name = "Full Name is required.";
+      isValid = false;
+    } else if (formData.name.trim().length < 2) {
+      tempErrors.name = "Name must be at least 2 characters.";
+      isValid = false;
+    }
+
+    if (!formData.mobile) {
+      tempErrors.mobile = "Mobile number is required.";
+      isValid = false;
+    } else if (formData.mobile.length !== 10) {
+      tempErrors.mobile = "Mobile number must be exactly 10 digits.";
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      tempErrors.email = "Email address is required.";
+      isValid = false;
+    } else if (!emailRegex.test(formData.email.trim())) {
+      tempErrors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    if (!formData.message.trim()) {
+      tempErrors.message = "Please enter your message or enquiry.";
+      isValid = false;
+    }
+
+    if (!formData.consent) {
+      tempErrors.consent = "You must authorize communication to proceed.";
+      isValid = false;
+    }
+
+    setErrors(tempErrors);
+    return isValid;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
 
     // Simulate submission
@@ -90,6 +161,7 @@ export default function ContactUsComponent() {
         message: "",
         consent: true,
       });
+      setErrors({});
       setTimeout(() => setIsSubmitted(false), 5000);
     }, 800);
   };
@@ -99,7 +171,8 @@ export default function ContactUsComponent() {
       name: "ACE Ayodhya Experience Centre",
       location: "Thergaon, Pune",
       type: "Residential",
-      mapUrl: "https://maps.app.goo.gl/xGQJPu5EGTvjVMCX8",
+      mapUrl:
+        "https://www.google.com/maps/place/Ace+Ayodhya/@18.6094796,73.7671806,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc2b95110208c85:0x74b9282fb4f3dc1b!8m2!3d18.6094796!4d73.7697555",
     },
     {
       name: "Mundhwa Experience Centre",
@@ -292,7 +365,7 @@ export default function ContactUsComponent() {
                     </div>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} noValidate className="space-y-5">
                     {/* Name Input */}
                     <div>
                       <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1.5">
@@ -300,12 +373,16 @@ export default function ContactUsComponent() {
                       </label>
                       <input
                         type="text"
-                        required
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => handleInputChange("name", e.target.value)}
                         placeholder="Full Name"
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF5F0] border border-[#A0725B]/25 focus:border-[#A0725B] focus:bg-white focus:outline-none text-xs text-zinc-900 transition-all shadow-inner"
+                        className={`w-full px-4 py-3 rounded-xl bg-[#FAF5F0] border ${
+                          errors.name ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                        } focus:bg-white focus:outline-none text-xs text-zinc-900 transition-all shadow-inner`}
                       />
+                      {errors.name && (
+                        <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.name}</p>
+                      )}
                     </div>
 
                     {/* Mobile & Email Grid */}
@@ -316,12 +393,18 @@ export default function ContactUsComponent() {
                         </label>
                         <input
                           type="tel"
-                          required
+                          inputMode="numeric"
+                          maxLength={10}
                           value={formData.mobile}
-                          onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                          placeholder="10-digit Mobile"
-                          className="w-full px-4 py-3 rounded-xl bg-[#FAF5F0] border border-[#A0725B]/25 focus:border-[#A0725B] focus:bg-white focus:outline-none text-xs text-zinc-900 transition-all shadow-inner font-mono"
+                          onChange={handlePhoneChange}
+                          placeholder="10-digit Mobile Number"
+                          className={`w-full px-4 py-3 rounded-xl bg-[#FAF5F0] border ${
+                            errors.mobile ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                          } focus:bg-white focus:outline-none text-xs text-zinc-900 transition-all shadow-inner font-mono`}
                         />
+                        {errors.mobile && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.mobile}</p>
+                        )}
                       </div>
 
                       <div>
@@ -330,12 +413,16 @@ export default function ContactUsComponent() {
                         </label>
                         <input
                           type="email"
-                          required
                           value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          onChange={(e) => handleInputChange("email", e.target.value)}
                           placeholder="name@example.com"
-                          className="w-full px-4 py-3 rounded-xl bg-[#FAF5F0] border border-[#A0725B]/25 focus:border-[#A0725B] focus:bg-white focus:outline-none text-xs text-zinc-900 transition-all shadow-inner"
+                          className={`w-full px-4 py-3 rounded-xl bg-[#FAF5F0] border ${
+                            errors.email ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                          } focus:bg-white focus:outline-none text-xs text-zinc-900 transition-all shadow-inner`}
                         />
+                        {errors.email && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.email}</p>
+                        )}
                       </div>
                     </div>
 
@@ -346,26 +433,35 @@ export default function ContactUsComponent() {
                       </label>
                       <textarea
                         rows={4}
-                        required
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        onChange={(e) => handleInputChange("message", e.target.value)}
                         placeholder="Tell us about the project you are interested in or questions you have..."
-                        className="w-full px-4 py-3 rounded-xl bg-[#FAF5F0] border border-[#A0725B]/25 focus:border-[#A0725B] focus:bg-white focus:outline-none text-xs text-zinc-900 transition-all shadow-inner"
+                        className={`w-full px-4 py-3 rounded-xl bg-[#FAF5F0] border ${
+                          errors.message ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                        } focus:bg-white focus:outline-none text-xs text-zinc-900 transition-all shadow-inner`}
                       />
+                      {errors.message && (
+                        <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.message}</p>
+                      )}
                     </div>
 
                     {/* Consent Checkbox */}
-                    <div className="flex items-start gap-3 pt-1">
-                      <input
-                        type="checkbox"
-                        id="contact-consent"
-                        checked={formData.consent}
-                        onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                        className="mt-1 w-4 h-4 accent-[#A0725B] rounded cursor-pointer shrink-0"
-                      />
-                      <label htmlFor="contact-consent" className="text-[11px] text-zinc-500 font-light leading-relaxed cursor-pointer select-none">
-                        I authorize Jhamtani and its representative to contact me with updates and notifications via Email, SMS, WhatsApp, and Call. This will override the registry on DND / NDNC.
-                      </label>
+                    <div>
+                      <div className="flex items-start gap-3 pt-1">
+                        <input
+                          type="checkbox"
+                          id="contact-consent"
+                          checked={formData.consent}
+                          onChange={(e) => handleInputChange("consent", e.target.checked)}
+                          className="mt-1 w-4 h-4 accent-[#A0725B] rounded cursor-pointer shrink-0"
+                        />
+                        <label htmlFor="contact-consent" className="text-[11px] text-zinc-500 font-light leading-relaxed cursor-pointer select-none">
+                          I authorize Jhamtani and its representative to contact me with updates and notifications via Email, SMS, WhatsApp, and Call. This will override the registry on DND / NDNC.
+                        </label>
+                      </div>
+                      {errors.consent && (
+                        <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.consent}</p>
+                      )}
                     </div>
 
                     {/* Submit Button */}

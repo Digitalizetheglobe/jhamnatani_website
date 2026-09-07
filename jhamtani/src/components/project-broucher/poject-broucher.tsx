@@ -181,6 +181,13 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
   );
 }
 
+interface FormErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  consent?: string;
+}
+
 export default function ProjectBrochureComponent() {
   const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
   const [selectedProject, setSelectedProject] = useState<BrochureItem | null>(null);
@@ -192,7 +199,9 @@ export default function ProjectBrochureComponent() {
     name: "",
     email: "",
     phone: "",
+    consent: true,
   });
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const filteredBrochures = brochuresData.filter((item) => {
     if (filter === "All") return true;
@@ -202,6 +211,7 @@ export default function ProjectBrochureComponent() {
   const handleOpenModal = (project: BrochureItem) => {
     setSelectedProject(project);
     setIsSuccess(false);
+    setErrors({});
     setIsModalOpen(true);
   };
 
@@ -209,16 +219,75 @@ export default function ProjectBrochureComponent() {
     setIsModalOpen(false);
     setSelectedProject(null);
     setIsSuccess(false);
+    setErrors({});
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, "");
+    if (val.length <= 10) {
+      setFormData((prev) => ({ ...prev, phone: val }));
+      if (errors.phone) {
+        setErrors((prev) => ({ ...prev, phone: undefined }));
+      }
+    }
+  };
+
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof FormErrors]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const tempErrors: FormErrors = {};
+    let isValid = true;
+
+    if (!formData.name.trim()) {
+      tempErrors.name = "Full Name is required.";
+      isValid = false;
+    } else if (formData.name.trim().length < 2) {
+      tempErrors.name = "Name must be at least 2 characters.";
+      isValid = false;
+    }
+
+    if (!formData.phone) {
+      tempErrors.phone = "Phone number is required.";
+      isValid = false;
+    } else if (formData.phone.length !== 10) {
+      tempErrors.phone = "Phone number must be exactly 10 digits.";
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      tempErrors.email = "Email address is required.";
+      isValid = false;
+    } else if (!emailRegex.test(formData.email.trim())) {
+      tempErrors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    if (!formData.consent) {
+      tempErrors.consent = "You must authorize communication to proceed.";
+      isValid = false;
+    }
+
+    setErrors(tempErrors);
+    return isValid;
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
 
     // Simulate submission and trigger direct download
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
+      setErrors({});
 
       if (selectedProject?.pdfUrl) {
         const link = document.createElement("a");
@@ -482,61 +551,93 @@ export default function ProjectBrochureComponent() {
                 </motion.div>
               ) : (
                 /* Form State */
-                <form onSubmit={handleFormSubmit} className="space-y-4">
+                <form onSubmit={handleFormSubmit} noValidate className="space-y-4">
                   <div>
                     <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1.5">
-                      Your Full Name
+                      Your Full Name <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                       <input
                         type="text"
-                        required
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => handleInputChange("name", e.target.value)}
                         placeholder="Enter your name"
-                        className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/25 focus:border-[#A0725B] focus:outline-none text-xs text-zinc-900"
+                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border ${
+                          errors.name ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                        } focus:outline-none text-xs text-zinc-900 transition-colors`}
                       />
                     </div>
+                    {errors.name && (
+                      <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.name}</p>
+                    )}
                   </div>
 
                   <div>
                     <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1.5">
-                      Email Address
+                      Email Address <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                       <input
                         type="email"
-                        required
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
                         placeholder="name@example.com"
-                        className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/25 focus:border-[#A0725B] focus:outline-none text-xs text-zinc-900"
+                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border ${
+                          errors.email ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                        } focus:outline-none text-xs text-zinc-900 transition-colors`}
                       />
                     </div>
+                    {errors.email && (
+                      <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.email}</p>
+                    )}
                   </div>
 
                   <div>
                     <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1.5">
-                      Phone Number
+                      Phone Number <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                       <input
                         type="tel"
-                        required
+                        inputMode="numeric"
+                        maxLength={10}
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+91 98765 43210"
-                        className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/25 focus:border-[#A0725B] focus:outline-none text-xs text-zinc-900"
+                        onChange={handlePhoneChange}
+                        placeholder="10-digit Mobile Number"
+                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border ${
+                          errors.phone ? "border-red-500 focus:border-red-500" : "border-[#A0725B]/25 focus:border-[#A0725B]"
+                        } focus:outline-none text-xs text-zinc-900 transition-colors font-mono`}
                       />
                     </div>
+                    {errors.phone && (
+                      <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.phone}</p>
+                    )}
                   </div>
 
-                  <p className="text-[10px] text-zinc-500 font-light leading-relaxed">
-                    By submitting, you agree to receive project updates &amp; floor plans via Email &amp; WhatsApp.
-                  </p>
+                  {/* Unified Consent Checkbox */}
+                  <div>
+                    <div className="flex items-start gap-2.5 pt-1">
+                      <input
+                        type="checkbox"
+                        id="brochure-modal-consent"
+                        checked={formData.consent}
+                        onChange={(e) => handleInputChange("consent", e.target.checked)}
+                        className="mt-0.5 w-4 h-4 accent-[#A0725B] rounded cursor-pointer shrink-0"
+                      />
+                      <label
+                        htmlFor="brochure-modal-consent"
+                        className="text-[11px] text-zinc-600 font-light leading-relaxed cursor-pointer select-none"
+                      >
+                        I authorize Jhamtani and its representative to contact me with updates and notifications via Email, SMS, WhatsApp, and Call. This will override the registry on DND / NDNC.
+                      </label>
+                    </div>
+                    {errors.consent && (
+                      <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.consent}</p>
+                    )}
+                  </div>
 
                   <button
                     type="submit"

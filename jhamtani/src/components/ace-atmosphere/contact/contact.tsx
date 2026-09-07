@@ -88,10 +88,10 @@ export default function Contact() {
 
     // Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email) {
+    if (!formData.email.trim()) {
       tempErrors.email = "Email is required.";
       isValid = false;
-    } else if (!emailRegex.test(formData.email)) {
+    } else if (!emailRegex.test(formData.email.trim())) {
       tempErrors.email = "Please enter a valid email address.";
       isValid = false;
     }
@@ -169,7 +169,7 @@ export default function Contact() {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="w-full max-w-6xl mx-auto bg-[#191F26] p-8 sm:p-12 lg:p-16 shadow-2xl text-left"
         >
-          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+          <form onSubmit={handleSubmit} noValidate className="space-y-6 sm:space-y-8">
             {/* Input Grid (2 Columns) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Name field */}
@@ -201,6 +201,8 @@ export default function Contact() {
                 </label>
                 <input
                   type="tel"
+                  inputMode="numeric"
+                  maxLength={10}
                   name="phone"
                   value={formData.phone}
                   onChange={handlePhoneChange}
@@ -304,7 +306,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <span className="text-[12px] sm:text-[13px] text-zinc-400 font-light leading-snug tracking-wide select-none">
-                  I authorize Jhamtani Group and its representatives to contact me via phone calls, SMS, WhatsApp, and email regarding project updates, pricing, and marketing brochures.
+                  I authorize Jhamtani and its representative to contact me with updates and notifications via Email, SMS, WhatsApp, and Call. This will override the registry on DND / NDNC.
                 </span>
               </label>
               {errors.consent && (

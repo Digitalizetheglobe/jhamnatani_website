@@ -169,7 +169,7 @@ export default function ProjectsComponent() {
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/projects.webp"
+            src="/assets/projects.png"
             alt="Jhamtani Projects Banner"
             fill
             priority
@@ -177,8 +177,8 @@ export default function ProjectsComponent() {
             className="object-cover"
           />
           {/* Dark Overlay for readability and premium look */}
-          <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
-          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A880]/60 to-transparent" />
+          <div className="absolute inset-0 bg-black/25 backdrop-blur-[1px]" />
+          <div className="absolute bottom-0 left-0 ight-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A880]/60 to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-4xl">

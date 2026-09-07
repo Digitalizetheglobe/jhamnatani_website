@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 interface WaveTextProps {
@@ -67,20 +68,20 @@ export default function CTA() {
           className="flex flex-wrap items-center gap-4 sm:gap-6 justify-start md:justify-end"
         >
           {/* Button 1: Outline with White Fill */}
-          <a 
-            href="#ace-abundance"
+          <Link 
+            href="/ace-abundance"
             className="group inline-block px-8 py-3.5 rounded-full border border-[#A0725B] bg-white text-[#A0725B] text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-[0.15em] hover:bg-[#A0725B] hover:text-white transition-all duration-300 select-none text-center min-w-[190px] sm:min-w-[210px] shadow-sm"
           >
             <WaveText text="Ace Abundance" />
-          </a>
+          </Link>
 
           {/* Button 2: Solid Filled with White Border and Drop Shadow */}
-          <a 
-            href="#ace-villas"
+          <Link 
+            href="/ace-villas"
             className="group inline-block px-8 py-3.5 rounded-full bg-[#A0725B] border border-white text-white text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-[0.15em] hover:bg-[#8C5E47] transition-all duration-300 select-none text-center min-w-[190px] sm:min-w-[210px]"
           >
             <WaveText text="Ace Villas" />
-          </a>
+          </Link>
         </motion.div>
       </div>
 
