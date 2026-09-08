@@ -38,7 +38,7 @@ export default function Soon() {
       />
 
       {/* Centered Content Container */}
-      <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
+      <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
         
         {/* Line 1: Top Caption */}
         <motion.h3 
@@ -48,7 +48,7 @@ export default function Soon() {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="font-inria font-light text-[#A0725B] text-xl sm:text-2xl md:text-3xl lg:text-[34px] tracking-wide select-none"
         >
-          Hadapsar Will Wear
+          One More Address
         </motion.h3>
 
         {/* Line 2: The Logo Row (An [XO Logo] Soon!) */}
@@ -60,7 +60,7 @@ export default function Soon() {
           className="flex items-center justify-center select-none"
         >
           <span className="font-inria font-light text-[#A0725B] text-4xl sm:text-6xl md:text-7xl lg:text-[85px] leading-none tracking-wide">
-            An
+            One More
           </span>
           <img 
             src="/assets/xo/XO.png" 
@@ -68,7 +68,7 @@ export default function Soon() {
             className="h-12 sm:h-20 md:h-24 lg:h-28 object-contain filter drop-shadow-[0_4px_25px_rgba(160,114,91,0.3)] hover:scale-103 transition-transform duration-500 cursor-default"
           />
           <span className="font-inria font-light text-[#A0725B] text-4xl sm:text-6xl md:text-7xl lg:text-[85px] leading-none tracking-wide">
-            Soon!
+            Promise
           </span>
         </motion.div>
 

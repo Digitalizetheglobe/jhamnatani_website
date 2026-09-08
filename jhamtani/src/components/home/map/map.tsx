@@ -240,7 +240,7 @@ const BACKGROUND_DOTS: BgDot[] = [
     hoverTimeoutRef.current = setTimeout(() => {
       setActiveLocation(null);
       gsap.to(cursorRingRef.current, {
-        scale: 1, borderColor: "rgba(255,255,255,0.4)",
+        scale: 1, borderColor: "rgba(160,114,91,0.4)",
         backgroundColor: "transparent", duration: 0.25
       });
     }, 280);
@@ -256,25 +256,25 @@ const BACKGROUND_DOTS: BgDot[] = [
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-[550px] md:min-h-screen bg-black overflow-hidden py-10 md:py-16 flex flex-col justify-between cursor-auto md:cursor-none select-none"
+      className="relative w-full min-h-[550px] md:min-h-screen bg-[#FAF5F0] text-zinc-900 overflow-hidden py-10 md:py-16 flex flex-col justify-between cursor-auto md:cursor-none select-none border-t border-[#A0725B]/15"
     >
       {/* Fixed cursor for desktop */}
       <div
         ref={cursorDotRef}
-        className="hidden md:block pointer-events-none fixed w-2 h-2 bg-gold rounded-full z-[9999] opacity-0"
+        className="hidden md:block pointer-events-none fixed w-2 h-2 bg-[#A0725B] rounded-full z-[9999] opacity-0"
         style={{ top: 0, left: 0 }}
       />
       <div
         ref={cursorRingRef}
-        className="hidden md:block pointer-events-none fixed w-9 h-9 border-2 border-white/40 rounded-full z-[9999] opacity-0"
+        className="hidden md:block pointer-events-none fixed w-9 h-9 border-2 border-[#A0725B]/40 rounded-full z-[9999] opacity-0"
         style={{ top: 0, left: 0 }}
       />
 
       {/* Title block (Bottom-Left) */}
       <div className="absolute bottom-4 sm:bottom-8 md:bottom-12 left-4 sm:left-8 md:left-16 z-30 pointer-events-none max-w-[240px] sm:max-w-xs md:max-w-md">
-        <h2 className="font-serif text-[20px] sm:text-[32px] md:text-[46px] leading-[1.1] text-gold tracking-wide">
+        <h2 className="font-serif text-[20px] sm:text-[32px] md:text-[46px] leading-[1.1] text-zinc-900 tracking-wide">
           The Geography of
-          <span className="block mt-1">Promises Delivered!</span>
+          <span className="block mt-1 text-[#A0725B]">Promises Delivered!</span>
         </h2>
       </div>
 
@@ -290,16 +290,16 @@ const BACKGROUND_DOTS: BgDot[] = [
             className="absolute inset-0 w-full h-full pointer-events-none"
             viewBox="0 0 1000 562.5" fill="none" xmlns="http://www.w3.org/2000/svg"
           >
-            <circle cx="500" cy="281.25" r="35"  stroke="#C5A880" strokeWidth="0.5" strokeOpacity="0.35" strokeDasharray="3 3" />
-            <circle cx="500" cy="281.25" r="70"  stroke="#C5A880" strokeWidth="0.5" strokeOpacity="0.25" />
-            <circle cx="500" cy="281.25" r="105" stroke="#C5A880" strokeWidth="0.5" strokeOpacity="0.20" strokeDasharray="5 5" />
-            <circle cx="500" cy="281.25" r="140" stroke="#C5A880" strokeWidth="0.5" strokeOpacity="0.18" />
-            <circle cx="500" cy="281.25" r="175" stroke="#C5A880" strokeWidth="0.5" strokeOpacity="0.15" strokeDasharray="6 3" />
-            <circle cx="500" cy="281.25" r="210" stroke="#C5A880" strokeWidth="0.75" strokeOpacity="0.12" />
-            <circle cx="500" cy="281.25" r="245" stroke="#C5A880" strokeWidth="0.75" strokeOpacity="0.09" strokeDasharray="8 4" />
-            <circle cx="500" cy="281.25" r="275" stroke="#C5A880" strokeWidth="0.75" strokeOpacity="0.05" />
-            <line x1="500" y1="281.25" x2="200" y2="100" stroke="rgba(197,168,128,0.05)" strokeWidth="0.5" />
-            <line x1="500" y1="281.25" x2="800" y2="450" stroke="rgba(197,168,128,0.05)" strokeWidth="0.5" />
+            <circle cx="500" cy="281.25" r="35"  stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.4" strokeDasharray="3 3" />
+            <circle cx="500" cy="281.25" r="70"  stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.3" />
+            <circle cx="500" cy="281.25" r="105" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.25" strokeDasharray="5 5" />
+            <circle cx="500" cy="281.25" r="140" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.2" />
+            <circle cx="500" cy="281.25" r="175" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.18" strokeDasharray="6 3" />
+            <circle cx="500" cy="281.25" r="210" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.15" />
+            <circle cx="500" cy="281.25" r="245" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.12" strokeDasharray="8 4" />
+            <circle cx="500" cy="281.25" r="275" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.08" />
+            <line x1="500" y1="281.25" x2="200" y2="100" stroke="rgba(160,114,91,0.12)" strokeWidth="0.75" />
+            <line x1="500" y1="281.25" x2="800" y2="450" stroke="rgba(160,114,91,0.12)" strokeWidth="0.75" />
           </svg>
 
           {/* Pune City Centre */}
@@ -307,9 +307,9 @@ const BACKGROUND_DOTS: BgDot[] = [
             className="absolute z-10 flex flex-col items-center pointer-events-none"
             style={{ left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
           >
-            <span className="w-3 h-3 bg-gold rounded-full animate-ping absolute opacity-70" />
-            <span className="w-2.5 h-2.5 bg-gold rounded-full relative z-10 border border-black" />
-            <span className="mt-2 text-[10px] tracking-[0.25em] text-gold font-sans font-bold uppercase whitespace-nowrap">
+            <span className="w-3 h-3 bg-[#A0725B] rounded-full animate-ping absolute opacity-70" />
+            <span className="w-2.5 h-2.5 bg-[#A0725B] rounded-full relative z-10 border border-white shadow-sm" />
+            <span className="mt-2 text-[10px] tracking-[0.25em] text-[#A0725B] font-sans font-bold uppercase whitespace-nowrap">
               Pune City Centre
             </span>
           </div>
@@ -324,17 +324,17 @@ const BACKGROUND_DOTS: BgDot[] = [
                 style={{ left: `${dot.x}%`, top: `${dot.y}%`, transform: "translate(-50%,-50%)" }}
               >
                 <span
-                  className={`rounded-full border border-black/20 transition-all duration-300 ${
+                  className={`rounded-full border border-white/60 transition-all duration-300 ${
                     isAnyHovered
-                      ? "w-1.5 h-1.5 bg-zinc-600/30 blur-[0.8px] opacity-25"
-                      : "w-1.5 h-1.5 bg-white/25"
+                      ? "w-1.5 h-1.5 bg-zinc-400/30 blur-[0.8px] opacity-25"
+                      : "w-1.5 h-1.5 bg-zinc-400/70"
                   }`}
                 />
                 <span
                   className={`text-[8px] tracking-widest uppercase font-sans whitespace-nowrap transition-all duration-300 ${
                     isAnyHovered
-                      ? "text-zinc-600/20 blur-[0.8px]"
-                      : "text-white/30 font-light"
+                      ? "text-zinc-400/20 blur-[0.8px]"
+                      : "text-zinc-600/70 font-semibold"
                   }`}
                 >
                   {dot.name}
@@ -368,29 +368,29 @@ const BACKGROUND_DOTS: BgDot[] = [
                   {/* Blinking Pulsating Dot Container */}
                   <div className="relative w-7 h-7 flex items-center justify-center">
                     {/* Continuous Blinking Radar Wave (Clarifies projects present) */}
-                    <span className="absolute inset-0 rounded-full bg-[#C5A880]/30 animate-ping" />
-                    <span className="absolute w-5 h-5 rounded-full bg-[#C5A880]/40 animate-pulse" />
+                    <span className="absolute inset-0 rounded-full bg-[#A0725B]/30 animate-ping" />
+                    <span className="absolute w-5 h-5 rounded-full bg-[#A0725B]/40 animate-pulse" />
                     
                     {/* Center Core Dot */}
                     <span
-                      className={`relative z-10 rounded-full border-2 border-black transition-all duration-300 ${
+                      className={`relative z-10 rounded-full border-2 border-white transition-all duration-300 ${
                         isActive
-                          ? "w-4 h-4 bg-[#C5A880] shadow-[0_0_18px_6px_rgba(197,168,128,0.9)] scale-125"
+                          ? "w-4 h-4 bg-[#A0725B] shadow-[0_0_18px_6px_rgba(160,114,91,0.6)] scale-125"
                           : isOtherHovered
-                          ? "w-2.5 h-2.5 bg-[#C5A880]/40 blur-[0.5px]"
-                          : "w-3 h-3 bg-[#C5A880] shadow-[0_0_12px_rgba(197,168,128,0.7)] group-hover:scale-110"
+                          ? "w-2.5 h-2.5 bg-[#A0725B]/40 blur-[0.5px]"
+                          : "w-3 h-3 bg-[#A0725B] shadow-[0_0_10px_rgba(160,114,91,0.5)] group-hover:scale-110"
                       }`}
                     />
                   </div>
 
                   {/* Location Name Label */}
                   <span
-                    className={`text-[9px] tracking-widest uppercase font-sans whitespace-nowrap transition-all duration-300 font-semibold ${
+                    className={`text-[9px] tracking-widest uppercase font-sans whitespace-nowrap transition-all duration-300 font-bold ${
                       isActive
-                        ? "text-[#C5A880] scale-110"
+                        ? "text-[#A0725B] scale-110"
                         : isOtherHovered
-                        ? "text-[#C5A880]/40 blur-[0.5px]"
-                        : "text-[#C5A880] group-hover:text-white"
+                        ? "text-[#A0725B]/40 blur-[0.5px]"
+                        : "text-zinc-900 group-hover:text-[#A0725B]"
                     }`}
                   >
                     {loc.name}
@@ -427,15 +427,15 @@ const BACKGROUND_DOTS: BgDot[] = [
                       <img
                         src={project.image}
                         alt={project.name}
-                        className="h-28 sm:h-36 md:h-44 w-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)]"
+                        className="h-28 sm:h-36 md:h-44 w-auto object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.35)]"
                         onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                       />
 
                       {/* Project Name Pill */}
-                      <div className="mt-1.5 bg-black/90 border border-gold/50 group-hover/proj:border-gold group-hover/proj:bg-black px-3 py-1 rounded-full shadow-2xl transition-all">
-                        <span className="text-[9px] font-sans font-semibold tracking-widest text-gold uppercase whitespace-nowrap flex items-center gap-1">
+                      <div className="mt-1.5 bg-white/95 border border-[#A0725B]/40 group-hover/proj:border-[#A0725B] group-hover/proj:bg-[#1C1917] px-3 py-1 rounded-full shadow-xl transition-all">
+                        <span className="text-[9px] font-sans font-semibold tracking-widest text-zinc-900 group-hover/proj:text-white uppercase whitespace-nowrap flex items-center gap-1">
                           <span>{project.name}</span>
-                          <span className="text-[10px] text-gold/70 group-hover/proj:text-gold">↗</span>
+                          <span className="text-[10px] text-[#A0725B] group-hover/proj:text-white">↗</span>
                         </span>
                       </div>
                     </Link>
@@ -443,7 +443,7 @@ const BACKGROUND_DOTS: BgDot[] = [
                 </div>
 
                 {/* Center subtle pointer needle */}
-                <div className="w-px h-4 bg-gradient-to-b from-gold/60 to-transparent mt-1" />
+                <div className="w-px h-4 bg-gradient-to-b from-[#A0725B]/80 to-transparent mt-1" />
               </div>
             </div>
           )}
@@ -452,17 +452,17 @@ const BACKGROUND_DOTS: BgDot[] = [
 
       {/* Legend (Bottom-Right) */}
       <div className="absolute bottom-4 sm:bottom-8 md:bottom-12 right-4 sm:right-8 md:right-16 z-30 pointer-events-none scale-75 sm:scale-90 md:scale-100 origin-bottom-right">
-        <div className="bg-black/60 backdrop-blur-md border border-[#C5A880]/20 rounded-xl px-3 sm:px-4 py-2 sm:py-3 flex flex-col gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] tracking-wider font-sans uppercase text-white/70 shadow-lg">
+        <div className="bg-white/80 backdrop-blur-md border border-[#A0725B]/25 rounded-xl px-3 sm:px-4 py-2 sm:py-3 flex flex-col gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] tracking-wider font-sans uppercase text-zinc-700 shadow-xl">
           <div className="flex items-center gap-2 sm:gap-2.5">
             <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A880] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-[#C5A880]" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A0725B] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-[#A0725B]" />
             </span>
-            <span className="text-[#C5A880] font-semibold">Jhamtani Project Hubs</span>
+            <span className="text-[#A0725B] font-bold">Jhamtani Project Hubs</span>
           </div>
           <div className="flex items-center gap-2 sm:gap-2.5">
-            <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-white/30" />
-            <span className="text-zinc-400">Key City Landmarks</span>
+            <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-zinc-400" />
+            <span className="text-zinc-600 font-medium">Key City Landmarks</span>
           </div>
         </div>
       </div>

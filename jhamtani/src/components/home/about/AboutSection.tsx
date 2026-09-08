@@ -227,10 +227,10 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
-                className="relative w-full max-w-full sm:max-w-[420px] h-[220px] sm:h-[300px] lg:h-[320px] mt-4 sm:mt-6 overflow-hidden group"
+                className="relative w-full max-w-full sm:max-w-[420px] h-[220px] sm:h-[300px] lg:h-[340px] mt-4 sm:mt-6 overflow-hidden group"
               >
                 <Image
-                  src="/assets/image_3.webp"
+                  src="/assets/image_3.jpg"
                   alt="Foundation and trust"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
