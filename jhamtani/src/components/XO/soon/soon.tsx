@@ -80,7 +80,7 @@ export default function Soon() {
           transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-sans font-light text-zinc-300 text-sm sm:text-base md:text-lg lg:text-[20px] tracking-wide select-none opacity-90"
         >
-          Announcing our new XO project near Amanora.
+          Jhamtani XO is arriving in Hadapsar, near Amanora.
         </motion.p>
 
       </div>

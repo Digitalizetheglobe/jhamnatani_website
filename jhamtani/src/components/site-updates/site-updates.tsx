@@ -18,7 +18,6 @@ import {
   Eye,
   Camera,
   Layers,
-  PhoneCall,
   SlidersHorizontal,
 } from "lucide-react";
 
@@ -536,44 +535,6 @@ export default function SiteUpdatesComponent() {
         ))}
       </div>
 
-      {/* 5. Construction Quality & Site Visit Consultation Card */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mt-20">
-        <div className="relative rounded-3xl bg-[#111622] text-white p-8 sm:p-12 lg:p-14 overflow-hidden border border-[#C5A880]/30 shadow-2xl">
-          {/* Background Ambient Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#C5A880]/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#A0725B]/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 space-y-4 text-left">
-              <span className="text-[10px] tracking-[0.25em] font-semibold text-[#C5A880] uppercase bg-[#C5A880]/10 px-3 py-1 rounded-full border border-[#C5A880]/25 inline-block">
-                On-Ground Transparency &amp; Rigorous Quality
-              </span>
-              <h3 className="font-serif text-[26px] sm:text-[34px] lg:text-[40px] text-white font-normal leading-tight">
-                Schedule a Personalized Site Visit &amp; Walkthrough
-              </h3>
-              <p className="font-sans text-xs sm:text-[14px] text-zinc-300 font-light leading-relaxed max-w-2xl">
-                Witness our precision craftsmanship firsthand. Our project engineers and relationship managers are available on-site across all Pune locations for guided inspections and architectural briefings.
-              </p>
-            </div>
-
-            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end">
-              <a
-                href="tel:+917447447669"
-                className="group/call relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#C5A880] text-black font-semibold text-xs tracking-wider uppercase hover:bg-white transition-all duration-300 shadow-md cursor-pointer overflow-hidden"
-              >
-                <PhoneCall className="w-4 h-4 shrink-0" />
-                <WaveText text="CALL +91 7447447669" letterDelay={15} groupHoverClass="group-hover/btn" />
-              </a>
-              <Link
-                href="/channel-partner"
-                className="group/req relative inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full border border-white/25 hover:border-[#C5A880] hover:text-[#C5A880] text-white font-medium text-xs tracking-wider uppercase transition-all duration-300 cursor-pointer overflow-hidden"
-              >
-                <WaveText text="REQUEST INSPECTION PASS" letterDelay={15} groupHoverClass="group-hover/btn" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* 6. Fullscreen Interactive Lightbox Modal */}
       <AnimatePresence>

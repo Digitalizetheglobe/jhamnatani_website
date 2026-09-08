@@ -124,10 +124,13 @@ export default function About() {
 
           {/* Right Initiative: Shakti Edge */}
           <div className="flex-1 flex flex-col items-center justify-center space-y-4 md:space-y-5 px-4 lg:px-6 w-full text-center">
-            <div className="relative h-20 sm:h-24 md:h-28 w-44 sm:w-52 md:w-56 flex flex-col items-center justify-center">
-              <span className="font-serif text-[#C5A880] text-2xl sm:text-3xl md:text-3xl font-light tracking-[0.15em] uppercase leading-tight">
-                Shakti Edge
-              </span>
+            <div className="relative h-20 sm:h-24 md:h-28 w-44 sm:w-52 md:w-56 flex items-center justify-center">
+              <Image
+                src="/assets/Shakti-edge.png"
+                alt="Shakti Edge"
+                fill
+                className="object-contain"
+              />
             </div>
             <p className="font-sans text-xs sm:text-sm text-zinc-300 font-light max-w-xs leading-relaxed min-h-[40px] flex items-center justify-center">
               Empowering Women. Enabling Leaders.

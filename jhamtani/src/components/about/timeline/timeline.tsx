@@ -1,626 +1,508 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface TimelineData {
+/* ═══════════════════════════════════════════════════════════
+   Constants & Types
+   ═══════════════════════════════════════════════════════════ */
+
+const VB_W = 1400;
+const VB_H = 1080;
+
+interface YearEntry {
   year: string;
   projects: string[];
+  nx: number;
+  ny: number;
+  dx: number;
+  cx: number;
+  cy: number;
+  above?: boolean;
+  hl?: boolean;
 }
 
-const timelineData: TimelineData[] = [
-  { year: "2010", projects: ["JHAMTANI IMPRESSIONS"] },
-  { year: "2012", projects: ["ACE ALMIGHTY PHASE I"] },
-  { year: "2014", projects: ["ACE KK ANAND", "ACE AURA"] },
-  { year: "2015", projects: ["ACE AUGUSTA"] },
-  { year: "2016", projects: ["ACE AURUM I"] },
-  { year: "2017", projects: ["SHREE GANESH ACE ARCADE"] },
-  { year: "2018", projects: ["ACE AURUM II", "ACE AASTHA A WING", "ACE AASTHA B WING", "VISION ACE PHASE I"] },
-  { year: "2019", projects: ["ALMIGHTY COMMERCIAL", "ACE ALMIGHTY PHASE II", "VISION ACE PHASE II", "ACE ALMIGHTY SIGMA COMMERCIAL"] },
-  { year: "2020", projects: ["ACE AURUM III"] },
-  { year: "2021", projects: ["ACE AASTHA C WING"] },
-  { year: "2022", projects: ["ACE ABODE", "NANDAN ACE"] },
-  { year: "2023", projects: ["ACE ATMOSPHERE", "ACE VILLAS", "JHAMTANI SPACEBIZ"] },
-  { year: "2024", projects: ["JHAMTANI BIZCORE", "VISION ACE COMMERCIAL PHASE I", "JHAMTANI ELEVATE", "ACE ASTER"] },
-  { year: "2025", projects: ["ACE ABUNDANCE"] },
-  { year: "2026", projects: ["ACE AYODHYA"] }
+/* ═══════════════════════════════════════════════════════════
+   Timeline Data - Symmetrical top and bottom spacing
+   ═══════════════════════════════════════════════════════════ */
+
+const years: YearEntry[] = [
+  // Segment 0: Top entrance (0,160) -> (380,160)
+  {
+    year: "2010",
+    projects: ["JHAMTANI IMPRESSIONS"],
+    nx: 170, ny: 160, dx: 230,
+    cx: (230 / VB_W) * 100,
+    cy: (105 / VB_H) * 100,
+    above: true,
+  },
+
+  // Column 1 (x=410), going down from y=160 to y=980
+  {
+    year: "2012",
+    projects: ["ACE ALMIGHTY PHASE I"],
+    nx: 410, ny: 210, dx: 470,
+    cx: (470 / VB_W) * 100,
+    cy: (195 / VB_H) * 100,
+  },
+  {
+    year: "2014",
+    projects: ["ACE KK ANAND", "ACE AURA"],
+    nx: 410, ny: 320, dx: 470,
+    cx: (470 / VB_W) * 100,
+    cy: (305 / VB_H) * 100,
+  },
+  {
+    year: "2015",
+    projects: ["ACE AUGUSTA"],
+    nx: 410, ny: 420, dx: 270,
+    cx: (120 / VB_W) * 100,
+    cy: (405 / VB_H) * 100,
+  },
+  {
+    year: "2016",
+    projects: ["ACE AURUM I"],
+    nx: 410, ny: 520, dx: 470,
+    cx: (470 / VB_W) * 100,
+    cy: (505 / VB_H) * 100,
+  },
+  {
+    year: "2017",
+    projects: ["SHREE GANESH ACE ARCADE"],
+    nx: 410, ny: 620, dx: 470,
+    cx: (470 / VB_W) * 100,
+    cy: (605 / VB_H) * 100,
+  },
+  {
+    year: "2018",
+    projects: ["ACE AURUM II", "ACE AASTHA A WING", "ACE AASTHA B WING", "VISION ACE PHASE I"],
+    nx: 410, ny: 760, dx: 470,
+    cx: (470 / VB_W) * 100,
+    cy: (745 / VB_H) * 100,
+  },
+
+  // Column 2 (x=770), going up from y=980 to y=110
+  {
+    year: "2019",
+    projects: ["ALMIGHTY COMMERCIAL", "ACE ALMIGHTY PHASE II", "VISION ACE PHASE II", "ACE ALMIGHTY SIGMA COMMERCIAL"],
+    nx: 770, ny: 770, dx: 830,
+    cx: (830 / VB_W) * 100,
+    cy: (755 / VB_H) * 100,
+  },
+  {
+    year: "2020",
+    projects: ["ACE AURUM III"],
+    nx: 770, ny: 620, dx: 830,
+    cx: (830 / VB_W) * 100,
+    cy: (605 / VB_H) * 100,
+  },
+  {
+    year: "2021",
+    projects: ["ACE AASTHA C WING"],
+    nx: 770, ny: 480, dx: 830,
+    cx: (830 / VB_W) * 100,
+    cy: (465 / VB_H) * 100,
+  },
+  {
+    year: "2022",
+    projects: ["ACE ABODE", "NANDAN ACE"],
+    nx: 770, ny: 320, dx: 830,
+    cx: (830 / VB_W) * 100,
+    cy: (305 / VB_H) * 100,
+    hl: true,
+  },
+
+  // Column 3 (x=1070), going down from y=110 to y=980
+  {
+    year: "2023",
+    projects: ["ACE ATMOSPHERE", "ACE VILLAS", "JHAMTANI SPACEBIZ"],
+    nx: 1070, ny: 200, dx: 1130,
+    cx: (1130 / VB_W) * 100,
+    cy: (185 / VB_H) * 100,
+  },
+  {
+    year: "2024",
+    projects: ["JHAMTANI BIZCORE", "VISION ACE COMMERCIAL PHASE I", "JHAMTANI ELEVATE", "ACE AASTER"],
+    nx: 1070, ny: 410, dx: 1130,
+    cx: (1130 / VB_W) * 100,
+    cy: (395 / VB_H) * 100,
+    hl: true,
+  },
+  {
+    year: "2025",
+    projects: ["ACE ABUNDANCE"],
+    nx: 1070, ny: 630, dx: 1130,
+    cx: (1130 / VB_W) * 100,
+    cy: (615 / VB_H) * 100,
+  },
+  {
+    year: "2026",
+    projects: ["ACE AYODHYA"],
+    nx: 1070, ny: 800, dx: 1130,
+    cx: (1130 / VB_W) * 100,
+    cy: (785 / VB_H) * 100,
+  },
 ];
 
+/* ═══════════════════════════════════════════════════════════
+   Trunk Path - Symmetrical Top & Bottom Curves
+   ═══════════════════════════════════════════════════════════ */
+
+const TRUNK = [
+  "M 0,160", "L 380,160",
+  "Q 410,160 410,190", "L 410,950",
+  "Q 410,980 440,980", "L 740,980",
+  "Q 770,980 770,950", "L 770,140",
+  "Q 770,110 800,110", "L 1040,110",
+  "Q 1070,110 1070,140", "L 1070,950",
+].join(" ");
+
+/* ═══════════════════════════════════════════════════════════
+   Shared Refined Styles
+   ═══════════════════════════════════════════════════════════ */
+
+const badgeStyle: React.CSSProperties = {
+  background: "linear-gradient(135deg, #C59B4E 0%, #A87F35 100%)",
+  padding: "4px 14px",
+  borderRadius: "4px",
+  fontWeight: 700,
+  fontSize: "clamp(13px, 1.1vw, 16px)",
+  color: "#FFFFFF",
+  letterSpacing: "1px",
+  boxShadow: "0 2px 8px rgba(197, 155, 78, 0.22)",
+  display: "inline-block",
+};
+
+const projStyle: React.CSSProperties = {
+  fontSize: "clamp(11px, 0.85vw, 13px)",
+  lineHeight: 1.4,
+};
+
+/* ═══════════════════════════════════════════════════════════
+   Main Component
+   ═══════════════════════════════════════════════════════════ */
+
 export default function AboutTimeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
-  const activeDotRef = useRef<SVGCircleElement>(null);
-  const activeDotGlowRef = useRef<SVGCircleElement>(null);
-  const projectListRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [projectSubIndex, setProjectSubIndex] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(800);
-  const heightRef = useRef(800);
-
-  const targetIndexRef = useRef(0);
-  const progressValRef = useRef({ value: 0 });
-  const progressTweenRef = useRef<gsap.core.Tween | null>(null);
-  const lastStepTimeRef = useRef(0);
-
-  useEffect(() => {
-    heightRef.current = window.innerHeight;
-    setViewportHeight(window.innerHeight);
-    const handleResize = () => {
-      heightRef.current = window.innerHeight;
-      setViewportHeight(window.innerHeight);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const n = timelineData.length;
-  const spacing = 0.15; // spacing parameter t along bezier curve
-
-  // Bezier curve calculations dynamically based on heightRef
-  const getBezierPoint = useCallback((t: number) => {
-    const clampedT = Math.max(0, Math.min(1, t));
-    const h = heightRef.current;
-    const p0 = { x: 80, y: 0 };
-    const p1 = { x: 360, y: h * 0.25 };
-    const p2 = { x: 360, y: h * 0.75 };
-    const p3 = { x: 80, y: h };
-
-    const x =
-      Math.pow(1 - clampedT, 3) * p0.x +
-      3 * Math.pow(1 - clampedT, 2) * clampedT * p1.x +
-      3 * (1 - clampedT) * Math.pow(clampedT, 2) * p2.x +
-      Math.pow(clampedT, 3) * p3.x;
-
-    const y =
-      Math.pow(1 - clampedT, 3) * p0.y +
-      3 * Math.pow(1 - clampedT, 2) * clampedT * p1.y +
-      3 * (1 - clampedT) * Math.pow(clampedT, 2) * p2.y +
-      Math.pow(clampedT, 3) * p3.y;
-
-    const dx =
-      3 * Math.pow(1 - clampedT, 2) * (p1.x - p0.x) +
-      6 * (1 - clampedT) * clampedT * (p2.x - p1.x) +
-      3 * Math.pow(clampedT, 2) * (p3.x - p2.x);
-    const dy =
-      3 * Math.pow(1 - clampedT, 2) * (p1.y - p0.y) +
-      6 * (1 - clampedT) * clampedT * (p2.y - p1.y) +
-      3 * Math.pow(clampedT, 2) * (p3.y - p2.y);
-
-    const angle = (Math.atan2(dy, dx) * 180) / Math.PI - 90;
-
-    return {
-      x: Number(x.toFixed(2)),
-      y: Number(y.toFixed(2)),
-      angle: Number(angle.toFixed(2)),
-    };
-  }, []);
-
-  // Smoothly render curve items at any fractional progress
-  const renderTimelineAtProgress = useCallback((activeProgress: number) => {
-    const roundedIdx = Math.round(activeProgress);
-    setActiveIndex((prev) => (prev !== roundedIdx ? roundedIdx : prev));
-
-    timelineData.forEach((_, idx) => {
-      const t = (idx - activeProgress) * spacing + 0.5;
-      const pt = getBezierPoint(t);
-
-      const dot = document.getElementById(`dot-${idx}`);
-      const text = document.getElementById(`text-${idx}`);
-      const group = document.getElementById(`group-${idx}`);
-
-      if (dot && text) {
-        gsap.set(dot, { attr: { cx: pt.x, cy: pt.y } });
-        gsap.set(text, { attr: { x: pt.x + 25, y: pt.y + 8 } });
-
-        const isNearCenter = Math.abs(t - 0.5) < 0.05;
-        const r = isNearCenter ? 0 : pt.angle;
-        gsap.set(text, { attr: { transform: `rotate(${r}, ${pt.x + 25}, ${pt.y + 8})` } });
-
-        const dist = Math.abs(t - 0.5);
-        const opacity = Math.max(0, 1 - dist * 1.5);
-        const scale = Math.max(0.6, 1 - dist * 0.8);
-
-        if (group) {
-          gsap.set(group, { style: `opacity: ${opacity};` });
-        }
-
-        const isCurrent = idx === roundedIdx;
-        const fill = isCurrent ? "#9A6B4F" : "#C7A189";
-        const weight = isCurrent ? "600" : "300";
-
-        gsap.set(text, { 
-          style: `font-size: ${scale * 40}px; font-weight: ${weight}; fill: ${fill}; transition: fill 0.3s ease;` 
-        });
-      }
-    });
-
-    const centerPt = getBezierPoint(0.5);
-    if (activeDotRef.current) {
-      gsap.set(activeDotRef.current, { attr: { cx: centerPt.x, cy: centerPt.y } });
-    }
-    if (activeDotGlowRef.current) {
-      gsap.set(activeDotGlowRef.current, { attr: { cx: centerPt.x, cy: centerPt.y } });
-    }
-  }, [getBezierPoint, spacing]);
-
-  // Stepped transition to a specific year milestone
-  const goToYear = useCallback((index: number, syncScroll = true) => {
-    const clampedIndex = Math.max(0, Math.min(n - 1, index));
-    targetIndexRef.current = clampedIndex;
-
-    if (progressTweenRef.current) {
-      progressTweenRef.current.kill();
-    }
-
-    progressTweenRef.current = gsap.to(progressValRef.current, {
-      value: clampedIndex,
-      duration: 0.55,
-      ease: "power2.out",
-      onUpdate: () => {
-        renderTimelineAtProgress(progressValRef.current.value);
-      },
-      onComplete: () => {
-        renderTimelineAtProgress(clampedIndex);
-      }
-    });
-
-    if (syncScroll) {
-      const trigger = ScrollTrigger.getById("timeline-scroll");
-      if (trigger) {
-        const targetY = trigger.start + (clampedIndex / (n - 1)) * (trigger.end - trigger.start);
-        window.scrollTo({ top: targetY, behavior: "smooth" });
-      }
-    }
-  }, [n, renderTimelineAtProgress]);
-
-  const leftColumnRef = useRef<HTMLDivElement>(null);
-
-  // Discrete Wheel & Trackpad Stepper (1 step per physical gesture)
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      const trigger = ScrollTrigger.getById("timeline-scroll");
-      if (!trigger) return;
-
-      const scrollY = window.scrollY;
-      // Check if timeline is occupying the primary viewport
-      const isInside = scrollY >= trigger.start - 25 && scrollY <= trigger.end + 25;
-      if (!isInside) return;
-
-      // Check if cursor is hovering over the left timeline area vs right whitespace area
-      const leftCol = leftColumnRef.current;
-      let isOverTimeline = false;
-
-      if (leftCol) {
-        const leftRect = leftCol.getBoundingClientRect();
-        isOverTimeline = e.clientX <= leftRect.right + 20;
-      } else {
-        isOverTimeline = e.clientX <= window.innerWidth * 0.45;
-      }
-
-      // If scrolling on the right white space area, bypass timeline and scroll page directly
-      if (!isOverTimeline) {
-        if (e.deltaY > 15) {
-          // Scroll directly down to next section
-          e.preventDefault();
-          window.scrollTo({
-            top: trigger.end + 80,
-            behavior: "smooth"
-          });
-        } else if (e.deltaY < -15) {
-          // Scroll directly up to previous section
-          e.preventDefault();
-          window.scrollTo({
-            top: Math.max(0, trigger.start - 80),
-            behavior: "smooth"
-          });
-        }
-        return;
-      }
-
-      // Cursor is on the left side: Execute step-by-step year timeline progression
-      const now = Date.now();
-      const timeSinceLast = now - lastStepTimeRef.current;
-
-      // Filter small noise
-      if (Math.abs(e.deltaY) < 12) return;
-
-      if (e.deltaY > 0) {
-        // Scroll Down -> Move strictly 1 year forward
-        if (targetIndexRef.current < n - 1) {
-          e.preventDefault();
-          if (timeSinceLast >= 500) {
-            lastStepTimeRef.current = now;
-            goToYear(targetIndexRef.current + 1, true);
-          }
-        }
-        // At 2026 (last year), allow natural downward page scroll into the next section
-      } else if (e.deltaY < 0) {
-        // Scroll Up -> Move strictly 1 year backward
-        if (targetIndexRef.current > 0) {
-          e.preventDefault();
-          if (timeSinceLast >= 500) {
-            lastStepTimeRef.current = now;
-            goToYear(targetIndexRef.current - 1, true);
-          }
-        }
-        // At 2010 (first year), allow natural upward page scroll into the previous section
-      }
-    };
-
-    // Keyboard navigation
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const rect = container.getBoundingClientRect();
-      const isVisible = rect.top <= 100 && rect.bottom >= window.innerHeight - 100;
-      if (!isVisible) return;
-
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-        if (targetIndexRef.current < n - 1) {
-          e.preventDefault();
-          goToYear(targetIndexRef.current + 1, true);
-        }
-      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-        if (targetIndexRef.current > 0) {
-          e.preventDefault();
-          goToYear(targetIndexRef.current - 1, true);
-        }
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [n, goToYear]);
-
+  /* ── GSAP Scroll Animations ─────────────────────────────── */
   useGSAP(() => {
-    if (!pathRef.current) return;
+    const ctx = sectionRef.current;
+    if (!ctx) return;
 
-    const path = pathRef.current;
-    const length = path.getTotalLength();
-
-    // 1. Entrance draw-in of curve and items
-    const entranceTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-        once: true,
-      }
-    });
-
-    entranceTl
-      .fromTo(path,
-        { strokeDasharray: length, strokeDashoffset: length },
-        { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" }
-      )
-      .fromTo(".timeline-node",
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.6, stagger: 0.04, ease: "back.out(1.7)" },
-        "-=0.6"
-      )
-      .fromTo(".timeline-year-text",
-        { opacity: 0, scale: 0.5 },
-        { opacity: (idx) => (idx === 0 ? 1 : 0.15), scale: (idx) => (idx === 0 ? 1.2 : 0.8), duration: 0.6, stagger: 0.03, ease: "power2.out" },
-        "-=0.4"
-      );
-
-    // 2. Loop pulse animation on active dot glow
-    gsap.fromTo(activeDotGlowRef.current,
-      { r: 8, opacity: 0.8 },
-      { r: 24, opacity: 0, duration: 1.5, repeat: -1, ease: "power1.out" }
-    );
-
-    // 3. Pinning Trigger spanning all 15 years
-    const mainTrigger = ScrollTrigger.create({
-      id: "timeline-scroll",
-      trigger: containerRef.current,
-      start: "top top",
-      end: () => `+=${(n - 1) * 700}`, // Long enough for all 15 years to display
-      pin: true,
-      scrub: false,
-    });
-
-    // 4. Subtle background radial gradient moving loop
-    gsap.to("#bg-gradient-1", {
-      x: 80,
-      y: 40,
-      duration: 15,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
-    gsap.to("#bg-gradient-2", {
-      x: -60,
-      y: -50,
-      duration: 18,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
-
-    // 5. Mobile entrance animations for items
-    gsap.utils.toArray(".mobile-item").forEach((item: any) => {
-      gsap.fromTo(item,
-        { opacity: 0, y: 30 },
+    /* ─── Header entrance ─── */
+    const header = ctx.querySelector(".tl-header");
+    if (header) {
+      gsap.fromTo(
+        header,
+        { opacity: 0, y: 25 },
         {
-          opacity: 1,
-          y: 0,
+          opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+          scrollTrigger: { trigger: header, start: "top 85%", once: true },
+        }
+      );
+    }
+
+    /* ─── Desktop serpentine animations ─── */
+    const trunk = ctx.querySelector(".tl-trunk") as SVGPathElement | null;
+    if (trunk) {
+      const len = trunk.getTotalLength();
+      gsap.set(trunk, { strokeDasharray: len, strokeDashoffset: len });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ctx.querySelector(".tl-desktop"),
+          start: "top 75%",
+          once: true,
+        },
+      });
+
+      // 1. Smooth trunk path reveal
+      tl.to(trunk, { strokeDashoffset: 0, duration: 2.4, ease: "power2.out" }, 0);
+
+      // 2. Nodes fade & scale up smoothly
+      tl.fromTo(
+        ctx.querySelectorAll(".tl-node"),
+        { scale: 0, opacity: 0, transformOrigin: "center center" },
+        { scale: 1, opacity: 1, duration: 0.4, stagger: 0.05, ease: "power2.out" },
+        0.3
+      );
+
+      // 3. Connector lines fade in
+      tl.fromTo(
+        ctx.querySelectorAll(".tl-dash"),
+        { opacity: 0 },
+        { opacity: 0.6, duration: 0.4, stagger: 0.05, ease: "power2.out" },
+        0.5
+      );
+
+      // 4. Badges fade & slide up smoothly
+      tl.fromTo(
+        ctx.querySelectorAll(".tl-badge"),
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.45, stagger: 0.05, ease: "power2.out" },
+        0.6
+      );
+
+      // 5. Project text fade in
+      tl.fromTo(
+        ctx.querySelectorAll(".tl-projects"),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.45, stagger: 0.04, ease: "power2.out" },
+        0.8
+      );
+    }
+
+    /* ─── Tablet zigzag animations ─── */
+    gsap.utils.toArray<Element>(ctx.querySelectorAll(".tl-tab-item")).forEach((el, i) => {
+      const isLeft = i % 2 === 0;
+      gsap.fromTo(el,
+        { opacity: 0, x: isLeft ? -25 : 25 },
+        {
+          opacity: 1, x: 0,
           duration: 0.6,
-          scrollTrigger: {
-            trigger: item,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
         }
       );
     });
 
-    return () => {
-      mainTrigger.kill();
-    };
-  }, { scope: containerRef, dependencies: [] });
-
-  // Reset project sub-index when activeIndex changes
-  useEffect(() => {
-    setProjectSubIndex(0);
-  }, [activeIndex]);
-
-  // Cycle through projects if there are multiple projects for the active year
-  useEffect(() => {
-    const projects = timelineData[activeIndex].projects;
-    if (projects.length <= 1) return;
-
-    const interval = setInterval(() => {
-      // Fade out the current project name
-      gsap.to(".project-item", {
-        opacity: 0,
-        y: -10,
-        duration: 0.35,
-        ease: "power2.in",
-        onComplete: () => {
-          setProjectSubIndex((prev) => (prev + 1) % projects.length);
+    // Tablet vertical line draw
+    const tabLine = ctx.querySelector(".tl-tab-line") as HTMLElement | null;
+    if (tabLine) {
+      gsap.fromTo(tabLine,
+        { scaleY: 0, transformOrigin: "top center" },
+        {
+          scaleY: 1, duration: 1.8, ease: "power2.out",
+          scrollTrigger: { trigger: tabLine, start: "top 80%", once: true },
         }
-      });
-    }, 3200); // cycle every 3.2 seconds
-
-    return () => clearInterval(interval);
-  }, [activeIndex]);
-
-  // Compute text transformations and styling dynamically for initial render
-  const getYearTextStyle = (idx: number) => {
-    const diff = Math.abs(idx - activeIndex);
-    if (diff === 0) {
-      return {
-        fill: "#9A6B4F",
-        opacity: 1,
-        fontSize: "44px",
-        fontWeight: "600"
-      };
-    } else if (diff === 1) {
-      return {
-        fill: "#C7A189",
-        opacity: 0.8,
-        fontSize: "26px",
-        fontWeight: "300"
-      };
-    } else if (diff === 2) {
-      return {
-        fill: "#C7A189",
-        opacity: 0.5,
-        fontSize: "20px",
-        fontWeight: "300"
-      };
-    } else {
-      return {
-        fill: "#C7A189",
-        opacity: 0.1,
-        fontSize: "20px",
-        fontWeight: "300"
-      };
+      );
     }
-  };
 
+    /* ─── Mobile animations ─── */
+    const mobLine = ctx.querySelector(".tl-mob-line") as HTMLElement | null;
+    if (mobLine) {
+      gsap.fromTo(mobLine,
+        { scaleY: 0, transformOrigin: "top center" },
+        {
+          scaleY: 1, duration: 1.8, ease: "power2.out",
+          scrollTrigger: { trigger: mobLine, start: "top 80%", once: true },
+        }
+      );
+    }
+
+    gsap.utils.toArray<Element>(ctx.querySelectorAll(".tl-mob-item")).forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 15 },
+        {
+          opacity: 1, y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" },
+        }
+      );
+    });
+
+  }, { scope: sectionRef });
+
+  /* ── Render ─────────────────────────────────────────── */
   return (
-    <section ref={containerRef} className="w-full relative bg-[#FAF8F6] overflow-hidden select-none">
-      
-      {/* Background radial blurs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div 
-          id="bg-gradient-1"
-          className="absolute -top-[20%] -left-[20%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(199,161,137,0.06)_0%,transparent_70%)]"
-        />
-        <div 
-          id="bg-gradient-2"
-          className="absolute -bottom-[20%] -right-[20%] w-[80%] h-[80%] rounded-full bg-[radial-gradient(circle,rgba(154,107,79,0.04)_0%,transparent_70%)]"
-        />
+    <section ref={sectionRef} className="w-full bg-[#EDE5D8] relative overflow-hidden select-none py-12 lg:py-15">
+
+      {/* ════ Section Header ═════════════════════════════ */}
+      <div className="tl-header text-center mb-8  px-4 opacity-0">
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#9A7229] tracking-tight leading-snug font-normal">
+          The Timeline of <br className="hidden sm:inline" />
+          <span>Promises Delivered</span>
+        </h2>
       </div>
 
-      {/* Subtle Noise Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.012] pointer-events-none mix-blend-overlay bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:12px_12px] z-10" />
+      {/* ════ Desktop Serpentine (xl+) ═══════════════════ */}
+      <div
+        className="tl-desktop hidden xl:block relative w-full max-w-[1400px] mx-auto"
+        style={{ aspectRatio: `${VB_W} / ${VB_H}` }}
+      >
+        <svg
+          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          className="absolute inset-0 w-full h-full pointer-events-none z-10"
+          preserveAspectRatio="xMidYMid meet"
+          fill="none"
+        >
+          <path className="tl-trunk" d={TRUNK} stroke="#C59B4E" strokeWidth="3" strokeLinecap="round" />
 
-      {/* Desktop Version: Sticky Scroll Scrollytelling */}
-      <div className="hidden lg:block w-full h-screen relative z-20">
-        <div className="sticky top-0 w-full h-screen flex items-center overflow-hidden">
-          <div className="max-w-7xl mx-auto w-full px-8 xl:px-16 grid grid-cols-12 gap-10 items-center h-full relative">
-            
-            {/* Left Column: Curved SVG Timeline */}
-            <div ref={leftColumnRef} className="col-span-5 h-full flex items-center justify-start overflow-visible relative">
-              <svg
-                viewBox={`0 0 480 ${viewportHeight}`}
-                preserveAspectRatio="xMinYMin slice"
-                className="w-full h-full select-none overflow-visible"
-              >
-                {/* Background timeline curve path */}
-                <path
-                  ref={pathRef}
-                  d={`M 80 0 C 360 ${viewportHeight * 0.25}, 360 ${viewportHeight * 0.75}, 80 ${viewportHeight}`}
-                  fill="none"
-                  stroke="#C7A189"
-                  strokeWidth="1.5"
-                  opacity="0.3"
+          {years.map((yr) => {
+            const isLeft = yr.dx < yr.nx;
+            return (
+              <g key={yr.year}>
+                <line
+                  className="tl-dash"
+                  x1={yr.nx} y1={yr.ny}
+                  x2={yr.dx} y2={yr.ny}
+                  stroke="#C59B4E" strokeWidth="1.5"
+                  strokeDasharray="6,4"
+                  opacity={0}
+                  style={{ transformOrigin: isLeft ? `${yr.nx}px ${yr.ny}px` : `${yr.nx}px ${yr.ny}px` }}
                 />
+                <g className="tl-node">
+                  <circle cx={yr.nx} cy={yr.ny} r={6} fill="#EDE5D8" stroke="#C59B4E" strokeWidth={2} />
+                  <circle cx={yr.nx} cy={yr.ny} r={2.5} fill="#C59B4E" />
+                </g>
+              </g>
+            );
+          })}
+        </svg>
 
-                {/* Render sliding year markers */}
-                {timelineData.map((data, idx) => {
-                  const tInitial = idx * spacing + 0.5; // at progress = 0
-                  const pt = getBezierPoint(tInitial);
-                  const isActive = idx === activeIndex;
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          {years.map((yr) => (
+            <div
+              key={yr.year}
+              className="absolute pointer-events-auto transition-transform duration-300"
+              style={{
+                left: `${yr.cx}%`,
+                top: `${yr.cy}%`,
+                width: "230px",
+              }}
+            >
+              {/* Projects listed above for 2010 top entrance */}
+              {yr.above && (
+                <div className="tl-projects mb-1.5 opacity-0">
+                  {yr.projects.map((p, i) => (
+                    <div key={i} className="text-[#2C2C2C] font-bold uppercase tracking-wider text-[11px] lg:text-[12px] leading-tight">
+                      {p}
+                    </div>
+                  ))}
+                </div>
+              )}
 
-                  // Rotation transform matrix to align label tangentially
-                  const isNearCenter = Math.abs(tInitial - 0.5) < 0.05;
-                  const r = isNearCenter ? 0 : pt.angle;
-
-                  return (
-                    <g
-                      key={data.year}
-                      id={`group-${idx}`}
-                      onClick={() => goToYear(idx)}
-                      className="cursor-pointer group"
-                      style={{
-                        opacity: Math.max(0, 1 - Math.abs(tInitial - 0.5) * 1.5),
-                      }}
-                    >
-                      {/* Circle node dot */}
-                      <circle
-                        id={`dot-${idx}`}
-                        cx={pt.x}
-                        cy={pt.y}
-                        r={isActive ? 5 : 4}
-                        fill={isActive ? "#9A6B4F" : "#C7A189"}
-                        className="timeline-node transition-colors duration-300 group-hover:fill-[#9A6B4F]"
-                      />
-
-                      {/* Year text label */}
-                      <text
-                        id={`text-${idx}`}
-                        x={pt.x + 25}
-                        y={pt.y + 8}
-                        transform={`rotate(${r}, ${pt.x + 25}, ${pt.y + 8})`}
-                        style={getYearTextStyle(idx)}
-                        className="timeline-year-text font-serif select-none"
-                      >
-                        {data.year}
-                      </text>
-                    </g>
-                  );
-                })}
-
-                {/* Active travelling glowing pulse ring */}
-                <circle
-                  ref={activeDotGlowRef}
-                  cx={getBezierPoint(0.5).x}
-                  cy={getBezierPoint(0.5).y}
-                  r={8}
-                  fill="none"
-                  stroke="#9A6B4F"
-                  strokeWidth="1.5"
-                />
-
-                {/* Active travelling solid dot */}
-                <circle
-                  ref={activeDotRef}
-                  cx={getBezierPoint(0.5).x}
-                  cy={getBezierPoint(0.5).y}
-                  r={7}
-                  fill="#9A6B4F"
-                />
-              </svg>
-            </div>
-
-            {/* Right Column: Dynamic Project Content */}
-            <div className="col-span-7 flex flex-col h-full pt-24 gap-6 relative">
-              <div className="space-y-4">
-                <h2 className="font-serif text-[38px] xl:text-[48px] leading-tight text-[#A0725B] font-normal">
-                  The Timeline of <br />
-                  Promises Delivered
-                </h2>
-              </div>
-
-              {/* Active Year Project Title aligned horizontally with the active year in the center */}
-              <div ref={projectListRef} className="absolute left-0 top-1/2 -translate-y-1/2">
-                {timelineData[activeIndex].projects.length > 0 && (
-                  <div
-                    key={`${activeIndex}-${projectSubIndex}`}
-                    className="project-item font-serif font-normal text-[20px] md:text-[30px] text-[#A0725B] tracking-wider uppercase select-none flex flex-wrap gap-[0.02em]"
-                    style={{ opacity: 1 }}
-                  >
-                    {(timelineData[activeIndex].projects[projectSubIndex] || timelineData[activeIndex].projects[0]).split("").map((char, index) => {
-                      if (char === " ") {
-                        return <span key={index} className="w-[0.25em] inline-block" />;
-                      }
-                      return (
-                        <motion.span
-                          key={index}
-                          initial={{ opacity: 0, y: 15, rotateX: 45 }}
-                          animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                          transition={{
-                            duration: 0.4,
-                            delay: index * 0.025,
-                            ease: [0.215, 0.61, 0.355, 1],
-                          }}
-                          className="inline-block"
-                        >
-                          {char}
-                        </motion.span>
-                      );
-                    })}
-                  </div>
+              {/* Year badge & milestone tag */}
+              <div className="flex items-center gap-2">
+                <div className="tl-badge" style={{ ...badgeStyle, opacity: 0 }}>
+                  {yr.year}
+                </div>
+                {yr.hl && (
+                  <span className="tl-badge opacity-0 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-[#C59B4E]/15 text-[#8B6914] border border-[#C59B4E]/30 rounded">
+                    Key Milestone
+                  </span>
                 )}
               </div>
 
+              {/* Projects listed below badge */}
+              {!yr.above && yr.projects.length > 0 && (
+                <div className="tl-projects mt-2 space-y-1 opacity-0">
+                  {yr.projects.map((p, i) => (
+                    <div key={i}>
+                      <div className="text-[#2C2C2C] font-semibold uppercase tracking-wider text-[11px] lg:text-[12px] leading-snug" style={projStyle}>
+                        {p}
+                      </div>
+                      {i < yr.projects.length - 1 && (
+                        <div className="h-px bg-[#C59B4E]/30 mt-1" style={{ width: "80%" }} />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+          ))}
+        </div>
+      </div>
 
+      {/* ════ Tablet Zigzag Timeline (md to xl) ═════════ */}
+      <div className="hidden md:block xl:hidden w-full px-6 md:px-10 py-12">
+        <div className="max-w-3xl mx-auto relative">
+          <div className="tl-tab-line absolute left-1/2 top-0 bottom-0 w-[2px] bg-[#C59B4E]/40 -translate-x-1/2" />
+
+          <div className="relative space-y-12 md:space-y-16">
+            {years.map((yr, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <div key={yr.year} className={`tl-tab-item relative flex items-start gap-6 ${isLeft ? "flex-row" : "flex-row-reverse"}`}>
+                  <div className={`w-[calc(50%-24px)] ${isLeft ? "text-right" : "text-left"}`}>
+                    <div className="flex items-center gap-2 mb-2 justify-end" style={{ justifyContent: isLeft ? "flex-end" : "flex-start" }}>
+                      <div className="inline-block" style={{ ...badgeStyle, fontSize: "14px" }}>
+                        {yr.year}
+                      </div>
+                      {yr.hl && (
+                        <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 bg-[#C59B4E]/15 text-[#8B6914] border border-[#C59B4E]/30 rounded">
+                          Key Milestone
+                        </span>
+                      )}
+                    </div>
+                    <div className="space-y-1">
+                      {yr.projects.map((p, pi) => (
+                        <div key={pi}>
+                          <div className="text-[#2C2C2C] font-semibold uppercase tracking-wider text-[12px] md:text-[13px] leading-snug">
+                            {p}
+                          </div>
+                          {pi < yr.projects.length - 1 && (
+                            <div className={`h-px bg-[#C59B4E]/30 mt-1 ${isLeft ? "ml-auto" : ""}`} style={{ width: "70%" }} />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="relative flex-shrink-0 flex items-center justify-center" style={{ width: "20px" }}>
+                    <div className="w-[14px] h-[14px] rounded-full bg-[#EDE5D8] border-[2px] border-[#C59B4E] flex items-center justify-center z-10">
+                      <div className="w-[5px] h-[5px] rounded-full bg-[#C59B4E]" />
+                    </div>
+                    <div
+                      className={`absolute top-1/2 -translate-y-1/2 h-px border-t border-dashed border-[#C59B4E]/60 ${isLeft ? "right-full mr-0.5" : "left-full ml-0.5"}`}
+                      style={{ width: "28px" }}
+                    />
+                  </div>
+
+                  <div className="w-[calc(50%-24px)]" />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Mobile / Tablet Version: Clean Vertical Timeline */}
-      <div className="block lg:hidden w-full px-6 py-20 relative z-20">
-        <div className="max-w-xl mx-auto space-y-12">
-          
-          <div className="text-center space-y-3">
-            <span className="text-[11px] uppercase tracking-[0.25em] text-[#A0725B] font-semibold">
-              LEGACY &amp; ACHIEVEMENTS
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl text-[#A0725B]">
-              The Timeline of Promises Delivered
-            </h2>
-          </div>
+      {/* ════ Mobile Vertical Timeline (<md) ════════════ */}
+      <div className="block md:hidden w-full px-5 py-12">
+        <div className="max-w-md mx-auto relative">
+          <div className="tl-mob-line absolute left-[18px] top-0 bottom-0 w-[2px] bg-[#C59B4E]/40" />
 
-          <div className="relative pl-6 sm:pl-8 border-l border-[#C7A189]/40 space-y-10">
-            {timelineData.map((item, idx) => (
-              <div key={item.year} className="mobile-item relative space-y-2">
-                {/* Node dot on vertical line */}
-                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#FAF8F6] border-2 border-[#9A6B4F] flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#9A6B4F]" />
+          <div className="relative space-y-8 pl-12">
+            {years.map((yr) => (
+              <div key={yr.year} className="tl-mob-item relative">
+                <div className="tl-mob-node absolute -left-[36px] top-1 w-[14px] h-[14px] rounded-full bg-[#EDE5D8] border-[2px] border-[#C59B4E] flex items-center justify-center">
+                  <div className="w-[5px] h-[5px] rounded-full bg-[#C59B4E]" />
                 </div>
 
-                <div className="font-serif text-2xl text-[#9A6B4F] font-semibold">
-                  {item.year}
+                <div className="absolute -left-[22px] top-[8px] w-[22px] h-px border-t border-dashed border-[#C59B4E]/60" />
+
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="inline-block" style={{ ...badgeStyle, fontSize: "13px", padding: "3px 12px" }}>
+                    {yr.year}
+                  </div>
+                  {yr.hl && (
+                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 bg-[#C59B4E]/15 text-[#8B6914] border border-[#C59B4E]/30 rounded">
+                      Key Milestone
+                    </span>
+                  )}
                 </div>
 
-                <div className="space-y-1.5">
-                  {item.projects.map((proj, pIdx) => (
-                    <div key={pIdx} className="text-sm sm:text-base text-zinc-800 font-light tracking-wide uppercase">
-                      {proj}
+                <div className="space-y-1 mt-1">
+                  {yr.projects.map((p, pi) => (
+                    <div key={pi}>
+                      <div className="text-[#2C2C2C] font-semibold uppercase tracking-wider text-[12px] leading-snug">
+                        {p}
+                      </div>
+                      {pi < yr.projects.length - 1 && (
+                        <div className="h-px bg-[#C59B4E]/30 mt-1" style={{ maxWidth: "180px" }} />
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
             ))}
           </div>
-
         </div>
       </div>
 

@@ -55,7 +55,7 @@ function WaveText({ text, letterDelay = 15 }: WaveTextProps) {
 const promisesData: PromiseValue[] = [
   {
     id: "happier-life",
-    title: "The Promise of Customer Happiness",
+    title: "Customer Happiness",
     quote: "Projects are built with concrete. Happiness is built with intent.",
     icon: "/assets/icon_1.webp",
     points: [
@@ -67,7 +67,7 @@ const promisesData: PromiseValue[] = [
   },
   {
     id: "greater-tomorrow",
-    title: "The Promise of Thinking Long Term",
+    title: "Thinking Long Term",
     quote: "Tomorrow is built by the choices we make today.",
     icon: "/assets/icon_2.webp",
     points: [
@@ -79,7 +79,7 @@ const promisesData: PromiseValue[] = [
   },
   {
     id: "evolving-everyday",
-    title: "The Promise of Getting Better than Yesterday",
+    title: "Getting Better than Yesterday",
     quote: "The day we stop learning is the day we stop leading.",
     icon: "/assets/icon_3.webp",
     points: [
@@ -91,8 +91,8 @@ const promisesData: PromiseValue[] = [
   },
   {
     id: "meaningful-impact",
-    title: "The Promise of Creating Positive Impact on Every Life Touched",
-    quote: "Success means little unless it makes someone's life better.",
+    title: "Creating Positive Impact on Every Life Touched",
+    quote: "Success means little unless it makes someone’s life better.",
     icon: "/assets/icon_4.webp",
     points: [
       "We stand by our customers through every stage.",
