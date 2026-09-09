@@ -301,7 +301,7 @@ export default function RealTimeChatAssist({
         text: "The XO Series represents the pinnacle of Jhamtani luxury — featuring iconic projects Ace Abundance and Ace Villas, redefining ultra-luxury living in Pune.",
         time: getCurrentTime(),
         actions: [
-          { label: "Explore XO Series", type: "link", href: "/xo" },
+          { label: "Explore XO Series", type: "link", href: "/xosignatureseries" },
           { label: "Request Private VIP Tour", type: "enquiry" },
         ],
       };

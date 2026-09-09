@@ -204,7 +204,7 @@ export default function PrivacyPolicyComponent() {
       </div>
 
       {/* 2. Main Content Container */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-12 sm:mt-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-12 sm:mt-16">
         
         {/* 3. Main Policy Layout: Sidebar + Sections */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start relative">

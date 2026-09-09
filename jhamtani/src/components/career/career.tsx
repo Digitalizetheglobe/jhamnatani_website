@@ -491,7 +491,7 @@ export default function CareerComponent() {
       {/* ------------------------------------------------------------- */}
       {/* 2. INTRODUCTION BLOCK */}
       {/* ------------------------------------------------------------- */}
-      <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-12 mt-14 sm:mt-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-14 sm:mt-20">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -514,7 +514,7 @@ export default function CareerComponent() {
       {/* ------------------------------------------------------------- */}
       {/* 3. THE PROMISE TO OUR PEOPLE - Symmetrical & Clean Layout */}
       {/* ------------------------------------------------------------- */}
-      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 mt-20 sm:mt-28">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-20 sm:mt-28">
         <div className="text-center space-y-3 mb-12 sm:mb-16">
           <span className="font-sans text-[11px] sm:text-xs uppercase tracking-[0.25em] text-[#A0725B] font-semibold">
             Our Culture &amp; Values
@@ -576,7 +576,7 @@ export default function CareerComponent() {
       {/* ------------------------------------------------------------- */}
       {/* 4. CURRENT OPENINGS SECTION */}
       {/* ------------------------------------------------------------- */}
-      <div id="openings" className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 mt-24 sm:mt-32">
+      <div id="openings" className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-24 sm:mt-32">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div className="space-y-3">

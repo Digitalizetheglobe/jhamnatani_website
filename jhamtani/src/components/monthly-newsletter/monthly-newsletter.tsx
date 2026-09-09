@@ -725,36 +725,9 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
    MAIN COMPONENT PAGE
 -------------------------------------------------------------- */
 export default function MonthlyNewsletterComponent() {
-  const [selectedYear, setSelectedYear] = useState<"All" | "2026" | "2025">("All");
-  const [searchQuery, setSearchQuery] = useState("");
   const [activeReaderEdition, setActiveReaderEdition] = useState<NewsletterEdition | null>(null);
-  const [subscriberEmail, setSubscriberEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const filteredEditions = newslettersData.filter((item) => {
-    const matchesYear =
-      selectedYear === "All" || item.year.toString() === selectedYear;
-    const query = searchQuery.toLowerCase().trim();
-    const matchesSearch =
-      query === "" ||
-      item.title.toLowerCase().includes(query) ||
-      item.month.toLowerCase().includes(query) ||
-      item.tagline.toLowerCase().includes(query) ||
-      item.year.toString().includes(query);
-
-    return matchesYear && matchesSearch;
-  });
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (subscriberEmail.trim()) {
-      setIsSubscribed(true);
-      setTimeout(() => {
-        setIsSubscribed(false);
-        setSubscriberEmail("");
-      }, 4000);
-    }
-  };
+  const displayedEditions = newslettersData.slice(0, 5);
 
   return (
     <section className="relative w-full bg-[#FAF5F0] text-zinc-900 min-h-screen select-none overflow-hidden pb-16">
@@ -798,66 +771,7 @@ export default function MonthlyNewsletterComponent() {
       </div>
 
       {/* 2. Main Content Container */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-12 sm:mt-16">
-      
-
-        {/* 3. Filter & Search Navigation Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-5 pb-8 mb-12 sm:mb-14 border-b border-[#A0725B]/20">
-          {/* Year Filter Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-            {(["All", "2026", "2025"] as const).map((year) => {
-              const count =
-                year === "All"
-                  ? newslettersData.length
-                  : newslettersData.filter((i) => i.year.toString() === year).length;
-              const isActive = selectedYear === year;
-              const label = year === "All" ? "ALL EDITIONS" : `${year} EDITIONS`;
-              return (
-                <button
-                  key={year}
-                  onClick={() => setSelectedYear(year)}
-                  className={`group relative flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-widest border border-[#A0725B] cursor-pointer transition-all duration-300 z-10 overflow-hidden ${
-                    isActive
-                      ? "bg-[#A0725B] text-white shadow-lg shadow-amber-900/15"
-                      : "bg-transparent text-[#A0725B] hover:bg-[#A0725B] hover:text-white"
-                  }`}
-                >
-                  <Calendar className="w-3.5 h-3.5 shrink-0" />
-                  <WaveText text={label} letterDelay={20} />
-                  <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full font-semibold transition-colors duration-300 ${
-                      isActive
-                        ? "bg-white/20 text-white"
-                        : "bg-[#A0725B]/15 text-[#A0725B] group-hover:bg-white/20 group-hover:text-white"
-                    }`}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Search Box */}
-          <div className="relative w-full md:w-72">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search month or keyword..."
-              className="w-full pl-10 pr-4 py-2 text-xs bg-white/80 border border-[#A0725B]/25 rounded-full text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-[#A0725B] focus:bg-white transition-all shadow-sm"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-12 sm:mt-16">
 
         {/* 4. Newsletters Grid */}
         <motion.div
@@ -865,7 +779,7 @@ export default function MonthlyNewsletterComponent() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch"
         >
           <AnimatePresence mode="popLayout">
-            {filteredEditions.map((item, idx) => (
+            {displayedEditions.map((item, idx) => (
               <motion.div
                 key={item.id}
                 layout
@@ -970,26 +884,6 @@ export default function MonthlyNewsletterComponent() {
             ))}
           </AnimatePresence>
         </motion.div>
-
-        {/* If no results found */}
-        {filteredEditions.length === 0 && (
-          <div className="text-center py-20 bg-white/60 rounded-3xl border border-[#A0725B]/20">
-            <FileText className="w-12 h-12 text-[#A0725B] mx-auto mb-3 opacity-60" />
-            <h3 className="font-serif text-2xl text-zinc-800">No Editions Found</h3>
-            <p className="text-sm text-zinc-500 mt-2 font-light">
-              No monthly newsletters match your search filter &quot;{searchQuery}&quot;.
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-                setSelectedYear("All");
-              }}
-              className="mt-5 px-6 py-2 rounded-full bg-[#A0725B] text-white text-xs tracking-wider uppercase font-semibold cursor-pointer"
-            >
-              Reset Filters
-            </button>
-          </div>
-        )}
 
       </div>
 

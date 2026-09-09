@@ -293,7 +293,7 @@ export default function SiteUpdatesComponent() {
       </section>
 
       {/* 2. Key Metrics Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 -mt-7 relative z-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 -mt-7 relative z-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-[#F3ECE4] border border-[#A0725B]/25 shadow-lg backdrop-blur-md">
           <div className="flex items-center gap-3 p-3 rounded-xl bg-white/50 border border-[#A0725B]/15">
             <div className="w-10 h-10 rounded-lg bg-[#A0725B]/15 text-[#A0725B] flex items-center justify-center shrink-0">
@@ -338,7 +338,7 @@ export default function SiteUpdatesComponent() {
       </div>
 
       {/* 3. Luxury Interactive Filter & Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mt-12 sm:mt-14">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-12 sm:mt-14">
         <div className="flex flex-col items-center space-y-6 pb-8 border-b border-[#A0725B]/20">
           
           {/* Main Category Tabs */}
@@ -442,7 +442,7 @@ export default function SiteUpdatesComponent() {
       </div>
 
       {/* 4. Projects Showcase List */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mt-12 space-y-16 sm:space-y-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-12 space-y-16 sm:space-y-20">
         {filteredProjects.map((project, projectIdx) => (
           <motion.section
             key={project.id}

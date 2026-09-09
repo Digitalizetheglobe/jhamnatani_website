@@ -85,7 +85,7 @@ const SignatureSeries = () => {
           {/* Button */}
           <div>
             <Link 
-              href="/xo"
+              href="/xosignatureseries"
               className="group relative inline-flex items-center justify-center border border-[#C5A880] text-[#C5A880] px-8 py-3 rounded-full text-[10px] tracking-widest uppercase hover:bg-[#C5A880] hover:text-[#171a1f] transition-all duration-300 font-semibold cursor-pointer overflow-hidden"
             >
               <WaveText text="Explore The Extraordinaire" letterDelay={15} />

@@ -111,10 +111,10 @@ export default function Header() {
   }, [pathname]);
 
   const navLinks = [
-    { label: "Our Story", href: "/about" },
-    { label: "Our Promises", href: "/permission" },
+    { label: "Our Story", href: "/our-legacy" },
+    { label: "Our Promises", href: "/our-initiatives" },
     { label: "Our Projects", href: "/projects" },
-    { label: "XO Series", href: "/xo" },
+    { label: "XO Series", href: "/xosignatureseries" },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -166,20 +166,20 @@ export default function Header() {
             {/* Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center space-x-4 font-sans text-[15px] font-normal text-white/80">
               <Link 
-                href="/about" 
-                onClick={() => handleLinkClick("/about")}
+                href="/our-legacy" 
+                onClick={() => handleLinkClick("/our-legacy")}
                 className={`group relative transition-colors duration-300 whitespace-nowrap ${
-                  pathname === "/about" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
+                  pathname === "/our-legacy" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
                 <WaveText text="Our Story" />
               </Link>
               <span className="text-white/20">|</span>
               <Link 
-                href="/permission" 
-                onClick={() => handleLinkClick("/permission")}
+                href="/our-initiatives" 
+                onClick={() => handleLinkClick("/our-initiatives")}
                 className={`group relative transition-colors duration-300 whitespace-nowrap ${
-                  pathname === "/permission" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
+                  pathname === "/our-initiatives" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
                 <WaveText text="Our Promises" />
@@ -194,10 +194,10 @@ export default function Header() {
               </Link>
               <span className="text-white/20">|</span>
               <Link 
-                href="/xo" 
-                onClick={() => handleLinkClick("/xo")}
+                href="/xosignatureseries" 
+                onClick={() => handleLinkClick("/xosignatureseries")}
                 className={`group relative transition-colors duration-300 whitespace-nowrap ${
-                  pathname === "/xo" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
+                  pathname === "/xosignatureseries" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
                 <WaveText text="XO Series" />

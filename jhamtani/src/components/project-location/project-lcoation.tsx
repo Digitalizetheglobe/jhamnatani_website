@@ -193,7 +193,7 @@ export default function ProjectLocation() {
       </div>
 
       {/* 2. Main Content Container */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-12 sm:mt-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-12 sm:mt-16">
         
         {/* Filter Navigation Bar */}
         <div className="flex flex-wrap justify-center items-center gap-2.5 sm:gap-3 pb-8 mb-12 sm:mb-16 border-b border-[#A0725B]/20">

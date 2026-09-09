@@ -225,7 +225,7 @@ export default function MahaReraComponent() {
       </div>
 
       {/* 2. Main Container */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-12 sm:mt-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-12 sm:mt-16">
         
         {/* Filter & Search Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-5 pb-8 mb-12 sm:mb-14 border-b border-[#A0725B]/20">

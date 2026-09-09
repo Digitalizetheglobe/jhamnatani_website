@@ -59,7 +59,7 @@ export default function Blog() {
             className="space-y-3 text-left"
           >
             <h2 className="font-serif text-[36px] sm:text-[44px] lg:text-[48px] leading-tight text-[#a0725b] font-normal">
-              Jhamtani Perspectives
+              Jhamtani Perspectives.
             </h2>
             <p className="font-sans text-[14px] sm:text-[15px] text-zinc-600 leading-relaxed font-light max-w-xl">
               Read through the blogs that inspire ideas that build tomorrow.

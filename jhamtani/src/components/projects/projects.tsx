@@ -191,7 +191,7 @@ export default function ProjectsComponent() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 mt-16 sm:mt-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-16 sm:mt-20">
         {/* Filter Navigation Bar */}
         <div className="flex justify-center items-center gap-3 sm:gap-4 border-b border-zinc-200/60 pb-6 mb-12 sm:mb-16 flex-wrap">
           <button

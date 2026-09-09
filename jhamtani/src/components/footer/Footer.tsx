@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Footer() {
   const quickLinksColumn1 = [
-    { label: "OUR LEGACY", href: "/about" },
-    { label: "AWARDS & ACHIEVEMENTS", href: "/about#awards" },
+    { label: "OUR LEGACY", href: "/our-legacy" },
+    { label: "AWARDS & ACHIEVEMENTS", href: "/our-legacy#awards" },
     { label: "CUSTOMER TESTIMONIALS", href: "/customer-testimonials" },
     { label: "PROJECT BROCHURES", href: "/download-brochure" },
   ];
@@ -20,7 +20,7 @@ export default function Footer() {
   const quickLinksColumn3 = [
     { label: "SITE UPDATES", href: "/site-updates" },
     { label: "MONTHLY NEWSLETTER", href: "/monthlynewsletters" },
-    { label: "CAREERS", href: "/career" },
+    { label: "CAREERS", href: "/careers" },
     { label: "PRIVACY POLICY", href: "/privacypolicy" },
     { label: "CONTACT US", href: "/contact" },
   ];
@@ -44,8 +44,8 @@ export default function Footer() {
   };
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href === "/about#awards") {
-      if (typeof window !== "undefined" && window.location.pathname === "/about") {
+    if (href === "/our-legacy#awards") {
+      if (typeof window !== "undefined" && window.location.pathname === "/our-legacy") {
         e.preventDefault();
         const element = document.getElementById("awards");
         if (element) {

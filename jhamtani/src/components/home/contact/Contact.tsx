@@ -54,7 +54,7 @@ export default function Contact() {
             className="space-y-3 text-left"
           >
             <h2 className="font-serif text-[36px] sm:text-[44px] lg:text-[48px] leading-tight text-[#a0725b] font-normal">
-              Making Headlines for the Right Reasons
+              Making Headlines for the Right Reasons.
             </h2>
           </motion.div>
 

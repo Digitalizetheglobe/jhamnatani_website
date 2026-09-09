@@ -240,7 +240,7 @@ export default function ContactUsComponent() {
       </div>
 
       {/* 2. Main Content: Contact Details & Form */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-14 sm:mt-18">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-14 sm:mt-18">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
           
           {/* Left Column: Contact Details */}

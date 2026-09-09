@@ -174,7 +174,7 @@ export default function AboutSection() {
                 className="font-serif text-[30px] sm:text-[42px] md:text-[50px] lg:text-[50px] leading-[1.12] lg:leading-[1.08] tracking-wide text-[#a0725b]"
               >
                 The Legacy of Delivering
-                <span className="block text-[#a0725b]">What’s Committed</span>
+                <span className="block text-[#a0725b]">What’s Committed.</span>
               </motion.h2>
 
               {/* Description with stagger fade-in */}

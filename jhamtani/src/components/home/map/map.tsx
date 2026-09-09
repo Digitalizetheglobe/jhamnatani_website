@@ -152,7 +152,6 @@ const BACKGROUND_DOTS: BgDot[] = [
   { id: "hadapsar",         name: "Hadapsar",            x: 61, y: 62 },
   { id: "solapur-highway",  name: "Solapur Highway",     x: 65, y: 84 },
   { id: "manjari",          name: "Manjari",             x: 73, y: 56 },
-  { id: "puraniks",         name: "Puraniks Abitante",   x: 70, y: 72 },
   { id: "katraj",           name: "Katraj",              x: 49, y: 70 },
   { id: "lullanagar",       name: "Lullanagar",          x: 50, y: 85 },
   { id: "bavdhan",          name: "Bavdhan",             x: 41, y: 72 },
@@ -256,7 +255,7 @@ const BACKGROUND_DOTS: BgDot[] = [
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-[550px] md:min-h-screen bg-[#FAF5F0] text-zinc-900 overflow-hidden py-10 md:py-16 flex flex-col justify-between cursor-auto md:cursor-none select-none border-t border-[#A0725B]/15"
+      className="relative w-full min-h-[550px] md:min-h-screen bg-[#FAF5F0] text-zinc-900 overflow-hidden py-10 md:py-16 flex flex-col justify-between cursor-auto md:cursor-none select-none"
     >
       {/* Fixed cursor for desktop */}
       <div
@@ -298,8 +297,6 @@ const BACKGROUND_DOTS: BgDot[] = [
             <circle cx="500" cy="281.25" r="210" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.15" />
             <circle cx="500" cy="281.25" r="245" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.12" strokeDasharray="8 4" />
             <circle cx="500" cy="281.25" r="275" stroke="#A0725B" strokeWidth="0.75" strokeOpacity="0.08" />
-            <line x1="500" y1="281.25" x2="200" y2="100" stroke="rgba(160,114,91,0.12)" strokeWidth="0.75" />
-            <line x1="500" y1="281.25" x2="800" y2="450" stroke="rgba(160,114,91,0.12)" strokeWidth="0.75" />
           </svg>
 
           {/* Pune City Centre */}

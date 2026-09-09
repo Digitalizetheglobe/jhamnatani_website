@@ -143,7 +143,7 @@ export default function BlogsList() {
       </section>
 
       {/* 2. FILTER & SEARCH CONTROLS */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 -mt-8 relative z-20">
+      <section className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 -mt-8 relative z-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

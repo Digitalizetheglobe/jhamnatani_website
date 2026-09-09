@@ -344,7 +344,7 @@ export default function ProjectBrochureComponent() {
       </div>
 
       {/* 2. Main Content Container */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 mt-20 sm:mt-23">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mt-20 sm:mt-23">
         
 
         {/* Filter Navigation Bar */}

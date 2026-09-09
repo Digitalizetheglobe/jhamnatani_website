@@ -273,7 +273,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
       </section>
 
       {/* 2. MAIN CONTENT + STICKY SIDEBAR (2-COLUMN LAYOUT) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 py-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* ========================================================

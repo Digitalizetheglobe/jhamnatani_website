@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Logo() {
   return (
     <section className="w-full bg-[#F2EFE9] border-b border-zinc-200">
-      <div className="max-w-7xl mx-auto w-full py-14 md:py-15 px-6 sm:px-12 lg:px-5 flex flex-col sm:flex-row items-center justify-center gap-10 sm:gap-20 lg:gap-40 select-none">
+      <div className="max-w-7xl mx-auto w-full py-12 md:py-14 px-6 sm:px-12 lg:px-16 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 lg:gap-16 select-none">
         {/* Left side: Ace Abundance logo */}
         <div className="relative flex items-center shrink-0">
           <Image
