@@ -19,7 +19,7 @@ const directorsData: Director[] = [
   {
     id: "parmanand",
     name: "Mr. Parmanand Jhamtani",
-    role: "Chairman | Founder | Entrepreneur",
+    role: "Chairman",
     bio: [
       "Long before Jhamtani became one of Pune's most respected real estate brands, Mr Parmanand Jhamtani built his entrepreneurial journey with construction materials and steadily expanding into real estate, he laid the groundwork for an organisation built on integrity, discipline and lasting relationships. More than four decades later, while the business has evolved across residential, commercial and lifestyle ventures, the principles that guide it remain exactly as he envisioned..",
     ],
