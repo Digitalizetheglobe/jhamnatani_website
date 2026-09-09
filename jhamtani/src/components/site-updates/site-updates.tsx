@@ -20,6 +20,11 @@ import {
   Layers,
   SlidersHorizontal,
 } from "lucide-react";
+import {
+  getCmsSiteUpdates,
+  getCmsMediaUrl,
+  CMS_BASE_URL,
+} from "@/services/api";
 
 type ProjectCategory = "Residential" | "Commercial" | "Studio";
 
@@ -200,6 +205,55 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
 export default function SiteUpdatesComponent() {
   const [filterType, setFilterType] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
   const [activeProjectTab, setActiveProjectTab] = useState<string>("all");
+  const [updates, setUpdates] = useState<ProjectUpdate[]>(siteUpdatesData);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCmsSiteUpdates() {
+      const cmsItems = await getCmsSiteUpdates(100);
+      if (!isMounted) return;
+
+      const activeCmsItems = cmsItems.filter((item) => item.isActive !== false);
+
+      const formattedCmsItems: ProjectUpdate[] = activeCmsItems.map((item, index) => {
+        let categoryType: ProjectCategory = "Residential";
+        const rawCat = (item.projectCategory || "").trim().toLowerCase();
+        if (rawCat.includes("commercial")) {
+          categoryType = "Commercial";
+        } else if (rawCat.includes("studio")) {
+          categoryType = "Studio";
+        } else if (rawCat.includes("residential")) {
+          categoryType = "Residential";
+        }
+
+        const formattedImages = (item.images || []).map((img) =>
+          getCmsMediaUrl(img, CMS_BASE_URL)
+        );
+
+        return {
+          id: item.id || item._id || `cms-update-${index}`,
+          title: item.title || `${item.projectName} - ${item.month}`,
+          projectName: item.projectName,
+          month: item.month || "",
+          tagline: item.tagline || "",
+          location: item.location || "Pune",
+          categories: [categoryType],
+          link: item.projectLink || "#",
+          images: formattedImages.length > 0 ? formattedImages : ["/assets/site-updates/jhamtani-elevate.webp"],
+        };
+      });
+
+      // Keep existing static site updates intact, append CMS site updates
+      setUpdates([...siteUpdatesData, ...formattedCmsItems]);
+    }
+
+    loadCmsSiteUpdates();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Lightbox State
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -241,13 +295,13 @@ export default function SiteUpdatesComponent() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightboxOpen, nextLightboxImage, prevLightboxImage]);
 
-  const filteredProjects = siteUpdatesData.filter((project) => {
+  const filteredProjects = updates.filter((project) => {
     if (filterType !== "All" && !project.categories.includes(filterType)) return false;
     if (activeProjectTab !== "all" && project.id !== activeProjectTab) return false;
     return true;
   });
 
-  const totalPhotosCount = siteUpdatesData.reduce(
+  const totalPhotosCount = updates.reduce(
     (acc, item) => acc + item.images.length,
     0
   );
@@ -301,7 +355,7 @@ export default function SiteUpdatesComponent() {
             </div>
             <div>
               <p className="text-[11px] uppercase tracking-wider text-zinc-500 font-semibold">Active Sites</p>
-              <p className="font-serif text-lg font-bold text-zinc-900">8 Projects</p>
+              <p className="font-serif text-lg font-bold text-zinc-900">{updates.length} Projects</p>
             </div>
           </div>
 
@@ -344,21 +398,21 @@ export default function SiteUpdatesComponent() {
           {/* Main Category Tabs */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
             {[
-              { label: "ALL", value: "All", count: siteUpdatesData.length },
+              { label: "ALL", value: "All", count: updates.length },
               {
                 label: "RESIDENTIAL",
                 value: "Residential",
-                count: siteUpdatesData.filter((p) => p.categories.includes("Residential")).length,
+                count: updates.filter((p) => p.categories.includes("Residential")).length,
               },
               {
                 label: "COMMERCIAL",
                 value: "Commercial",
-                count: siteUpdatesData.filter((p) => p.categories.includes("Commercial")).length,
+                count: updates.filter((p) => p.categories.includes("Commercial")).length,
               },
               {
                 label: "STUDIO",
                 value: "Studio",
-                count: siteUpdatesData.filter((p) => p.categories.includes("Studio")).length,
+                count: updates.filter((p) => p.categories.includes("Studio")).length,
               },
             ].map((tab) => {
               const isActive = filterType === tab.value;
@@ -411,7 +465,7 @@ export default function SiteUpdatesComponent() {
                 <WaveText text="ALL PROJECTS" letterDelay={15} />
               </button>
 
-              {siteUpdatesData
+              {updates
                 .filter((p) => filterType === "All" || p.categories.includes(filterType))
                 .map((project) => {
                   const isSelected = activeProjectTab === project.id;

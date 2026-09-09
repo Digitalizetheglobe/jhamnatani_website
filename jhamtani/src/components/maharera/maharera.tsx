@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -15,9 +15,14 @@ import {
   Search,
   Check,
 } from "lucide-react";
+import {
+  getCmsMahaReras,
+  getCmsMediaUrl,
+  CMS_LOCATION_BASE_URL,
+} from "@/services/api";
 
 interface MahaReraProject {
-  id: number;
+  id: number | string;
   title: string;
   location: string;
   type: "Residential" | "Commercial" | "Studio";
@@ -175,15 +180,64 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
 export default function MahaReraComponent() {
   const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [copiedId, setCopiedId] = useState<number | null>(null);
+  const [copiedId, setCopiedId] = useState<number | string | null>(null);
+  const [projects, setProjects] = useState<MahaReraProject[]>(reraProjects);
 
-  const handleCopyRera = (id: number, reraNo: string) => {
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCmsMahaReras() {
+      const cmsItems = await getCmsMahaReras();
+      if (!isMounted) return;
+
+      const activeCmsItems = cmsItems.filter((item) => item.isActive !== false);
+
+      const formattedCmsItems: MahaReraProject[] = activeCmsItems.map((item, index) => {
+        let categoryType: "Residential" | "Commercial" | "Studio" = "Residential";
+        const rawType = (item.projectType || "").trim().toLowerCase();
+        if (rawType.includes("commercial")) {
+          categoryType = "Commercial";
+        } else if (rawType.includes("studio")) {
+          categoryType = "Studio";
+        } else if (rawType.includes("residential")) {
+          categoryType = "Residential";
+        }
+
+        const imageUrl = getCmsMediaUrl(item.projectImage, CMS_LOCATION_BASE_URL);
+        const docUrl = getCmsMediaUrl(item.mahareraDocument, CMS_LOCATION_BASE_URL);
+
+        return {
+          id: item.id || item._id || `cms-rera-${index}`,
+          title: item.projectName,
+          location: item.projectLocation || "Pune",
+          type: categoryType,
+          reraNo: item.mahareraNo || "",
+          pdfUrl: docUrl,
+          image: imageUrl,
+          logo: imageUrl,
+          description: item.tagline || "",
+          projectLink: "#",
+        };
+      });
+
+      // Keep existing static reraProjects intact, append new CMS items
+      setProjects([...reraProjects, ...formattedCmsItems]);
+    }
+
+    loadCmsMahaReras();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleCopyRera = (id: number | string, reraNo: string) => {
     navigator.clipboard.writeText(reraNo);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const filteredProjects = reraProjects.filter((item) => {
+  const filteredProjects = projects.filter((item) => {
     const matchesFilter = filter === "All" || item.type === filter;
     const query = searchQuery.toLowerCase().trim();
     const matchesSearch =
@@ -235,8 +289,8 @@ export default function MahaReraComponent() {
             {(["All", "Residential", "Commercial", "Studio"] as const).map((type) => {
               const count =
                 type === "All"
-                  ? reraProjects.length
-                  : reraProjects.filter((i) => i.type === type).length;
+                  ? projects.length
+                  : projects.filter((i) => i.type === type).length;
               const isActive = filter === type;
               const label = type === "All" ? "ALL PROJECTS" : type.toUpperCase();
               return (

@@ -27,23 +27,13 @@ const galleryItems = [
   },
   {
     id: 5,
-    image: "/assets/ace-villas/Private Arrival Garden.png",
-    title: "Private Arrival Garden",
+    image: "/assets/ace-villas/ace_villa1.png",
+    title: "Contemporary Villa Exterior",
   },
   {
     id: 6,
-    image: "/assets/ace-villas/Pure indulgence at the garden lounge.png",
-    title: "Pure Indulgence at the Garden Lounge",
-  },
-  {
-    id: 7,
-    image: "/assets/ace-villas/Where modern design meets everyday calm.png",
-    title: "Where Modern Design Meets Everyday Calm",
-  },
-  {
-    id: 8,
-    image: "/assets/ace-villas/Your own on theswimming pool top floor.png",
-    title: "Your Own Top Floor Swimming Pool",
+    image: "/assets/ace-villas/ace_vilaa2.png",
+    title: "Refined Architectural Elevation",
   },
 ];
 

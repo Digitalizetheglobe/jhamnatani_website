@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, ArrowUpRight, Building2, Home, Sparkles } from "lucide-react";
+import {
+  getCmsProjectLocations,
+  getCmsMediaUrl,
+  CMS_LOCATION_BASE_URL,
+} from "@/services/api";
 
 interface LocationItem {
-  id: number;
+  id: number | string;
   title: string;
   project: string;
   type: "Residential" | "Commercial" | "Studio";
@@ -157,8 +162,55 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
 
 export default function ProjectLocation() {
   const [filter, setFilter] = useState<"All" | "Residential" | "Commercial" | "Studio">("All");
+  const [locations, setLocations] = useState<LocationItem[]>(locationsData);
 
-  const filteredLocations = locationsData.filter((item) => {
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCmsLocations() {
+      const cmsItems = await getCmsProjectLocations();
+      if (!isMounted) return;
+
+      const activeCmsItems = cmsItems.filter((item) => item.isActive !== false);
+
+      const formattedCmsItems: LocationItem[] = activeCmsItems.map((item, index) => {
+        let categoryType: "Residential" | "Commercial" | "Studio" = "Residential";
+        const rawType = (item.projectType || "").trim().toLowerCase();
+        if (rawType.includes("commercial")) {
+          categoryType = "Commercial";
+        } else if (rawType.includes("studio")) {
+          categoryType = "Studio";
+        } else if (rawType.includes("residential")) {
+          categoryType = "Residential";
+        }
+
+        const imageUrl = getCmsMediaUrl(item.projectImage, CMS_LOCATION_BASE_URL);
+
+        return {
+          id: item.id || item._id || `cms-loc-${index}`,
+          title: item.location || item.projectName,
+          project: item.projectName,
+          type: categoryType,
+          tag: item.tagline || "",
+          image: imageUrl,
+          mapUrl: item.locationUrl || "#",
+          projectLink: item.projectLink || item.locationUrl || "#",
+          coordinates: "Pune, Maharashtra",
+        };
+      });
+
+      // Keep existing static locations intact, append new CMS project locations
+      setLocations([...locationsData, ...formattedCmsItems]);
+    }
+
+    loadCmsLocations();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const filteredLocations = locations.filter((item) => {
     if (filter === "All") return true;
     return item.type === filter;
   });
@@ -200,8 +252,8 @@ export default function ProjectLocation() {
           {(["All", "Residential", "Commercial", "Studio"] as const).map((type) => {
             const count =
               type === "All"
-                ? locationsData.length
-                : locationsData.filter((i) => i.type === type).length;
+                ? locations.length
+                : locations.filter((i) => i.type === type).length;
             const isActive = filter === type;
             const label = type === "All" ? "ALL LOCATIONS" : type.toUpperCase();
             return (
@@ -280,10 +332,10 @@ export default function ProjectLocation() {
                   </div>
 
                   {/* Coordinates indicator */}
-                  <div className="absolute bottom-3 left-4 z-10 text-[10px] font-mono text-white/90 tracking-wider flex items-center gap-1.5 drop-shadow-md">
+                  {/* <div className="absolute bottom-3 left-4 z-10 text-[10px] font-mono text-white/90 tracking-wider flex items-center gap-1.5 drop-shadow-md">
                     <MapPin className="w-3 h-3 text-[#C5A880]" />
                     <span>{item.coordinates}</span>
-                  </div>
+                  </div> */}
                 </a>
 
                 {/* Card Content Area */}

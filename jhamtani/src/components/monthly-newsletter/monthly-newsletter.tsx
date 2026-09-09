@@ -28,6 +28,12 @@ import {
   Loader2,
 } from "lucide-react";
 
+import {
+  getCmsNewsletters,
+  getCmsMediaUrl,
+  CMS_BASE_URL,
+} from "@/services/api";
+
 export interface NewsletterEdition {
   id: string;
   title: string;
@@ -36,6 +42,7 @@ export interface NewsletterEdition {
   badge?: string;
   tagline: string;
   pdfUrl: string;
+  coverImage?: string;
   date: string;
 }
 
@@ -726,8 +733,46 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
 -------------------------------------------------------------- */
 export default function MonthlyNewsletterComponent() {
   const [activeReaderEdition, setActiveReaderEdition] = useState<NewsletterEdition | null>(null);
+  const [editions, setEditions] = useState<NewsletterEdition[]>(newslettersData);
 
-  const displayedEditions = newslettersData.slice(0, 5);
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCmsNewsletters() {
+      const cmsItems = await getCmsNewsletters(100);
+      if (!isMounted) return;
+
+      const activeCmsItems = cmsItems.filter((item) => item.isActive !== false);
+
+      const formattedCmsItems: NewsletterEdition[] = activeCmsItems.map((item, index) => {
+        const pdfUrl = getCmsMediaUrl(item.pdfDocument, CMS_BASE_URL);
+        const coverImg = item.coverImage ? getCmsMediaUrl(item.coverImage, CMS_BASE_URL) : undefined;
+
+        return {
+          id: item.id || item._id || `cms-newsletter-${index}`,
+          title: item.title || `Monthly Buzz ${item.month} ${item.year}`,
+          month: item.month,
+          year: item.year || 2026,
+          badge: item.badge,
+          tagline: item.tagline || "",
+          pdfUrl: pdfUrl,
+          coverImage: coverImg,
+          date: item.date || `${item.month} ${item.year}`,
+        };
+      });
+
+      // Keep existing static newsletters intact, append CMS items
+      setEditions([...newslettersData, ...formattedCmsItems]);
+    }
+
+    loadCmsNewsletters();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const displayedEditions = editions;
 
   return (
     <section className="relative w-full bg-[#FAF5F0] text-zinc-900 min-h-screen select-none overflow-hidden pb-16">
@@ -810,36 +855,50 @@ export default function MonthlyNewsletterComponent() {
                     )}
 
                     {/* 3D Book Presentation Container */}
-                    <div className="relative z-10 w-44 sm:w-48 h-32 sm:h-36 bg-[#FAF5F0] text-zinc-900 rounded-r-lg rounded-l-xs p-4 shadow-[8px_12px_28px_rgba(0,0,0,0.65)] flex flex-col justify-between border-l-4 border-l-[#A0725B] group-hover/cover:scale-105 group-hover/cover:-rotate-1 transition-all duration-500">
-                      {/* Spine Crease Effect */}
-                      <div className="absolute top-0 bottom-0 left-0 w-2 bg-gradient-to-r from-black/25 to-transparent pointer-events-none" />
-
-                      {/* Header of Cover */}
-                      <div className="flex items-center justify-between border-b border-[#A0725B]/30 pb-2">
-                        <span className="font-serif text-[11px] font-bold tracking-widest text-[#A0725B] uppercase">
-                          JHAMTANI
-                        </span>
-                        <span className="text-[9px] font-sans text-zinc-500 uppercase tracking-widest">
-                          {item.year}
-                        </span>
+                    {item.coverImage ? (
+                      <div className="relative z-10 w-44 sm:w-48 h-32 sm:h-36 bg-[#FAF5F0] rounded-r-lg rounded-l-xs shadow-[8px_12px_28px_rgba(0,0,0,0.65)] overflow-hidden border-l-4 border-l-[#A0725B] group-hover/cover:scale-105 group-hover/cover:-rotate-1 transition-all duration-500">
+                        <Image
+                          src={item.coverImage}
+                          alt={item.title}
+                          fill
+                          sizes="200px"
+                          className="object-cover"
+                        />
+                        {/* Spine Crease Effect Overlay */}
+                        <div className="absolute top-0 bottom-0 left-0 w-2.5 bg-gradient-to-r from-black/40 to-transparent pointer-events-none z-10" />
                       </div>
+                    ) : (
+                      <div className="relative z-10 w-44 sm:w-48 h-32 sm:h-36 bg-[#FAF5F0] text-zinc-900 rounded-r-lg rounded-l-xs p-4 shadow-[8px_12px_28px_rgba(0,0,0,0.65)] flex flex-col justify-between border-l-4 border-l-[#A0725B] group-hover/cover:scale-105 group-hover/cover:-rotate-1 transition-all duration-500">
+                        {/* Spine Crease Effect */}
+                        <div className="absolute top-0 bottom-0 left-0 w-2 bg-gradient-to-r from-black/25 to-transparent pointer-events-none" />
 
-                      {/* Title Center */}
-                      <div className="my-auto py-1 text-center">
-                        <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-500 font-semibold block">
-                          MONTHLY BUZZ
-                        </span>
-                        <h4 className="font-serif text-lg text-zinc-900 font-bold leading-tight mt-0.5">
-                          {item.month}
-                        </h4>
-                      </div>
+                        {/* Header of Cover */}
+                        <div className="flex items-center justify-between border-b border-[#A0725B]/30 pb-2">
+                          <span className="font-serif text-[11px] font-bold tracking-widest text-[#A0725B] uppercase">
+                            JHAMTANI
+                          </span>
+                          <span className="text-[9px] font-sans text-zinc-500 uppercase tracking-widest">
+                            {item.year}
+                          </span>
+                        </div>
 
-                      {/* Footer of Cover */}
-                      <div className="flex items-center justify-between pt-1 border-t border-zinc-200/80 text-[8px] text-zinc-500 uppercase tracking-wider font-medium">
-                        <span>Digital Edition</span>
-                        <span className="text-[#A0725B] font-bold">Open Book &rarr;</span>
+                        {/* Title Center */}
+                        <div className="my-auto py-1 text-center">
+                          <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-500 font-semibold block">
+                            MONTHLY BUZZ
+                          </span>
+                          <h4 className="font-serif text-lg text-zinc-900 font-bold leading-tight mt-0.5">
+                            {item.month}
+                          </h4>
+                        </div>
+
+                        {/* Footer of Cover */}
+                        <div className="flex items-center justify-between pt-1 border-t border-zinc-200/80 text-[8px] text-zinc-500 uppercase tracking-wider font-medium">
+                          <span>Digital Edition</span>
+                          <span className="text-[#A0725B] font-bold">Open Book &rarr;</span>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     {/* Hover Overlay with Open Book Prompt */}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/cover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">

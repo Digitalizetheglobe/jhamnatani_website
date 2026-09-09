@@ -7,22 +7,22 @@ const highlights = [
     id: 1,
     title: "Demand-Led Location",
     desc: "Close to Koregaon Park NX, Mundhwa and key employment and lifestyle hubs.",
-    image: "/assets/jhamtani-elevate/Built tall for those who think higher.webp",
-    alt: "Operated by Colive - Jhamtani Bizcore",
+    image: "/assets/jhamtani-bizcore/site1.jpeg",
+    alt: "Demand-Led Location - Jhamtani Bizcore",
   },
   {
     id: 2,
     title: "Professionally Managed",
     desc: "Operated by Colive for a seamless resident and property-management experience.",
-    image: "/assets/jhamtani-elevate/Where work meets rest, seamlessly.webp",
-    alt: "Prime Koregaon Park NX Hub - Jhamtani Bizcore",
+    image: "/assets/jhamtani-bizcore/site2.jpeg",
+    alt: "Professionally Managed - Jhamtani Bizcore",
   },
   {
     id: 3,
     title: "Designed for Today’s Professionals",
     desc: "Compact studios, work-friendly spaces and shared conveniences suit evolving urban lifestyles.",
-    image: "/assets/jhamtani-elevate/Dine under the open sky.webp",
-    alt: "Integrated Work & Lifestyle Amenities - Jhamtani Bizcore",
+    image: "/assets/jhamtani-bizcore/site3.jpeg",
+    alt: "Designed for Today's Professionals - Jhamtani Bizcore",
   },
 ];
 

@@ -11,6 +11,8 @@ interface Director {
   qualifications?: string[];
   bio: string[];
   image: string;
+  desktopImageClass?: string;
+  mobileImageClass?: string;
 }
 
 const directorsData: Director[] = [
@@ -20,9 +22,10 @@ const directorsData: Director[] = [
     role: "Chairman | Founder | Entrepreneur",
     bio: [
       "Long before Jhamtani became one of Pune's most respected real estate brands, Mr Parmanand Jhamtani built his entrepreneurial journey with construction materials and steadily expanding into real estate, he laid the groundwork for an organisation built on integrity, discipline and lasting relationships. More than four decades later, while the business has evolved across residential, commercial and lifestyle ventures, the principles that guide it remain exactly as he envisioned..",
-
     ],
     image: "/assets/about/parmanand1.png",
+    desktopImageClass: "scale-100 origin-top",
+    mobileImageClass: "scale-100",
   },
   {
     id: "anup",
@@ -36,6 +39,8 @@ const directorsData: Director[] = [
       "Beyond the organisation, his active leadership through CREDAI Pune Metro and the Sindhi Youth Builders Association reflects his commitment to shaping not just projects, but the future of the industry itself."
     ],
     image: "/assets/about/anup.png",
+    desktopImageClass: "scale-100 origin-top",
+    mobileImageClass: "scale-100",
   },
   {
     id: "meenakshi",
@@ -50,6 +55,8 @@ const directorsData: Director[] = [
       "Her leadership ensures that every promise Jhamtani makes is backed by systems, consistency and a relentless focus on the customer."
     ],
     image: "/assets/about/meenakshi.png",
+    desktopImageClass: "scale-[1.28] origin-top translate-y-2",
+    mobileImageClass: "scale-110",
   },
 ];
 
@@ -151,7 +158,7 @@ export default function DirectorSection() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Right Cutout Image Column - Desktop (Positioned leftwards to align head at starting letter 'J' of Jhamtani) */}
+          {/* Right Cutout Image Column - Desktop */}
           <AnimatePresence mode="wait">
             <motion.div
               key={`image-desktop-${activeDirector.id}`}
@@ -161,15 +168,16 @@ export default function DirectorSection() {
               transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
               className="hidden lg:block absolute left-[26%] lg:left-[28%] xl:left-[29%] top-[-95px] lg:top-[-105px] xl:top-[-65px] w-[500px] lg:w-[580px] xl:w-[740px] h-[580px] lg:h-[660px] xl:h-[720px] pointer-events-none z-10"
             >
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full overflow-hidden">
                 <Image
                   src={activeDirector.image}
                   alt={activeDirector.name}
                   fill
                   priority
                   sizes="(max-width: 1200px) 600px, 750px"
-                  className="object-contain object-top"
+                  className={`object-contain object-top transition-transform duration-500 ${activeDirector.desktopImageClass || ""}`}
                 />
+                {/* Soft gradient fade at bottom to eliminate sharp cutoffs */}
               </div>
             </motion.div>
           </AnimatePresence>
@@ -182,7 +190,7 @@ export default function DirectorSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.35 }}
-              className="lg:hidden relative w-full h-[380px] sm:h-[480px] mt-2 pointer-events-none z-10"
+              className="lg:hidden relative w-full h-[380px] sm:h-[450px] mt-2 pointer-events-none z-10 overflow-hidden"
             >
               <Image
                 src={activeDirector.image}
@@ -190,8 +198,10 @@ export default function DirectorSection() {
                 fill
                 priority
                 sizes="100vw"
-                className="object-contain object-center"
+                className={`object-contain object-center transition-transform duration-500 ${activeDirector.mobileImageClass || ""}`}
               />
+              {/* Soft gradient fade at bottom for mobile */}
+              <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-[#EEEBE7] via-[#EEEBE7]/70 to-transparent z-20 pointer-events-none" />
             </motion.div>
           </AnimatePresence>
         </div>

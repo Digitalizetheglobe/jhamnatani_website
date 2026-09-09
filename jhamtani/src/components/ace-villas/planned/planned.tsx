@@ -26,6 +26,16 @@ const slides = [
     image: "/assets/ace-villas/Private Arrival Garden.png",
     alt: "Private Arrival Garden - Ace Villas Artistic Impression",
   },
+  {
+    id: 5,
+    image: "/assets/ace-villas/ace_villa1.png",
+    alt: "Contemporary Villa Exterior - Ace Villas Artistic Impression",
+  },
+  {
+    id: 6,
+    image: "/assets/ace-villas/ace_vilaa2.png",
+    alt: "Refined Architectural Elevation - Ace Villas Artistic Impression",
+  },
 ];
 
 interface WaveTextProps {

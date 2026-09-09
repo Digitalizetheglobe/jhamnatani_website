@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,11 +22,12 @@ import {
   Send,
   Loader2,
 } from "lucide-react";
+import { getCmsBrochures, getCmsMediaUrl } from "@/services/api";
 
 type ProjectCategory = "Residential" | "Commercial" | "Studio";
 
 interface BrochureItem {
-  id: number;
+  id: number | string;
   title: string;
   location: string;
   tagline: string;
@@ -194,6 +195,7 @@ export default function ProjectBrochureComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [brochures, setBrochures] = useState<BrochureItem[]>(brochuresData);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -203,7 +205,55 @@ export default function ProjectBrochureComponent() {
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
-  const filteredBrochures = brochuresData.filter((item) => {
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCmsBrochures() {
+      const cmsItems = await getCmsBrochures(100);
+      if (!isMounted) return;
+
+      const activeCmsItems = cmsItems.filter((item) => item.isActive !== false);
+
+      const formattedCmsItems: BrochureItem[] = activeCmsItems.map((item, index) => {
+        let category: ProjectCategory = "Residential";
+        const titleLower = (item.projectTitle || "").toLowerCase();
+        if (titleLower.includes("commercial")) {
+          category = "Commercial";
+        } else if (titleLower.includes("studio")) {
+          category = "Studio";
+        } else if (titleLower.includes("residential")) {
+          category = "Residential";
+        }
+
+        const logoUrl = getCmsMediaUrl(item.projectLogo);
+        const docUrl = getCmsMediaUrl(item.brochureDocument);
+
+        return {
+          id: item.id || item._id || `cms-${index}`,
+          title: item.projectName,
+          location: item.location || "Pune",
+          tagline: item.tagline || "",
+          type: category,
+          categories: [category],
+          logo: logoUrl,
+          image: logoUrl,
+          pdfUrl: docUrl,
+          projectLink: item.projectPageUrl || "#",
+        };
+      });
+
+      // Maintain existing static brochures and append new CMS brochures
+      setBrochures([...brochuresData, ...formattedCmsItems]);
+    }
+
+    loadCmsBrochures();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const filteredBrochures = brochures.filter((item) => {
     if (filter === "All") return true;
     return item.categories.includes(filter);
   });
@@ -352,8 +402,8 @@ export default function ProjectBrochureComponent() {
           {(["All", "Residential", "Commercial", "Studio"] as const).map((type) => {
             const count =
               type === "All"
-                ? brochuresData.length
-                : brochuresData.filter((i) => i.categories.includes(type)).length;
+                ? brochures.length
+                : brochures.filter((i) => i.categories.includes(type)).length;
             const isActive = filter === type;
             const label = type === "All" ? "ALL BROCHURES" : type.toUpperCase();
             return (
@@ -461,6 +511,8 @@ export default function ProjectBrochureComponent() {
 
                   <Link
                     href={item.projectLink}
+                    target={item.projectLink.startsWith("http") ? "_blank" : "_self"}
+                    rel={item.projectLink.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="group/link w-full inline-flex items-center justify-center gap-1.5 py-2 text-xs font-semibold tracking-wider text-[#A0725B] hover:text-[#8C5E47] transition-colors cursor-pointer"
                   >
                     <WaveText text="View Project Details" letterDelay={15} groupHoverClass="group-hover/link" />

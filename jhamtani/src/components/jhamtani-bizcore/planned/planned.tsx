@@ -8,18 +8,23 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/projects/jhamtani-bizcore.jpg",
-    alt: "Jhamtani Bizcore - Premium Serviced Studio Apartments in Koregaon Park NX",
+    image: "/assets/jhamtani-bizcore/bizcore_image.webp",
+    alt: "Jhamtani Bizcore - Site Progress 1",
   },
   {
     id: 2,
-    image: "/assets/pojetcts/bizcore_image.webp",
-    alt: "Jhamtani Bizcore Architectural Elevation - Koregaon Park NX",
+    image: "/assets/jhamtani-bizcore/site2.jpeg",
+    alt: "Jhamtani Bizcore - Site Progress 2",
   },
   {
     id: 3,
-    image: "/assets/jhamtani-elevate/Where work meets rest, seamlessly.webp",
-    alt: "Thoughtfully Planned Serviced Studio Living - Artistic Impression",
+    image: "/assets/jhamtani-bizcore/site3.jpeg",
+    alt: "Jhamtani Bizcore - Site Progress 3",
+  },
+  {
+    id: 4,
+    image: "/assets/jhamtani-bizcore/site4.jpeg",
+    alt: "Jhamtani Bizcore - Site Progress 4",
   },
 ];
 

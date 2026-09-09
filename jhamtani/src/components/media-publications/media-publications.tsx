@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,9 +13,14 @@ import {
   Award,
   Mail,
 } from "lucide-react";
+import {
+  getCmsMediaPublications,
+  getCmsMediaUrl,
+  CMS_BASE_URL,
+} from "@/services/api";
 
 interface MediaArticle {
-  id: number;
+  id: number | string;
   publisher: string;
   category: "Featured Article" | "Press Release" | "Industry Insight";
   date: string;
@@ -104,10 +109,57 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
 
 export default function MediaPublicationsComponent() {
   const [filter, setFilter] = useState<string>("All");
+  const [articles, setArticles] = useState<MediaArticle[]>(mediaArticles);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCmsMediaPublications() {
+      const cmsItems = await getCmsMediaPublications(100);
+      if (!isMounted) return;
+
+      const activeCmsItems = cmsItems.filter((item) => item.isActive !== false);
+
+      const formattedCmsItems: MediaArticle[] = activeCmsItems.map((item, index) => {
+        let categoryType: "Featured Article" | "Press Release" | "Industry Insight" = "Featured Article";
+        const rawCat = (item.category || "").trim().toLowerCase();
+        if (rawCat.includes("press")) {
+          categoryType = "Press Release";
+        } else if (rawCat.includes("insight")) {
+          categoryType = "Industry Insight";
+        } else {
+          categoryType = "Featured Article";
+        }
+
+        const imageUrl = getCmsMediaUrl(item.image, CMS_BASE_URL);
+
+        return {
+          id: item.id || item._id || `cms-media-${index}`,
+          publisher: item.publisher || "Media Publication",
+          category: categoryType,
+          date: item.date || "",
+          readTime: item.readTime || "3 min read",
+          title: item.title,
+          excerpt: item.excerpt || "",
+          image: imageUrl,
+          articleUrl: item.articleUrl || "#",
+        };
+      });
+
+      // Keep existing static media articles intact, append CMS items
+      setArticles([...mediaArticles, ...formattedCmsItems]);
+    }
+
+    loadCmsMediaPublications();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const categories = ["All", "Featured Article", "Press Release", "Industry Insight"];
 
-  const filteredArticles = mediaArticles.filter((item) => {
+  const filteredArticles = articles.filter((item) => {
     if (filter === "All") return true;
     return item.category === filter;
   });

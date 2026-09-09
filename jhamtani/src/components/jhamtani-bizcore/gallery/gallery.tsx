@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const galleryItems = [
   {
     id: 1,
-    image: "/assets/jhamtani-bizcore/site1.jpeg",
+    image: "/assets/jhamtani-bizcore/bizcore_image.webp",
     title: "Jhamtani Bizcore - Site Progress 1",
   },
   {
