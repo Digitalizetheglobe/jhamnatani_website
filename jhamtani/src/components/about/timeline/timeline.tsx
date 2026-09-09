@@ -126,25 +126,31 @@ const years: YearEntry[] = [
   },
   {
     year: "2024",
-    projects: ["JHAMTANI BIZCORE", "VISION ACE COMMERCIAL PHASE I", "JHAMTANI ELEVATE", "ACE AASTER"],
-    nx: 1070, ny: 410, dx: 1130,
+    projects: ["JHAMTANI BIZCORE", "VISION ACE COMMERCIAL PHASE I"],
+    nx: 1070, ny: 370, dx: 1130,
     cx: (1130 / VB_W) * 100,
-    cy: (395 / VB_H) * 100,
+    cy: (355 / VB_H) * 100,
     hl: true,
   },
   {
     year: "2025",
-    projects: ["ACE ABUNDANCE"],
-    nx: 1070, ny: 630, dx: 1130,
+    projects: ["ACE ASTER", "JHAMTANI ELEVATE", "ACE ABUNDANCE"],
+    nx: 1070, ny: 530, dx: 1130,
     cx: (1130 / VB_W) * 100,
-    cy: (615 / VB_H) * 100,
+    cy: (515 / VB_H) * 100,
   },
   {
     year: "2026",
-    projects: ["ACE AYODHYA"],
-    nx: 1070, ny: 800, dx: 1130,
+    projects: [
+      "ACE AYODHYA",
+      "LAUNCHING NEW PROJECTS",
+      "CHARHOLI",
+      "PIMPLE SAUDAGAR",
+      "HADAPSAR",
+    ],
+    nx: 1070, ny: 720, dx: 1130,
     cx: (1130 / VB_W) * 100,
-    cy: (785 / VB_H) * 100,
+    cy: (705 / VB_H) * 100,
   },
 ];
 
@@ -393,16 +399,26 @@ export default function AboutTimeline() {
               {/* Projects listed below badge */}
               {!yr.above && yr.projects.length > 0 && (
                 <div className="tl-projects mt-2 space-y-1 opacity-0">
-                  {yr.projects.map((p, i) => (
-                    <div key={i}>
-                      <div className="text-[#2C2C2C] font-semibold uppercase tracking-wider text-[11px] lg:text-[12px] leading-snug" style={projStyle}>
-                        {p}
+                  {yr.projects.map((p, i) => {
+                    const isHighlight = p === "LAUNCHING NEW PROJECTS";
+                    return (
+                      <div key={i}>
+                        <div
+                          className={`uppercase tracking-wider text-[11px] lg:text-[12px] leading-snug ${
+                            isHighlight
+                              ? "text-[#A87F35] font-bold tracking-widest pt-1"
+                              : "text-[#2C2C2C] font-semibold"
+                          }`}
+                          style={projStyle}
+                        >
+                          {p}
+                        </div>
+                        {i < yr.projects.length - 1 && (
+                          <div className="h-px bg-[#C59B4E]/30 mt-1" style={{ width: "80%" }} />
+                        )}
                       </div>
-                      {i < yr.projects.length - 1 && (
-                        <div className="h-px bg-[#C59B4E]/30 mt-1" style={{ width: "80%" }} />
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -432,16 +448,25 @@ export default function AboutTimeline() {
                       )}
                     </div>
                     <div className="space-y-1">
-                      {yr.projects.map((p, pi) => (
-                        <div key={pi}>
-                          <div className="text-[#2C2C2C] font-semibold uppercase tracking-wider text-[12px] md:text-[13px] leading-snug">
-                            {p}
+                      {yr.projects.map((p, pi) => {
+                        const isHighlight = p === "LAUNCHING NEW PROJECTS";
+                        return (
+                          <div key={pi}>
+                            <div
+                              className={`uppercase tracking-wider text-[12px] md:text-[13px] leading-snug ${
+                                isHighlight
+                                  ? "text-[#A87F35] font-bold tracking-widest pt-1"
+                                  : "text-[#2C2C2C] font-semibold"
+                              }`}
+                            >
+                              {p}
+                            </div>
+                            {pi < yr.projects.length - 1 && (
+                              <div className={`h-px bg-[#C59B4E]/30 mt-1 ${isLeft ? "ml-auto" : ""}`} style={{ width: "70%" }} />
+                            )}
                           </div>
-                          {pi < yr.projects.length - 1 && (
-                            <div className={`h-px bg-[#C59B4E]/30 mt-1 ${isLeft ? "ml-auto" : ""}`} style={{ width: "70%" }} />
-                          )}
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -489,16 +514,25 @@ export default function AboutTimeline() {
                 </div>
 
                 <div className="space-y-1 mt-1">
-                  {yr.projects.map((p, pi) => (
-                    <div key={pi}>
-                      <div className="text-[#2C2C2C] font-semibold uppercase tracking-wider text-[12px] leading-snug">
-                        {p}
+                  {yr.projects.map((p, pi) => {
+                    const isHighlight = p === "LAUNCHING NEW PROJECTS";
+                    return (
+                      <div key={pi}>
+                        <div
+                          className={`uppercase tracking-wider text-[12px] leading-snug ${
+                            isHighlight
+                              ? "text-[#A87F35] font-bold tracking-widest pt-1"
+                              : "text-[#2C2C2C] font-semibold"
+                          }`}
+                        >
+                          {p}
+                        </div>
+                        {pi < yr.projects.length - 1 && (
+                          <div className="h-px bg-[#C59B4E]/30 mt-1" style={{ maxWidth: "180px" }} />
+                        )}
                       </div>
-                      {pi < yr.projects.length - 1 && (
-                        <div className="h-px bg-[#C59B4E]/30 mt-1" style={{ maxWidth: "180px" }} />
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
