@@ -16,42 +16,34 @@ import {
 const pointers = [
   {
     title: "First-Mover Access",
-    desc: "Get initial insights into upcoming project developments before public announcements.",
     icon: Zap,
   },
   {
     title: "Pre-Launch Privileges",
-    desc: "Exclusive priority inventory allocation for your clients during pre-launch phases.",
     icon: Sparkles,
   },
   {
     title: "Enhanced Brokerage",
-    desc: "Tiered incentive structures and accelerated payout schedules for top partners.",
     icon: Award,
   },
   {
     title: "FOS Incentives",
-    desc: "Dedicated performance bonuses and rewards for your Feet-On-Street sales force.",
     icon: TrendingUp,
   },
   {
     title: "Direct Management Access",
-    desc: "Direct escalation channels and communication with Jhamtani leadership.",
     icon: ShieldCheck,
   },
   {
     title: "Marketing Support",
-    desc: "Co-branded marketing collateral, digital assets, and event sponsorship support.",
     icon: Megaphone,
   },
   {
     title: "New Business Rewards",
-    desc: "Special milestone bonuses and luxury rewards for new account onboarding.",
     icon: Gift,
   },
   {
     title: "Outstation Client Benefits",
-    desc: "Dedicated hospitality, site visit support, and logistics for non-local buyers.",
     icon: Globe,
   },
 ];
@@ -93,7 +85,7 @@ export default function Yugma() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8 px-8 py-4 rounded-2xl inline-block"
+            className="mb-8 px-8 rounded-2xl inline-block"
           >
             <Image
               src="/assets/channel-partner/Logo.png"
@@ -164,29 +156,36 @@ export default function Yugma() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="group relative p-6 sm:p-7 rounded-2xl bg-white border border-[#E8DFD5] hover:border-[#A0725B] transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-xl"
+                className="group relative px-5 py-4 rounded-2xl bg-white border border-[#E8DFD5] hover:border-[#A0725B] transition-all duration-300 flex items-center gap-3.5 shadow-sm hover:shadow-xl"
               >
-                <div>
-                  <div className="w-11 h-11 rounded-xl bg-[#A0725B]/10 border border-[#A0725B]/20 flex items-center justify-center text-[#A0725B] mb-5 group-hover:scale-110 group-hover:bg-[#A0725B] group-hover:text-white transition-all duration-300">
-                    <IconComponent className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-serif font-light text-lg sm:text-xl text-zinc-900 group-hover:text-[#A0725B] transition-colors duration-300">
-                    {item.title}
-                  </h3>
-                  <p className="font-sans text-xs sm:text-sm text-zinc-600 font-light leading-relaxed mt-2.5">
-                    {item.desc}
-                  </p>
+                <div className="w-10 h-10 rounded-xl bg-[#A0725B]/10 border border-[#A0725B]/20 flex items-center justify-center text-[#A0725B] shrink-0 group-hover:scale-110 group-hover:bg-[#A0725B] group-hover:text-white transition-all duration-300">
+                  <IconComponent className="w-4.5 h-4.5" />
                 </div>
-
-                <div className="mt-6 pt-4 border-t border-zinc-100 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">
-                    Privilege 0{index + 1}
-                  </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A0725B]/40 group-hover:bg-[#A0725B] transition-colors" />
-                </div>
+                <h3 className="font-serif font-light text-sm sm:text-base text-zinc-900 group-hover:text-[#A0725B] transition-colors duration-300 leading-snug">
+                  {item.title}
+                </h3>
               </motion.div>
             );
           })}
+        </motion.div>
+
+        {/* Bottom CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="flex justify-center pt-14 sm:pt-20"
+        >
+          <button
+            onClick={() => {
+              const event = new CustomEvent("open-cp-modal");
+              window.dispatchEvent(event);
+            }}
+            className="px-8 sm:px-12 py-3.5 sm:py-3 rounded-full border border-[#A0725B]/60 text-[#2B2B2B] font-serif text-base sm:text-lg md:text-xl font-light bg-[#FAF5F0] shadow-[22px_20px_32px_rgba(60,45,30,0.18)] hover:shadow-[26px_26px_40px_rgba(70,45,30,0.3)] hover:bg-[#A0725B] hover:text-white hover:border-[#A0725B] transition-all duration-300 cursor-pointer"
+          >
+            Be Our Business Associate. Fill in this Channel Partner Form
+          </button>
         </motion.div>
       </div>
     </section>

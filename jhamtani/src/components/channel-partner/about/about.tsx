@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, User, Phone, Mail, Building, FileCheck, MapPin, Briefcase, MessageSquare, Send } from "lucide-react";
+import { X, CheckCircle2, User, Phone, Mail, Building, FileCheck, MapPin, Send, CreditCard, Users, UserCheck, Receipt, FileText } from "lucide-react";
 
 interface WaveTextProps {
   text: string;
@@ -51,16 +51,24 @@ export default function About() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  useEffect(() => {
+    const handleOpenModal = () => setIsModalOpen(true);
+    window.addEventListener("open-cp-modal", handleOpenModal);
+    return () => window.removeEventListener("open-cp-modal", handleOpenModal);
+  }, []);
+
   const [formData, setFormData] = useState({
     firmName: "",
-    contactPerson: "",
-    phone: "",
     email: "",
+    phone: "",
     reraNumber: "",
-    agencyType: "Individual",
-    operatingCity: "Pune",
-    experience: "",
-    message: "",
+    panNumber: "",
+    ownerName: "",
+    ownerEmail: "",
+    ownerPhone: "",
+    address: "",
+    gstinNumber: "",
+    teamMembers: "",
     consent: true,
   });
 
@@ -109,6 +117,13 @@ export default function About() {
     }
   };
 
+  const handleOwnerPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawVal = e.target.value.replace(/\D/g, "");
+    if (rawVal.length <= 10) {
+      setFormData((prev) => ({ ...prev, ownerPhone: rawVal }));
+    }
+  };
+
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
@@ -119,10 +134,15 @@ export default function About() {
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.contactPerson.trim()) {
-      newErrors.contactPerson = "Contact person name is required.";
-    } else if (formData.contactPerson.trim().length < 2) {
-      newErrors.contactPerson = "Name must be at least 2 characters.";
+    if (!formData.firmName.trim()) {
+      newErrors.firmName = "Channel Partner Name is required.";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email address is required.";
+    } else if (!emailRegex.test(formData.email.trim())) {
+      newErrors.email = "Please enter a valid email address.";
     }
 
     if (!formData.phone) {
@@ -131,11 +151,12 @@ export default function About() {
       newErrors.phone = "Mobile number must be exactly 10 digits.";
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim()) {
-      newErrors.email = "Email address is required.";
-    } else if (!emailRegex.test(formData.email.trim())) {
-      newErrors.email = "Please enter a valid email address.";
+    if (!formData.reraNumber.trim()) {
+      newErrors.reraNumber = "RERA number is required.";
+    }
+
+    if (!formData.panNumber.trim()) {
+      newErrors.panNumber = "PAN number is required.";
     }
 
     if (!formData.consent) {
@@ -165,14 +186,16 @@ export default function About() {
       setErrors({});
       setFormData({
         firmName: "",
-        contactPerson: "",
-        phone: "",
         email: "",
+        phone: "",
         reraNumber: "",
-        agencyType: "Individual",
-        operatingCity: "Pune",
-        experience: "",
-        message: "",
+        panNumber: "",
+        ownerName: "",
+        ownerEmail: "",
+        ownerPhone: "",
+        address: "",
+        gstinNumber: "",
+        teamMembers: "",
         consent: true,
       });
     }, 300);
@@ -231,22 +254,6 @@ export default function About() {
                 </motion.div>
               );
             })}
-          </motion.div>
-
-          {/* Bottom CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex justify-center pt-4"
-          >
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="px-8 sm:px-12 py-3.5 sm:py-3 rounded-full border border-[#A0725B]/60 text-[#2B2B2B] font-serif text-base sm:text-lg md:text-xl font-light bg-[#EFECE6] shadow-[22px_20px_32px_rgba(60,45,30,0.42)] hover:shadow-[26px_26px_40px_rgba(70,45,30,0.5)] hover:bg-[#A0725B] hover:text-white hover:border-[#A0725B] transition-all duration-300 cursor-pointer"
-            >
-              Be Our Business Associate. Fill in this Channel Partner Form
-            </button>
           </motion.div>
         </div>
       </section>
@@ -321,35 +328,61 @@ export default function About() {
                     </div>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-5">
-                    {/* Contact Person & Phone */}
+                  <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                    {/* Row 1: Channel Partner Name & Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                          Contact Person Name <span className="text-red-500">*</span>
+                          Channel Partner Name <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
-                          <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
+                          <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
                           <input
                             type="text"
-                            value={formData.contactPerson}
-                            onChange={(e) => handleInputChange("contactPerson", e.target.value)}
-                            placeholder="Full Name"
+                            value={formData.firmName}
+                            onChange={(e) => handleInputChange("firmName", e.target.value)}
+                            placeholder="Enter Channel Partner / Firm Name"
                             className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border ${
-                              errors.contactPerson
+                              errors.firmName
                                 ? "border-red-500 focus:border-red-500"
                                 : "border-[#A0725B]/30 focus:border-[#A0725B]"
                             } text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner`}
                           />
                         </div>
-                        {errors.contactPerson && (
-                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.contactPerson}</p>
+                        {errors.firmName && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.firmName}</p>
                         )}
                       </div>
 
                       <div>
                         <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                          Mobile Number <span className="text-red-500">*</span>
+                          Email <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
+                          <input
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => handleInputChange("email", e.target.value)}
+                            placeholder="name@example.com"
+                            className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border ${
+                              errors.email
+                                ? "border-red-500 focus:border-red-500"
+                                : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                            } text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner`}
+                          />
+                        </div>
+                        {errors.email && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.email}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Row 2: Mobile No. & RERA No. */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
+                          Mobile No. <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                           <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
@@ -371,55 +404,10 @@ export default function About() {
                           <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.phone}</p>
                         )}
                       </div>
-                    </div>
-
-                    {/* Email & Firm / Agency Name */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                          Email Address <span className="text-red-500">*</span>
-                        </label>
-                        <div className="relative">
-                          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
-                          <input
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange("email", e.target.value)}
-                            placeholder="name@example.com"
-                            className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border ${
-                              errors.email
-                                ? "border-red-500 focus:border-red-500"
-                                : "border-[#A0725B]/30 focus:border-[#A0725B]"
-                            } text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner`}
-                          />
-                        </div>
-                        {errors.email && (
-                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.email}</p>
-                        )}
-                      </div>
 
                       <div>
                         <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                          Firm / Agency Name
-                        </label>
-                        <div className="relative">
-                          <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
-                          <input
-                            type="text"
-                            value={formData.firmName}
-                            onChange={(e) => handleInputChange("firmName", e.target.value)}
-                            placeholder="e.g. Apex Realty Partners"
-                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* MahaRERA Number & Agency Type */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                          MahaRERA Registration No.
+                          RERA No. <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                           <FileCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
@@ -428,78 +416,151 @@ export default function About() {
                             value={formData.reraNumber}
                             onChange={(e) => handleInputChange("reraNumber", e.target.value)}
                             placeholder="e.g. A52100012345"
-                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner uppercase"
+                            className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border ${
+                              errors.reraNumber
+                                ? "border-red-500 focus:border-red-500"
+                                : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                            } text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner uppercase`}
+                          />
+                        </div>
+                        {errors.reraNumber && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.reraNumber}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Row 3: PAN No. & Owner Name */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
+                          PAN No. <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <CreditCard className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
+                          <input
+                            type="text"
+                            value={formData.panNumber}
+                            onChange={(e) => handleInputChange("panNumber", e.target.value.toUpperCase())}
+                            placeholder="e.g. ABCDE1234F"
+                            maxLength={10}
+                            className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border ${
+                              errors.panNumber
+                                ? "border-red-500 focus:border-red-500"
+                                : "border-[#A0725B]/30 focus:border-[#A0725B]"
+                            } text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner uppercase font-mono`}
+                          />
+                        </div>
+                        {errors.panNumber && (
+                          <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.panNumber}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
+                          Owner Name
+                        </label>
+                        <div className="relative">
+                          <UserCheck className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
+                          <input
+                            type="text"
+                            value={formData.ownerName}
+                            onChange={(e) => handleInputChange("ownerName", e.target.value)}
+                            placeholder="Owner / Proprietor Name"
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Row 4: Owner Email & Owner Mobile No. */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
+                          Owner Email
+                        </label>
+                        <div className="relative">
+                          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
+                          <input
+                            type="email"
+                            value={formData.ownerEmail}
+                            onChange={(e) => handleInputChange("ownerEmail", e.target.value)}
+                            placeholder="owner@example.com"
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner"
                           />
                         </div>
                       </div>
 
                       <div>
                         <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                          Business Structure
+                          Owner Mobile No.
                         </label>
                         <div className="relative">
-                          <Briefcase className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
-                          <select
-                            value={formData.agencyType}
-                            onChange={(e) => handleInputChange("agencyType", e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner"
-                          >
-                            <option value="Individual">Individual Channel Partner</option>
-                            <option value="Proprietorship">Proprietorship Firm</option>
-                            <option value="Partnership">Partnership Firm</option>
-                            <option value="Private Limited">Private Limited Company</option>
-                            <option value="LLP">LLP</option>
-                          </select>
+                          <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
+                          <input
+                            type="tel"
+                            inputMode="numeric"
+                            maxLength={10}
+                            value={formData.ownerPhone}
+                            onChange={handleOwnerPhoneChange}
+                            placeholder="10-digit Owner Mobile No."
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner font-mono"
+                          />
                         </div>
                       </div>
                     </div>
 
-                    {/* Operational City & Experience */}
+                    {/* Row 5: GSTIN No. & Address */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                          Operating City / Primary Focus
+                          GSTIN No.
+                        </label>
+                        <div className="relative">
+                          <Receipt className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
+                          <input
+                            type="text"
+                            value={formData.gstinNumber}
+                            onChange={(e) => handleInputChange("gstinNumber", e.target.value.toUpperCase())}
+                            placeholder="e.g. 27ABCDE1234F1Z5"
+                            maxLength={15}
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner uppercase font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
+                          Address
                         </label>
                         <div className="relative">
                           <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
                           <input
                             type="text"
-                            value={formData.operatingCity}
-                            onChange={(e) => handleInputChange("operatingCity", e.target.value)}
-                            placeholder="e.g. Pune, Mumbai, PCMC"
+                            value={formData.address}
+                            onChange={(e) => handleInputChange("address", e.target.value)}
+                            placeholder="Office / Business Address"
                             className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner"
                           />
                         </div>
                       </div>
-
-                      <div>
-                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                          Experience in Real Estate
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.experience}
-                          onChange={(e) => handleInputChange("experience", e.target.value)}
-                          placeholder="e.g. 5 Years"
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner"
-                        />
-                      </div>
                     </div>
 
-                    {/* Message / Remarks */}
-                    <div>
-                      <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
-                        Message / Key Specializations
-                      </label>
-                      <div className="relative">
-                        <MessageSquare className="absolute left-3.5 top-3 w-4 h-4 text-[#A0725B]/70" />
-                        <textarea
-                          rows={3}
-                          value={formData.message}
-                          onChange={(e) => handleInputChange("message", e.target.value)}
-                          placeholder="Tell us about your client focus, residential/commercial focus, or previous projects..."
-                          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner"
-                        />
+                    {/* Row 6: CP Firm Team Members */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] uppercase tracking-wider font-semibold text-zinc-700 mb-1">
+                          CP Firm Team Members
+                        </label>
+                        <div className="relative">
+                          <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A0725B]/70" />
+                          <input
+                            type="text"
+                            value={formData.teamMembers}
+                            onChange={(e) => handleInputChange("teamMembers", e.target.value)}
+                            placeholder="e.g. 5-10 Members or Names"
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-[#A0725B]/30 focus:border-[#A0725B] text-zinc-900 font-sans text-xs focus:outline-none transition-all shadow-inner"
+                          />
+                        </div>
                       </div>
                     </div>
 
