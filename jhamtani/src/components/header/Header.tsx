@@ -215,10 +215,10 @@ export default function Header() {
               </Link>
             </nav>
 
-            {/* Hamburger Button */}
+            {/* Hamburger Button (Mobile / Tablet only, hidden on Laptop) */}
             <button
               onClick={() => setIsOpen(true)}
-              className="flex items-center space-x-3 border border-[#C5A880]/30 hover:border-[#C5A880] px-5 py-2.5 rounded-full text-white/90 hover:text-[#C5A880] transition-all duration-300 cursor-pointer"
+              className="flex lg:hidden items-center space-x-3 border border-[#C5A880]/30 hover:border-[#C5A880] px-5 py-2.5 rounded-full text-white/90 hover:text-[#C5A880] transition-all duration-300 cursor-pointer"
               aria-label="Toggle Menu"
             >
               <Menu className="w-4 h-4" />
