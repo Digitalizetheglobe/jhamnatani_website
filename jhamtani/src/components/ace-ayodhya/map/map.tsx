@@ -345,7 +345,7 @@ export default function MapSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="font-sans text-[14px] sm:text-[15px] text-[#EEEBE7] leading-relaxed mt-4 max-w-2xl"
           >
-            Ace Ayodha places everyday conveniences, key employment hubs and major city connections within easy reach.
+            Ace Ayodhya places everyday conveniences, key employment hubs and major city connections within easy reach.
           </motion.p>
         </div>
       </div>
@@ -475,7 +475,7 @@ export default function MapSection() {
             onClick={() => {
               if (!selectedItem) {
                 const event = new CustomEvent("open-enquiry", {
-                  detail: { project: "Ace Ayodha (Location)" },
+                  detail: { project: "Ace Ayodhya (Location)" },
                 });
                 window.dispatchEvent(event);
               } else {

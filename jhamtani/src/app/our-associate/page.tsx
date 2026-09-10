@@ -6,11 +6,11 @@ import VendorRegistration from "@/components/channel-partner/vendor-registration
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "Channel Partner | Jhamtani",
+  title: "Our Associate | Jhamtani",
   description: "Partnerships Built on Promise. Join Jhamtani as a Channel Partner or Vendor.",
 };
 
-export default function ChannelPartnerPage() {
+export default function OurAssociatePage() {
   return (
     <>
       <Header />

@@ -115,6 +115,7 @@ export default function Header() {
     { label: "Our Promises", href: "/our-initiatives" },
     { label: "Our Projects", href: "/projects" },
     { label: "XO Series", href: "/xosignatureseries" },
+    { label: "Our Associate", href: "/our-associate" },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -201,6 +202,16 @@ export default function Header() {
                 }`}
               >
                 <WaveText text="XO Series" />
+              </Link>
+              <span className="text-white/20">|</span>
+              <Link 
+                href="/our-associate" 
+                onClick={() => handleLinkClick("/our-associate")}
+                className={`group relative transition-colors duration-300 whitespace-nowrap ${
+                  pathname === "/our-associate" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
+                }`}
+              >
+                <WaveText text="Our Associate" />
               </Link>
             </nav>
 

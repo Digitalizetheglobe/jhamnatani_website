@@ -147,7 +147,7 @@ export default function Contact() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="font-serif font-light text-[36px] sm:text-[46px] lg:text-[52px] leading-tight text-[#A0725B] tracking-wide"
           >
-            Find the right home for your family
+            Find the right home for your family.
           </motion.h2>
 
           <motion.p
@@ -157,7 +157,7 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="font-sans text-[14px] sm:text-[15px] text-zinc-700 leading-relaxed font-light mt-4 max-w-2xl"
           >
-Explore available residences, floor plans and current pricing at Ace Aster. Our team will help you identify the configuration that best suits your family and plans
+Explore available residences, floor plans and current pricing at Ace Aster. Our team will help you identify the configuration that best suits your family and plans.
           </motion.p>
         </div>
 
@@ -258,7 +258,6 @@ Explore available residences, floor plans and current pricing at Ace Aster. Our 
                   </option>
                   <option value="2 BHK" className="text-white">2 BHK Residences</option>
                   <option value="3 BHK" className="text-white">3 BHK Residences</option>
-                  <option value="4.5 BHK" className="text-white">4.5 BHK Sky Condos</option>
                 </select>
                 {errors.config && (
                   <span className="text-red-400 text-xs font-sans tracking-wide">
@@ -340,7 +339,7 @@ Explore available residences, floor plans and current pricing at Ace Aster. Our 
             <div className="space-y-3 font-sans text-sm text-zinc-700 leading-relaxed font-light">
               <p>
                 <strong className="font-semibold text-zinc-900">Site Address : </strong>
-                No. 81/1/10, Banshiseeth Lunavat Road,
+                No. 81/1/10, Late Banshi Sheth Lunawat Marg,
                 Kiwale, Ravet, Pune – 411033
               </p>
               <p>

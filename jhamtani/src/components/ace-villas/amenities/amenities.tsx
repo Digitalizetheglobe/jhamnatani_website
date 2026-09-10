@@ -86,7 +86,7 @@ export default function Amenities() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="font-sans text-[12px] sm:text-[13px] text-[#000] font-light tracking-[0.1em] mt-6 leading-none"
           >
-            Luxury, Kept Personal
+            Luxury, Kept Personal.
           </motion.p>
 
           <motion.p

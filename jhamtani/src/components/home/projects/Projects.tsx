@@ -9,13 +9,13 @@ import Link from "next/link";
 const projectsData = [
   {
     id: 1,
-    title: "ACE Ayodha",
+    title: "ACE Ayodhya",
     location: "Thergaon, Pune",
     type: "Residential",
-    image: "/assets/ace-ayodha/hero.webp",
+    image: "/assets/ace-ayodhya/hero.webp",
     desc: "Premium 2 & 3 BHK Homes in Thergaon.",
-    logo: "/assets/ace-ayodha/logo_1.webp",
-    link: "/ace-ayodha",
+    logo: "/assets/ace-ayodhya/logo_1.webp",
+    link: "/ace-ayodhya",
   },
   {
     id: 2,

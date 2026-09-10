@@ -147,7 +147,7 @@ export default function Contact() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="font-serif font-light text-[36px] sm:text-[46px] lg:text-[52px] leading-tight text-[#A0725B] tracking-wide"
           >
-            Explore the Elevate opportunity
+            Explore the Elevate opportunity.
           </motion.h2>
 
           <motion.p

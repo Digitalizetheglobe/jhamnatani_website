@@ -140,7 +140,7 @@ export default function MapSection() {
           boxZoom: false,
         });
 
-        // Add Clean Dark Canvas Base & Reference (No API Key watermark)
+        // Add Clean ArcGIS Dark Gray Tile Layers (Free, No API Key required, No watermarks)
         L.tileLayer(
           "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
           {

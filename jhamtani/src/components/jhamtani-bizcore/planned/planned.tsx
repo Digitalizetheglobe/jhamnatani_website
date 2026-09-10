@@ -152,7 +152,7 @@ export default function Planned() {
 
             {/* Description Paragraph */}
             <p className="font-sans text-sm sm:text-[15px] text-zinc-400 leading-relaxed max-w-md font-light mt-8 lg:mt-10">
-              Jhamtani BizCore combines serviced studio ownership with professional management by Colive in the heart of Mundhwa’s growing commercial district.
+              Jhamtani Bizcore combines serviced studio ownership with professional management by Colive in the heart of Mundhwa’s growing commercial district.
             </p>
 
             {/* Premium Action Buttons - Single Line */}

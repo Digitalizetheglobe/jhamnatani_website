@@ -462,7 +462,7 @@ export default function FloatingWidgets() {
                           } px-4 py-3 rounded-lg text-white/80 focus:outline-none transition-colors font-sans text-sm cursor-pointer`}
                         >
                           <option value="" className="text-zinc-500">Select a Project</option>
-                          <option value="Ace Ayodha" className="text-white">Ace Ayodha (Thergaon)</option>
+                          <option value="Ace Ayodhya" className="text-white">Ace Ayodhya (Thergaon)</option>
                           <option value="ACE Atmosphere" className="text-white">ACE Atmosphere (Ravet)</option>
                           <option value="Jhamtani Abundance" className="text-white">Jhamtani Abundance (Mundhwa)</option>
                           <option value="ACE Villas" className="text-white">ACE Villas (Koregaon Park NX)</option>

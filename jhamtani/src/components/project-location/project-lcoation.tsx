@@ -32,9 +32,9 @@ const locationsData: LocationItem[] = [
     tag: "2 & 3 BHK Premium Residences",
     address:
       "CTS No, Ace Ayodhya, Near Dange Chowk, On Aundh-Ravet BRTS Road, Sr. No. 15/1/A (P), 15/1C/1 (P, 2839 (P, Thergaon, Maharashtra 411033",
-    image: "/assets/ace-ayodha/hero.webp",
+    image: "/assets/ace-ayodhya/hero.webp",
     mapUrl: "https://maps.app.goo.gl/vYZwTtzdB66RBc659",
-    projectLink: "/ace-ayodha",
+    projectLink: "/ace-ayodhya",
     coordinates: "18.6095° N, 73.7672° E",
   },
   {

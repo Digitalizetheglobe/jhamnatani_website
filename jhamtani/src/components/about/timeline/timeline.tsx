@@ -20,10 +20,12 @@ interface YearEntry {
   nx: number;
   ny: number;
   dx: number;
+  dy?: number;
   cx: number;
   cy: number;
   above?: boolean;
   hl?: boolean;
+  isVert?: boolean;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -35,10 +37,12 @@ const years: YearEntry[] = [
   {
     year: "2010",
     projects: ["JHAMTANI IMPRESSIONS"],
-    nx: 170, ny: 160, dx: 230,
-    cx: (230 / VB_W) * 100,
-    cy: (105 / VB_H) * 100,
+    nx: 200, ny: 160,
+    dx: 200, dy: 100,
+    cx: (200 / VB_W) * 100,
+    cy: (32 / VB_H) * 100,
     above: true,
+    isVert: true,
   },
 
   // Column 1 (x=410), going down from y=160 to y=980
@@ -320,7 +324,7 @@ export default function AboutTimeline() {
     <section ref={sectionRef} className="w-full bg-[#EDE5D8] relative overflow-hidden select-none py-12 lg:py-15">
 
       {/* ════ Section Header ═════════════════════════════ */}
-      <div className="tl-header text-center mb-8  px-4 opacity-0">
+      <div className="tl-header text-center mb-8 px-4 opacity-0">
         <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#9A7229] tracking-tight leading-snug font-normal">
           The Timeline of <br className="hidden sm:inline" />
           <span>Promises Delivered</span>
@@ -341,17 +345,16 @@ export default function AboutTimeline() {
           <path className="tl-trunk" d={TRUNK} stroke="#C59B4E" strokeWidth="3" strokeLinecap="round" />
 
           {years.map((yr) => {
-            const isLeft = yr.dx < yr.nx;
+            const targetY = yr.dy !== undefined ? yr.dy : yr.ny;
             return (
               <g key={yr.year}>
                 <line
                   className="tl-dash"
                   x1={yr.nx} y1={yr.ny}
-                  x2={yr.dx} y2={yr.ny}
+                  x2={yr.dx} y2={targetY}
                   stroke="#C59B4E" strokeWidth="1.5"
                   strokeDasharray="6,4"
                   opacity={0}
-                  style={{ transformOrigin: isLeft ? `${yr.nx}px ${yr.ny}px` : `${yr.nx}px ${yr.ny}px` }}
                 />
                 <g className="tl-node">
                   <circle cx={yr.nx} cy={yr.ny} r={6} fill="#EDE5D8" stroke="#C59B4E" strokeWidth={2} />
@@ -366,11 +369,13 @@ export default function AboutTimeline() {
           {years.map((yr) => (
             <div
               key={yr.year}
-              className="absolute pointer-events-auto transition-transform duration-300"
+              className={`absolute pointer-events-auto transition-transform duration-300 ${
+                yr.isVert ? "-translate-x-1/2 flex flex-col items-center text-center" : ""
+              }`}
               style={{
                 left: `${yr.cx}%`,
                 top: `${yr.cy}%`,
-                width: "230px",
+                width: yr.isVert ? "200px" : "230px",
               }}
             >
               {/* Projects listed above for 2010 top entrance */}
@@ -385,7 +390,7 @@ export default function AboutTimeline() {
               )}
 
               {/* Year badge & milestone tag */}
-              <div className="flex items-center gap-2">
+              <div className={`flex items-center gap-2 ${yr.isVert ? "justify-center" : ""}`}>
                 <div className="tl-badge" style={{ ...badgeStyle, opacity: 0 }}>
                   {yr.year}
                 </div>

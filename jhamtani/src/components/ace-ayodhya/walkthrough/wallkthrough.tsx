@@ -41,7 +41,7 @@ export default function Walkthrough() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="font-sans text-[12px] sm:text-[13px] text-[#000] font-light tracking-[0.1em] mt-6 leading-none"
           >
-            Experience Ace Ayodha.
+            Experience Ace Ayodhya.
           </motion.p>
 
           <motion.p
@@ -66,7 +66,7 @@ export default function Walkthrough() {
         >
           {/* Preview Image */}
           <img
-            src="/assets/ace-ayodha/gallery_1.webp"
+            src="/assets/ace-ayodhya/gallery_1.webp"
             alt="Project Walkthrough Video Preview"
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
           />

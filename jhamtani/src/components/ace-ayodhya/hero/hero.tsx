@@ -36,8 +36,8 @@ export default function Hero() {
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/ace-ayodha/hero.webp"
-          alt="Ace Ayodha - The Ideal Way of Living"
+          src="/assets/ace-ayodhya/hero.webp"
+          alt="Ace Ayodhya - The Ideal Way of Living"
           fill
           priority
           quality={100}

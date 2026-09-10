@@ -191,16 +191,16 @@ export default function RealTimeChatAssist({
       };
     }
 
-    // 4. ACE Ayodha / Thergaon
-    if (q.includes("ayodha") || q.includes("thergaon")) {
+    // 4. ACE Ayodhya / Thergaon
+    if (q.includes("ayodha") || q.includes("ayodhya") || q.includes("thergaon")) {
       return {
         id: "bot-" + Date.now(),
         sender: "bot",
-        text: "ACE Ayodha in Thergaon (PCMC) offers thoughtfully designed 2 & 3 BHK residences with seamless connectivity to Hinjawadi IT Park, Wakad, and the expressway. MahaRERA: P52100049752.",
+        text: "ACE Ayodhya in Thergaon (PCMC) offers thoughtfully designed 2 & 3 BHK residences with seamless connectivity to Hinjawadi IT Park, Wakad, and the expressway. MahaRERA: P52100049752.",
         time: getCurrentTime(),
         actions: [
-          { label: "Explore ACE Ayodha", type: "link", href: "/ace-ayodha" },
-          { label: "Request Callback", type: "enquiry", project: "Ace Ayodha" },
+          { label: "Explore ACE Ayodhya", type: "link", href: "/ace-ayodhya" },
+          { label: "Request Callback", type: "enquiry", project: "Ace Ayodhya" },
         ],
       };
     }

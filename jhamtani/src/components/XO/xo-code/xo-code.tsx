@@ -13,7 +13,7 @@ export default function XOCode() {
     },
     {
       id: "X02",
-      title: "The Luxury of Remaining Relevant.",
+      title: "The Luxury of Remaining Relevant",
       description: "Designed to outlive fashion. Built to outlast generations. Because statements shouldn't have an expiry date.",
       image: "/assets/xo/xo_2.png"
     },
@@ -82,7 +82,7 @@ export default function XOCode() {
           {codes.map((item, index) => {
             // Determine responsive border styles
             const borderClasses = `
-              relative flex flex-col justify-between p-8 sm:p-10 lg:p-12 h-[380px] sm:h-[420px] overflow-hidden group bg-[#111111]/150 hover:bg-black transition-colors duration-500 cursor-default
+              relative flex flex-col justify-between p-8 sm:p-10 lg:p-12 h-[380px] sm:h-[420px] overflow-hidden group transition-all duration-500 cursor-default
               ${index !== 5 ? "border-b border-white/10" : ""}
               ${index % 3 !== 2 ? "md:border-r border-white/10" : ""}
             `;
@@ -92,26 +92,24 @@ export default function XOCode() {
                 key={item.id}
                 className={borderClasses}
               >
-                {/* Default Text Content (Legible on hover with premium transition) */}
-                <div className="relative z-10 h-full flex flex-col justify-between transition-all duration-500 ease-in-out">
-                  {/* Top: ID */}
-                 
+                {/* Default Text Content */}
+                <div className="relative z-10 h-full flex flex-col justify-end">
                   {/* Bottom: Title & Description */}
-                  <div className="space-y-3 transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-500 ease-out">
-                    <h3 className="font-inria text-base sm:text-lg text-[#A0725B] font-medium leading-snug transition-colors duration-500 group-hover:text-white">
+                  <div className="space-y-3 transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-500 ease-out">
+                    <h3 className="font-inria text-base sm:text-lg text-[#D4AF37] font-medium leading-snug transition-colors duration-500 group-hover:text-white drop-shadow-md">
                       {item.title}
                     </h3>
-                    <p className="font-sans text-xs sm:text-[13px] text-zinc-300 leading-relaxed font-light transition-colors duration-500 group-hover:text-zinc-100">
+                    <p className="font-sans text-xs sm:text-[13px] text-zinc-200 leading-relaxed font-light transition-colors duration-500 group-hover:text-white drop-shadow">
                       {item.description}
                     </p>
                   </div>
                 </div>
 
-                {/* Hover Image Overlay (Subtly visible by default, fully fades in on hover) */}
+                {/* Card Background Image (Full clarity without heavy black overlay) */}
                 <div
-                  className="absolute inset-0 z-0 bg-cover bg-center opacity-30 group-hover:opacity-100 transition-opacity duration-700 ease-in-out scale-105 group-hover:scale-100 transition-transform duration-700 ease-out"
+                  className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
                   style={{
-                    backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.6) 100%), url('${item.image}')`
+                    backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.2) 100%), url('${item.image}')`
                   }}
                 />
               </div>

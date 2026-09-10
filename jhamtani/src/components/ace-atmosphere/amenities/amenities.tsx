@@ -7,13 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 const allAmenities = [
   // Row 1
   { id: 1, name: "Yoga Zone", icon: "aerial-yog" },
-  { id: 2, name: "Sky Walks", icon: "Sky Walks" },
+  { id: 2, name: "SkyWalks", icon: "Sky Walks" },
   { id: 3, name: "Japanese Garden", icon: "Japanese Garden" },
   { id: 4, name: "Open Air Theatres", icon: "Open Air Theatres" },
   { id: 5, name: "Temple", icon: "Temple" },
   // Row 2
   { id: 6, name: "Dog Park", icon: "Dog Park" },
-  { id: 7, name: "Party Lawns", icon: "Party Lawnswns" },
+  { id: 7, name: "Party Lawns", icon: "Party Lawns" },
   { id: 8, name: "Zen Garden", icon: "zen-garden" },
   { id: 9, name: "Fountain", icon: "Fountain" },
   { id: 10, name: "Sunset Viewing Deck", icon: "Sunset Viewing Deck" },

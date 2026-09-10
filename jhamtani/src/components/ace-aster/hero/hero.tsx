@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
 export default function Hero() {
-  const line1 = "Designed Around ,";
+  const line1 = "Designed Around,";
   const line2 = "Family Life.";
 
   // Framer Motion animation variants

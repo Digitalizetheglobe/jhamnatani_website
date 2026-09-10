@@ -157,7 +157,7 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-sans text-sm sm:text-base text-zinc-600 mt-4 tracking-wide font-light max-w-xl leading-relaxed"
           >
-            Our dedicated luxury relationship advisors are on hand to arrange your private preview of ACE Abundance.
+            Our dedicated luxury relationship advisors are on hand to arrange your private preview of ACE ABUNDANCE.
           </motion.p>
         </div>
 
@@ -335,7 +335,7 @@ export default function Contact() {
           {/* Left Block: Site Address & RERA */}
           <div className="flex flex-col text-left space-y-6 max-w-xl w-full">
             <h3 className="font-serif font-light text-[28px] sm:text-[45px] text-[#A0725B] leading-tight tracking-wide">
-              Visit Ace Abundance
+             Visit XO Ace Abundance
             </h3>
             
             <div className="space-y-3 font-sans text-sm text-zinc-700 leading-relaxed font-light">

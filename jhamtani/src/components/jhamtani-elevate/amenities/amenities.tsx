@@ -17,7 +17,7 @@ const allAmenities = [
   { id: 7, name: "Kitchen", icon: "kitchen" },
   { id: 8, name: "Dining Area", icon: "dining-area" },
   { id: 9, name: "Co-Working Space", icon: "co-working-space" },
-  { id: 10, name: "House Keeping", icon: "house-keeping" },
+  { id: 10, name: "HouseKeeping", icon: "house-keeping" },
   { id: 11, name: "Entrance/Passage", icon: "entrance-passage" },
   { id: 12, name: "Seating with Loose Furniture", icon: "seating-loose-furniture" },
 

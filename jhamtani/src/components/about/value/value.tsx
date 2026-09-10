@@ -85,7 +85,7 @@ const promisesData: PromiseValue[] = [
     points: [
       "We learn from every experience.",
       "We improve every process.",
-      "We implement feedback",
+      "We implement feedback.",
       "We never stop raising the bar.",
     ],
   },

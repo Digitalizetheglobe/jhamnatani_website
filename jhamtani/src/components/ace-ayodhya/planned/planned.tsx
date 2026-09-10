@@ -8,13 +8,13 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/ace-ayodha/thought_1.webp",
+    image: "/assets/ace-ayodhya/thought_1.webp",
     alt: "Thoughtfully Planned Interior - Living Room Artistic Impression",
   },
   {
     id: 2,
-    image: "/assets/ace-ayodha/hero.webp",
-    alt: "Ace Ayodha Premium Residences - Exterior Artistic Impression",
+    image: "/assets/ace-ayodhya/hero.webp",
+    alt: "Ace Ayodhya Premium Residences - Exterior Artistic Impression",
   },
 ];
 
@@ -111,8 +111,8 @@ export default function Planned() {
   const handleEnquiry = (action: string) => {
     const event = new CustomEvent("open-enquiry", {
       detail: {
-        project: "Ace Ayodha",
-        message: `I am interested in ${action} for Ace Ayodha.`,
+        project: "Ace Ayodhya",
+        message: `I am interested in ${action} for Ace Ayodhya.`,
       },
     });
     window.dispatchEvent(event);
@@ -142,7 +142,7 @@ export default function Planned() {
 
             {/* Description Paragraph */}
             <p className="font-sans text-sm sm:text-[15px] text-zinc-400 leading-relaxed max-w-md font-light mt-8 lg:mt-10">
-              Ace Ayodha brings together well-planned homes, natural light, privacy and everyday ease, complemented by spaces for wellness, recreation and community.
+              Ace Ayodhya brings together well-planned homes, natural light, privacy and everyday ease, complemented by spaces for wellness, recreation and community.
             </p>
 
             {/* Premium Action Buttons - Single Line */}

@@ -45,7 +45,7 @@ const LOCATIONS_DATA: LocationData[] = [
         image: "/assets/map/thergaon.png",
         category: "Premium 2 & 3 BHK Homes",
         details: "Ace Ayodhya in Thergaon - Luxurious modern residential residences with world-class amenities.",
-        link: "/ace-ayodha",
+        link: "/ace-ayodhya",
       }
     ]
   },

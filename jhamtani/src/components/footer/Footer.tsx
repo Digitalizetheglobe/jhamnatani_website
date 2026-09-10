@@ -13,12 +13,11 @@ export default function Footer() {
   const quickLinksColumn2 = [
     { label: "PROJECT LOCATIONS", href: "/project-locations" },
     { label: "MAHARERA", href: "/maharera" },
-    { label: "CHANNEL PARTNERS", href: "/channel-partner" },
     { label: "MEDIA PUBLICATIONS", href: "/media-publications" },
+    { label: "SITE UPDATES", href: "/site-updates" },
   ];
 
   const quickLinksColumn3 = [
-    { label: "SITE UPDATES", href: "/site-updates" },
     { label: "MONTHLY NEWSLETTER", href: "/monthlynewsletters" },
     { label: "CAREERS", href: "/careers" },
     { label: "PRIVACY POLICY", href: "/privacypolicy" },
@@ -26,7 +25,7 @@ export default function Footer() {
   ];
 
   const currentProjectsColumn1 = [
-    { label: "ACE AYODHYA - THERGAON", href: "/ace-ayodha" },
+    { label: "ACE AYODHYA - THERGAON", href: "/ace-ayodhya" },
     { label: "JHAMTANI ABUNDANCE - MUNDHWA", href: "/ace-abundance" },
     { label: "ACE VILLAS - KOREGAON PARK NX", href: "/ace-villas" },
     { label: "ACE ATMOSPHERE - RAVET", href: "/ace-atmosphere" },

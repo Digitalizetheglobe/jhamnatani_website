@@ -22,12 +22,12 @@ interface ProjectItem {
 const projectsData: ProjectItem[] = [
   {
     id: 1,
-    title: "Ace Ayodha",
+    title: "Ace Ayodhya",
     location: "Thergaon, Pune",
     type: "Residential",
     categories: ["Residential"],
-    image: "/assets/ace-ayodha/hero.webp",
-    link: "/ace-ayodha",
+    image: "/assets/ace-ayodhya/hero.webp",
+    link: "/ace-ayodhya",
     isLocal: true,
   },
   {

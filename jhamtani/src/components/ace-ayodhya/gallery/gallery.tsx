@@ -7,57 +7,57 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const galleryItems = [
   {
     id: 1,
-    image: "/assets/ace-ayodha/gallery/the-grand-courtyard.webp",
+    image: "/assets/ace-ayodhya/gallery/the-grand-courtyard.webp",
     title: "The Grand Courtyard",
   },
   {
     id: 2,
-    image: "/assets/ace-ayodha/gallery/the-indoor-play-lounge.webp",
+    image: "/assets/ace-ayodhya/gallery/the-indoor-play-lounge.webp",
     title: "The Indoor Play Lounge",
   },
   {
     id: 3,
-    image: "/assets/ace-ayodha/gallery/the-little-explorers-studio.webp",
+    image: "/assets/ace-ayodhya/gallery/the-little-explorers-studio.webp",
     title: "The Little Explorers' Studio",
   },
   {
     id: 4,
-    image: "/assets/ace-ayodha/gallery/the-living-lounge.webp",
+    image: "/assets/ace-ayodhya/gallery/the-living-lounge.webp",
     title: "The Living Lounge",
   },
   {
     id: 5,
-    image: "/assets/ace-ayodha/gallery/the-open-air-lounge.webp",
+    image: "/assets/ace-ayodhya/gallery/the-open-air-lounge.webp",
     title: "The Open-Air Lounge",
   },
   {
     id: 6,
-    image: "/assets/ace-ayodha/gallery/the-wellness-court.webp",
+    image: "/assets/ace-ayodhya/gallery/the-wellness-court.webp",
     title: "The Wellness Court",
   },
   {
     id: 7,
-    image: "/assets/ace-ayodha/gallery/the-wellness-studio.webp",
+    image: "/assets/ace-ayodhya/gallery/the-wellness-studio.webp",
     title: "The Wellness Studio",
   },
   {
     id: 8,
-    image: "/assets/ace-ayodha/gallery/childrens-play-garden.webp",
+    image: "/assets/ace-ayodhya/gallery/childrens-play-garden.webp",
     title: "Children's Play Garden",
   },
   {
     id: 9,
-    image: "/assets/ace-ayodha/gallery/divine-tranquility.webp",
+    image: "/assets/ace-ayodhya/gallery/divine-tranquility.webp",
     title: "Divine Tranquility",
   },
   {
     id: 10,
-    image: "/assets/ace-ayodha/gallery/the-court-in-the-sky.webp",
+    image: "/assets/ace-ayodhya/gallery/the-court-in-the-sky.webp",
     title: "The Court in the Sky",
   },
   {
     id: 11,
-    image: "/assets/ace-ayodha/gallery/the-elegant-kitchen.webp",
+    image: "/assets/ace-ayodhya/gallery/the-elegant-kitchen.webp",
     title: "The Elegant Kitchen",
   },
 ];
@@ -198,7 +198,7 @@ export default function Gallery() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="font-sans text-[14px] sm:text-[15px] text-zinc-400 leading-relaxed font-light mt-4 max-w-xl"
           >
-            A closer look at life at Ace Ayodha.
+            A closer look at life at Ace Ayodhya.
           </motion.p>
         </div>
 
@@ -339,7 +339,7 @@ export default function Gallery() {
           <button
             onClick={() => {
               const event = new CustomEvent("open-enquiry", {
-                detail: { project: "ACE Ayodha (Gallery)" },
+                detail: { project: "ACE Ayodhya (Gallery)" },
               });
               window.dispatchEvent(event);
             }}

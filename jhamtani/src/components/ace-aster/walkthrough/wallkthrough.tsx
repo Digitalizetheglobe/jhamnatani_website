@@ -51,7 +51,7 @@ export default function Walkthrough() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="font-sans text-[14px] sm:text-[15px] text-zinc-700 leading-relaxed font-light mt-3 max-w-xl"
           >
-            Take a closer look at the spacious residences, landscaped surroundings and thoughtfully planned amenities created for every generation
+            Take a closer look at the spacious residences, landscaped surroundings and thoughtfully planned amenities created for every generation.
           </motion.p>
         </div>
 

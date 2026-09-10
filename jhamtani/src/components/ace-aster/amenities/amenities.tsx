@@ -17,7 +17,7 @@ const allAmenities = [
   { id: 7, name: "Toilet", icon: "Toilet" },
   { id: 8, name: "Security Cabin", icon: "Security Cabin" },
   { id: 9, name: "BBQ Areas", icon: "BBQ Areas" },
-  { id: 10, name: "Aster Garden", icon: "zen-garden" },
+  { id: 10, name: "Aster Garden", icon: "sky walks" },
   { id: 11, name: "Gazebo Seating", icon: "Gazebo Seating" },
   { id: 12, name: "Swimming Pool With Deck", icon: "swimming-pool" },
 
