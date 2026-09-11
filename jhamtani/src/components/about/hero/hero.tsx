@@ -34,7 +34,7 @@ export default function Hero() {
         style={{ transform: "scaleX(-1)" }}
       >
         <Image
-          src="/assets/about/hero.jpg"
+          src="/assets/about/hero.webp"
           alt="Some promises build homes. Ours builds the legacy."
           fill
           priority

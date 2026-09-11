@@ -7,32 +7,32 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const galleryItems = [
   {
     id: 1,
-    image: "/assets/ace-villas/Private Arrival Garden.png",
+    image: "/assets/ace-villas/Private Arrival Garden.webp",
     title: "Private Arrival Garden",
   },
   {
     id: 2,
-    image: "/assets/ace-villas/Pure indulgence at the garden lounge.png",
+    image: "/assets/ace-villas/Pure indulgence at the garden lounge.webp",
     title: "Pure Indulgence at the Garden Lounge",
   },
   {
     id: 3,
-    image: "/assets/ace-villas/Where modern design meets everyday calm.png",
+    image: "/assets/ace-villas/Where modern design meets everyday calm.webp",
     title: "Where Modern Design Meets Everyday Calm",
   },
   {
     id: 4,
-    image: "/assets/ace-villas/Your own on theswimming pool top floor.png",
+    image: "/assets/ace-villas/Your own on theswimming pool top floor.webp",
     title: "Your Own Top Floor Swimming Pool",
   },
   {
     id: 5,
-    image: "/assets/ace-villas/ace_villa1.png",
+    image: "/assets/ace-villas/ace_villa1.webp",
     title: "Contemporary Villa Exterior",
   },
   {
     id: 6,
-    image: "/assets/ace-villas/ace_vilaa2.png",
+    image: "/assets/ace-villas/ace_vilaa2.webp",
     title: "Refined Architectural Elevation",
   },
 ];

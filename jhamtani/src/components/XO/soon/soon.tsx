@@ -12,7 +12,7 @@ export default function Soon() {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
         style={{
-          backgroundImage: "url('/assets/xo/soon.png')",
+          backgroundImage: "url('/assets/xo/soon.webp')",
         }}
       />
 
@@ -63,7 +63,7 @@ export default function Soon() {
             One More
           </span>
           <img 
-            src="/assets/xo/XO.png" 
+            src="/assets/xo/XO.webp" 
             alt="XO Logo" 
             className="h-12 sm:h-20 md:h-24 lg:h-28 object-contain filter drop-shadow-[0_4px_25px_rgba(160,114,91,0.3)] hover:scale-103 transition-transform duration-500 cursor-default"
           />

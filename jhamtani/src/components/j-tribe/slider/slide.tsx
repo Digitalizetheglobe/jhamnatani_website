@@ -64,7 +64,7 @@ export default function Slide() {
 
                 <div className="md:col-span-8 relative h-[25vh] sm:h-[30vh] md:h-[35vh] lg:h-[40vh] max-h-[400px] w-full">
                   <Image
-                    src="/assets/permission/slide_1.jpg"
+                    src="/assets/permission/slide_1.webp"
                     alt="Ace Cup"
                     fill
                     priority
@@ -99,7 +99,7 @@ export default function Slide() {
                 
                 <div className="md:col-span-8 relative h-[25vh] sm:h-[30vh] md:h-[35vh] lg:h-[40vh] max-h-[400px] w-full">
                   <Image
-                    src="/assets/permission/02_Gala_Dinner.jpg"
+                    src="/assets/permission/02_Gala_Dinner.webp"
                     alt="Gala Dinner"
                     fill
                     className="object-cover object-center"
@@ -185,7 +185,7 @@ export default function Slide() {
               {/* Bottom Image */}
               <div className="relative h-[25vh] sm:h-[30vh] md:h-[35vh] lg:h-[40vh] max-h-[400px] w-full">
                 <Image
-                  src="/assets/permission/03_Shakti_Edge.jpg"
+                  src="/assets/permission/03_Shakti_Edge.webp"
                   alt="Shakti Edge"
                   fill
                   className="object-cover object-center"
@@ -202,7 +202,7 @@ export default function Slide() {
                 {/* Left Image */}
                 <div className="md:col-span-5 relative h-[25vh] md:h-auto min-h-[250px] w-full">
                   <Image
-                    src="/assets/permission/04_Rising_Stars.jpg"
+                    src="/assets/permission/04_Rising_Stars.webp"
                     alt="Rising Stars"
                     fill
                     className="object-cover object-center"
@@ -329,7 +329,7 @@ export default function Slide() {
             <div className="max-w-[1400px] mx-auto w-full flex flex-col my-auto gap-8 md:gap-10 lg:gap-14">
               <div className="relative h-[35vh] sm:h-[40vh] md:h-[45vh] lg:h-[50vh] max-h-[500px] w-full">
                 <Image
-                  src="/assets/permission/05_Other_Events.jpg"
+                  src="/assets/permission/05_Other_Events.webp"
                   alt="Other Events"
                   fill
                   className="object-cover object-center"

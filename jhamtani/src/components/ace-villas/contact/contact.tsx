@@ -366,7 +366,7 @@ export default function Contact() {
               <div className="flex flex-col space-y-1 mt-3">
                 <div className="flex items-center gap-2">
                   <Image
-                    src="/assets/maha-rea.png"
+                    src="/assets/maha-rea.webp"
                     alt="MahaRERA Logo Stamp"
                     width={40}
                     height={40}

@@ -94,7 +94,7 @@ export default function Our() {
           className="relative w-full h-[360px] sm:h-[480px] md:h-[560px] lg:h-[620px] overflow-hidden shadow-xl  group"
         >
           <Image
-            src="/assets/about/our.png"
+            src="/assets/about/our.webp"
             alt="Our Story - Jhamtani"
             fill
             priority

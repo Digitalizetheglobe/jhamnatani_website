@@ -8,7 +8,7 @@ const SECTIONS = [
   {
     id: "the-promise",
     title: "The Promise",
-    image: "/assets/permission/hamesh-aapke-saath-1.png",
+    image: "/assets/permission/hamesh-aapke-saath-1.webp",
     points: [
       "To remain by your side, even after possession.",
       "To make every homeowner feel heard, supported and valued.",
@@ -18,7 +18,7 @@ const SECTIONS = [
   {
     id: "what-we-do",
     title: "What We Do",
-    image: "/assets/permission/hamesh-aapke-saath-2.png",
+    image: "/assets/permission/hamesh-aapke-saath-2.webp",
     points: [
       "Offer continued support after handover.",
       "Resolve concerns with care and speed.",
@@ -31,7 +31,7 @@ const SECTIONS = [
   {
     id: "our-impact",
     title: "Our Impact",
-    image: "/assets/permission/hamesh-aapke-saath-3.png",
+    image: "/assets/permission/hamesh-aapke-saath-3.webp",
     points: [
       "Peace of mind beyond possession.",
       "Trusted & reliable solutions for every grievance.",

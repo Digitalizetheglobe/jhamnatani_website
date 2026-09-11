@@ -88,7 +88,7 @@ export default function Yugma() {
             className="mb-8 px-8 rounded-2xl inline-block"
           >
             <Image
-              src="/assets/channel-partner/Logo.png"
+              src="/assets/channel-partner/Logo.webp"
               alt="YUGMA Associate Logo"
               width={240}
               height={100}

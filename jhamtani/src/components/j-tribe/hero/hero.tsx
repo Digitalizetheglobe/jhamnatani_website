@@ -8,7 +8,7 @@ const SECTIONS = [
   {
     id: "the-promise",
     title: "The Promise",
-    image: "/assets/permission/J-Tribe-1.png",
+    image: "/assets/permission/J-Tribe-1.webp",
     points: [
       "To create communities that people are proud to belong to.",
       "Foster meaningful relationships beyond neighbours.",
@@ -20,7 +20,7 @@ const SECTIONS = [
   {
     id: "j-tribe-impact",
     title: "The J-Tribe Impact",
-    image: "/assets/permission/J-Tribe-2.png",
+    image: "/assets/permission/J-Tribe-2.webp",
     points: [
       "Homes that feel more human.",
       "Neighbours who become lifelong friends.",

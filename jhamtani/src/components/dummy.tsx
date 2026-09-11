@@ -24,8 +24,8 @@ const SERVICES: ServiceItem[] = [
       "furniture layouts",
       "design documentation",
     ],
-    image: "/assets/home_gallary1.png",
-    fallbackImage: "/assets/gallery_com_1.png",
+    image: "/assets/projects/ace-abundance.webp",
+    fallbackImage: "/assets/projects/ace-abundance.webp",
   },
   {
     id: "02",
@@ -37,8 +37,8 @@ const SERVICES: ServiceItem[] = [
       "ergonomic furniture arrangement",
       "traffic flow optimization",
     ],
-    image: "/assets/home-gallary2.png",
-    fallbackImage: "/assets/gallery_com_2.png",
+    image: "/assets/projects/ace-aster.webp",
+    fallbackImage: "/assets/projects/ace-aster.webp",
   },
   {
     id: "03",
@@ -50,8 +50,8 @@ const SERVICES: ServiceItem[] = [
       "detailed material elevations",
       "3D artistic concepts",
     ],
-    image: "/assets/gallery_com_1.png",
-    fallbackImage: "/assets/gallery_com_2.png",
+    image: "/assets/projects/ace-atmosphere.webp",
+    fallbackImage: "/assets/projects/ace-atmosphere.webp",
   },
   {
     id: "04",
@@ -63,8 +63,8 @@ const SERVICES: ServiceItem[] = [
       "on-site supervision",
       "quality audits",
     ],
-    image: "/assets/commercial1.png",
-    fallbackImage: "/assets/gallery_com_1.png",
+    image: "/assets/projects/ace-villas.webp",
+    fallbackImage: "/assets/projects/ace-villas.webp",
   },
   {
     id: "05",
@@ -76,8 +76,8 @@ const SERVICES: ServiceItem[] = [
       "hospitality environments",
       "institutional layouts",
     ],
-    image: "/assets/gallery_res_1.png",
-    fallbackImage: "/assets/portfolio_work1.png",
+    image: "/assets/projects/jhamtani-bizcore.webp",
+    fallbackImage: "/assets/projects/jhamtani-bizcore.webp",
   },
   {
     id: "06",
@@ -89,8 +89,8 @@ const SERVICES: ServiceItem[] = [
       "virtual walkthroughs",
       "lighting simulations",
     ],
-    image: "/assets/gallery_com_2.png",
-    fallbackImage: "/assets/portfolio_work2.png",
+    image: "/assets/projects/jhamtani-elevate.webp",
+    fallbackImage: "/assets/projects/jhamtani-elevate.webp",
   },
   {
     id: "07",
@@ -102,8 +102,8 @@ const SERVICES: ServiceItem[] = [
       "strict quality control",
       "timeline tracking",
     ],
-    image: "/assets/gallery_com_3.png",
-    fallbackImage: "/assets/gallery_res_2.png",
+    image: "/assets/projects/jhamtani-spacebiz.webp",
+    fallbackImage: "/assets/projects/jhamtani-spacebiz.webp",
   },
   {
     id: "08",
@@ -115,8 +115,8 @@ const SERVICES: ServiceItem[] = [
       "fit-out & staging",
       "key-ready handover",
     ],
-    image: "/assets/home_gallary3.png",
-    fallbackImage: "/assets/home_gallary1.png",
+    image: "/assets/projects/jhamtani-elevate.webp",
+    fallbackImage: "/assets/projects/jhamtani-elevate.webp",
   },
 ];
 

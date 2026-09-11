@@ -8,7 +8,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 const slides = [
   {
     id: 1,
-    image: "/assets/jhamtani-spacebiz/banner.jpeg",
+    image: "/assets/jhamtani-spacebiz/banner.webp",
     alt: "Jhamtani SpaceBiz - A Vertical Statement of Ambition",
   },
   {

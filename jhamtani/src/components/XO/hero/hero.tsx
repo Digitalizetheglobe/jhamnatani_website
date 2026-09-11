@@ -17,7 +17,7 @@ export default function Hero() {
           transition={{ duration: 15, ease: "easeOut" }}
           className="w-full h-full bg-cover bg-no-repeat bg-[position:30%_98%] md:bg-[position:center_98%]"
           style={{
-            backgroundImage: "url('/assets/xo/hero.png')"
+            backgroundImage: "url('/assets/xo/hero.webp')"
           }}
         />
       </div>

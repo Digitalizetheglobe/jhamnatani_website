@@ -12,17 +12,17 @@ const galleryItems = [
   },
   {
     id: 2,
-    image: "/assets/jhamtani-bizcore/site2.jpeg",
+    image: "/assets/jhamtani-bizcore/site2.webp",
     title: "Jhamtani Bizcore - Site Progress 2",
   },
   {
     id: 3,
-    image: "/assets/jhamtani-bizcore/site3.jpeg",
+    image: "/assets/jhamtani-bizcore/site3.webp",
     title: "Jhamtani Bizcore - Site Progress 3",
   },
   {
     id: 4,
-    image: "/assets/jhamtani-bizcore/site4.jpeg",
+    image: "/assets/jhamtani-bizcore/site4.webp",
     title: "Jhamtani Bizcore - Site Progress 4",
   },
 ];

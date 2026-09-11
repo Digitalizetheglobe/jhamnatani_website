@@ -8,7 +8,7 @@ export default function Hero() {
       {/* Mobile Banner (< 640px) - Exact 3:4 aspect ratio matching home-mobile.jpeg */}
       <div className="block sm:hidden relative w-full aspect-[3/4]">
         <Image
-          src="/assets/home-mobile.jpeg"
+          src="/assets/home-mobile.webp"
           alt="Jhamtani - Built on Bold Promises"
           fill
           priority
@@ -24,7 +24,7 @@ export default function Hero() {
       {/* Tablet Banner (640px - 1023px) - Exact 4:5 aspect ratio matching home-tab.jpeg */}
       <div className="hidden sm:block lg:hidden relative w-full aspect-[4/5]">
         <Image
-          src="/assets/home-tab.jpeg"
+          src="/assets/home-tab.webp"
           alt="Jhamtani - Built on Bold Promises"
           fill
           priority
@@ -40,7 +40,7 @@ export default function Hero() {
       {/* Laptop / Desktop Banner (>= 1024px) - Fullscreen 16:9 display */}
       <div className="hidden lg:block relative w-full h-screen min-h-[650px]">
         <Image
-          src="/assets/home-laptop.jpeg"
+          src="/assets/home-laptop.webp"
           alt="Jhamtani - Built on Bold Promises"
           fill
           priority

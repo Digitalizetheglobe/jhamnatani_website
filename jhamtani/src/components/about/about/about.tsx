@@ -58,7 +58,7 @@ export default function AboutContent() {
             style={{ transform: "scaleX(-1)" }}
           >
             <Image
-              src="/assets/about/about.jpg"
+              src="/assets/about/about.webp"
               alt="Jhamtani Architecture"
               fill
               priority

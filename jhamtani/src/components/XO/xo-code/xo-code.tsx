@@ -9,37 +9,37 @@ export default function XOCode() {
       id: "X01",
       title: "Landmark Addresses",
       description: "The city remembers certain locations. XO begins there.",
-      image: "/assets/xo/xo_1.png"
+      image: "/assets/xo/xo_1.webp"
     },
     {
       id: "X02",
       title: "The Luxury of Remaining Relevant",
       description: "Designed to outlive fashion. Built to outlast generations. Because statements shouldn't have an expiry date.",
-      image: "/assets/xo/xo_2.png"
+      image: "/assets/xo/xo_2.webp"
     },
     {
       id: "X03",
       title: "Grandeur Without Compromise",
       description: "Because luxury isn't measured in square feet. It's measured in freedom of expression, even for a home.",
-      image: "/assets/xo/xo_3.png"
+      image: "/assets/xo/xo_3.webp"
     },
     {
       id: "X04",
       title: "Uncompromising Artistry",
       description: "Deliberate design in every detail. Sourced globally, crafted locally to stand the test of time.",
-      image: "/assets/xo/xo_4.png"
+      image: "/assets/xo/xo_4.webp"
     },
     {
       id: "X05",
       title: "Sublime Finesse",
       description: "Seen at first glance. Admired for a lifetime. Perfection Lives In The Details.",
-      image: "/assets/xo/xo_5.png"
+      image: "/assets/xo/xo_5.webp"
     },
     {
       id: "X06",
       title: "Intelligent Living",
       description: "Technology that disappears into experience. Present but never intrusive.",
-      image: "/assets/xo/xo_6.png"
+      image: "/assets/xo/xo_6.webp"
     }
   ];
 

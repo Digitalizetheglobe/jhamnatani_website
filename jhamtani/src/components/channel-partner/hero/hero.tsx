@@ -14,7 +14,7 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full"
       >
         <Image
-          src="/assets/channel-partner/hero.png"
+          src="/assets/channel-partner/hero.webp"
           alt="Partnerships Built on Promise"
           fill
           priority

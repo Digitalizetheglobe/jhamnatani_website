@@ -76,7 +76,7 @@ export default function About() {
           <div className="flex-1 flex flex-col items-center justify-center space-y-4 md:space-y-5 px-4 lg:px-6 w-full text-center">
             <div className="relative h-20 sm:h-24 md:h-28 w-44 sm:w-52 md:w-56 flex items-center justify-center">
               <Image
-                src="/assets/permission/aapke-saath.png"
+                src="/assets/permission/aapke-saath.webp"
                 alt="Hamesha Aapke Saath"
                 fill
                 className="object-contain"
@@ -101,7 +101,7 @@ export default function About() {
           <div className="flex-1 flex flex-col items-center justify-center space-y-4 md:space-y-5 px-4 lg:px-6 w-full text-center">
             <div className="relative h-20 sm:h-24 md:h-28 w-44 sm:w-52 md:w-56 flex items-center justify-center">
               <Image
-                src="/assets/permission/j-tribe.png"
+                src="/assets/permission/j-tribe.webp"
                 alt="J TRIBE"
                 fill
                 className="object-contain"
@@ -126,7 +126,7 @@ export default function About() {
           <div className="flex-1 flex flex-col items-center justify-center space-y-4 md:space-y-5 px-4 lg:px-6 w-full text-center">
             <div className="relative h-20 sm:h-24 md:h-28 w-44 sm:w-52 md:w-56 flex items-center justify-center">
               <Image
-                src="/assets/Shakti-edge.png"
+                src="/assets/Shakti-edge.webp"
                 alt="Shakti Edge"
                 fill
                 className="object-contain"

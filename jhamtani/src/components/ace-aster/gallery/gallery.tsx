@@ -112,17 +112,17 @@ const galleryItems = [
   },
   {
     id: 22,
-    image: "/assets/ace-aster/site-update-ravet.jpeg",
+    image: "/assets/ace-aster/site-update-ravet.webp",
     title: "Site Construction Progress",
   },
   {
     id: 23,
-    image: "/assets/ace-aster/site-update-ravet2.jpeg",
+    image: "/assets/ace-aster/site-update-ravet2.webp",
     title: "Ongoing Development View",
   },
   {
     id: 24,
-    image: "/assets/ace-aster/site-update-ravet3.jpeg",
+    image: "/assets/ace-aster/site-update-ravet3.webp",
     title: "Project Progress & Elevation",
   },
 ];

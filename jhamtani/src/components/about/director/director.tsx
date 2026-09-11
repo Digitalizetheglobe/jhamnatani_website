@@ -23,7 +23,7 @@ const directorsData: Director[] = [
     bio: [
       "Long before Jhamtani became one of Pune's most respected real estate brands, Mr. Parmanand Jhamtani built his entrepreneurial journey with construction materials and steadily expanding into real estate, he laid the groundwork for an organisation built on integrity, discipline and lasting relationships. More than four decades later, while the business has evolved across residential, commercial and lifestyle ventures, the principles that guide it remain exactly as he envisioned.",
     ],
-    image: "/assets/about/parmanand1.png",
+    image: "/assets/about/parmanand1.webp",
     imageClass: "object-bottom",
   },
   {
@@ -38,7 +38,7 @@ const directorsData: Director[] = [
       "With over two decades of experience, Anup Jhamtani leadership spans strategy, acquisitions, finance, design, sales, marketing and execution - bringing together technical precision with long-term vision.",
       "Beyond the organisation, his active leadership through CREDAI Pune Metro and the Sindhi Youth Builders Association reflects his commitment to shaping not just projects, but the future of the industry itself.",
     ],
-    image: "/assets/about/anup.png",
+    image: "/assets/about/anup.webp",
     imageClass: "object-bottom",
   },
   {
@@ -53,7 +53,7 @@ const directorsData: Director[] = [
       "Since joining Jhamtani in 2010, Meenakshi Jhamtani has led the company's evolution into a process-driven, technology-enabled organisation. With expertise spanning finance, operations, sales, marketing and customer experience, she has strengthened every layer of the business - from ERP implementation and financial governance to CRM, J-Tribe, Hamesha Aapke Saath and the in-house design division.",
       "Her leadership ensures that every promise Jhamtani makes is backed by systems, consistency and a relentless focus on the customer.",
     ],
-    image: "/assets/about/meenakshi.png",
+    image: "/assets/about/meenakshi.webp",
     imageClass: "object-bottom",
   },
 ];
@@ -70,7 +70,7 @@ export default function DirectorSection() {
       {/* ── Background Image (Desktop) ── */}
       <div className="hidden lg:block absolute inset-0 z-0">
         <Image
-          src="/assets/team-bg.png"
+          src="/assets/team-bg.webp"
           alt="Team Background"
           fill
           priority
@@ -79,31 +79,31 @@ export default function DirectorSection() {
         />
       </div>
 
-      {/* ── Desktop View (lg and above) ── */}
-      <div className="hidden lg:block relative z-10 w-full">
-        {/* Right Cutout Image Column */}
-        <div className="absolute right-0 lg:right-[4%] xl:right-[8%] bottom-0 top-0 w-[52%] xl:w-[50%] flex items-end justify-center pointer-events-none z-10 h-full">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`desktop-${activeDirector.id}`}
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 20 }}
-              transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-              className="relative w-full h-full max-h-[680px] xl:max-h-[740px] flex items-end justify-center"
-            >
-              <Image
-                src={activeDirector.image}
-                alt={activeDirector.name}
-                fill
-                priority
-                sizes="50vw"
-                className={`object-contain object-bottom transition-transform duration-500 ${activeDirector.imageClass || ""}`}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+      {/* ── Desktop Cutout Image Column (Anchored to Section Bottom) ── */}
+      <div className="hidden lg:flex absolute right-0 lg:right-[4%] xl:right-[8%] bottom-0 top-0 w-[52%] xl:w-[50%] items-end justify-center pointer-events-none z-10 h-full">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`desktop-${activeDirector.id}`}
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+            transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+            className="relative w-full h-full flex items-end justify-center"
+          >
+            <Image
+              src={activeDirector.image}
+              alt={activeDirector.name}
+              fill
+              priority
+              sizes="50vw"
+              className={`object-contain object-bottom transition-transform duration-500 ${activeDirector.imageClass || ""}`}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
+      {/* ── Desktop View Text Content (lg and above) ── */}
+      <div className="hidden lg:block relative z-20 w-full">
         {/* Main Content Container - Text Column */}
         <div className="relative z-20 w-full max-w-7xl mx-auto px-10 lg:px-16 pt-16 pb-28">
           <div className="w-[50%] xl:w-[48%] flex flex-col justify-start">

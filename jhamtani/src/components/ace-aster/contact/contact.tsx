@@ -364,7 +364,7 @@ Explore available residences, floor plans and current pricing at Ace Aster. Our 
                 <div className="flex items-center gap-2">
                   {/* RERA Stamp Image */}
                   <img
-                    src="/assets/maha-rea.png"
+                    src="/assets/maha-rea.webp"
                     alt="MahaRERA Logo Stamp"
                     className="w-10 h-10 object-contain shrink-0"
                   />

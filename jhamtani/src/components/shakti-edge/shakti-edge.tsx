@@ -97,7 +97,7 @@ export default function ShaktiEdge() {
             className="relative w-full h-full min-h-[360px] sm:min-h-[440px] lg:min-h-[600px]"
           >
             <Image
-              src="/assets/permission/03_Shakti_Edge.jpg"
+              src="/assets/permission/03_Shakti_Edge.webp"
               alt="Shakti Edge - Empowering Women. Enabling Leaders."
               fill
               priority

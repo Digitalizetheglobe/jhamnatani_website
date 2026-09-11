@@ -24,7 +24,7 @@ export default function Hero() {
           className="relative w-full h-full"
         >
           <Image
-            src="/assets/permission/hero.png"
+            src="/assets/permission/hero.webp"
             alt="Promises aren't written. They're practised."
             fill
             priority

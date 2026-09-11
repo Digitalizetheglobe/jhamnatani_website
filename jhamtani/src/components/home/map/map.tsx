@@ -42,7 +42,7 @@ const LOCATIONS_DATA: LocationData[] = [
     projects: [
       {
         name: "Ace Ayodhya",
-        image: "/assets/map/thergaon.png",
+        image: "/assets/map/thergaon.webp",
         category: "Premium 2 & 3 BHK Homes",
         details: "Ace Ayodhya in Thergaon - Luxurious modern residential residences with world-class amenities.",
         link: "/ace-ayodhya",
@@ -58,14 +58,14 @@ const LOCATIONS_DATA: LocationData[] = [
     projects: [
       {
         name: "ACE ATMOSPHERE",
-        image: "/assets/map/ravet-1.png",
+        image: "/assets/map/ravet-1.webp",
         category: "Premium 3 & 4 BHK Homes",
         details: "Luxurious homes in the heart of Ravet featuring 24x7 lifestyle amenities.",
         link: "/ace-atmosphere",
       },
       {
         name: "Ace Aster",
-        image: "/assets/map/ravet-2.png",
+        image: "/assets/map/ravet-2.webp",
         category: "Spacious 2 & 3 BHK Homes",
         details: "Elevated lifestyles with high-rise residences designed for modern convenience.",
         link: "/ace-aster",
@@ -81,14 +81,14 @@ const LOCATIONS_DATA: LocationData[] = [
     projects: [
       {
         name: "Ace Abundance",
-        image: "/assets/map/mundhwa.png",
+        image: "/assets/map/mundhwa.webp",
         category: "Ultra-Luxury 3 & 4.5 Bed",
         details: "Ultra-luxurious residences in Mundhwa offering unmatched panoramic views.",
         link: "/ace-abundance",
       },
       {
         name: "Jhamtani Elevate",
-        image: "/assets/map/mundhwa-2.png",
+        image: "/assets/map/mundhwa-2.webp",
         category: "Studio Apartments",
         details: "Modern studio residences and co-living spaces in vibrant Mundhwa.",
         link: "/jhamtani-elevate",
@@ -104,14 +104,14 @@ const LOCATIONS_DATA: LocationData[] = [
     projects: [
       {
         name: "ACE Villas",
-        image: "/assets/map/koregaon.png",
+        image: "/assets/map/koregaon.webp",
         category: "Ultra-Luxury Villas",
         details: "Bespoke ultra-luxury private villas in Koregaon Park NX.",
         link: "/ace-villas",
       },
       {
         name: "Jhamtani BIZCORE",
-        image: "/assets/map/koregaon-2.png",
+        image: "/assets/map/koregaon-2.webp",
         category: "Serviced Studio Apartments",
         details: "High-yield serviced studio apartments in prime Koregaon Park NX.",
         link: "/jhamtani-bizcore",
@@ -127,7 +127,7 @@ const LOCATIONS_DATA: LocationData[] = [
     projects: [
       {
         name: "Jhamtani Spacebiz",
-        image: "/assets/projects/jhamtani-spacebiz.jpg",
+        image: "/assets/projects/jhamtani-spacebiz.webp",
         category: "Grade A Commercial",
         details: "State-of-the-art office spaces and corporate showrooms in Baner.",
         link: "/jhamtani-spacebiz",

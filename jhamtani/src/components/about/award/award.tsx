@@ -62,7 +62,7 @@ export default function AwardSection() {
     <section
       ref={sectionRef}
       id="awards"
-      className="w-full min-h-screen bg-[url('/assets/about/award.png')] bg-cover bg-center bg-no-repeat flex items-center justify-start relative overflow-hidden select-none"
+      className="w-full min-h-screen bg-[url('/assets/about/award.webp')] bg-cover bg-center bg-no-repeat flex items-center justify-start relative overflow-hidden select-none"
     >
       {/* Solid background overlay with color #1B2026 */}
       <div className="absolute inset-0 bg-[#1B2026]/50 pointer-events-none z-0" />

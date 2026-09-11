@@ -36,7 +36,7 @@ const projectsData: ProjectItem[] = [
     location: "Mundhwa, Pune",
     type: "Residential",
     categories: ["Residential"],
-    image: "/assets/projects/ace-abundance.jpg",
+    image: "/assets/projects/ace-abundance.webp",
     link: "/ace-abundance",
     isLocal: true,
   },
@@ -46,7 +46,7 @@ const projectsData: ProjectItem[] = [
     location: "Koregaon Park NX, Pune",
     type: "Residential",
     categories: ["Residential"],
-    image: "/assets/projects/ace-villas.jpg",
+    image: "/assets/projects/ace-villas.webp",
     link: "/ace-villas",
     isLocal: true,
   },
@@ -56,7 +56,7 @@ const projectsData: ProjectItem[] = [
     location: "Ravet, Pune",
     type: "Residential",
     categories: ["Residential"],
-    image: "/assets/projects/ace-atmosphere.jpg",
+    image: "/assets/projects/ace-atmosphere.webp",
     link: "/ace-atmosphere",
     isLocal: true,
   },
@@ -66,7 +66,7 @@ const projectsData: ProjectItem[] = [
     location: "Ravet, Pune",
     type: "Residential",
     categories: ["Residential"],
-    image: "/assets/projects/ace-aster.jpg",
+    image: "/assets/projects/ace-aster.webp",
     link: "/ace-aster",
     isLocal: true,
   },
@@ -76,7 +76,7 @@ const projectsData: ProjectItem[] = [
     location: "Koregaon Park NX, Pune",
     type: "Studio",
     categories: ["Studio"],
-    image: "/assets/projects/jhamtani-bizcore.jpg",
+    image: "/assets/projects/jhamtani-bizcore.webp",
     link: "/jhamtani-bizcore",
     isLocal: true,
   },
@@ -169,7 +169,7 @@ export default function ProjectsComponent() {
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/projects.png"
+            src="/assets/projects.webp"
             alt="Jhamtani Projects Banner"
             fill
             priority

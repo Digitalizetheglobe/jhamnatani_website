@@ -365,7 +365,7 @@ Pune – 411045
               <div className="flex flex-col space-y-1 mt-5">
                 <div className="flex items-center gap-2">
                   <img
-                    src="/assets/maha-rea.png"
+                    src="/assets/maha-rea.webp"
                     alt="MahaRERA Logo Stamp"
                     className="w-10 h-10 object-contain shrink-0"
                   />

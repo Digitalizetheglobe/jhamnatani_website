@@ -87,7 +87,7 @@ const galleryItems = [
   },
   {
     id: 17,
-    image: "/assets/jhamtani-elevate/Elevate-Construction-Update_.jpeg",
+    image: "/assets/jhamtani-elevate/Elevate-Construction-Update_.webp",
     title: "Elevate Construction Update",
   },
 ];

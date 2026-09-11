@@ -230,7 +230,7 @@ export default function AboutSection() {
                 className="relative w-full max-w-full sm:max-w-[420px] h-[220px] sm:h-[300px] lg:h-[340px] mt-4 sm:mt-6 overflow-hidden group"
               >
                 <Image
-                  src="/assets/image_3.jpg"
+                  src="/assets/image_3.webp"
                   alt="Foundation and trust"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"

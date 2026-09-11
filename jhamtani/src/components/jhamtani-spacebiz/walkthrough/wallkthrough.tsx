@@ -66,7 +66,7 @@ export default function Walkthrough() {
         >
           {/* Preview Image */}
           <img
-            src="/assets/projects/jhamtani-spacebiz.jpg"
+            src="/assets/projects/jhamtani-spacebiz.webp"
             alt="Project Walkthrough Video Preview - Jhamtani SpaceBiz"
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
           />

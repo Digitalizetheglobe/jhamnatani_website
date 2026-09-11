@@ -13,7 +13,7 @@ export default function About() {
         <div 
           className="absolute inset-0 bg-cover bg-[position:35%_center] md:bg-[position:25%_center] z-0"
           style={{
-            backgroundImage: "url('/assets/xo/about.png')",
+            backgroundImage: "url('/assets/xo/about.webp')",
             transform: "scaleX(-1)",
           }}
         />

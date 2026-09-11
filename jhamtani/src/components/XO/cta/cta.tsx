@@ -92,7 +92,7 @@ export default function CTA() {
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
-          src="/assets/xo/cta.png" 
+          src="/assets/xo/cta.webp" 
           alt="Two Signature Residences" 
           className="w-full h-[40vh] sm:h-[55vh] md:h-[60vh] lg:h-[90vh] min-h-[300px] object-cover transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-103"
         />
