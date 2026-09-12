@@ -731,7 +731,7 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
 /* -------------------------------------------------------------
    MAIN COMPONENT PAGE
 -------------------------------------------------------------- */
-export default function MonthlyNewsletterComponent() {
+export default function MonthlyNewsletterComponent({ limit = 5 }: { limit?: number } = {}) {
   const [activeReaderEdition, setActiveReaderEdition] = useState<NewsletterEdition | null>(null);
   const [editions, setEditions] = useState<NewsletterEdition[]>(newslettersData);
 
@@ -772,7 +772,7 @@ export default function MonthlyNewsletterComponent() {
     };
   }, []);
 
-  const displayedEditions = editions;
+  const displayedEditions = limit ? editions.slice(0, limit) : editions;
 
   return (
     <section className="relative w-full bg-[#FAF5F0] text-zinc-900 min-h-screen select-none overflow-hidden pb-16">

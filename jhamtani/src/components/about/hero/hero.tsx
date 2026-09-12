@@ -6,7 +6,7 @@ import { motion, Variants } from "framer-motion";
 const lines = [
   ["Some", "promises"],
   ["build", "homes."],
-  ["Ours", "builds", "the"],
+  ["Ours", "builds", "a"],
   ["legacy."],
 ];
 

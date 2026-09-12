@@ -66,7 +66,7 @@ function WaveText({ text, letterDelay = 20, groupHoverClass = "group-hover" }: W
   );
 }
 
-export default function BlogsList() {
+export default function BlogsList({ limit }: { limit?: number } = {}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -79,7 +79,7 @@ export default function BlogsList() {
 
   // Filtered blogs based on search and category
   const filteredBlogs = useMemo(() => {
-    return blogsData.filter((blog) => {
+    const list = blogsData.filter((blog) => {
       const matchesCategory =
         selectedCategory === "All" || blog.category === selectedCategory;
       const matchesSearch =
@@ -88,12 +88,13 @@ export default function BlogsList() {
         blog.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchesCategory && matchesSearch;
     });
-  }, [searchQuery, selectedCategory]);
+    return limit ? list.slice(0, limit) : list;
+  }, [searchQuery, selectedCategory, limit]);
 
   const handleShare = async (e: React.MouseEvent, blog: BlogPost) => {
     e.preventDefault();
     e.stopPropagation();
-    const url = `${window.location.origin}/blogs/${blog.slug}`;
+    const url = blog.externalUrl || `${window.location.origin}/blogs/${blog.slug}`;
     if (navigator.clipboard) {
       await navigator.clipboard.writeText(url);
       setCopiedId(blog.id);
@@ -230,106 +231,128 @@ export default function BlogsList() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {filteredBlogs.map((blog, idx) => (
-              <motion.article
-                key={blog.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-[#e8ded6] flex flex-col group justify-between"
-              >
-                <div>
-                  {/* Media Header */}
-                  <div className="relative w-full aspect-[16/10] overflow-hidden bg-[#e9dfd7]">
-                    <Image
-                      src={blog.image}
-                      alt={blog.imageAlt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                      onError={(e: any) => {
-                        e.currentTarget.src = blog.fallbackImage;
-                      }}
-                    />
+            {filteredBlogs.map((blog, idx) => {
+              const targetUrl = blog.externalUrl || `/blogs/${blog.slug}`;
+              const isExternal = Boolean(blog.externalUrl);
 
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-
-                    {/* Date Badge */}
-                    <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-900 shadow-md flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-[#A0725B]" />
-                      <span>{blog.date}</span>
-                    </div>
-
-                    {/* Share button */}
-                    <button
-                      onClick={(e) => handleShare(e, blog)}
-                      aria-label="Share article"
-                      title="Copy article link"
-                      className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm text-zinc-700 hover:text-white hover:bg-[#A0725B] flex items-center justify-center transition-colors shadow-md cursor-pointer"
+              return (
+                <motion.article
+                  key={blog.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-[#e8ded6] flex flex-col group justify-between"
+                >
+                  <div>
+                    {/* Media Header */}
+                    <Link
+                      href={targetUrl}
+                      target={isExternal ? "_blank" : "_self"}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
+                      className="relative w-full aspect-[16/10] overflow-hidden bg-[#e9dfd7] block cursor-pointer"
                     >
-                      <Share2 className="w-3.5 h-3.5" />
-                    </button>
+                      <Image
+                        src={blog.image}
+                        alt={blog.imageAlt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        onError={(e: any) => {
+                          e.currentTarget.src = blog.fallbackImage;
+                        }}
+                      />
 
-                    {/* Category Pill on bottom left */}
-                    <div className="absolute bottom-3 left-4">
-                      <span className="bg-[#A0725B] text-white text-[11px] font-medium tracking-wide uppercase px-3 py-1 rounded-full shadow-sm">
-                        {blog.category}
-                      </span>
-                    </div>
-                  </div>
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
-                  {/* Card Body */}
-                  <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 space-y-4">
-                    <div className="space-y-3">
-                      {/* Meta Bar */}
-                      <div className="flex items-center gap-3 text-xs text-zinc-500">
-                        <span className="flex items-center gap-1">
-                          <User className="w-3.5 h-3.5 text-[#A0725B]" />
-                          <span>By {blog.author}</span>
-                        </span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5 text-[#A0725B]" />
-                          <span>{blog.readTime}</span>
-                        </span>
+                      {/* Date Badge */}
+                      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-900 shadow-md flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-[#A0725B]" />
+                        <span>{blog.date}</span>
                       </div>
 
-                      {/* Blog Title */}
-                      <h2 className="font-serif text-[20px] sm:text-[22px] text-[#1c1d21] font-semibold leading-snug group-hover:text-[#A0725B] transition-colors line-clamp-2">
-                        <Link href={`/blogs/${blog.slug}`}>{blog.title}</Link>
-                      </h2>
+                      {/* Share button */}
+                      <button
+                        onClick={(e) => handleShare(e, blog)}
+                        aria-label="Share article"
+                        title="Copy article link"
+                        className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm text-zinc-700 hover:text-white hover:bg-[#A0725B] flex items-center justify-center transition-colors shadow-md cursor-pointer z-10"
+                      >
+                        <Share2 className="w-3.5 h-3.5" />
+                      </button>
 
-                      {/* Excerpt */}
-                      <p className="text-zinc-600 text-[14px] leading-relaxed line-clamp-3 font-light">
-                        {blog.excerpt}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card Footer: Read More Link with luxury hover */}
-                <div className="p-6 sm:p-7 pt-0">
-                  <div className="pt-4 border-t border-[#f0e6dd] flex items-center justify-between">
-                    <Link
-                      href={`/blogs/${blog.slug}`}
-                      className="group/link inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#A0725B] hover:text-[#8C5E47] transition-colors cursor-pointer"
-                    >
-                      <WaveText text="READ ARTICLE" letterDelay={15} groupHoverClass="group-hover/link" />
-                      <div className="w-7 h-7 rounded-full bg-[#f6ece3] flex items-center justify-center group-hover/link:bg-[#A0725B] group-hover/link:text-white transition-all duration-300">
-                        <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.2] transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                      {/* Category Pill on bottom left */}
+                      <div className="absolute bottom-3 left-4">
+                        <span className="bg-[#A0725B] text-white text-[11px] font-medium tracking-wide uppercase px-3 py-1 rounded-full shadow-sm">
+                          {blog.category}
+                        </span>
                       </div>
                     </Link>
 
-                    {copiedId === blog.id && (
-                      <span className="text-xs text-emerald-600 font-medium flex items-center gap-1 animate-pulse">
-                        <CheckCircle2 className="w-3 h-3" /> Link Copied!
-                      </span>
-                    )}
+                    {/* Card Body */}
+                    <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 space-y-4">
+                      <div className="space-y-3">
+                        {/* Meta Bar */}
+                        <div className="flex items-center gap-3 text-xs text-zinc-500">
+                          <span className="flex items-center gap-1">
+                            <User className="w-3.5 h-3.5 text-[#A0725B]" />
+                            <span>By {blog.author}</span>
+                          </span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3.5 h-3.5 text-[#A0725B]" />
+                            <span>{blog.readTime}</span>
+                          </span>
+                        </div>
+
+                        {/* Blog Title */}
+                        <h2 className="font-serif text-[20px] sm:text-[22px] text-[#1c1d21] font-semibold leading-snug group-hover:text-[#A0725B] transition-colors line-clamp-2">
+                          <Link
+                            href={targetUrl}
+                            target={isExternal ? "_blank" : "_self"}
+                            rel={isExternal ? "noopener noreferrer" : undefined}
+                          >
+                            {blog.title}
+                          </Link>
+                        </h2>
+
+                        {/* Excerpt */}
+                        <p className="text-zinc-600 text-[14px] leading-relaxed line-clamp-3 font-light">
+                          {blog.excerpt}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </motion.article>
-            ))}
+
+                  {/* Card Footer: Read More Link with luxury hover */}
+                  <div className="p-6 sm:p-7 pt-0">
+                    <div className="pt-4 border-t border-[#f0e6dd] flex items-center justify-between">
+                      <Link
+                        href={targetUrl}
+                        target={isExternal ? "_blank" : "_self"}
+                        rel={isExternal ? "noopener noreferrer" : undefined}
+                        className="group/link inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#A0725B] hover:text-[#8C5E47] transition-colors cursor-pointer"
+                      >
+                        <WaveText
+                          text={isExternal ? "READ PRESS STORY" : "READ ARTICLE"}
+                          letterDelay={15}
+                          groupHoverClass="group-hover/link"
+                        />
+                        <div className="w-7 h-7 rounded-full bg-[#f6ece3] flex items-center justify-center group-hover/link:bg-[#A0725B] group-hover/link:text-white transition-all duration-300">
+                          <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.2] transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                        </div>
+                      </Link>
+
+                      {copiedId === blog.id && (
+                        <span className="text-xs text-emerald-600 font-medium flex items-center gap-1 animate-pulse">
+                          <CheckCircle2 className="w-3 h-3" /> Link Copied!
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
         )}
       </section>

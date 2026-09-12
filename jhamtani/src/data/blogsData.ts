@@ -44,9 +44,214 @@ export interface BlogPost {
   conclusionHeading?: string;
   conclusion: string[];
   faqs: BlogFAQ[];
+  externalUrl?: string;
 }
 
 export const blogsData: BlogPost[] = [
+  // ==========================================
+  // BRAND AMBASSADOR & PRESS RELEASES
+  // ==========================================
+  {
+    id: "blog-mxmindia",
+    slug: "mxmindia-jhamtani-signs-ranveer-singh",
+    title: "Jhamtani Signs Ranveer Singh as Brand Ambassador | MxMIndia",
+    date: "September 12, 2026",
+    dateIso: "2026-09-12T10:00:00+00:00",
+    author: "MxMIndia",
+    authorRole: "Marketing & Media Press",
+    authorAvatar: "/assets/about/anup.webp",
+    category: "Media & Press",
+    readTime: "2 min read",
+    image: "/assets/blog_image.webp",
+    fallbackImage: "/assets/blog_image.webp",
+    imageAlt: "Jhamtani Signs Ranveer Singh as Brand Ambassador",
+    excerpt:
+      "Jhamtani partners with Bollywood icon Ranveer Singh as their official brand ambassador to mark an ambitious new growth chapter in real estate.",
+    metaDescription:
+      "Read MxMIndia coverage on Jhamtani signing Ranveer Singh as brand ambassador.",
+    keywords: ["Ranveer Singh Jhamtani", "Brand Ambassador", "Jhamtani Real Estate", "MxMIndia"],
+    tags: ["Media & Press", "Ranveer Singh", "Brand Ambassador", "Jhamtani"],
+    intro: [
+      "Jhamtani has officially signed Bollywood superstar Ranveer Singh as its brand ambassador, entering a dynamic new phase of growth and brand excellence.",
+    ],
+    sections: [],
+    conclusion: [],
+    faqs: [],
+    externalUrl: "https://www.mxmindia.com/marketing/jhamtani-signs-ranveer-singh-as-brand-ambassador/",
+  },
+  {
+    id: "blog-advertising-reporter",
+    slug: "advertising-reporter-jhamtani-ranveer-singh",
+    title: "Jhamtani Brings Ranveer Singh On Board to Mark New Growth Chapter",
+    date: "September 12, 2026",
+    dateIso: "2026-09-12T10:30:00+00:00",
+    author: "Advertising Reporter",
+    authorRole: "Advertising & Brand News",
+    authorAvatar: "/assets/about/anup.webp",
+    category: "Media & Press",
+    readTime: "2 min read",
+    image: "/assets/blog_image.webp",
+    fallbackImage: "/assets/blog_image.webp",
+    imageAlt: "Jhamtani Brings Ranveer Singh On Board",
+    excerpt:
+      "Jhamtani collaborates with Ranveer Singh to elevate brand presence and redefine luxury real estate experiences across Pune.",
+    metaDescription:
+      "Advertising Reporter story on Jhamtani bringing Ranveer Singh on board as brand ambassador.",
+    keywords: ["Ranveer Singh", "Advertising Reporter", "Jhamtani Brand Ambassador"],
+    tags: ["Media & Press", "Advertising", "Ranveer Singh", "Jhamtani"],
+    intro: [
+      "Jhamtani brings Ranveer Singh on board to mark a major milestone in real estate brand building.",
+    ],
+    sections: [],
+    conclusion: [],
+    faqs: [],
+    externalUrl:
+      "https://www.advertisingreporter.com/advertising/jhamtani-brings-ranveer-singh-on-board-to-mark-a-new-growth-chapter/",
+  },
+  {
+    id: "blog-linkedin-jhamtanigroup",
+    slug: "linkedin-jhamtani-ranveer-singh-announcement",
+    title: "Official Announcement: Ranveer Singh Joins Jhamtani Group | LinkedIn",
+    date: "September 12, 2026",
+    dateIso: "2026-09-12T11:00:00+00:00",
+    author: "Jhamtani Group",
+    authorRole: "Official Post",
+    authorAvatar: "/assets/about/anup.webp",
+    category: "Media & Press",
+    readTime: "1 min read",
+    image: "/assets/blog_image.webp",
+    fallbackImage: "/assets/blog_image.webp",
+    imageAlt: "Jhamtani Group Ranveer Singh Announcement",
+    excerpt:
+      "Celebrating our collaboration with Ranveer Singh as we redefine skylines and luxury living. Check out the official LinkedIn post.",
+    metaDescription:
+      "Official LinkedIn announcement of Ranveer Singh joining Jhamtani Group as brand ambassador.",
+    keywords: ["LinkedIn Jhamtani", "Ranveer Singh Announcement", "Pune Real Estate"],
+    tags: ["Media & Press", "LinkedIn", "Ranveer Singh", "Jhamtani Group"],
+    intro: [
+      "Read the official announcement post on LinkedIn celebrating Ranveer Singh joining Jhamtani Group.",
+    ],
+    sections: [],
+    conclusion: [],
+    faqs: [],
+    externalUrl:
+      "https://www.linkedin.com/posts/jhamtanigroup-ranveersingh-punerealestate-ugcPost-7500915046525329408-FZU2/?utm_source=share&utm_medium=member_desktop&rcm=ACoAACe9pb4B5-YA9oXW3TeqvootSrBZyDYGOs4",
+  },
+  {
+    id: "blog-linkedin-digiscoop",
+    slug: "digiscoop-jhamtani-ranveer-singh-campaign",
+    title: "DigiScoop Spotlight: Jhamtani's Brand Campaign with Ranveer Singh",
+    date: "September 12, 2026",
+    dateIso: "2026-09-12T11:30:00+00:00",
+    author: "DigiScoop",
+    authorRole: "Digital Marketing News",
+    authorAvatar: "/assets/about/anup.webp",
+    category: "Media & Press",
+    readTime: "2 min read",
+    image: "/assets/blog_image.webp",
+    fallbackImage: "/assets/blog_image.webp",
+    imageAlt: "DigiScoop Jhamtani Ranveer Singh Campaign",
+    excerpt:
+      "DigiScoop highlights Jhamtani's strategic brand marketing campaign and partnership with superstar Ranveer Singh.",
+    metaDescription:
+      "DigiScoop post covering Jhamtani brand marketing campaign featuring Ranveer Singh.",
+    keywords: ["DigiScoop", "Marketing News", "Ranveer Singh Jhamtani"],
+    tags: ["Media & Press", "Marketing", "DigiScoop", "Ranveer Singh"],
+    intro: [
+      "DigiScoop news highlights the impact of Jhamtani signing Ranveer Singh as brand ambassador.",
+    ],
+    sections: [],
+    conclusion: [],
+    faqs: [],
+    externalUrl:
+      "https://www.linkedin.com/posts/digiscoop-news_marketing-advertising-brandmarketing-activity-7500885328308912128-B5Nc/?utm_source=share&utm_medium=member_ios&rcm=ACoAAArz_P4BXF1ILeHtbcZzKkaQYcuEeq8g6Y4",
+  },
+  {
+    id: "blog-instagram-jhamtani",
+    slug: "instagram-jhamtani-ranveer-singh-unveil",
+    title: "Jhamtani x Ranveer Singh Unveil Video | Instagram",
+    date: "September 12, 2026",
+    dateIso: "2026-09-12T12:00:00+00:00",
+    author: "Jhamtani Official",
+    authorRole: "Social Media Release",
+    authorAvatar: "/assets/about/anup.webp",
+    category: "Media & Press",
+    readTime: "1 min read",
+    image: "/assets/blog_image.webp",
+    fallbackImage: "/assets/blog_image.webp",
+    imageAlt: "Jhamtani x Ranveer Singh Instagram Reveal",
+    excerpt:
+      "Watch the official video premiere introducing Ranveer Singh as the face of Jhamtani on Instagram.",
+    metaDescription:
+      "Watch the official Jhamtani x Ranveer Singh announcement video on Instagram.",
+    keywords: ["Instagram Jhamtani", "Ranveer Singh Video", "Brand Release"],
+    tags: ["Media & Press", "Instagram", "Ranveer Singh", "Video"],
+    intro: [
+      "Watch the official launch video featuring Ranveer Singh on Instagram.",
+    ],
+    sections: [],
+    conclusion: [],
+    faqs: [],
+    externalUrl: "https://www.instagram.com/p/DcvZsPQgt-i/?igsi=MzQzcHNiM2Rqb2Zl",
+  },
+  {
+    id: "blog-afaqs-jhamtani",
+    slug: "afaqs-jhamtani-ranveer-singh-brand-ambassador",
+    title: "Jhamtani Brand Ambassador Announcement & Marketing Analysis | afaqs!",
+    date: "September 12, 2026",
+    dateIso: "2026-09-12T12:30:00+00:00",
+    author: "afaqs! News Desk",
+    authorRole: "Marketing & Media",
+    authorAvatar: "/assets/about/anup.webp",
+    category: "Media & Press",
+    readTime: "3 min read",
+    image: "/assets/blog_image.webp",
+    fallbackImage: "/assets/blog_image.webp",
+    imageAlt: "afaqs Jhamtani Ranveer Singh Coverage",
+    excerpt:
+      "afaqs! covers Jhamtani's brand elevation strategy and partnership with Ranveer Singh to drive aspirational brand appeal.",
+    metaDescription:
+      "afaqs! feature on Jhamtani announcing Ranveer Singh as brand ambassador.",
+    keywords: ["afaqs", "Jhamtani Marketing", "Ranveer Singh Brand Ambassador"],
+    tags: ["Media & Press", "afaqs", "Ranveer Singh", "Marketing"],
+    intro: [
+      "afaqs! explores Jhamtani's strategic move in bringing Ranveer Singh on board.",
+    ],
+    sections: [],
+    conclusion: [],
+    faqs: [],
+    externalUrl:
+      "https://www.afaqs.com/news/mktg/once-the-king-of-cool-motorola-is-aiming-to-be-aspirational-again-12516791",
+  },
+  {
+    id: "blog-adgully-jhamtani",
+    slug: "adgully-ranveer-singh-brand-ambassador-jhamtani",
+    title: "Ranveer Singh Announced as Brand Ambassador for Jhamtani | Adgully",
+    date: "September 12, 2026",
+    dateIso: "2026-09-12T13:00:00+00:00",
+    author: "Adgully",
+    authorRole: "Media & Advertising",
+    authorAvatar: "/assets/about/anup.webp",
+    category: "Media & Press",
+    readTime: "2 min read",
+    image: "/assets/blog_image.webp",
+    fallbackImage: "/assets/blog_image.webp",
+    imageAlt: "Ranveer Singh Announced as Brand Ambassador for Jhamtani - Adgully",
+    excerpt:
+      "Adgully reports on Jhamtani signing Ranveer Singh to usher in a bold new era in premium real estate development.",
+    metaDescription:
+      "Adgully press report on Ranveer Singh joining Jhamtani as brand ambassador.",
+    keywords: ["Adgully", "Ranveer Singh", "Jhamtani Real Estate"],
+    tags: ["Media & Press", "Adgully", "Ranveer Singh", "Jhamtani"],
+    intro: [
+      "Adgully reports on Ranveer Singh taking center stage as Jhamtani's brand ambassador.",
+    ],
+    sections: [],
+    conclusion: [],
+    faqs: [],
+    externalUrl:
+      "https://www.adgully.com/post/19992/ranveer-singh-announced-as-brand-ambassador-for-jhamtani?_gl=1*1ia44pl*_up*MQ..*_ga*MTI1NjY4Njg5NS4xNzg4MjYyODQ4*_ga_G6Y0BH1SKY*czE3ODgyNjI4NDUkbzEkZzAkdDE3ODgyNjI4NDUkajYwJGwwJGgxNDQ2OTUwNjU.",
+  },
   // ==========================================
   // BLOG 1: Best Locations to Buy Studio Apartments in Pune
   // ==========================================
@@ -61,8 +266,8 @@ export const blogsData: BlogPost[] = [
     authorAvatar: "/assets/about/anup.webp",
     category: "Real Estate & Investments",
     readTime: "6 min read",
-    image: "/assets/jhamtani-elevate/Where work meets rest, seamlessly.webp",
-    fallbackImage: "/assets/blogs/blog_1.webp",
+    image: "/assets/blogs/blog-2.webp",
+    fallbackImage: "/assets/blogs/blog-2.webp",
     imageAlt: "Best Locations to Buy Studio Apartments in Pune - Jhamtani",
     excerpt:
       "A studio apartment is a home made for smart living. One open space. One kitchen. One bathroom. That is all. But it works. Discover the top areas to buy studio apartments in Pune.",
@@ -276,8 +481,8 @@ export const blogsData: BlogPost[] = [
     authorAvatar: "/assets/about/anup.webp",
     category: "Buyer Guide & Legal",
     readTime: "7 min read",
-    image: "/assets/jhamtani-elevate/Built tall for those who think higher.webp",
-    fallbackImage: "/assets/blogs/blog_2.webp",
+    image: "/assets/blogs/blog-1.webp",
+    fallbackImage: "/assets/blogs/blog-1.webp",
     imageAlt: "RERA Guidelines for Buyers: Everything You Need to Know - Jhamtani",
     excerpt:
       "Homebuyers used to get the raw end of the deal. Then RERA showed up. Everything flipped overnight. Discover essential RERA guidelines that protect your money and rights.",
@@ -477,8 +682,8 @@ export const blogsData: BlogPost[] = [
     authorAvatar: "/assets/about/anup.webp",
     category: "Industry Insights",
     readTime: "6 min read",
-    image: "/assets/site-updates/jhamtani-elevate.webp",
-    fallbackImage: "/assets/blogs/blog_3.webp",
+    image: "/assets/blogs/blog-3.webp",
+    fallbackImage: "/assets/blogs/blog-3.webp",
     imageAlt: "How RERA is Changing the Real Estate Industry - Jhamtani",
     excerpt:
       "For years the real estate market in India was a mess. Developers made big promises but rarely kept their word. All of that has changed now. RERA made it happen.",
@@ -650,824 +855,6 @@ export const blogsData: BlogPost[] = [
         question: "10. Why should I only buy RERA registered projects?",
         answer:
           "Because these projects are tracked. The builder must follow rules. Your money and your home are both safer.",
-      },
-    ],
-  },
-
-  // ==========================================
-  // BLOG 4: Things to Check Before Buying a Flat in Pune
-  // ==========================================
-  {
-    id: "blog-4",
-    slug: "things-to-check-before-buying-a-flat-in-pune",
-    title: "Things to Check Before Buying a Flat in Pune",
-    date: "September 19, 2025",
-    dateIso: "2025-09-19T10:00:00+00:00",
-    author: "admin",
-    authorRole: "Homebuyer Advisory Desk",
-    authorAvatar: "/assets/about/anup.webp",
-    category: "Buyer Guide & Legal",
-    readTime: "7 min read",
-    image: "/assets/blogs/things-to-check-before-buying-a-flat-in-pune.webp",
-    fallbackImage: "/assets/blogs/blog_1.webp",
-    imageAlt: "Things to Check Before Buying a Flat in Pune - Jhamtani",
-    excerpt:
-      "Buying a flat is not only about square feet or location. It is about peace of mind. Discover the critical legal, structural, and financial checks before making a commitment.",
-    metaDescription:
-      "Essential checklist before buying a flat in Pune: land titles, commencement certificates, builder verification, layout inspection, and hidden cost breakdown.",
-    keywords: [
-      "Things to Check Before Buying a Flat in Pune",
-      "Buying Flat Pune Checklist",
-      "Pune Real Estate Advice",
-      "Jhamtani Flat Verification",
-    ],
-    tags: ["Buyer Guide & Legal", "Checklist", "Home Buying", "Pune"],
-    intro: [
-      "Buying a flat is not only about square feet or location. It is about where you will live for years. It is about the money you invest. It is about peace of mind. Pune has many choices, yet not every choice suits you. Before you spend your savings or take a loan, you need clarity. This blog outlines what to check before buying a flat in Pune.",
-    ],
-    sections: [
-      {
-        heading: "Check Legal Papers First",
-        headingLevel: "h3",
-        paragraphs: [
-          "People skip this step. They look at a show flat or ask about the carpet area. They skip paperwork. One must never sign without checking the land title. One must ask for building permissions. Every flat in Pune must have clear documents. One must request a Commencement Certificate. One must confirm the land is NA (Non Agricultural). One must confirm the builder has RERA approvals.",
-          "If the builder says papers will come later, walk away.",
-        ],
-      },
-      {
-        heading: "Visit the Location Twice",
-        headingLevel: "h3",
-        paragraphs: [
-          "Go once in the morning then go again in the evening. That way one senses what life will feel like. One will hear noise. One will experience traffic. One will grasp if the area is safe. Many people make a booking after a single visit. They regret it later.",
-          "Visit neighbouring shops. Converse with residents. Ask about the water supply and garbage collection. Evaluate road width. These aspects matter more than the wallpaper inside the flat.",
-        ],
-      },
-      {
-        heading: "Know the Builder",
-        headingLevel: "h3",
-        paragraphs: [
-          "Not every builder in Pune delivers on time. Some delay projects. Some change design mid-course. One must review the builder’s track record. Inspect their past projects. Visit them in person. Talk with residents. Ask if they received what was promised.",
-          "One must not trust a brochure only. 3D images are easy to print. Building a solid wall takes effort.",
-        ],
-      },
-      {
-        heading: "Check Flat Layout Carefully",
-        headingLevel: "h3",
-        paragraphs: [
-          "Some flats appear nice from the outside. Yet inside the space may feel wrong. A large living room along with tiny bedrooms. A kitchen without ventilation. Balconies facing another building’s window. People discover these issues too late.",
-          "Request actual floor plans, not sales advertisements. Ask the sales team to show the unit plan. Find where the common wall stands. Clarify the usable area. People forget that carpet area differs from built-up area.",
-        ],
-      },
-      {
-        heading: "Review Price Breakdown",
-        headingLevel: "h3",
-        paragraphs: [
-          "People focus on price per square foot. They think it equals total cost. Ads never show final amounts. One must examine every cost component.",
-          "Request details for:",
-        ],
-        bulletPoints: [
-          "Base flat price",
-          "Floor rise charges",
-          "GST",
-          "Parking charges",
-          "Registration cost",
-          "Maintenance deposit",
-          "Clubhouse and amenities charges",
-          "Legal fees",
-          "Society formation charge",
-          "Meter charges",
-        ],
-      },
-      {
-        heading: "Locate Flat Position",
-        headingLevel: "h3",
-        paragraphs: [
-          "These figures accumulate fast. A flat that seems cheap may cost much more.",
-          "Not every flat in one building equals another. Some face main roads. Others face dump yards. Some receive sunlight. Others remain dark all day. Some sit near lifts. Others lie near staircases.",
-          "This shapes daily life and affects resale value. Always check unit placement on the site plan. Do not rely on the sales team alone.",
-        ],
-      },
-      {
-        heading: "Check Local Developments",
-        headingLevel: "h3",
-        paragraphs: [
-          "The current view may please you today. Will it still please you in a few years? Will another tower block your air and light? Will a factory appear next door? One must research developments near the project. Consult the Pune Municipal Corporation site. Explore the DP plan online. Ask the builder about land parcels nearby.",
-          "Flats with views matter only if views last.",
-        ],
-      },
-      {
-        heading: "Check Amenities with Maintenance Responsibility",
-        headingLevel: "h3",
-        paragraphs: [
-          "People become keen on pools and gyms, yet many cease operation after a season. Either the builder stops caring or the society lacks funds. Ask who maintains recreational areas and pays the lift and common area lighting power bills.",
-          "Owning a flat includes more than interiors. It covers building upkeep. It defines living experience.",
-        ],
-      },
-      {
-        heading: "Evaluate Water and Electricity",
-        headingLevel: "h3",
-        paragraphs: [
-          "Parts of Pune face water issues. Not every area gets PMC water. Some rely on tankers. Some use borewells. One must know the source and confirm rainwater harvesting is in place.",
-          "Ask about power backup. Locate the meter room placement. Confirm whether each flat has its own meter or if the supply is shared.",
-        ],
-      },
-      {
-        heading: "Check Resale and Rental Potential",
-        headingLevel: "h3",
-        paragraphs: [
-          "Today you may buy to live. One may need to relocate later. Resale value matters. Check proximity to schools and offices. Check if public transport is easy to access. These factors ease future renting or selling.",
-          "If many flats in a building remain vacant, that warns of low demand.",
-          "Things to check before buying a flat in Pune go well beyond interiors or price. One must envision future life. One must know what one pays for. One must understand what one gains after moving in.",
-          "People who skip steps regret buying. People who vet everything sleep peacefully.",
-        ],
-      },
-      {
-        heading: "People Trust Jhamtani for These Reasons",
-        headingLevel: "h3",
-        paragraphs: [
-          "Jhamtani delivers flats in Pune with clear titles and prompt handovers. Their projects stand in growing neighbourhoods. They promise only what they deliver. What one sees is what one receives.",
-          "Some of their projects include:",
-        ],
-        bulletPoints: [
-          "Jhamtani Elevate at Mundhwa",
-          "Ace Aster at Ravet",
-          "Jhamtani BIZCORE at Koregaon Park NX",
-          "Ace Villas at Koregaon Park NX",
-          "ACE Atmosphere at Ravet",
-          "Nandan Ace at Balewadi",
-        ],
-      },
-    ],
-    conclusionHeading: "Conclusion",
-    conclusion: [
-      "Each project offers solid construction and modern features. One gets homes created for families. One gets flats in areas on the rise. One gets what was promised.",
-      "Jhamtani keeps processes clear. From site visit to possession, they stay engaged. Teams stay present. Updates come on time. Their word means something.",
-      "One must not depend solely on pictures or deals. One must visit the site multiple times, read every document carefully, and raise all questions before sealing a deal. Only then will one buy with certainty.",
-      "Your flat may be your largest purchase. Treat it with respect.",
-    ],
-    faqs: [
-      {
-        question: "1. What documents should I check before buying a flat in Pune?",
-        answer:
-          "You must ask for the land title, Commencement Certificate, NA order, and RERA registration. These are the basics. Without them, do not move ahead.",
-      },
-      {
-        question: "2. How can I be sure the builder will deliver on time?",
-        answer:
-          "Visit the builder’s past projects. Talk to people who live there. Ask if they got timely handover and promised quality. If they did not, you should avoid that builder.",
-      },
-      {
-        question: "3. Why should I visit the project site more than once?",
-        answer:
-          "You need to feel the area at different times. Morning feels different from night. Only then will you know about noise, traffic, and real safety.",
-      },
-      {
-        question: "4. What is the difference between carpet area and built-up area?",
-        answer:
-          "Carpet area is the space inside your walls. Built-up area includes walls and some shared parts. Always check carpet area. That is your real space.",
-      },
-      {
-        question: "5. Should I buy a flat that is still under construction?",
-        answer:
-          "You can buy under-construction flats if documents are clear and builder has a good track record. But make sure all approvals are in place before booking.",
-      },
-      {
-        question: "6. How do I know if the location will stay good in future?",
-        answer:
-          "Check the city’s DP plan. Ask about land around the project. Make sure no new tower or factory will come up to block your view or comfort.",
-      },
-      {
-        question: "7. Do all projects in Pune get PMC water?",
-        answer:
-          "No. Some use tankers or borewells. You must ask the builder about the water source. Ask if rainwater harvesting is done.",
-      },
-      {
-        question: "8. What hidden charges should I look for?",
-        answer:
-          "Ask for full cost details. That includes GST, parking, legal charges, registration, maintenance deposit, and other one-time fees. Do not go by per square foot rate only.",
-      },
-      {
-        question: "9. How can I check if the flat is easy to rent or resell?",
-        answer:
-          "Check if schools, shops, and offices are nearby. Also check how well-connected the area is. If many flats are vacant in the same project, that is a red flag.",
-      },
-      {
-        question: "10. Why is builder reputation so important?",
-        answer:
-          "A flat is not just concrete. It is a long-term deal. A good builder gives you what they promise. A bad builder leaves you with stress and delays.",
-      },
-    ],
-  },
-
-  // ==========================================
-  // BLOG 5: Best Residential Area in Pune to Invest in 2025
-  // ==========================================
-  {
-    id: "blog-5",
-    slug: "best-residential-areas-in-pune-to-invest-in-2025",
-    title: "Best Residential Area in Pune to Invest in 2025",
-    date: "September 17, 2025",
-    dateIso: "2025-09-17T11:30:00+00:00",
-    author: "admin",
-    authorRole: "Investment Strategist",
-    authorAvatar: "/assets/about/anup.webp",
-    category: "Real Estate & Investments",
-    readTime: "8 min read",
-    image: "/assets/blogs/best-residential-areas-in-pune-to-invest-in-2025.webp",
-    fallbackImage: "/assets/blogs/blog_2.webp",
-    imageAlt: "Best Residential Area in Pune to Invest in 2025 - Jhamtani",
-    excerpt:
-      "In 2025, Pune has emerged as one of the most attractive real estate investment destinations in India. Discover prime micro-markets from Koregaon Park NX to Ravet.",
-    metaDescription:
-      "Comprehensive analysis of top investment locations in Pune for 2025: price trends, rental yields, metro infrastructure, and growth potential across 10 key micro-markets.",
-    keywords: [
-      "Best Residential Area in Pune to Invest in 2025",
-      "Pune Property Investment",
-      "Koregaon Park NX",
-      "Ravet Investment",
-      "Baner Balewadi Real Estate",
-    ],
-    tags: ["Real Estate & Investments", "Pune Investment", "Property Trends", "Jhamtani"],
-    intro: [
-      "In 2025, Pune has emerged as one of the most attractive real estate investment destinations in India. The city is special because it has a strong economic development, modern infrastructure, and comparatively low property rates as compared to other metros like Mumbai and Delhi.",
-      "According to real estate analysts, the residential market in Pune will expand exponentially within the next five years. The conversion of the city into a big IT center has created a long-term need for quality housing at various price levels.",
-      "This guide will consider the investment opportunities in different budgets, beginning with entry-level apartments below 40 lakhs to luxury apartments above 1.5 crores. Each locality is assessed based on the prevailing market prices, rental returns, growth prospects, and infrastructure projects through to 2030.",
-    ],
-    sections: [
-      {
-        heading: "Koregaon Park NX",
-        headingLevel: "h3",
-        paragraphs: [
-          "Investment Highlights: Ultra-premium locality with proven business district connectivity.",
-          "Price Range: 12,000-18,000 per sq ft.",
-          "Growth Potential: 8-12 % per year | Rental Yields: 6-8% on high-end properties.",
-          "Koregaon Park NX is the most prestigious residential address in Pune. The area is situated with direct access to Pune Airport in 15 minutes and near major business centres. The availability of international restaurants, upscale retail shops and luxury hotels renders the city cosmopolitan and attractive to corporate executives and expatriate professionals.",
-          "The region has experienced a consistent increase in prices over the past decade. The location and global standard facilities make Koregaon Park NX properties fetch high rents.",
-          "Jhamtani BizCore in Koregaon Park NX area offers fully managed rental services of serviced studio apartments in this prime location. The project targets the corporate housing demand and provides guaranteed rental returns, which is an ideal portfolio diversification investment.",
-        ],
-      },
-      {
-        heading: "Baner",
-        headingLevel: "h3",
-        paragraphs: [
-          "Investment Highlights: Accessibility to an existing IT hub with good social infrastructure.",
-          "Price Range: 9,000-12,000 per sq ft.",
-          "Growth Potential: 10-14 % per annum.",
-          "Rental Market: 2BHK apartments yield 25,000-40,000 per month.",
-          "Baner is now one of the most sought after residential localities in Pune. The area is also an added advantage since it is near Aundh IT Park and accessible via Mumbai-Pune Expressway. The Metro Line 3 that will be built in the future will also enhance accessibility and it is possible that property values will increase by 15-20%.",
-          "The locality has high-end schools, multi-specialty hospitals, and shopping malls. Families and working professionals require these facilities. The rental market is quite robust and occupancy rates are high throughout the year.",
-        ],
-      },
-      {
-        heading: "Balewadi",
-        headingLevel: "h3",
-        paragraphs: [
-          "Investment Highlights: Sports infrastructure hub with high-end residential projects.",
-          "Price Range: 8,500-11,000 per sq ft.",
-          "Growth Potential: 12-16 % annually.",
-          "Major Attractions: Balewadi Sports Complex and entertainment zones.",
-          "Balewadi is a sports city of Pune. Balewadi Sports Complex is a national and international sporting facility that makes it a unique investment proposal. The area is attractive to sports enthusiasts and people working in the IT corridors.",
-          "Balewadi luxury housing is modern and well designed. The locality is strategically located between Baner and Hinjawadi, which makes it accessible to different employment centers. Sports and tourism generate additional demand in the rental market during peak seasons.",
-        ],
-      },
-      {
-        heading: "Hinjawadi",
-        headingLevel: "h3",
-        paragraphs: [
-          "Investment Highlights: Biggest IT hub in Pune.",
-          "Price Range: 6,500-9,000 per sq ft.",
-          "Growth Potential: 15-20 % annually.",
-          "Employment Base: Over 200 IT firms and 600,000+ professionals.",
-          "The primary IT destination in Pune is Hinjawadi. Infosys, Wipro, TCS, and Cognizant are large technology corporations that are based in Rajiv Gandhi Infotech Park. This massive labor force creates a sustained need of residential housing at different price ranges.",
-          "The Metro Line 3 extension to Hinjawadi will improve connectivity on a very large scale. It has modern hospitals, international schools, and shopping complexes to provide modern infrastructure. The rental demand is ever high and the average yields are 6-7 % per annum.",
-        ],
-      },
-      {
-        heading: "Ravet",
-        headingLevel: "h3",
-        paragraphs: [
-          "Investment Highlights: The fastest developing suburb with excellent infrastructure development.",
-          "Price: 4,500-7,000 per sq ft.",
-          "Growth Potential: 18-25 % annually.",
-          "Connectivity: 10 minutes to Mumbai-Pune Expressway.",
-          "Ravet is now one of the most promising investment destinations in Pune. The area is also beneficial since it is near Hinjawadi IT hub but with lower property rates. The Metro extension to Ravet will probably lead to a high appreciation of property prices.",
-          "New hospitals, educational institutions, and commercial complexes are the development projects of PCMC. Investment opportunities in the area surrounding PCMC Garden Reservation are particularly good due to the nearness to green space and planned infrastructure.",
-          "Jhamtani Group has established a decent presence in Ravet with luxury residential projects. Ace Atmosphere offers 3 & 4 BHK high-rise apartments with skywalks and rooftop spaces with panoramic views. The project combines modern design and functional facilities that are family and professional-friendly.",
-          "Ace Aster provides spacious 2 & 3 BHK apartments in and around Mukai Chowk with good workmanship and location advantages. The two projects have ready to move and future stages, which are adaptable to different investment schedules and budgets.",
-        ],
-      },
-      {
-        heading: "Mundhwa",
-        headingLevel: "h3",
-        paragraphs: [
-          "Investment Highlights: Established IT corridor with strong demand in the rental market.",
-          "Price Range: 6,500-9,500 per sq ft.",
-          "Growth Potential: 12-16 % per annum.",
-          "Employment Proximity: 5 minutes to Magarpatta IT Park.",
-          "The region is well developed in terms of social infrastructure with famous schools, hospitals and shopping malls. The accessibility and investment attractiveness of the area will also be enhanced by the future metro connectivity.",
-          "Jhamtani Elevate in Mundhwa is an uncommon investment in the form of ready to move furnished studio apartments. The project is aimed at young professionals and includes co-living amenities such as co-working space, open gyms, and linen services. The idea will address the growing demand of working people who desire to live without the hassles and this will ensure high occupancy rates and rental returns.",
-        ],
-      },
-      {
-        heading: "Tathawade",
-        headingLevel: "h3",
-        paragraphs: [
-          "Investment Highlights: Proposed infrastructure development in new generation IT center.",
-          "Price Range: 4,000-6,500 per sq ft.",
-          "Growth Potential: 15-20 % annually.",
-          "Development Pipeline: Proposed IT parks and educational institutions.",
-          "Tathawade will be the new IT hub of Pune. The area is also accessible to investors at a low cost and it has the benefit of being near to the current employment centers. The government plans new IT parks and infrastructure development that can result in a high appreciation.",
-          "Jhamtani Vision Ace in Tathawade has RERA-approved residential options in different stages. The development has various apartment designs that would suit various family sizes and investment budgets. The strategic location provides future growth potentials because the area is turning out to be a significant residential and commercial hub.",
-        ],
-      },
-      {
-        heading: "Kharadi, Wakad & Wagholi",
-        headingLevel: "h3",
-        paragraphs: [
-          "Kharadi (₹8,000-11,500/sq.ft): Posh residential locality with EON IT Park and World Trade Centre. 2BHK rental yields ₹25,000-35,000/month.",
-          "Wakad (₹6,500-9,000/sq.ft): Family-friendly hub with Phoenix Mall, multi-specialty hospitals, and upcoming Metro Line 3.",
-          "Wagholi (₹3,500-5,500/sq.ft): Exceptional growth potential of 20-28% annually driven by Pune Airport expansion and industrial corridors.",
-        ],
-      },
-    ],
-    conclusionHeading: "Conclusion",
-    conclusion: [
-      "The Pune real estate market of 2025 is a hotbed of investment. The above residential destinations have a broad selection of options from the ultra-premium Koregaon Park NX to the rapidly expanding Ravet and Tathawade.",
-      "Jhamtani Group is located in high growth regions like Ravet, Mundhwa, and Tathawade and this puts investors in a good position to take advantage of the growth of Pune.",
-      "The 50,000 crore infrastructure investments and Metro Phase 2 expansion on RERA registered projects such as Ace Atmosphere, Jhamtani Elevate, and Vision Ace support the 15-20% appreciation potential.",
-      "The projects are most appropriate to first-time buyers and experienced investors who require diversification of their portfolios with assured returns.",
-    ],
-    faqs: [
-      {
-        question: "1. Which area in Pune offers the highest rental yield in 2025?",
-        answer:
-          "Koregaon Park NX and Mundhwa offer the highest rental yields (6-8%), particularly for studio apartments and serviced co-living units.",
-      },
-      {
-        question: "2. Is Ravet good for long-term real estate investment?",
-        answer:
-          "Yes, Ravet offers 18-25% annual appreciation potential due to its proximity to Hinjawadi IT Park, PCMC infrastructure, and Mumbai-Pune Expressway.",
-      },
-      {
-        question: "3. What is the impact of Metro Line 3 on property rates in Pune?",
-        answer:
-          "Metro Line 3 is projected to boost property values by 15-20% across key stations including Hinjawadi, Baner, and Balewadi.",
-      },
-    ],
-  },
-
-  // ==========================================
-  // BLOG 6: Ravet: A Emerging Hotspot For Real Estate Investments
-  // ==========================================
-  {
-    id: "blog-6",
-    slug: "ravet-a-emerging-hotspot-for-real-estate-investments",
-    title: "Ravet: An Emerging Hotspot For Real Estate Investments",
-    date: "September 15, 2025",
-    dateIso: "2025-09-15T10:00:00+00:00",
-    author: "admin",
-    authorRole: "Micro-Market Analyst",
-    authorAvatar: "/assets/about/anup.webp",
-    category: "Real Estate & Investments",
-    readTime: "7 min read",
-    image: "/assets/blogs/ravet-a-emerging-hotspot-for-real-estate-investments.webp",
-    fallbackImage: "/assets/blogs/blog_3.webp",
-    imageAlt: "Ravet: An Emerging Hotspot For Real Estate Investments - Jhamtani",
-    excerpt:
-      "Within the fast-growing PCMC belt, Ravet stands out as a prime investment destination. Discover why IT professionals and families are choosing Ravet.",
-    metaDescription:
-      "Explore why Ravet is an emerging real estate hotspot in PCMC: Mumbai-Pune Expressway connectivity, Hinjewadi IT park commute, 22.7% 5-year growth, and Jhamtani luxury projects.",
-    keywords: [
-      "Ravet Emerging Hotspot",
-      "Ravet Real Estate Investment",
-      "Ace Aster Ravet",
-      "Ace Atmosphere",
-      "PCMC Property",
-    ],
-    tags: ["Real Estate & Investments", "Ravet", "PCMC", "Jhamtani"],
-    intro: [
-      "Anyone who’s been tracking Pune’s real estate market lately will tell you that the Pimpri-Chinchwad Municipal Corporation (PCMC) belt is where things are really happening. Within this stretch, Ravet has caught my attention as a locality that’s genuinely worth considering. What makes this area interesting isn’t just one factor, but rather how several advantages come together to create a solid investment proposition.",
-    ],
-    sections: [
-      {
-        heading: "The Location Advantage Really Works",
-        headingLevel: "h3",
-        paragraphs: [
-          "Ravet’s positioning is quite clever when you think about it. The suburb is located right at the point where two major routes meet, and this brings about practical advantages to anyone residing there. The connectivity in this area is really amazing.",
-        ],
-        bulletPoints: [
-          "Major Highways: Mumbai-Pune Expressway & Katraj-Dehu Bypass access",
-          "Neighbouring Areas: Close to Wakad, Punawale, Pradhikaran, Chinchwad, and Kiwale",
-          "IT Sector Proximity: Easy commute to Hinjewadi IT Park (Infosys, TCS, Cognizant)",
-          "Future Infrastructure: Metro line extensions and upgraded arterial road systems",
-        ],
-      },
-      {
-        heading: "Why Professionals are Moving Here",
-        headingLevel: "h3",
-        paragraphs: [
-          "The PCMC region keeps attracting working professionals from across India, mainly because of the thriving IT and industrial sectors. This creates a steady stream of people looking for housing in areas like Ravet.",
-        ],
-        bulletPoints: [
-          "More professionals mean consistent rental demand",
-          "Developers are responding with projects that focus on lifestyle features",
-          "Government approvals and PCMC civic infrastructure are supporting residential growth",
-        ],
-      },
-      {
-        heading: "Amenities That Actually Make Sense",
-        headingLevel: "h3",
-        paragraphs: [
-          "What strikes me about newer projects in Ravet is how developers are thinking beyond basic housing. They’re adding features that residents actually use and value: oxygen-enriched flats, UV sanitisation systems, vehicle-free landscaped zones, 24x7 ambulance services, and dedicated community zones.",
-        ],
-      },
-      {
-        heading: "Social Infrastructure That’s Already There",
-        headingLevel: "h3",
-        paragraphs: [
-          "One thing that sets Ravet apart is that the basic social infrastructure is already in place. You’re not buying into a promise; you’re buying into an established locality.",
-        ],
-        bulletPoints: [
-          "Schools: Wisdom World School, Mount Litera Zee School, Good Samaritan School",
-          "Hospitals: Aditya Birla Memorial Hospital, Ratna Memorial Hospital, Seth Ramdas Shah Hospital",
-          "Shopping & Leisure: Ozone Mall, Jewel Square Mall, and local retail high streets",
-        ],
-      },
-      {
-        heading: "The Numbers Tell a Story",
-        headingLevel: "h3",
-        paragraphs: [
-          "Average price: ₹6,250 per sq. ft. | 5-Year Growth: 22.7% increase | Rental Yield: 4% | Active Properties: 634+.",
-          "Compare this to neighbouring Punawale (₹7,100 per sq. ft.), and Ravet starts looking very attractive. You get better affordability and more options to choose from.",
-        ],
-      },
-      {
-        heading: "Quality Projects Worth Considering",
-        headingLevel: "h3",
-        paragraphs: [
-          "For those interested in specific projects, Jhamtani Group has several developments in and around Ravet that are worth evaluating:",
-        ],
-        bulletPoints: [
-          "Ace Aster at Mukai Chowk, Ravet (Spacious 2 & 3 BHK)",
-          "ACE Atmosphere at Ravet (3 & 4 BHK with skywalks & rooftop luxury)",
-          "ACE Abode at Upper Ravet (Colonial-style 2 & 3 BHK residences)",
-        ],
-      },
-    ],
-    conclusionHeading: "Bottom Line",
-    conclusion: [
-      "Ravet has evolved from a peaceful suburb into one of the most promising real estate destinations in Pune. This is a good mix of strategic location, affordable prices, good amenities, and good infrastructure that makes it appealing both to families and investors.",
-      "Investing in Ravet today not only guarantees the investor the immediate benefits of living in a good location, but also long-term value appreciation.",
-    ],
-    faqs: [
-      {
-        question: "1. Why is Ravet a good investment in real estate?",
-        answer:
-          "Ravet is well connected to key destinations like Hinjewadi IT Park and two major expressways. It offers affordable entry points and steady 22.7% capital appreciation.",
-      },
-      {
-        question: "2. What is the connectivity at Ravet?",
-        answer:
-          "Ravet is accessible to the Mumbai-Pune Expressway and Katraj-Dehu Bypass, with quick access to Wakad, Punawale, and Chinchwad.",
-      },
-      {
-        question: "3. What are the key Jhamtani projects in Ravet?",
-        answer:
-          "Jhamtani offers Ace Aster, ACE Atmosphere, and ACE Abode in the Ravet and Upper Ravet belt.",
-      },
-    ],
-  },
-
-  // ==========================================
-  // BLOG 7: Home Buying Guide | Steps and Tips for First-time Home Buyers
-  // ==========================================
-  {
-    id: "blog-7",
-    slug: "home-buying-guide-steps-and-tips-for-first-time-home-buyers",
-    title: "Home Buying Guide | Steps and Tips for First-time Home Buyers",
-    date: "September 12, 2025",
-    dateIso: "2025-09-12T09:00:00+00:00",
-    author: "admin",
-    authorRole: "First-Time Buyer Consultant",
-    authorAvatar: "/assets/about/anup.webp",
-    category: "Buyer Guide & Legal",
-    readTime: "8 min read",
-    image: "/assets/blogs/home-buying-guide-steps-and-tips-for-first-time-home-buyers.webp",
-    fallbackImage: "/assets/blogs/blog_1.webp",
-    imageAlt: "Home Buying Guide | Steps and Tips for First-time Home Buyers - Jhamtani",
-    excerpt:
-      "Purchasing a house is one of life's largest milestones. Follow these 7 essential steps and expert tips for budgeting, home loans, location selection, and builder vetting.",
-    metaDescription:
-      "Complete guide for first-time home buyers in India: budget planning, CIBIL scores, home loan down payments, site vetting, RERA checks, and Jhamtani residential options.",
-    keywords: [
-      "Home Buying Guide Pune",
-      "First Time Home Buyer Steps",
-      "Home Loan EMI Planning",
-      "RERA Verification Checklist",
-    ],
-    tags: ["Buyer Guide & Legal", "First-Time Buyers", "Home Loan", "Pune"],
-    intro: [
-      "Purchasing a house is one of the largest life events. It is an economic and an emotional decision. The process can be daunting to a first-time home buyer since it involves a number of steps, which include budgeting, location selection, financing, and developer selection. This is a far more rewarding and easier journey when there is good planning and guidance.",
-      "This guide will describe the major steps in the process of purchasing a house in India and some of the useful tips that first-time home buyers can employ to make informed decisions.",
-    ],
-    sections: [
-      {
-        heading: "Step 1: Start with Budget Planning",
-        headingLevel: "h3",
-        paragraphs: [
-          "The first step in buying a home is to set your budget. Assess your finances and then go out to view properties. Look at the cost of the house, the cost of registration, interiors and maintenance.",
-          "Ideally, your home loan EMI should not exceed 35-40 percent of your monthly income. Besides this, you must always have an emergency fund ready so that your financial stability is not compromised.",
-        ],
-      },
-      {
-        heading: "Step 2: Choose the Right Location",
-        headingLevel: "h3",
-        paragraphs: [
-          "The location of your home will greatly determine the quality of life you will be living. Seek out locations that have future infrastructure works, school access, short commutes, and strong resale potential.",
-          "Ravet, Punawale, and Balewadi are some of the fast developing suburbs in Pune favored because of connectivity and planned development.",
-        ],
-      },
-      {
-        heading: "Step 3: Understand the Housing Market",
-        headingLevel: "h3",
-        paragraphs: [
-          "Study property prices, rental returns and growth forecasts in your location of choice. Do not jump into the first project you find. Compare several alternatives and assess future prospects.",
-        ],
-      },
-      {
-        heading: "Step 4: Check Home Loan Eligibility and CIBIL Score",
-        headingLevel: "h3",
-        paragraphs: [
-          "A good CIBIL score (750 and above) will help you secure a home loan at a lower interest rate. Pay credit cards and loans on time, and avoid taking unnecessary new debt before applying.",
-        ],
-      },
-      {
-        heading: "Step 5: Plan for Down Payment and EMIs",
-        headingLevel: "h3",
-        paragraphs: [
-          "Under RBI regulations, banks fund up to 80% of property cost, requiring buyers to fund the 20% down payment plus registration and amenities fees. Choose an EMI tenure that fits comfortably into your monthly cash flow.",
-        ],
-      },
-      {
-        heading: "Step 6: Shortlist and Evaluate Homes",
-        headingLevel: "h3",
-        paragraphs: [
-          "Create a checklist of non-negotiables: ventilation, balcony, green spaces, kids' zones, and public transit. Physically visit the project site to check construction quality rather than relying only on brochures.",
-        ],
-      },
-      {
-        heading: "Step 7: Select a Trusted Developer",
-        headingLevel: "h3",
-        paragraphs: [
-          "A reputed Grade A developer ensures the project is legally sound, built to superior standards, and delivered on time. Always verify RERA registration, sanctions, and past delivery records.",
-        ],
-      },
-      {
-        heading: "Residential Projects in Pune by Jhamtani Group",
-        headingLevel: "h3",
-        paragraphs: [
-          "Jhamtani Group provides well-planned homes combining affordability, comfort, and modern amenities:",
-        ],
-        bulletPoints: [
-          "Jhamtani Elevate – Mundhwa",
-          "Ace Aster – Ravet",
-          "Jhamtani BIZCORE – Koregaon Park NX",
-          "Ace Villas – Koregaon Park NX",
-          "ACE Atmosphere – Ravet",
-          "Nandan Ace – Balewadi",
-          "ACE Abode – Upper Ravet",
-        ],
-      },
-    ],
-    conclusionHeading: "Final Thoughts",
-    conclusion: [
-      "Buying a house is a massive first-time experience, but it does not have to be stressful when planned properly. Partnering with trusted developers like Jhamtani Group makes this milestone rewarding, legally secure, and memorable.",
-    ],
-    faqs: [
-      {
-        question: "1. What should first-time home buyers in India do first?",
-        answer:
-          "Clarify your budget, compute your down payment savings, and check your CIBIL score before viewing properties.",
-      },
-      {
-        question: "2. What CIBIL score is required for the best home loan rates?",
-        answer:
-          "A CIBIL score of 750 and above qualifies you for the lowest home loan interest rates.",
-      },
-      {
-        question: "3. What percentage of property cost is financed by banks?",
-        answer:
-          "Banks generally finance up to 80% of the agreement value, while the buyer arranges the remaining 20% as down payment.",
-      },
-    ],
-  },
-
-  // ==========================================
-  // BLOG 8: Ravet or Punawale: Which is Better for Buying a 2 BHK Flat?
-  // ==========================================
-  {
-    id: "blog-8",
-    slug: "ravet-or-punawale-which-is-better-for-buying-a-2-bhk-flat",
-    title: "Ravet or Punawale: Which is Better for Buying a 2 BHK Flat?",
-    date: "September 10, 2025",
-    dateIso: "2025-09-10T08:30:00+00:00",
-    author: "admin",
-    authorRole: "Micro-Market Comparison Desk",
-    authorAvatar: "/assets/about/anup.webp",
-    category: "Real Estate & Investments",
-    readTime: "7 min read",
-    image: "/assets/blogs/ravet-or-punawale-which-is-better-for-buying-a-2-bhk-flat.webp",
-    fallbackImage: "/assets/jhamtani-bizcore/bizcore_image.webp",
-    imageAlt: "Ravet or Punawale: Which is Better for Buying a 2 BHK Flat? - Jhamtani",
-    excerpt:
-      "Comparing Pune's two booming PCMC micro-markets: Ravet vs Punawale on price trends, lifestyle, expressway connectivity, and investment returns.",
-    metaDescription:
-      "In-depth comparison between Ravet and Punawale for buying 2 BHK flats: price per sq.ft., appreciation rates, social amenities, and top Jhamtani residential options.",
-    keywords: [
-      "Ravet or Punawale 2 BHK",
-      "Buy 2 BHK Pune PCMC",
-      "Ravet vs Punawale Price",
-      "Jhamtani Ravet Projects",
-    ],
-    tags: ["Real Estate & Investments", "Ravet", "Punawale", "2 BHK Flats"],
-    intro: [
-      "Pune has become one of the most attractive real estate markets in India and the Pimpri-Chinchwad (PCMC) belt has become the epicentre of this growth. Among the many fast-growing localities, Ravet and Punawale are the two most sought after localities by homebuyers. Both areas are well-connected, close to IT hubs, and have a stable appreciation, but are also different in prices, infrastructure, and lifestyle. Should you be planning to buy a 2 BHK flat in Pune, this comparison will help you make a decision between Ravet and Punawale.",
-    ],
-    sections: [
-      {
-        heading: "Connectivity and Location Advantage",
-        headingLevel: "h3",
-        paragraphs: [
-          "Ravet sits at the interchange of Mumbai-Pune Expressway and Katraj-Dehu Bypass, offering rapid access to Hinjewadi IT Park and PCMC industrial belts.",
-          "Punawale is closer to Wakad and the Mumbai-Bangalore Highway, linking directly to Akurdi and Chinchwad railway stations.",
-          "Takeaway: Ravet leads in expressway and IT park connectivity, while Punawale benefits from proximity to Wakad.",
-        ],
-      },
-      {
-        heading: "Infrastructure and Social Amenities",
-        headingLevel: "h3",
-        paragraphs: [
-          "Ravet features premier schools (Wisdom World, Mount Litera Zee), top hospitals (Aditya Birla Memorial, Ratna Memorial), and shopping destinations (Ozone Mall).",
-          "Punawale offers essential healthcare (Ojas Multispeciality) and retail, but lifestyle and entertainment options are still emerging.",
-          "Takeaway: Ravet is ahead in luxury lifestyle amenities, while Punawale caters well to practical mid-segment needs.",
-        ],
-      },
-      {
-        heading: "Real Estate Price Trends",
-        headingLevel: "h3",
-        paragraphs: [
-          "Ravet: Average price ₹6,250/sq.ft. | 5-year growth: 22.7% | Rental yield: 4% | Active inventory: 634+.",
-          "Punawale: Average price ₹7,100/sq.ft. | 5-year growth: 29.1% | Rental yield: 4% | Active inventory: 494+.",
-          "Takeaway: Punawale commands an ₹850/sq.ft. premium with higher short-term appreciation, whereas Ravet offers lower entry cost and greater project variety.",
-        ],
-      },
-      {
-        heading: "Our Take: Which One Should You Choose?",
-        headingLevel: "h3",
-        paragraphs: [
-          "Choose Ravet if you want affordability, premium lifestyle amenities, and seamless commute to Hinjewadi IT Park.",
-          "Choose Punawale if you prioritize immediate proximity to Wakad and seek rapid capital appreciation.",
-        ],
-      },
-      {
-        heading: "Featured Residential Projects in Pune by Jhamtani",
-        headingLevel: "h3",
-        paragraphs: [
-          "Explore thoughtfully designed 2, 3 & 4 BHK residences across Pune's top neighbourhoods:",
-        ],
-        bulletPoints: [
-          "Ace Aster – Mukai Chowk, Ravet",
-          "ACE Atmosphere – Ravet",
-          "ACE Abode – Upper Ravet",
-          "Jhamtani Elevate – Mundhwa",
-          "Jhamtani BIZCORE – Koregaon Park NX",
-          "Ace Villas – Koregaon Park NX",
-          "Nandan Ace – Balewadi",
-        ],
-      },
-    ],
-    conclusionHeading: "Conclusion",
-    conclusion: [
-      "Both Ravet and Punawale are exceptional real estate corridors. For families planning long-term living, Ravet offers greater value for money and community amenities. For investors focused on faster short-term gains, Punawale remains a strong contender.",
-    ],
-    faqs: [
-      {
-        question: "1. Between Ravet and Punawale, which is better for a 2 BHK flat?",
-        answer:
-          "Ravet is better for families seeking lower entry prices and premium community amenities. Punawale is better for buyers wanting proximity to Wakad.",
-      },
-      {
-        question: "2. How do property prices compare between Ravet and Punawale?",
-        answer:
-          "Ravet averages ₹6,250/sq.ft., while Punawale commands approx. ₹7,100/sq.ft.",
-      },
-      {
-        question: "3. Which locality has better connectivity to Hinjewadi IT Park?",
-        answer:
-          "Ravet offers faster expressway access to Hinjewadi Phase 1, 2, and 3 via the Katraj-Dehu bypass.",
-      },
-    ],
-  },
-
-  // ==========================================
-  // BLOG 9: Jhamtani: Shaping the Future of Pune’s Real Estate Industry
-  // ==========================================
-  {
-    id: "blog-9",
-    slug: "jhamtani-shaping-the-future-of-punes-real-estate-industry",
-    title: "Jhamtani: Shaping the Future of Pune’s Real Estate Industry",
-    date: "July 24, 2025",
-    dateIso: "2025-07-24T10:00:00+00:00",
-    author: "admin",
-    authorRole: "Corporate Communications",
-    authorAvatar: "/assets/about/anup.webp",
-    category: "Industry Insights",
-    readTime: "9 min read",
-    image: "/assets/blogs/jhamtani-shaping-the-future-of-punes-real-estate-industry.webp",
-    fallbackImage: "/assets/hero.webp",
-    imageAlt: "Jhamtani: Shaping the Future of Pune’s Real Estate Industry",
-    excerpt:
-      "With over 35 years of trust and innovation, Jhamtani is leading Pune's urban transformation across residential, commercial, and co-living sectors.",
-    metaDescription:
-      "Explore how Jhamtani is transforming Pune real estate: landmark developments across Mundhwa, Koregaon Park NX, Baner, Ravet, and Pimpri.",
-    keywords: [
-      "Jhamtani Real Estate Pune",
-      "Pune Urban Transformation",
-      "Jhamtani Elevate",
-      "Jhamtani SpaceBiz Baner",
-      "Ace Villas Koregaon Park NX",
-    ],
-    tags: ["Industry Insights", "Jhamtani Legacy", "Pune Real Estate", "Urban Growth"],
-    intro: [
-      "Pune is no longer a developing city but a city that is undergoing a massive transformation due to the growing infrastructure, increasing employment, and evolving lifestyle needs. Metro connectivity, road development, and the growing demand for high-quality housing have propelled Pune's real estate growth.",
-      "One of the key developers that have contributed to this urban change is Jhamtani. With over 35 years of history, Jhamtani has expanded its presence in Pune through residential and commercial projects that are long-term oriented, customer-focused, and strategically located.",
-    ],
-    sections: [
-      {
-        heading: "Mundhwa: The New Central Spot",
-        headingLevel: "h3",
-        paragraphs: [
-          "Mundhwa connects Kharadi, Magarpatta, and Koregaon Park. Jhamtani Elevate brings smart studio living and co-living convenience designed specifically for IT professionals and high ROI investors.",
-        ],
-      },
-      {
-        heading: "Koregaon Park NX: Quiet, Classy, Connected",
-        headingLevel: "h3",
-        paragraphs: [
-          "Jhamtani is redefining premium living in Koregaon Park NX through Ace Villas (ultra-luxury residences with private pools) and Jhamtani BizCore (managed serviced studio suites).",
-        ],
-      },
-      {
-        heading: "Baner-Balewadi: West Pune’s Growth Story",
-        headingLevel: "h3",
-        paragraphs: [
-          "Baner and Balewadi represent prime urban growth. Nandan Ace delivers smart luxury 3 BHK homes, while Jhamtani SpaceBiz stands as a 37-floor Grade 'A' commercial landmark in Baner.",
-        ],
-      },
-      {
-        heading: "Ravet & Upper Ravet: Value and Community",
-        headingLevel: "h3",
-        paragraphs: [
-          "With Ace Aster, Ace Atmosphere, and Ace Abode, Jhamtani delivers 40+ lifestyle amenities, skywalks, and high-quality gated community living at affordable price points.",
-        ],
-      },
-      {
-        heading: "Overview of Jhamtani Ongoing Developments",
-        headingLevel: "h3",
-        paragraphs: [
-          "A snapshot of active landmark developments across Pune:",
-        ],
-        bulletPoints: [
-          "Jhamtani Elevate (Mundhwa) – Studio Apartments with Co-living High ROI",
-          "Ace Aster (Ravet) – 2 & 3 BHK Gated Community with 40+ Amenities",
-          "Jhamtani BizCore (Koregaon Park NX) – Serviced Studio Suites",
-          "Ace Villas (Koregaon Park NX) – Ultra-Luxury Private Pool Villas",
-          "Ace Atmosphere (Ravet) – 3 & 4 BHK with Rooftop Skywalks",
-          "Nandan Ace (Balewadi) – Premium 3 BHK Smart Homes",
-          "Ace Abode (Upper Ravet) – Colonial-Style 2 & 3 BHK Living",
-          "Jhamtani SpaceBiz (Baner) – Grade 'A' 37-Floor Commercial Landmark",
-        ],
-      },
-    ],
-    conclusionHeading: "Conclusion: Jhamtani’s Vision for the City",
-    conclusion: [
-      "Jhamtani has been at the center of Pune's transformation. With every project, they demonstrate how planning, quality, and timing matter. They are not just building homes—they are building the next chapter of Pune.",
-    ],
-    faqs: [
-      {
-        question: "1. What makes Jhamtani a trusted developer in Pune?",
-        answer:
-          "35+ years of legacy, 100% RERA compliance, on-time delivery track record, and prime strategic locations across East and West Pune.",
-      },
-      {
-        question: "2. What commercial projects does Jhamtani offer?",
-        answer:
-          "Jhamtani SpaceBiz in Baner (37 floors Grade A), Vision Ace Commercial in Tathawade, and Ace Shopping Street in Pimpri.",
-      },
-      {
-        question: "3. Where are Jhamtani residential projects located?",
-        answer:
-          "Projects span Mundhwa, Koregaon Park NX, Baner, Balewadi, Ravet, Upper Ravet, and Tathawade.",
       },
     ],
   },

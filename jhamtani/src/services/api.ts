@@ -190,6 +190,25 @@ export function getCmsMediaUrl(path: string, baseUrl: string = CMS_BASE_URL): st
 }
 
 // ==========================================
+// Helper for Safe Offline-Tolerant Fetching
+// ==========================================
+
+async function safeFetch(url: string, options: RequestInit = {}, timeoutMs = 1500): Promise<Response | null> {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    return response;
+  } catch {
+    return null;
+  }
+}
+
+// ==========================================
 // API Methods
 // ==========================================
 
@@ -198,7 +217,7 @@ export function getCmsMediaUrl(path: string, baseUrl: string = CMS_BASE_URL): st
  */
 export async function getCmsBrochures(limit = 100): Promise<CmsBrochureItem[]> {
   try {
-    const response = await fetch(`${CMS_BASE_URL}/api/brochures?limit=${limit}`, {
+    const response = await safeFetch(`${CMS_BASE_URL}/api/brochures?limit=${limit}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -206,15 +225,13 @@ export async function getCmsBrochures(limit = 100): Promise<CmsBrochureItem[]> {
       cache: "no-store",
     });
 
-    if (!response.ok) {
-      console.warn(`[CMS API] Failed to fetch brochures. Status: ${response.status}`);
+    if (!response || !response.ok) {
       return [];
     }
 
     const data: CmsBrochuresResponse = await response.json();
     return data.brochures || [];
-  } catch (error) {
-    console.error("[CMS API] Error fetching brochures:", error);
+  } catch {
     return [];
   }
 }
@@ -224,7 +241,7 @@ export async function getCmsBrochures(limit = 100): Promise<CmsBrochureItem[]> {
  */
 export async function getCmsProjectLocations(): Promise<CmsProjectLocationItem[]> {
   try {
-    const response = await fetch(`${CMS_LOCATION_BASE_URL}/api/project-locations`, {
+    const response = await safeFetch(`${CMS_LOCATION_BASE_URL}/api/project-locations`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -232,8 +249,7 @@ export async function getCmsProjectLocations(): Promise<CmsProjectLocationItem[]
       cache: "no-store",
     });
 
-    if (!response.ok) {
-      console.warn(`[CMS API] Failed to fetch project locations. Status: ${response.status}`);
+    if (!response || !response.ok) {
       return [];
     }
 
@@ -248,8 +264,7 @@ export async function getCmsProjectLocations(): Promise<CmsProjectLocationItem[]
       return data.data;
     }
     return [];
-  } catch (error) {
-    console.error("[CMS API] Error fetching project locations:", error);
+  } catch {
     return [];
   }
 }
@@ -259,7 +274,7 @@ export async function getCmsProjectLocations(): Promise<CmsProjectLocationItem[]
  */
 export async function getCmsMahaReras(): Promise<CmsMahaReraItem[]> {
   try {
-    const response = await fetch(`${CMS_LOCATION_BASE_URL}/api/mahareras`, {
+    const response = await safeFetch(`${CMS_LOCATION_BASE_URL}/api/mahareras`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -267,8 +282,7 @@ export async function getCmsMahaReras(): Promise<CmsMahaReraItem[]> {
       cache: "no-store",
     });
 
-    if (!response.ok) {
-      console.warn(`[CMS API] Failed to fetch MahaRERA items. Status: ${response.status}`);
+    if (!response || !response.ok) {
       return [];
     }
 
@@ -281,8 +295,7 @@ export async function getCmsMahaReras(): Promise<CmsMahaReraItem[]> {
       return data.data;
     }
     return [];
-  } catch (error) {
-    console.error("[CMS API] Error fetching MahaRERA items:", error);
+  } catch {
     return [];
   }
 }
@@ -292,7 +305,7 @@ export async function getCmsMahaReras(): Promise<CmsMahaReraItem[]> {
  */
 export async function getCmsSiteUpdates(limit = 100): Promise<CmsSiteUpdateItem[]> {
   try {
-    const response = await fetch(`${CMS_BASE_URL}/api/site-updates?limit=${limit}`, {
+    const response = await safeFetch(`${CMS_BASE_URL}/api/site-updates?limit=${limit}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -300,15 +313,13 @@ export async function getCmsSiteUpdates(limit = 100): Promise<CmsSiteUpdateItem[
       cache: "no-store",
     });
 
-    if (!response.ok) {
-      console.warn(`[CMS API] Failed to fetch site updates. Status: ${response.status}`);
+    if (!response || !response.ok) {
       return [];
     }
 
     const data: CmsSiteUpdatesResponse = await response.json();
     return data.siteUpdates || [];
-  } catch (error) {
-    console.error("[CMS API] Error fetching site updates:", error);
+  } catch {
     return [];
   }
 }
@@ -318,7 +329,7 @@ export async function getCmsSiteUpdates(limit = 100): Promise<CmsSiteUpdateItem[
  */
 export async function getCmsMediaPublications(limit = 100): Promise<CmsMediaArticleItem[]> {
   try {
-    const response = await fetch(`${CMS_BASE_URL}/api/media-publications?limit=${limit}`, {
+    const response = await safeFetch(`${CMS_BASE_URL}/api/media-publications?limit=${limit}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -326,15 +337,13 @@ export async function getCmsMediaPublications(limit = 100): Promise<CmsMediaArti
       cache: "no-store",
     });
 
-    if (!response.ok) {
-      console.warn(`[CMS API] Failed to fetch media publications. Status: ${response.status}`);
+    if (!response || !response.ok) {
       return [];
     }
 
     const data: CmsMediaPublicationsResponse = await response.json();
     return data.mediaArticles || [];
-  } catch (error) {
-    console.error("[CMS API] Error fetching media publications:", error);
+  } catch {
     return [];
   }
 }
@@ -344,7 +353,7 @@ export async function getCmsMediaPublications(limit = 100): Promise<CmsMediaArti
  */
 export async function getCmsNewsletters(limit = 100): Promise<CmsNewsletterItem[]> {
   try {
-    const response = await fetch(`${CMS_BASE_URL}/api/newsletters?limit=${limit}`, {
+    const response = await safeFetch(`${CMS_BASE_URL}/api/newsletters?limit=${limit}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -352,15 +361,13 @@ export async function getCmsNewsletters(limit = 100): Promise<CmsNewsletterItem[
       cache: "no-store",
     });
 
-    if (!response.ok) {
-      console.warn(`[CMS API] Failed to fetch newsletters. Status: ${response.status}`);
+    if (!response || !response.ok) {
       return [];
     }
 
     const data: CmsNewslettersResponse = await response.json();
     return data.newsletters || [];
-  } catch (error) {
-    console.error("[CMS API] Error fetching newsletters:", error);
+  } catch {
     return [];
   }
 }
