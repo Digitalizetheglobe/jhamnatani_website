@@ -7,22 +7,18 @@ export default function Amenities() {
   const promises = [
     {
       title: "Customer Happiness",
-      desc: "Creating homes, experiences, and relationships that make life happier in every aspect.",
       iconPath: "/assets/icon_1.webp",
     },
     {
       title: "Better Than Yesterday",
-      desc: "Making decisions today that create lasting value for generations to come.",
       iconPath: "/assets/icon_2.webp",
     },
     {
       title: "Think Long Term",
-      desc: "Creating a positive difference in every life we touch, from our customers, our people, our partners, to our communities.",
       iconPath: "/assets/icon_3.webp",
     },
     {
       title: "Positive Impact on Every Life Touched",
-      desc: "Never stopping the process of learning. Growing with every home, every customer, every little thing, every time.",
       iconPath: "/assets/icon_4.webp",
     },
   ];
@@ -73,29 +69,28 @@ export default function Amenities() {
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
                 className="flex flex-col items-center text-center group"
               >
-                {/* squircle card */}
-                <div className="w-full max-w-[230px] h-[190px] bg-transparent border border-[#0082c3] rounded-[70px] flex items-center justify-center shadow-sm hover:scale-105 hover:shadow-md transition-all duration-300 select-none">
-                  <Image
-                    src={p.iconPath}
-                    alt={`Promise ${p.title}`}
-                    width={180}
-                    height={180}
-                    priority
-                    className="object-contain"
-                  />
+                {/* Squircle card container with theme border */}
+                <div className="w-full max-w-[220px] h-[180px] bg-white/40 border border-[#a0725b]/40 rounded-[50px] flex items-center justify-center shadow-sm hover:scale-105 hover:border-[#a0725b] hover:shadow-md transition-all duration-300 select-none p-4">
+                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center">
+                    <Image
+                      src={p.iconPath}
+                      alt={`Promise ${p.title}`}
+                      fill
+                      priority
+                      style={{ filter: "brightness(0) opacity(0.8)" }}
+                      className={`object-contain transition-all duration-300 group-hover:scale-110 ${
+                        idx === 0 ? "scale-120" : ""
+                      }`}
+                    />
+                  </div>
                 </div>
                 
                 {/* Title */}
-                <h3 className="font-serif text-[22px] md:text-[24px] leading-tight text-[#a0725b] mt-6">
-                  <span className="block font-serif text-[22px] md:text-[24px] mt-1 text-[#a0725b]/90">
+                <h3 className="font-serif text-[20px] md:text-[22px] leading-tight text-[#a0725b] mt-6">
+                  <span className="block font-serif text-[20px] md:text-[22px] mt-1 text-[#a0725b] font-normal">
                     {p.title}
                   </span>
                 </h3>
-                
-                {/* Description */}
-                {/* <p className="font-sans text-[15px] md:text-[15px] leading-relaxed text-[#000] mt-3 max-w-[300px] line-clamp-3">
-                  {p.desc}
-                </p> */}
               </motion.div>
             );
           })}

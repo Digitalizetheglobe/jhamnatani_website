@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export default function Slide() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -11,9 +11,16 @@ export default function Slide() {
     offset: ["start start", "end end"],
   });
 
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+    mass: 0.2,
+    restDelta: 0.0001,
+  });
+
   // 5 slides of 100vw each => total width 500vw.
   // x moves from 0% (0vw) to -80% (-400vw) smoothly as user scrolls through the 600vh pinned section.
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  const x = useTransform(smoothProgress, [0, 1], ["0%", "-80%"]);
 
   return (
     <section ref={targetRef} className="relative h-[600vh] w-full bg-[#191F26]">

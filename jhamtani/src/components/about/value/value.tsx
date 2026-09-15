@@ -188,7 +188,7 @@ export default function Value() {
                 >
                   <div className="flex items-center space-x-6 sm:space-x-8 pr-4">
                     {/* Left Line Art Icon (No background box) */}
-                    <div className="flex-shrink-0 w-14 h-14 sm:w-20 sm:h-20 relative flex items-center justify-center">
+                    <div className="flex-shrink-0 w-14 h-14 sm:w-15 sm:h-15 relative flex items-center justify-center">
                       <Image
                         src={item.icon}
                         alt={item.title}

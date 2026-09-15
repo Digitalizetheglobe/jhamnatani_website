@@ -55,7 +55,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[#111622] text-white border-t border-luxury-border py-12 sm:py-16 md:py-20 select-none">
+    <footer className="w-full bg-[#111622] text-white border-t border-luxury-border py-12 sm:py-16 md:py-10 select-none">
       <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 space-y-12">
         
         {/* Main Grid: Columns */}
@@ -283,6 +283,25 @@ export default function Footer() {
             </a>
           </div>
 
+        </div>
+
+        {/* Separator */}
+        <div className="w-full border-t border-luxury-border/60" />
+
+        {/* Copyright Section */}
+        <div className="text-center text-[12px] text-zinc-400 font-sans tracking-wider ">
+          <p>
+            Copyright © {new Date().getFullYear()} Jhamtani Group. All Rights Reserved. Designed by{" "}
+            <a
+              href="https://digitalizetheglobe.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#C5A880] hover:underline font-medium transition-colors"
+            >
+              Digitalize The Globe
+            </a>
+            .
+          </p>
         </div>
 
       </div>
