@@ -38,7 +38,7 @@ const directorsData: Director[] = [
       "With over two decades of experience, Anup Jhamtani leadership spans strategy, acquisitions, finance, design, sales, marketing and execution - bringing together technical precision with long-term vision.",
       "Beyond the organisation, his active leadership through CREDAI Pune Metro and the Sindhi Youth Builders Association reflects his commitment to shaping not just projects, but the future of the industry itself.",
     ],
-    image: "/assets/about/anup.webp",
+    image: "/assets/about/anup_v2.webp",
     imageClass: "object-bottom",
   },
   {

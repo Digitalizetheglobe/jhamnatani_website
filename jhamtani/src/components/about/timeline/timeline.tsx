@@ -321,7 +321,7 @@ export default function AboutTimeline() {
 
   /* ── Render ─────────────────────────────────────────── */
   return (
-    <section ref={sectionRef} className="w-full bg-[#EDE5D8] relative overflow-hidden select-none py-12 lg:py-15">
+    <section ref={sectionRef} className="w-full bg-[#EDE5D8] relative overflow-hidden select-none pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-12 lg:pb-1">
 
       {/* ════ Section Header ═════════════════════════════ */}
       <div className="tl-header text-center mb-8 px-4 opacity-0">

@@ -211,7 +211,7 @@ export default function Header() {
                   pathname === "/our-associate" ? "text-[#C5A880] font-medium" : "hover:text-[#a0725b]"
                 }`}
               >
-                <WaveText text="Our Associate" />
+                <WaveText text="Our Associates" />
               </Link>
             </nav>
 

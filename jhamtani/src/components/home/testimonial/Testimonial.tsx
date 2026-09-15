@@ -32,7 +32,7 @@ export default function Testimonial() {
   return (
     <section
       id="testimonial"
-      className="w-full bg-[#FAF5F0] text-zinc-900 py-16 sm:py-20 md:py-28 border-t border-[#A0725B]/20 select-none overflow-hidden"
+      className="w-full bg-[#FAF5F0] text-zinc-900 pt-10 sm:pt-12 md:pt-14 pb-16 sm:pb-20 md:pb-24 border-t border-[#A0725B]/20 select-none overflow-hidden"
     >
       <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 space-y-10">
         

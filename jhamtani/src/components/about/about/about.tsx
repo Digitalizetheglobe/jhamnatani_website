@@ -79,35 +79,46 @@ export default function AboutContent() {
             variants={childVariants}
             className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl"
           >
-There are promises that are spoken. And then some promises quietly become a way of working. For over four decades, Jhamtani has belonged to the latter.          </motion.p>
+            Jhamtani brings a business legacy of more than 4 decades and over 16 years of real estate experience.
+          </motion.p>
           <motion.p
             variants={childVariants}
             className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl"
           >
-            Long before a foundation is excavated or a skyline begins to rise, every decision is measured against a simple question - Will this continue to matter years from today? This single question has shaped everything we've built.
-            {isExpanded ? (
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                {" "}The 24 communities that have become home to over 13,000+  happy  faces. More than 4 million square feet thoughtfully delivered. And over 6.4 million square feet envisioned for tomorrow.
-                <span 
-                  onClick={() => setIsExpanded(false)}
-                  className="text-[#b88654] italic cursor-pointer hover:underline ml-1 font-semibold"
-                >
-                  Read less
-                </span>
-              </motion.span>
-            ) : (
+            The company has delivered over 3 million sq. ft. and is currently developing 4 million sq. ft. across 32+ residential, commercial, and mixed-use developments, with another 4 million sq. ft. in the immediate pipeline for launch this financial year.
+            {!isExpanded && (
               <span 
                 onClick={() => setIsExpanded(true)}
-                className="text-[#b88654] italic cursor-pointer hover:underline ml-1 font-semibold"
+                className="text-[#b88654] italic cursor-pointer hover:underline ml-2 font-semibold inline-block"
               >
                 Read more
               </span>
             )}
           </motion.p>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              transition={{ duration: 0.4 }}
+              className="space-y-8"
+            >
+              <p className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl">
+                With over 13,000 happy faces across Pune, Jhamtani continues to expand across key growth corridors in East and West Pune.
+              </p>
+              <p className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl">
+                With Ranveer Singh as its brand ambassador, Jhamtani moves into its next phase with renewed energy while remaining rooted in its core philosophy.
+              </p>
+              <p className="font-sans text-[16px] sm:text-[18px] md:text-[19px] text-white/85 leading-relaxed tracking-wide max-w-xl">
+                The legacy remains strong. The promise remains unchanged. The journey moves forward.
+                <span 
+                  onClick={() => setIsExpanded(false)}
+                  className="text-[#b88654] italic cursor-pointer hover:underline ml-2 font-semibold inline-block"
+                >
+                  Read less
+                </span>
+              </p>
+            </motion.div>
+          )}
         </motion.div>
       </div>
 
