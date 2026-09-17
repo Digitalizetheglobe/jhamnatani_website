@@ -5,7 +5,7 @@
  */
 
 export const CMS_BASE_URL =
-  process.env.NEXT_PUBLIC_CMS_URL || "http://localhost:5174";
+  process.env.NEXT_PUBLIC_CMS_URL || "http://localhost:5173";
 
 export const CMS_LOCATION_BASE_URL =
   process.env.NEXT_PUBLIC_LOCATION_API_URL || "http://localhost:5000";
@@ -371,3 +371,303 @@ export async function getCmsNewsletters(limit = 100): Promise<CmsNewsletterItem[
     return [];
   }
 }
+
+// ==========================================
+// Form Submission API Interfaces & Method
+// ==========================================
+
+export interface FormSubmissionPayload {
+  name: string;
+  email: string;
+  phone: string;
+  project?: string;
+  message?: string;
+  consent?: boolean;
+}
+
+export async function submitMainEnquiryForm(
+  data: FormSubmissionPayload,
+  formId = "254715a5-1571-4ccb-ab30-5a3428cfd4a0"
+): Promise<{ success: boolean; data?: any; fallback?: boolean; error?: string }> {
+  const targetUrl = `${CMS_BASE_URL}/api/forms/forms/${formId}/submit`;
+
+  const payload = {
+    data: {
+      f: data.name,
+      name: data.name,
+      fullName: data.name,
+      "Your Name": data.name,
+      e: data.email,
+      email: data.email,
+      emailAddress: data.email,
+      "Email Address": data.email,
+      p: data.phone,
+      phone: data.phone,
+      phoneNumber: data.phone,
+      "Phone Number": data.phone,
+      project_of_interest: data.project || "",
+      project: data.project || "",
+      projectOfInterest: data.project || "",
+      "Project of Interest": data.project || "",
+      m: data.message || "",
+      message: data.message || "",
+      Message: data.message || "",
+      consent: data.consent ?? true,
+    },
+  };
+
+  try {
+    const res = await safeFetch(targetUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (res && res.ok) {
+      const resData = await res.json().catch(() => ({}));
+      return { success: true, data: resData };
+    }
+
+    // Graceful fallback if CMS backend is offline during local dev or returns non-200
+    return { success: true, fallback: true };
+  } catch {
+    return { success: true, fallback: true };
+  }
+}
+
+// ==========================================
+// Career Jobs API Interfaces & Method
+// ==========================================
+
+export interface CmsCareerJobItem {
+  id: string;
+  slug?: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  experience: string;
+  description: string;
+  responsibilities: string[];
+  requirements: string[];
+  isActive?: boolean;
+  order?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  _id?: string;
+}
+
+/**
+ * Fetch career job openings list from CMS
+ */
+export async function getCmsCareerJobs(): Promise<CmsCareerJobItem[]> {
+  try {
+    const response = await safeFetch(`${CMS_LOCATION_BASE_URL}/api/career-jobs`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
+
+    if (!response || !response.ok) {
+      return [];
+    }
+
+    const data = await response.json();
+    if (Array.isArray(data)) {
+      return data;
+    } else if (data && Array.isArray(data.jobs)) {
+      return data.jobs;
+    } else if (data && Array.isArray(data.careerJobs)) {
+      return data.careerJobs;
+    } else if (data && Array.isArray(data.data)) {
+      return data.data;
+    }
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+// ==========================================
+// Career Application Submission API Method
+// ==========================================
+
+export interface CareerApplicationData {
+  positionApplyingFor: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  experienceYears: string;
+  linkedinUrl?: string;
+  briefNote?: string;
+  consent?: boolean;
+  resume?: File | null;
+}
+
+/**
+ * Submit career application (FormData with file upload) to CMS /api/careers
+ */
+export async function submitCareerApplication(
+  payload: CareerApplicationData | FormData
+): Promise<{ success: boolean; data?: any; error?: string }> {
+  const url = `${CMS_LOCATION_BASE_URL}/api/careers`;
+
+  try {
+    let bodyData: FormData;
+    if (payload instanceof FormData) {
+      bodyData = payload;
+    } else {
+      bodyData = new FormData();
+      bodyData.append("positionApplyingFor", payload.positionApplyingFor);
+      bodyData.append("fullName", payload.fullName);
+      bodyData.append("email", payload.email);
+      bodyData.append("phone", payload.phone);
+      bodyData.append("experienceYears", payload.experienceYears);
+      if (payload.linkedinUrl) bodyData.append("linkedinUrl", payload.linkedinUrl);
+      if (payload.briefNote) bodyData.append("briefNote", payload.briefNote);
+      bodyData.append("consent", String(payload.consent ?? true));
+      if (payload.resume) {
+        bodyData.append("resume", payload.resume);
+      }
+    }
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: bodyData,
+    });
+
+    if (response.ok) {
+      const resData = await response.json().catch(() => ({}));
+      return { success: true, data: resData };
+    }
+
+    return { success: false, error: `HTTP ${response.status}` };
+  } catch (err: any) {
+    return { success: false, error: err?.message || "Submission error" };
+  }
+}
+
+// ==========================================
+// Blogs API Interfaces & Methods
+// ==========================================
+
+export interface CmsBlogItem {
+  id: string;
+  _id?: string;
+  slug: string;
+  title: string;
+  content?: string;
+  excerpt?: string;
+  coverImage?: string;
+  uploadImage?: string;
+  image?: string;
+  category?: string;
+  categories?: string[];
+  tags?: string[];
+  author?:
+    | {
+        name?: string;
+        role?: string;
+        avatar?: string;
+      }
+    | string
+    | null;
+  readTime?: number | string;
+  views?: number;
+  likes?: number;
+  commentsCount?: number;
+  isPublished?: boolean;
+  publishedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+}
+
+/**
+ * Fetch blogs list from CMS
+ */
+export async function getCmsBlogs(): Promise<CmsBlogItem[]> {
+  try {
+    const response = await safeFetch(`${CMS_LOCATION_BASE_URL}/api/blogs`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
+
+    if (!response || !response.ok) {
+      return [];
+    }
+
+    const data = await response.json();
+    if (Array.isArray(data)) {
+      return data;
+    } else if (data && Array.isArray(data.blogs)) {
+      return data.blogs;
+    } else if (data && Array.isArray(data.data)) {
+      return data.data;
+    }
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Fetch single blog post by slug or ID from CMS
+ */
+export async function getCmsBlogBySlugOrId(
+  slugOrId: string
+): Promise<CmsBlogItem | null> {
+  try {
+    const response = await safeFetch(
+      `${CMS_LOCATION_BASE_URL}/api/blogs/${slugOrId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    );
+
+    if (response && response.ok) {
+      const data = await response.json();
+      if (data && (data.id || data._id) && !data.message) {
+        return data as CmsBlogItem;
+      }
+    }
+
+    // If direct lookup by ID failed or returned "Blog not found", search list by slug/ID/title-slug
+    const allBlogs = await getCmsBlogs();
+    const found = allBlogs.find(
+      (b) =>
+        b.slug === slugOrId ||
+        b.id === slugOrId ||
+        b._id === slugOrId ||
+        (b.title &&
+          b.title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "") === slugOrId)
+    );
+
+    return found || null;
+  } catch {
+    return null;
+  }
+}
+
+
+
+
+

@@ -258,7 +258,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
             </span>
             <span className="flex items-center gap-1.5">
               <User className="w-3.5 h-3.5 text-[#C5A880]" />
-              <span>By {blog.author || "admin"}</span>
+              <span>By {blog.author && blog.author !== "admin" ? blog.author : "Jhamtani Group"}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <FolderOpen className="w-3.5 h-3.5 text-[#C5A880]" />
@@ -313,26 +313,37 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
                     {blog.date}
                   </span>
                   <span>•</span>
-                  <span>By {blog.author || "admin"}</span>
+                  <span>By {blog.author && blog.author !== "admin" ? blog.author : "Jhamtani Group"}</span>
                   <span>•</span>
                   <span>In {blog.category}</span>
                 </div>
               </div>
 
-              {/* Introduction Lead with Dropcap */}
+              {/* Introduction Lead / HTML Content */}
               <div className="space-y-4 text-zinc-700 text-[16px] sm:text-[17px] leading-relaxed font-light">
-                {blog.intro.map((p, idx) => (
-                  <p
-                    key={idx}
-                    className={
-                      idx === 0
-                        ? "text-lg sm:text-xl font-normal text-zinc-900 leading-relaxed first-letter:text-5xl first-letter:font-serif first-letter:text-[#A0725B] first-letter:mr-3 first-letter:float-left first-letter:leading-none"
-                        : ""
-                    }
-                  >
-                    {p}
-                  </p>
-                ))}
+                {blog.intro.map((p, idx) => {
+                  if (p && p.includes("<") && p.includes(">")) {
+                    return (
+                      <div
+                        key={idx}
+                        className="prose prose-zinc max-w-none space-y-4 text-zinc-700 text-[16px] sm:text-[17px] leading-relaxed font-light [&_h2]:font-serif [&_h2]:text-2xl sm:[&_h2]:text-3xl [&_h2]:text-[#A0725B] [&_h2]:mt-8 [&_h2]:mb-4 [&_h2]:font-normal [&_h3]:font-serif [&_h3]:text-xl sm:[&_h3]:text-2xl [&_h3]:text-[#A0725B] [&_h3]:mt-6 [&_h3]:mb-3 [&_h4]:font-serif [&_h4]:text-lg sm:[&_h4]:text-xl [&_h4]:text-[#A0725B] [&_h4]:mt-5 [&_h4]:mb-2 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2.5 [&_li]:text-zinc-700 [&_a]:text-[#A0725B] [&_a]:underline font-sans"
+                        dangerouslySetInnerHTML={{ __html: p }}
+                      />
+                    );
+                  }
+                  return (
+                    <p
+                      key={idx}
+                      className={
+                        idx === 0
+                          ? "text-lg sm:text-xl font-normal text-zinc-900 leading-relaxed first-letter:text-5xl first-letter:font-serif first-letter:text-[#A0725B] first-letter:mr-3 first-letter:float-left first-letter:leading-none"
+                          : ""
+                      }
+                    >
+                      {p}
+                    </p>
+                  );
+                })}
               </div>
 
               {/* Article Content Sections */}
@@ -588,7 +599,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
                 </div>
               </div>
 
-              {/* Author Bio Box */}
+              {/* Author & Publisher Bio Box */}
               <div className="p-6 sm:p-7 rounded-2xl bg-[#FAF5F0] border border-[#A0725B]/20 flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
                 <div className="w-14 h-14 rounded-full bg-[#A0725B] text-white flex items-center justify-center font-serif text-2xl font-bold flex-shrink-0 shadow-md">
                   J
@@ -596,14 +607,14 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
                 <div className="space-y-1.5">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 justify-center sm:justify-start">
                     <h4 className="font-serif text-lg text-zinc-900 font-semibold">
-                      Jhamtani Editorial Desk
+                      {blog.author && blog.author !== "admin" ? blog.author : "Jhamtani Editorial Desk"}
                     </h4>
                     <span className="text-[11px] text-[#A0725B] font-semibold uppercase tracking-wider bg-[#A0725B]/10 px-2 py-0.5 rounded-full">
-                      Author
+                      Publisher: Jhamtani Group
                     </span>
                   </div>
                   <p className="text-zinc-600 text-xs sm:text-sm font-light leading-relaxed">
-                    Dedicated to bringing home seekers, investors, and industry
+                    Published by Jhamtani Group. Dedicated to bringing home seekers, investors, and industry
                     enthusiasts authentic insights, regulatory updates, and lifestyle
                     analyses across Pune and PCMC real estate.
                   </p>

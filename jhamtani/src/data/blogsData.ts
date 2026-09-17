@@ -1,3 +1,5 @@
+import type { CmsBlogItem } from "@/services/api";
+
 export interface BlogFAQ {
   question: string;
   answer: string;
@@ -871,4 +873,68 @@ export function getBlogBySlug(slug: string): BlogPost | undefined {
 
 export function getRelatedBlogs(currentSlug: string, limit: number = 3): BlogPost[] {
   return blogsData.filter((b) => b.slug !== currentSlug).slice(0, limit);
+}
+
+export function cmsBlogToBlogPost(cmsBlog: CmsBlogItem): BlogPost {
+  const primaryCategory =
+    (cmsBlog.categories && cmsBlog.categories.length > 0 ? cmsBlog.categories[0] : cmsBlog.category) ||
+    "Real Estate";
+
+  const image =
+    cmsBlog.coverImage ||
+    cmsBlog.uploadImage ||
+    cmsBlog.image ||
+    "/assets/blogs/default.webp";
+
+  const dateObj =
+    cmsBlog.publishedAt || cmsBlog.createdAt
+      ? new Date(cmsBlog.publishedAt || cmsBlog.createdAt!)
+      : new Date();
+
+  const dateFormatted = dateObj.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  const authorName =
+    typeof cmsBlog.author === "object" && cmsBlog.author?.name
+      ? cmsBlog.author.name
+      : typeof cmsBlog.author === "string"
+      ? cmsBlog.author
+      : "Jhamtani Editorial";
+
+  const authorRole =
+    typeof cmsBlog.author === "object" && cmsBlog.author?.role
+      ? cmsBlog.author.role
+      : "Official Post";
+
+  const authorAvatar =
+    typeof cmsBlog.author === "object" && cmsBlog.author?.avatar
+      ? cmsBlog.author.avatar
+      : "/assets/author.webp";
+
+  return {
+    id: cmsBlog.id || cmsBlog._id || cmsBlog.slug,
+    slug: cmsBlog.slug,
+    title: cmsBlog.title,
+    date: dateFormatted,
+    dateIso: dateObj.toISOString(),
+    author: authorName,
+    authorRole: authorRole,
+    authorAvatar: authorAvatar,
+    category: primaryCategory,
+    readTime: cmsBlog.readTime ? `${cmsBlog.readTime} min read` : "5 min read",
+    image: image,
+    fallbackImage: image,
+    imageAlt: cmsBlog.title,
+    excerpt: cmsBlog.excerpt || cmsBlog.metaDescription || "",
+    metaDescription: cmsBlog.metaDescription || cmsBlog.excerpt || cmsBlog.title,
+    keywords: cmsBlog.tags || [],
+    tags: cmsBlog.tags || [],
+    intro: cmsBlog.content ? [cmsBlog.content] : [cmsBlog.excerpt || ""],
+    sections: [],
+    conclusion: [],
+    faqs: [],
+  };
 }

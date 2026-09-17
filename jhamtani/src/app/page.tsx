@@ -10,12 +10,13 @@ import Contact from "@/components/home/contact/Contact";
 import Footer from "@/components/footer/Footer";
 import SignatureSeries from '@/components/home/signtaure/signtaureseries';
 import InteractiveMap from "@/components/home/map/map";
-
+import HomeVideoModal from "@/components/home/HomeVideoModal";
 
 export default function Home() {
   return (
     <>
       <Header />
+      <HomeVideoModal />
       <main>
         <Hero />
         <AboutSection />

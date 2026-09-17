@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useId } from "react";
+import { useState, useEffect, useMemo, useId } from "react";
+import { getCmsCareerJobs, submitCareerApplication } from "@/services/api";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -261,9 +262,56 @@ const DEPARTMENTS = [
 export default function CareerComponent() {
   const [selectedDept, setSelectedDept] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [jobOpenings, setJobOpenings] = useState<JobOpening[]>(JOB_OPENINGS);
   const [activeJobModal, setActiveJobModal] = useState<JobOpening | null>(null);
   const [applicationModalOpen, setApplicationModalOpen] = useState(false);
   const [selectedJobForApply, setSelectedJobForApply] = useState<JobOpening | null>(null);
+
+  useEffect(() => {
+    async function loadCmsJobs() {
+      try {
+        const cmsJobs = await getCmsCareerJobs();
+        if (cmsJobs && cmsJobs.length > 0) {
+          setJobOpenings((prev) => {
+            const updated = [...prev];
+            cmsJobs.forEach((cJob) => {
+              const formattedJob: JobOpening = {
+                id: cJob.id || cJob._id || cJob.slug || `cms-${Math.random()}`,
+                title: cJob.title,
+                department: cJob.department,
+                location: cJob.location,
+                type: cJob.type || "Full Time",
+                experience: cJob.experience,
+                description: cJob.description,
+                responsibilities: cJob.responsibilities || [],
+                requirements: cJob.requirements || [],
+              };
+              const existingIdx = updated.findIndex(
+                (j) => j.id === cJob.id || (cJob.slug && j.id === cJob.slug)
+              );
+              if (existingIdx !== -1) {
+                updated[existingIdx] = formattedJob;
+              } else {
+                updated.unshift(formattedJob);
+              }
+            });
+            return updated;
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching CMS career jobs:", err);
+      }
+    }
+    loadCmsJobs();
+  }, []);
+
+  const departmentsList = useMemo(() => {
+    const set = new Set(DEPARTMENTS);
+    jobOpenings.forEach((job) => {
+      if (job.department) set.add(job.department);
+    });
+    return Array.from(set);
+  }, [jobOpenings]);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -388,7 +436,7 @@ export default function CareerComponent() {
     return isValid;
   };
 
-  const filteredJobs = JOB_OPENINGS.filter((job) => {
+  const filteredJobs = jobOpenings.filter((job) => {
     const matchesDept =
       selectedDept === "All" || job.department === selectedDept;
     const matchesSearch =
@@ -413,16 +461,30 @@ export default function CareerComponent() {
     setApplicationModalOpen(true);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await submitCareerApplication({
+        positionApplyingFor: formData.position || "General Application",
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        experienceYears: formData.experience,
+        linkedinUrl: formData.linkedin,
+        briefNote: formData.coverNote,
+        consent: formData.consent,
+        resume: resumeFile,
+      });
+    } catch (err) {
+      console.error("Career application submission error:", err);
+    } finally {
       setIsSubmitting(false);
       setSubmitSuccess(true);
       setErrors({});
-    }, 1200);
+    }
   };
 
   const containerVariants = {
@@ -621,7 +683,7 @@ export default function CareerComponent() {
 
           {/* Department Filter Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {DEPARTMENTS.map((dept) => {
+            {departmentsList.map((dept) => {
               const isActive = selectedDept === dept;
               return (
                 <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -20,7 +20,8 @@ import {
   Mail,
   SlidersHorizontal,
 } from "lucide-react";
-import { blogsData, BlogPost } from "@/data/blogsData";
+import { blogsData, BlogPost, cmsBlogToBlogPost } from "@/data/blogsData";
+import { getCmsBlogs } from "@/services/api";
 
 interface WaveTextProps {
   text: string;
@@ -70,16 +71,45 @@ export default function BlogsList({ limit }: { limit?: number } = {}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [allBlogs, setAllBlogs] = useState<BlogPost[]>(blogsData);
+
+  useEffect(() => {
+    async function loadCmsBlogs() {
+      try {
+        const cmsItems = await getCmsBlogs();
+        if (cmsItems && cmsItems.length > 0) {
+          const converted = cmsItems.map((item) => cmsBlogToBlogPost(item));
+          setAllBlogs((prev) => {
+            const updated = [...prev];
+            converted.forEach((blog) => {
+              const existingIndex = updated.findIndex(
+                (b) => b.slug === blog.slug || b.id === blog.id
+              );
+              if (existingIndex !== -1) {
+                updated[existingIndex] = blog;
+              } else {
+                updated.unshift(blog);
+              }
+            });
+            return updated;
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching CMS blogs:", err);
+      }
+    }
+    loadCmsBlogs();
+  }, []);
 
   // Extract unique categories
   const categories = useMemo(() => {
-    const cats = new Set(blogsData.map((b) => b.category));
+    const cats = new Set(allBlogs.map((b) => b.category));
     return ["All", ...Array.from(cats)];
-  }, []);
+  }, [allBlogs]);
 
   // Filtered blogs based on search and category
   const filteredBlogs = useMemo(() => {
-    const list = blogsData.filter((blog) => {
+    const list = allBlogs.filter((blog) => {
       const matchesCategory =
         selectedCategory === "All" || blog.category === selectedCategory;
       const matchesSearch =
@@ -89,7 +119,7 @@ export default function BlogsList({ limit }: { limit?: number } = {}) {
       return matchesCategory && matchesSearch;
     });
     return limit ? list.slice(0, limit) : list;
-  }, [searchQuery, selectedCategory, limit]);
+  }, [searchQuery, selectedCategory, limit, allBlogs]);
 
   const handleShare = async (e: React.MouseEvent, blog: BlogPost) => {
     e.preventDefault();

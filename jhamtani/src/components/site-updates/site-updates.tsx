@@ -94,7 +94,7 @@ const siteUpdatesData: ProjectUpdate[] = [
     month: "MAY 2024",
     tagline: "Smart Co-Living & Modern Studio Residences",
     location: "Mundhwa, Pune",
-    categories: ["Residential", "Studio"],
+    categories: ["Studio"],
     link: "/jhamtani-elevate",
     images: ["/assets/site-updates/jhamtani-elevate.webp"],
   },
