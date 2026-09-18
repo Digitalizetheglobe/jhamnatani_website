@@ -35,7 +35,7 @@ const allAmenities = [
   { id: 24, name: "Chess Play Area", icon: "Chess Play Area" },
   // Row 5
   { id: 25, name: "Air Hockey", icon: "Air Hockey" },
-  { id: 26, name: "Cards Play Area", icon: "creche" },
+  { id: 26, name: "Kids Play Area", icon: "creche" },
   { id: 27, name: "Spa", icon: "Spa" },
   { id: 28, name: "Carrom Play Area", icon: "Carrom Play Area" },
   { id: 29, name: "Outdoor Spa", icon: "zen-garden" },
