@@ -23,7 +23,7 @@ const SECTIONS = [
       "Offer continued support after handover.",
       "Resolve concerns with care and speed.",
       "Stay connected throughout the homeowner journey.",
-      "Have a dedicated HAS team/department and POCs",
+      "Have a dedicated HAS team/department and POCs.",
       "Create mediums for customers/homeowners to initiate & track their complaints.",
       "Build relationships that last beyond transactions.",
     ],

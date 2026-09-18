@@ -18,7 +18,7 @@ export default function AboutSection() {
   const lastWheelTimeRef = useRef(0);
 
   const stats = [
-    { number: "40+ Yrs", label: "YEARS OF LEGACY" },
+    { number: "40+", label: "YEARS OF LEGACY" },
     { number: "16+ Yrs", label: "IN REAL ESTATE" },
     { number: "13K+", label: "HAPPY FACES" },
     { number: "8", label: "ONGOING PROJECTS" },

@@ -5,7 +5,7 @@ import { motion, Variants } from "framer-motion";
 
 export default function Hero() {
   const line1 = "The Ideal Way of";
-  const line2 = "Living";
+  const line2 = "Living.";
 
   // Framer Motion animation variants
   const containerVariants: Variants = {

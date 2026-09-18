@@ -184,7 +184,7 @@ export default function Yugma() {
             }}
             className="px-8 sm:px-12 py-3.5 sm:py-3 rounded-full border border-[#A0725B]/60 text-[#2B2B2B] font-serif text-base sm:text-lg md:text-xl font-light bg-[#FAF5F0] shadow-[22px_20px_32px_rgba(60,45,30,0.18)] hover:shadow-[26px_26px_40px_rgba(70,45,30,0.3)] hover:bg-[#A0725B] hover:text-white hover:border-[#A0725B] transition-all duration-300 cursor-pointer"
           >
-            Be Our Business Associate. Fill in this Channel Partner Form
+            Be Our Business Associate. Fill in this Channel Partner Form.
           </button>
         </motion.div>
       </div>

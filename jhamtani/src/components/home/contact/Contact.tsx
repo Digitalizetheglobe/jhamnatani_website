@@ -13,30 +13,30 @@ import {
 export default function Contact() {
   const [selectedEdition, setSelectedEdition] = useState<NewsletterEdition | null>(null);
 
-  // Featured Edition (July 2026)
+  // Featured Edition (June 2026 - Latest on site)
   const featuredEdition: NewsletterEdition =
-    newslettersData.find((n) => n.id === "july-2026") || newslettersData[0];
+    newslettersData.find((n) => n.id === "june-2026") || newslettersData[0];
 
-  // Right 4 Recent Editions (June, May, April, March 2026)
+  // Right 4 Recent Editions (May, April, March, Feb 2026)
   const recentEditions: {
     edition: NewsletterEdition;
     img: string;
   }[] = [
     {
-      edition: newslettersData.find((n) => n.id === "june-2026") || newslettersData[1],
-      img: "/assets/newsletter/covers/june-2026.webp",
-    },
-    {
-      edition: newslettersData.find((n) => n.id === "may-2026") || newslettersData[2],
+      edition: newslettersData.find((n) => n.id === "may-2026") || newslettersData[1],
       img: "/assets/newsletter/covers/may-2026.webp",
     },
     {
-      edition: newslettersData.find((n) => n.id === "april-2026") || newslettersData[3],
+      edition: newslettersData.find((n) => n.id === "april-2026") || newslettersData[2],
       img: "/assets/newsletter/covers/april-2026.webp",
     },
     {
-      edition: newslettersData.find((n) => n.id === "march-2026") || newslettersData[4],
+      edition: newslettersData.find((n) => n.id === "march-2026") || newslettersData[3],
       img: "/assets/newsletter/covers/march-2026.webp",
+    },
+    {
+      edition: newslettersData.find((n) => n.id === "feb-2026") || newslettersData[4],
+      img: "/assets/newsletter/covers/feb-2026.webp",
     },
   ];
 
@@ -83,7 +83,7 @@ export default function Contact() {
                 {/* Large Featured Magazine Cover Image with Badge */}
                 <div className="relative w-full h-[280px] sm:h-[350px] rounded-[24px] overflow-hidden select-none bg-zinc-950 flex items-center justify-center">
                   <Image
-                    src="/assets/newsletter/covers/july-2026.webp"
+                    src="/assets/newsletter/covers/june-2026.webp"
                     alt={featuredEdition.title}
                     fill
                     className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-103"

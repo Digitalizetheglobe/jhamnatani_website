@@ -39,7 +39,7 @@ export default function Highlists() {
             Built Around Urban Demand.
           </p>
           <p className="font-sans text-[14px] sm:text-[15px] text-[#000] leading-relaxed font-light mt-3 max-w-xl">
-            A strategic location, professional management and a format designed for today’s working professionals shape the BizCore proposition.
+            A strategic location, professional management and a format designed for today’s working professionals shape the Bizcore proposition.
           </p>
         </div>
 

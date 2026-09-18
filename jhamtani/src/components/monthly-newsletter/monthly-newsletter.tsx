@@ -48,16 +48,6 @@ export interface NewsletterEdition {
 
 export const newslettersData: NewsletterEdition[] = [
   {
-    id: "july-2026",
-    title: "Monthly Buzz June 2026",
-    month: "July",
-    year: 2026,
-    badge: "Special Annual Edition",
-    tagline: "Celebrating 18+ Years of Milestone Excellence & Sky-High Living",
-    pdfUrl: "/assets/newsletter/July-2026.pdf",
-    date: "July 2026",
-  },
-  {
     id: "june-2026",
     title: "Monthly Buzz June 2026",
     month: "June",

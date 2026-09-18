@@ -99,10 +99,10 @@ export default function AboutContent() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                {" "}The 24 communities that have become home to over 13,000+ happy faces. More than 3 million square feet thoughtfully delivered. And over 4 million square feet envisioned for tomorrow
+                {" "}The 24 communities that have become home to over 13,000+ happy faces. More than 3 million square feet thoughtfully delivered. And over 4 million square feet envisioned for tomorrow.
                 <span 
                   onClick={() => setIsExpanded(false)}
-                  className="text-[#b88654] italic cursor-pointer hover:underline ml-2 font-semibold inline-block"
+                  className="text-[#b88654] italic cursor-pointer hover:underline font-semibold inline-block"
                 >
                   Read less
                 </span>
