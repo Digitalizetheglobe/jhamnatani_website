@@ -291,7 +291,7 @@ export default function Footer() {
         {/* Copyright Section */}
         <div className="text-center text-[12px] text-zinc-400 font-sans tracking-wider ">
           <p>
-            Copyright © {new Date().getFullYear()} Jhamtani Group. All Rights Reserved. Designed by{" "}
+            Copyright © {new Date().getFullYear()} Jhamtani Group. All Rights Reserved. Carefully Crafted by{" "}
             <a
               href="https://digitalizetheglobe.com/"
               target="_blank"
