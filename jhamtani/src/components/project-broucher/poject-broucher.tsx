@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { submitMainEnquiryForm } from "@/services/api";
 import {
   Download,
   FileText,
@@ -327,14 +328,24 @@ export default function ProjectBrochureComponent() {
     return isValid;
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-
-    // Simulate submission and trigger direct download
-    setTimeout(() => {
+    try {
+      await submitMainEnquiryForm({
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        project: selectedProject?.title || "Brochure Request",
+        message: `Requested Brochure Download for ${selectedProject?.title || "Project"}`,
+        consent: formData.consent,
+        formName: "Download Brochure Form",
+      });
+    } catch (err) {
+      console.error("Brochure form submit error:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSuccess(true);
       setErrors({});
@@ -348,7 +359,7 @@ export default function ProjectBrochureComponent() {
         link.click();
         document.body.removeChild(link);
       }
-    }, 900);
+    }
   };
 
   return (

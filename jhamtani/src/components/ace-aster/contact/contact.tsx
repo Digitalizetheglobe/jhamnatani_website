@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X } from "lucide-react";
+import { submitMainEnquiryForm } from "@/services/api";
 
 interface FormData {
   name: string;
@@ -112,14 +113,24 @@ export default function Contact() {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
       setIsSubmitting(true);
-
-      // Simulate API submit delay
-      setTimeout(() => {
+      try {
+        await submitMainEnquiryForm({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          project: "ACE Aster",
+          message: `Configuration: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
+          consent: formData.consent,
+          formName: "ACE Aster Contact Form",
+        });
+      } catch (err) {
+        console.error("ACE Aster submission error:", err);
+      } finally {
         setIsSubmitting(false);
         setShowSuccessModal(true);
         setFormData({
@@ -131,7 +142,7 @@ export default function Contact() {
           consent: false,
         });
         setErrors({});
-      }, 1000);
+      }
     }
   };
 

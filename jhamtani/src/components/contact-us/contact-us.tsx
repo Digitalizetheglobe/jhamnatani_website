@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { submitMainEnquiryForm } from "@/services/api";
 import {
   MapPin,
   Mail,
@@ -144,14 +145,23 @@ export default function ContactUsComponent() {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-
-    // Simulate submission
-    setTimeout(() => {
+    try {
+      await submitMainEnquiryForm({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.mobile,
+        message: formData.message,
+        consent: formData.consent,
+        formName: "Contact Us Page Form",
+      });
+    } catch (err) {
+      console.error("Contact Us form submit error:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormData({
@@ -163,7 +173,7 @@ export default function ContactUsComponent() {
       });
       setErrors({});
       setTimeout(() => setIsSubmitted(false), 5000);
-    }, 800);
+    }
   };
 
   const experienceCentres = [

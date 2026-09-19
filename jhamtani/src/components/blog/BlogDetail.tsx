@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { submitMainEnquiryForm } from "@/services/api";
 import {
   Calendar,
   User,
@@ -194,12 +195,23 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await submitMainEnquiryForm({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        consent: formData.consent,
+        formName: `Blog Detail Form (${post?.title || "Blog"})`,
+      });
+    } catch (err) {
+      console.error("Blog form submit error:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormData({
@@ -211,7 +223,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
       });
       setErrors({});
       setTimeout(() => setIsSubmitted(false), 5000);
-    }, 800);
+    }
   };
 
   return (

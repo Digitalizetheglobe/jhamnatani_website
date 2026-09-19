@@ -383,12 +383,43 @@ export interface FormSubmissionPayload {
   project?: string;
   message?: string;
   consent?: boolean;
+  formName?: string;
+}
+
+export async function sendFormEmail(data: Record<string, any>): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json().catch(() => ({}));
+    if (res.ok && json.success) {
+      return { success: true };
+    }
+    return { success: false, error: json.error || "Failed to send email" };
+  } catch (err: any) {
+    console.error("sendFormEmail error:", err);
+    return { success: false, error: err?.message || "Failed to send email" };
+  }
 }
 
 export async function submitMainEnquiryForm(
   data: FormSubmissionPayload,
   formId = "254715a5-1571-4ccb-ab30-5a3428cfd4a0"
 ): Promise<{ success: boolean; data?: any; fallback?: boolean; error?: string }> {
+  // Trigger Nodemailer email dispatch
+  sendFormEmail({
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    project: data.project,
+    message: data.message,
+    formName: data.formName || "Main Enquiry Form",
+  });
+
   const targetUrl = `${CMS_BASE_URL}/api/forms/forms/${formId}/submit`;
 
   const payload = {
@@ -514,6 +545,17 @@ export interface CareerApplicationData {
 export async function submitCareerApplication(
   payload: CareerApplicationData | FormData
 ): Promise<{ success: boolean; data?: any; error?: string }> {
+  if (!(payload instanceof FormData)) {
+    sendFormEmail({
+      name: payload.fullName,
+      email: payload.email,
+      phone: payload.phone,
+      project: payload.positionApplyingFor,
+      message: `Experience: ${payload.experienceYears} Years | LinkedIn: ${payload.linkedinUrl || "N/A"} | Cover Note: ${payload.briefNote || "N/A"}`,
+      formName: `Career Application: ${payload.positionApplyingFor}`,
+    });
+  }
+
   const url = `${CMS_LOCATION_BASE_URL}/api/careers`;
 
   try {

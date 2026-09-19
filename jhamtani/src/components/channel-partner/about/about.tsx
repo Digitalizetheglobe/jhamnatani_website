@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { sendFormEmail } from "@/services/api";
 import { X, CheckCircle2, User, Phone, Mail, Building, FileCheck, MapPin, Send, CreditCard, Users, UserCheck, Receipt, FileText } from "lucide-react";
 
 interface WaveTextProps {
@@ -167,16 +168,29 @@ export default function About() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    // Simulate submission
-    setTimeout(() => {
+    try {
+      await sendFormEmail({
+        name: formData.ownerName || formData.firmName,
+        email: formData.email || formData.ownerEmail,
+        phone: formData.phone || formData.ownerPhone,
+        formName: "Channel Partner Registration Form",
+        firmName: formData.firmName,
+        reraNumber: formData.reraNumber,
+        panNumber: formData.panNumber,
+        ownerName: formData.ownerName,
+        address: formData.officeAddress,
+      });
+    } catch (err) {
+      console.error("Channel Partner registration error:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSuccess(true);
-    }, 1000);
+    }
   };
 
   const handleCloseModal = () => {

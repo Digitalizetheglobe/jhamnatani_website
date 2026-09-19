@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { sendFormEmail } from "@/services/api";
 import {
   Building2,
   User,
@@ -160,15 +161,28 @@ export default function VendorRegistration() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await sendFormEmail({
+        name: formData.contactPerson,
+        email: formData.email,
+        phone: formData.phone,
+        formName: "Vendor Registration Form",
+        companyName: formData.companyName,
+        serviceType: formData.serviceType,
+        firmDetails: formData.firmDetails,
+        address: formData.address,
+      });
+    } catch (err) {
+      console.error("Vendor registration submit error:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1200);
+    }
   };
 
   const handleCloseModal = () => {
