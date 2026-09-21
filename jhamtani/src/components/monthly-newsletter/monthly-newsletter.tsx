@@ -48,11 +48,30 @@ export interface NewsletterEdition {
 
 export const newslettersData: NewsletterEdition[] = [
   {
+    id: "august-2026",
+    title: "Monthly Buzz August 2026",
+    month: "August",
+    year: 2026,
+    badge: "Latest Edition",
+    tagline: "Independence Month Special, Construction Milestones & Community Celebrations",
+    pdfUrl: "/assets/newsletter/2026/newsletter_august.pdf",
+    date: "August 2026",
+  },
+  {
+    id: "july-2026",
+    title: "Monthly Buzz July 2026",
+    month: "July",
+    year: 2026,
+    coverImage: "/assets/newsletter/covers/july-2026.webp",
+    tagline: "Monsoon Progress, Architectural Marvels & Community Updates",
+    pdfUrl: "/assets/newsletter/2026/newsletter_july.pdf",
+    date: "July 2026",
+  },
+  {
     id: "june-2026",
     title: "Monthly Buzz June 2026",
     month: "June",
     year: 2026,
-    badge: "Latest Edition",
     tagline: "Summer Construction Highlights, Project Deliveries & Community Stories",
     pdfUrl: "/assets/newsletter/June-2026.pdf",
     date: "June 2026",

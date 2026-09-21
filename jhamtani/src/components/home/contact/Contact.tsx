@@ -13,30 +13,30 @@ import {
 export default function Contact() {
   const [selectedEdition, setSelectedEdition] = useState<NewsletterEdition | null>(null);
 
-  // Featured Edition (June 2026 - Latest on site)
+  // Featured Edition (August 2026 - Latest on site)
   const featuredEdition: NewsletterEdition =
-    newslettersData.find((n) => n.id === "june-2026") || newslettersData[0];
+    newslettersData.find((n) => n.id === "august-2026") || newslettersData[0];
 
-  // Right 4 Recent Editions (May, April, March, Feb 2026)
+  // Right 4 Recent Editions (July, June, May, April 2026)
   const recentEditions: {
     edition: NewsletterEdition;
     img: string;
   }[] = [
     {
-      edition: newslettersData.find((n) => n.id === "may-2026") || newslettersData[1],
+      edition: newslettersData.find((n) => n.id === "july-2026") || newslettersData[1],
+      img: "/assets/newsletter/covers/july-2026.webp",
+    },
+    {
+      edition: newslettersData.find((n) => n.id === "june-2026") || newslettersData[2],
+      img: "/assets/newsletter/covers/june-2026.webp",
+    },
+    {
+      edition: newslettersData.find((n) => n.id === "may-2026") || newslettersData[3],
       img: "/assets/newsletter/covers/may-2026.webp",
     },
     {
-      edition: newslettersData.find((n) => n.id === "april-2026") || newslettersData[2],
+      edition: newslettersData.find((n) => n.id === "april-2026") || newslettersData[4],
       img: "/assets/newsletter/covers/april-2026.webp",
-    },
-    {
-      edition: newslettersData.find((n) => n.id === "march-2026") || newslettersData[3],
-      img: "/assets/newsletter/covers/march-2026.webp",
-    },
-    {
-      edition: newslettersData.find((n) => n.id === "feb-2026") || newslettersData[4],
-      img: "/assets/newsletter/covers/feb-2026.webp",
     },
   ];
 

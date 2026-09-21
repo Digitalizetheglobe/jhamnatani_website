@@ -183,7 +183,7 @@ export default function About() {
         reraNumber: formData.reraNumber,
         panNumber: formData.panNumber,
         ownerName: formData.ownerName,
-        address: formData.officeAddress,
+        address: formData.address,
       });
     } catch (err) {
       console.error("Channel Partner registration error:", err);

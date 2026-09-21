@@ -26,26 +26,24 @@ export async function POST(req: Request) {
     const userMessage = message || "N/A";
     const formTitle = formName || subject || "Website Form Submission";
 
-    const host = process.env.SMTP_HOST || "smtp.jhamtani.com";
+    const host = process.env.SMTP_HOST || "smtp.gmail.com";
     const port = Number(process.env.SMTP_PORT) || 465;
-    const secure = process.env.SMTP_SECURE !== "false";
+    const secure = process.env.SMTP_SECURE ? process.env.SMTP_SECURE === "true" : port === 465;
     const user = process.env.SMTP_USER || "enquiry@jhamtani.com";
     const pass = process.env.SMTP_PASS || "Enquiry@#2026";
     const toEmail = process.env.TO_EMAIL || "enquiry@jhamtani.com";
     const fromEmail = process.env.FROM_EMAIL || `"Jhamtani Website" <${user}>`;
 
-    const transporter = nodemailer.createTransport({
-      host,
-      port,
-      secure,
-      auth: {
-        user,
-        pass,
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
+    const createTransporter = (h: string, p: number, sec: boolean) =>
+      nodemailer.createTransport({
+        host: h,
+        port: p,
+        secure: sec,
+        auth: { user, pass },
+        tls: { rejectUnauthorized: false },
+      });
+
+    let transporter = createTransporter(host, port, secure);
 
     let extraRowsHtml = "";
     if (extraFields && Object.keys(extraFields).length > 0) {
@@ -115,7 +113,15 @@ export async function POST(req: Request) {
       html: htmlContent,
     };
 
-    const info = await transporter.sendMail(mailOptions);
+    let info;
+    try {
+      info = await transporter.sendMail(mailOptions);
+    } catch (primaryErr: any) {
+      console.warn("Primary SMTP transport failed, trying fallback port 587:", primaryErr?.message);
+      // Fallback: try port 587 with secure false
+      const fallbackTransporter = createTransporter(host, 587, false);
+      info = await fallbackTransporter.sendMail(mailOptions);
+    }
 
     return NextResponse.json({ success: true, messageId: info.messageId });
   } catch (error: any) {

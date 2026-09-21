@@ -207,7 +207,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
         phone: formData.phone,
         message: formData.message,
         consent: formData.consent,
-        formName: `Blog Detail Form (${post?.title || "Blog"})`,
+        formName: `Blog Detail Form (${blog?.title || "Blog"})`,
       });
     } catch (err) {
       console.error("Blog form submit error:", err);

@@ -233,7 +233,7 @@ export default function Footer() {
           {/* Social Icons (Right Side) */}
           <div className="flex items-center space-x-3 shrink-0 justify-center md:justify-end">
             <a
-              href="https://www.instagram.com/jhamtani_group/"
+              href="https://www.instagram.com/jhamtani_official/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-md border border-white/20 hover:border-[#C5A880] hover:bg-[#C5A880]/10 text-white hover:text-[#C5A880] flex items-center justify-center transition-all duration-300"
@@ -246,7 +246,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.facebook.com/Jhamtani/"
+              href="https://www.facebook.com/jhamtani"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-md border border-white/20 hover:border-[#C5A880] hover:bg-[#C5A880]/10 text-white hover:text-[#C5A880] flex items-center justify-center transition-all duration-300"
@@ -257,7 +257,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.youtube.com/@jhamtani809"
+              href="https://www.youtube.com/@jhamtaniofficial"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-md border border-white/20 hover:border-[#C5A880] hover:bg-[#C5A880]/10 text-white hover:text-[#C5A880] flex items-center justify-center transition-all duration-300"

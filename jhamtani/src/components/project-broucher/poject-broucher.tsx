@@ -335,7 +335,7 @@ export default function ProjectBrochureComponent() {
     setIsSubmitting(true);
     try {
       await submitMainEnquiryForm({
-        name: formData.fullName,
+        name: formData.name,
         email: formData.email,
         phone: formData.phone,
         project: selectedProject?.title || "Brochure Request",
