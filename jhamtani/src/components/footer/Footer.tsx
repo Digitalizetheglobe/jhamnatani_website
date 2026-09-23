@@ -57,10 +57,10 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#111622] text-white border-t border-luxury-border py-12 sm:py-16 md:py-10 select-none">
       <div className="max-w-7xl mx-auto w-full px-6 sm:px-12 lg:px-16 space-y-12">
-        
+
         {/* Main Grid: Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
-          
+
           {/* 1. Quick Links Section (6 Cols) */}
           <div className="lg:col-span-6 space-y-6 text-left">
             <h3 className="font-serif text-[18px] md:text-[20px] tracking-wider text-[#C5A880] uppercase">
@@ -142,7 +142,8 @@ export default function Footer() {
 
           {/* 3. Scroll to Top Button (1 Col) */}
           <div className="lg:col-span-1 flex lg:justify-end justify-start">
-            <style dangerouslySetInnerHTML={{__html: `
+            <style dangerouslySetInnerHTML={{
+              __html: `
               .footer-scroll-top-circle-path {
                 stroke-dasharray: 298.5;
                 stroke-dashoffset: 298.5;
@@ -188,7 +189,7 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10">
-          
+
           {/* Contact Details (Left Side) */}
           <div className="space-y-6 text-left max-w-2xl">
             <h4 className="font-serif text-[18px] tracking-wider text-[#C5A880] uppercase">
@@ -197,7 +198,7 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center space-x-3 text-zinc-300 font-sans text-[14px]">
                 <svg className="w-4 h-4 text-[#C5A880] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
                 <a href="tel:+917447447669" className="hover:text-[#C5A880] transition-colors">
                   +91 7447447669
@@ -205,8 +206,8 @@ export default function Footer() {
               </div>
               <div className="flex items-start space-x-3 text-zinc-300 font-sans text-[14px]">
                 <svg className="w-4.5 h-4.5 text-[#C5A880] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                  <circle cx="12" cy="10" r="3"/>
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
                 </svg>
                 <a
                   href="https://maps.app.goo.gl/nXNbJS46SHJopH2E7"
@@ -220,8 +221,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3 text-zinc-300 font-sans text-[14px]">
                 <svg className="w-4 h-4 text-[#C5A880] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
                 </svg>
                 <a href="mailto:enquiry@jhamtani.com" className="hover:text-[#C5A880] transition-colors">
                   enquiry@jhamtani.com
@@ -240,9 +241,9 @@ export default function Footer() {
               aria-label="Instagram"
             >
               <svg className="w-5 h-5 stroke-[1.8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
             </a>
             <a
@@ -253,11 +254,11 @@ export default function Footer() {
               aria-label="Facebook"
             >
               <svg className="w-5 h-5 stroke-[1.8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
               </svg>
             </a>
             <a
-              href="https://www.youtube.com/@jhamtaniofficial"
+              href="https://www.youtube.com/@jhamtani809"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-md border border-white/20 hover:border-[#C5A880] hover:bg-[#C5A880]/10 text-white hover:text-[#C5A880] flex items-center justify-center transition-all duration-300"
@@ -276,9 +277,9 @@ export default function Footer() {
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5 stroke-[1.8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
               </svg>
             </a>
           </div>

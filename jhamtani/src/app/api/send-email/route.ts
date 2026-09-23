@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     const port = Number(process.env.SMTP_PORT) || 465;
     const secure = process.env.SMTP_SECURE ? process.env.SMTP_SECURE === "true" : port === 465;
     const user = process.env.SMTP_USER || "enquiry@jhamtani.com";
-    const pass = process.env.SMTP_PASS || "Enquiry@#2026";
+    const pass = process.env.SMTP_PASS || "pkppczknqnzvkkvs";
     const toEmail = process.env.TO_EMAIL || "enquiry@jhamtani.com";
     const fromEmail = process.env.FROM_EMAIL || `"Jhamtani Website" <${user}>`;
 
