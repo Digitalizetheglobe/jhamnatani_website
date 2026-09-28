@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Building, Home, LayoutGrid, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Building, Home, LayoutGrid, Sparkles, CheckCircle2, MapPin } from "lucide-react";
 
 type ProjectCategory = "Residential" | "Commercial" | "Studio";
 type ActiveTab = "ongoing" | "completed";
@@ -24,6 +24,7 @@ interface CompletedProject {
   id: number;
   image: string;
   logo: string;
+  location: string;
 }
 
 const projectsData: ProjectItem[] = [
@@ -109,13 +110,34 @@ const projectsData: ProjectItem[] = [
   },
 ];
 
+const completedProjectLocations: Record<number, string> = {
+  1: "PIMPRI",
+  2: "PIMPRI",
+  3: "THERGAON",
+  4: "PUNAWALE",
+  5: "RAVET",
+  6: "Hinjewadi Phase II",
+  7: "RAVET",
+  8: "RAVET",
+  9: "TATHAWADE",
+  10: "CHOVISAWADI",
+  11: "RAHATANI",
+  12: "WAKAD",
+  13: "WAKAD",
+  14: "RAVET",
+};
+
 // Completed projects – main image + logo pairs from /assets/completed_project/
-const completedProjects: CompletedProject[] = Array.from({ length: 14 }, (_, i) => ({
-  id: i + 1,
-  image: `/assets/completed_project/completd_${i + 1}.webp`,
-  // Trimmed logos (transparent padding removed so the mark fills the frame)
-  logo: `/assets/completed_project/logo_${i + 1}.webp`,
-}));
+const completedProjects: CompletedProject[] = Array.from({ length: 14 }, (_, i) => {
+  const id = i + 1;
+  return {
+    id,
+    image: `/assets/completed_project/completd_${id}.webp`,
+    // Trimmed logos (transparent padding removed so the mark fills the frame)
+    logo: `/assets/completed_project/logo_${id}.webp`,
+    location: completedProjectLocations[id] || "",
+  };
+});
 
 interface WaveTextProps {
   text: string;
@@ -414,9 +436,9 @@ export default function ProjectsComponent() {
                       <div className="absolute inset-0 bg-[#A0725B]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-[5]" />
                     </div>
 
-                    {/* Logo strip */}
-                    <div className="flex items-center justify-center px-4 py-3 border-t border-zinc-100 bg-white" style={{ height: 86 }}>
-                      <div className="relative w-full" style={{ height: 58 }}>
+                    {/* Logo & Location strip */}
+                    <div className="flex flex-col items-center justify-center px-4 py-3.5 border-t border-zinc-100 bg-white">
+                      <div className="relative w-full h-[52px]">
                         <Image
                           src={project.logo}
                           alt={`Project ${project.id} Logo`}
@@ -426,6 +448,14 @@ export default function ProjectsComponent() {
                           className="object-contain object-center"
                         />
                       </div>
+                      {project.location && (
+                        <div className="mt-2.5 pt-2 border-t border-zinc-100 w-full flex items-center justify-center gap-1.5 text-[#A0725B]">
+                          <MapPin className="w-3.5 h-3.5 shrink-0" />
+                          <span className="font-sans text-[11px] tracking-widest uppercase font-semibold text-zinc-600 group-hover:text-[#A0725B] transition-colors duration-300">
+                            {project.location}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 ))}
