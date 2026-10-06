@@ -4,11 +4,17 @@
  * To change the domain, update CMS_BASE_URL here or set NEXT_PUBLIC_CMS_URL in .env.
  */
 
-export const CMS_BASE_URL =
-  process.env.NEXT_PUBLIC_CMS_URL || "http://localhost:5173";
+export const CMS_BASE_URL = (
+  process.env.NEXT_PUBLIC_CMS_URL ||
+  process.env.NEXT_PUBLIC_LOCATION_API_URL ||
+  "https://api.jhamtani.com"
+).replace(/\/+$/, "");
 
-export const CMS_LOCATION_BASE_URL =
-  process.env.NEXT_PUBLIC_LOCATION_API_URL || "http://localhost:5000";
+export const CMS_LOCATION_BASE_URL = (
+  process.env.NEXT_PUBLIC_LOCATION_API_URL ||
+  process.env.NEXT_PUBLIC_CMS_URL ||
+  "https://api.jhamtani.com"
+).replace(/\/+$/, "");
 
 // ==========================================
 // Brochure API Interfaces
@@ -193,7 +199,7 @@ export function getCmsMediaUrl(path: string, baseUrl: string = CMS_BASE_URL): st
 // Helper for Safe Offline-Tolerant Fetching
 // ==========================================
 
-async function safeFetch(url: string, options: RequestInit = {}, timeoutMs = 1500): Promise<Response | null> {
+async function safeFetch(url: string, options: RequestInit = {}, timeoutMs = 6000): Promise<Response | null> {
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -406,9 +412,36 @@ export async function sendFormEmail(data: Record<string, any>): Promise<{ succes
   }
 }
 
+export const CONTACT_PAGE_FORM_ID = "0cfddca7-afc6-46cb-a076-dae138589f4e";
+export const QUICK_ENQUIRY_FORM_ID = "4e4649db-d32f-4d8b-9eac-0c6ed3a385c6";
+
+export async function submitContactUsForm(
+  data: FormSubmissionPayload
+): Promise<{ success: boolean; data?: any; fallback?: boolean; error?: string }> {
+  return submitMainEnquiryForm(
+    {
+      ...data,
+      formName: data.formName || "Contact Us Page Form",
+    },
+    CONTACT_PAGE_FORM_ID
+  );
+}
+
+export async function submitQuickEnquiryForm(
+  data: FormSubmissionPayload
+): Promise<{ success: boolean; data?: any; fallback?: boolean; error?: string }> {
+  return submitMainEnquiryForm(
+    {
+      ...data,
+      formName: data.formName || "Floating Quick Enquiry Modal Form",
+    },
+    QUICK_ENQUIRY_FORM_ID
+  );
+}
+
 export async function submitMainEnquiryForm(
   data: FormSubmissionPayload,
-  formId = "254715a5-1571-4ccb-ab30-5a3428cfd4a0"
+  formId = QUICK_ENQUIRY_FORM_ID
 ): Promise<{ success: boolean; data?: any; fallback?: boolean; error?: string }> {
   // Trigger Nodemailer email dispatch
   sendFormEmail({
@@ -420,10 +453,14 @@ export async function submitMainEnquiryForm(
     formName: data.formName || "Main Enquiry Form",
   });
 
-  const targetUrl = `${CMS_BASE_URL}/api/forms/forms/${formId}/submit`;
+  const targetUrl =
+    typeof window !== "undefined"
+      ? `/api/forms/forms/${formId}/submit`
+      : `${CMS_BASE_URL}/api/forms/forms/${formId}/submit`;
 
   const payload = {
     data: {
+      n: data.name,
       f: data.name,
       name: data.name,
       fullName: data.name,
@@ -436,6 +473,7 @@ export async function submitMainEnquiryForm(
       phone: data.phone,
       phoneNumber: data.phone,
       "Phone Number": data.phone,
+      project_of_interes: data.project || "",
       project_of_interest: data.project || "",
       project: data.project || "",
       projectOfInterest: data.project || "",
@@ -448,13 +486,26 @@ export async function submitMainEnquiryForm(
   };
 
   try {
-    const res = await safeFetch(targetUrl, {
+    let res = await safeFetch(targetUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
     });
+
+    if (!res || !res.ok) {
+      const directUrl = `${CMS_BASE_URL}/api/forms/forms/${formId}/submit`;
+      if (directUrl !== targetUrl) {
+        res = await safeFetch(directUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+      }
+    }
 
     if (res && res.ok) {
       const resData = await res.json().catch(() => ({}));
@@ -611,13 +662,13 @@ export interface CmsBlogItem {
   categories?: string[];
   tags?: string[];
   author?:
-    | {
-        name?: string;
-        role?: string;
-        avatar?: string;
-      }
-    | string
-    | null;
+  | {
+    name?: string;
+    role?: string;
+    avatar?: string;
+  }
+  | string
+  | null;
   readTime?: number | string;
   views?: number;
   likes?: number;

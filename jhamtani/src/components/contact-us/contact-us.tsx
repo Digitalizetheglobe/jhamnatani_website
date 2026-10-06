@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { submitMainEnquiryForm } from "@/services/api";
+import { submitContactUsForm } from "@/services/api";
 import {
   MapPin,
   Mail,
@@ -151,7 +151,7 @@ export default function ContactUsComponent() {
 
     setIsSubmitting(true);
     try {
-      await submitMainEnquiryForm({
+      await submitContactUsForm({
         name: formData.name,
         email: formData.email,
         phone: formData.mobile,

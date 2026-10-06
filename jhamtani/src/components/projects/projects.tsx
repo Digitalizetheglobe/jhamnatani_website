@@ -125,16 +125,26 @@ const completedProjectLocations: Record<number, string> = {
   12: "WAKAD",
   13: "WAKAD",
   14: "RAVET",
+  15: "WAKAD",
+  16: "WAKAD",
+  17: "WAKAD",
+  18: "WAKAD",
+  19: "BALEWADI",
+  20: "RAVET",
+  21: "PIMPRI",
 };
 
 // Completed projects – main image + logo pairs from /assets/completed_project/
-const completedProjects: CompletedProject[] = Array.from({ length: 14 }, (_, i) => {
+const completedProjects: CompletedProject[] = Array.from({ length: 21 }, (_, i) => {
   const id = i + 1;
   return {
     id,
     image: `/assets/completed_project/completd_${id}.webp`,
-    // Trimmed logos (transparent padding removed so the mark fills the frame)
-    logo: `/assets/completed_project/logo_${id}.webp`,
+    // 1–14 use trimmed logos; 15+ use the paired *.1 logo files
+    logo:
+      id <= 14
+        ? `/assets/completed_project/logo_${id}.webp`
+        : `/assets/completed_project/completd_${id}.1.webp`,
     location: completedProjectLocations[id] || "",
   };
 });

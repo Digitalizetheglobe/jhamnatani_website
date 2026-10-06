@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, SquarePen, MessageSquare, X, Send, Phone, Mail, CheckCircle2, Loader2, Sparkles } from "lucide-react";
 import RealTimeChatAssist from "./RealTimeChatAssist";
-import { submitMainEnquiryForm } from "@/services/api";
+import { submitQuickEnquiryForm } from "@/services/api";
 
 // Custom WhatsApp SVG Icon (Standard Filled Outline)
 const WhatsAppIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
@@ -144,13 +144,14 @@ export default function FloatingWidgets() {
 
     setIsSubmitting(true);
     try {
-      await submitMainEnquiryForm({
+      await submitQuickEnquiryForm({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         project: formData.project,
         message: formData.message,
         consent: formData.consent,
+        formName: "Floating Quick Enquiry Modal Form",
       });
     } catch (err) {
       console.error("Form submission error:", err);
