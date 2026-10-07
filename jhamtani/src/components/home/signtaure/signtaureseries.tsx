@@ -40,31 +40,24 @@ function WaveText({ text, letterDelay = 15 }: WaveTextProps) {
 const SignatureSeries = () => {
   return (
     <section
-      className="relative w-full min-h-[68vh] md:min-h-[72vh] font-sans overflow-hidden"
+      className="relative w-full min-h-[70vh] md:min-h-screen flex items-center font-sans overflow-hidden bg-[#181F27]"
       style={{
         backgroundImage: "url('/assets/home_banner.jpeg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center right",
+        backgroundSize: "contain",
+        backgroundPosition: "right center",
         backgroundRepeat: "no-repeat",
       }}
     >
-      {/* Dark overlay on the left so text stays readable */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(18,22,28,0.92) 0%, rgba(18,22,28,0.75) 45%, rgba(18,22,28,0.10) 70%, transparent 100%)",
-        }}
-      />
+     
 
       {/* Left Content */}
-      <div className="relative z-10 flex flex-col justify-center min-h-[68vh] md:min-h-[72vh] px-8 py-12 md:px-16 lg:px-28 md:py-14 max-w-2xl">
+      <div className="relative z-10 flex flex-col justify-center px-8 py-12 md:px-16 lg:px-28 md:py-14 max-w-2xl">
         {/* Logo */}
         <div className="mb-6 md:mb-8">
           <img
             src="/assets/pojetcts/XO_logo.webp"
             alt="XO Jhamtani Signature Series"
-            className="h-20 md:h-24 object-contain"
+            className="w-32 md:w-48 h-auto object-contain"
           />
         </div>
 
