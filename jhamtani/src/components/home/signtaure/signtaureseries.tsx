@@ -40,7 +40,7 @@ function WaveText({ text, letterDelay = 15 }: WaveTextProps) {
 const SignatureSeries = () => {
   return (
     <section
-      className="relative w-full min-h-screen md:min-h-[130vh] font-sans overflow-hidden"
+      className="relative w-full min-h-[68vh] md:min-h-[72vh] font-sans overflow-hidden"
       style={{
         backgroundImage: "url('/assets/home_banner.jpeg')",
         backgroundSize: "cover",
@@ -58,23 +58,23 @@ const SignatureSeries = () => {
       />
 
       {/* Left Content */}
-      <div className="relative z-10 flex flex-col justify-center h-full px-8 py-20 md:px-16 lg:px-28 md:py-28 max-w-2xl">
+      <div className="relative z-10 flex flex-col justify-center min-h-[68vh] md:min-h-[72vh] px-8 py-12 md:px-16 lg:px-28 md:py-14 max-w-2xl">
         {/* Logo */}
-        <div className="mb-10 md:mb-12">
+        <div className="mb-6 md:mb-8">
           <img
             src="/assets/pojetcts/XO_logo.webp"
             alt="XO Jhamtani Signature Series"
-            className="h-24 md:h-28 object-contain"
+            className="h-20 md:h-24 object-contain"
           />
         </div>
 
         {/* Headline */}
-        <h2 className="text-[#f5f5f5] text-3xl md:text-4xl lg:text-[36px] font-serif font-light tracking-wide mb-10 md:mb-12 leading-[1.15]">
+        <h2 className="text-[#f5f5f5] text-3xl md:text-4xl lg:text-[36px] font-serif font-light tracking-wide mb-6 md:mb-8 leading-[1.15]">
           Where our promise reaches its <br className="hidden md:block" /> finest expression.
         </h2>
 
         {/* First Paragraph */}
-        <div className="mb-8 space-y-1">
+        <div className="mb-5 space-y-1">
           <p className="text-[13px] md:text-sm text-zinc-400 font-medium tracking-wide">
             Some homes are built to be admired.
           </p>
@@ -84,7 +84,7 @@ const SignatureSeries = () => {
         </div>
 
         {/* Second Paragraph */}
-        <p className="text-[12px] md:text-[13px] text-zinc-400/90 mb-10 md:mb-12 leading-relaxed font-light max-w-md">
+        <p className="text-[12px] md:text-[13px] text-zinc-400/90 mb-6 md:mb-8 leading-relaxed font-light max-w-md">
           The finest expression of everything Jhamtani believes in- the XO
           Series represents our most considered collection of homes, bringing
           together exceptional architecture, curated experiences and
