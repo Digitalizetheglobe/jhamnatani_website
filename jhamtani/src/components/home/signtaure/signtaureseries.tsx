@@ -40,7 +40,7 @@ function WaveText({ text, letterDelay = 15 }: WaveTextProps) {
 const SignatureSeries = () => {
   return (
     <section
-      className="relative w-full min-h-screen md:min-h-[130vh] font-sans overflow-hidden"
+      className="relative w-full min-h-[70vh] md:min-h-screen flex items-center font-sans overflow-hidden bg-[#181F27]"
       style={{
         backgroundImage: "url('/assets/home_banner.jpeg')",
         backgroundSize: "contain",
@@ -51,13 +51,13 @@ const SignatureSeries = () => {
      
 
       {/* Left Content */}
-      <div className="relative z-10 flex flex-col justify-center h-full px-8 py-20 md:px-16 lg:px-28 md:py-28 max-w-2xl">
+      <div className="relative z-10 flex flex-col justify-center px-8 py-12 md:px-16 lg:px-28 md:py-14 max-w-2xl">
         {/* Logo */}
         <div className="mb-6 md:mb-8">
           <img
             src="/assets/pojetcts/XO_logo.webp"
             alt="XO Jhamtani Signature Series"
-            className="h-24 md:h-28 object-contain"
+            className="w-32 md:w-48 h-auto object-contain"
           />
         </div>
 
