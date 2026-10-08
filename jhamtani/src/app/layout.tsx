@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 import FloatingWidgets from "@/components/common/FloatingWidgets";
 
@@ -64,6 +65,18 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col text-white selection:bg-[#C5A880] selection:text-black font-sans"
       >
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-93HTFX0TJ0"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-93HTFX0TJ0');
+          `}
+        </Script>
         {children}
         <FloatingWidgets />
       </body>
