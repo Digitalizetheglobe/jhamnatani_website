@@ -292,16 +292,7 @@ export default function Footer() {
         {/* Copyright Section */}
         <div className="text-center text-[12px] text-zinc-400 font-sans tracking-wider ">
           <p>
-            Copyright © {new Date().getFullYear()} Jhamtani Group. All Rights Reserved. Carefully Crafted by{" "}
-            <a
-              href="https://digitalizetheglobe.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#C5A880] hover:underline font-medium transition-colors"
-            >
-              Digitalize The Globe
-            </a>
-            .
+            Copyright © {new Date().getFullYear()} Jhamtani Group. All Rights Reserved.
           </p>
         </div>
 
