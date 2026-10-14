@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { SARV_ENQUIRY_INBOX, submitMainEnquiryForm } from "@/services/api";
+import { ENQUIRY_INBOX, submitMainEnquiryForm } from "@/services/api";
 import {
   Download,
   FileText,
@@ -342,7 +342,7 @@ export default function ProjectBrochureComponent() {
         message: `Requested Brochure Download for ${selectedProject?.title || "Project"}`,
         consent: formData.consent,
         formName: "Download Brochure Form",
-        to: SARV_ENQUIRY_INBOX,
+        to: ENQUIRY_INBOX,
       });
     } catch (err) {
       console.error("Brochure form submit error:", err);

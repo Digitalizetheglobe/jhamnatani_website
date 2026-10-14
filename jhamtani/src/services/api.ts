@@ -382,7 +382,7 @@ export async function getCmsNewsletters(limit = 100): Promise<CmsNewsletterItem[
 // Form Submission API Interfaces & Method
 // ==========================================
 
-export const SARV_ENQUIRY_INBOX = "sarvenquiry@jhamtani.com";
+export const ENQUIRY_INBOX = "enquiry@jhamtani.com";
 
 export interface FormSubmissionPayload {
   name: string;
@@ -479,7 +479,7 @@ export async function submitContactUsForm(
     {
       ...data,
       formName: data.formName || "Contact Us Page Form",
-      to: data.to || SARV_ENQUIRY_INBOX,
+      to: data.to || ENQUIRY_INBOX,
     },
     CONTACT_PAGE_FORM_ID
   );
@@ -492,7 +492,7 @@ export async function submitQuickEnquiryForm(
     {
       ...data,
       formName: data.formName || "Floating Quick Enquiry Modal Form",
-      to: data.to || SARV_ENQUIRY_INBOX,
+      to: data.to || ENQUIRY_INBOX,
     },
     QUICK_ENQUIRY_FORM_ID
   );

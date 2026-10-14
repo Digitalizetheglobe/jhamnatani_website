@@ -3,10 +3,9 @@ import nodemailer from "nodemailer";
 
 const CAREERS_INBOX = "careers@jhamtani.com";
 const ENQUIRY_INBOX = "enquiry@jhamtani.com";
-const SARV_ENQUIRY_INBOX = "sarvenquiry@jhamtani.com";
 const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024;
 
-const ALLOWED_RECIPIENTS = new Set([CAREERS_INBOX, ENQUIRY_INBOX, SARV_ENQUIRY_INBOX]);
+const ALLOWED_RECIPIENTS = new Set([CAREERS_INBOX, ENQUIRY_INBOX]);
 
 type MailFields = Record<string, string>;
 type MailAttachment = {

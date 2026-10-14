@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SARV_ENQUIRY_INBOX, sendFormEmail } from "@/services/api";
+import { ENQUIRY_INBOX, sendFormEmail } from "@/services/api";
 import {
   Building2,
   User,
@@ -172,7 +172,7 @@ export default function VendorRegistration() {
         email: formData.email,
         phone: formData.phone,
         formName: "Vendor Registration Form",
-        to: SARV_ENQUIRY_INBOX,
+        to: ENQUIRY_INBOX,
         companyName: formData.companyName,
         serviceType: formData.serviceType,
         firmDetails: formData.firmDetails,

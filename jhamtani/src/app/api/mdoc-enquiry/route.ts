@@ -140,7 +140,7 @@ export async function POST(req: Request) {
     const remark = remarkParts.join(" | ").slice(0, 500);
 
     const fields: Record<string, string> = {
-      DataFrom: "E",
+      DataFrom: "T",
       ApiKey: apiKey,
       EnquiryDate: enquiryDate(),
       FirstName: firstName,
