@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X } from "lucide-react";
-import { submitMainEnquiryForm } from "@/services/api";
+import { submitMainEnquiryForm, submitMdocEnquiry } from "@/services/api";
 
 interface FormData {
   name: string;
@@ -119,15 +119,25 @@ export default function Contact() {
     if (validateForm()) {
       setIsSubmitting(true);
       try {
-        await submitMainEnquiryForm({
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          project: "ACE Ayodhya",
-          message: `Configuration: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
-          consent: formData.consent,
-          formName: "ACE Ayodhya Contact Form",
-        });
+        await Promise.all([
+          submitMainEnquiryForm({
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            project: "ACE Ayodhya",
+            message: `Configuration: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
+            consent: formData.consent,
+            formName: "ACE Ayodhya Contact Form",
+          }),
+          submitMdocEnquiry({
+            project: "ACE Ayodhya",
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            preferences: formData.config,
+            message: formData.message,
+          }),
+        ]);
       } catch (err) {
         console.error("ACE Ayodhya submission error:", err);
       } finally {

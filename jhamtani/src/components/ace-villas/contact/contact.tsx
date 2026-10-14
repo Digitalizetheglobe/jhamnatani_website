@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X } from "lucide-react";
-import { submitMainEnquiryForm } from "@/services/api";
+import { submitMainEnquiryForm, submitMdocEnquiry } from "@/services/api";
 
 interface FormData {
   name: string;
@@ -120,15 +120,25 @@ export default function Contact() {
     if (validateForm()) {
       setIsSubmitting(true);
       try {
-        await submitMainEnquiryForm({
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          project: "ACE Villas",
-          message: `Configuration: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
-          consent: formData.consent,
-          formName: "ACE Villas Contact Form",
-        });
+        await Promise.all([
+          submitMainEnquiryForm({
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            project: "ACE Villas",
+            message: `Configuration: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
+            consent: formData.consent,
+            formName: "ACE Villas Contact Form",
+          }),
+          submitMdocEnquiry({
+            project: "ACE Villas",
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            preferences: formData.config,
+            message: formData.message,
+          }),
+        ]);
       } catch (err) {
         console.error("ACE Villas submission error:", err);
       } finally {

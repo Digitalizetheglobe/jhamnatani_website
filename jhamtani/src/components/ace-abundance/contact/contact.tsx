@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X } from "lucide-react";
-import { submitMainEnquiryForm } from "@/services/api";
+import { submitMainEnquiryForm, submitMdocEnquiry } from "@/services/api";
 
 interface FormData {
   name: string;
@@ -119,15 +119,25 @@ export default function Contact() {
     if (validateForm()) {
       setIsSubmitting(true);
       try {
-        await submitMainEnquiryForm({
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          project: "ACE Abundance",
-          message: `Configuration: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
-          consent: formData.consent,
-          formName: "ACE Abundance Contact Form",
-        });
+        await Promise.all([
+          submitMainEnquiryForm({
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            project: "ACE Abundance",
+            message: `Configuration: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
+            consent: formData.consent,
+            formName: "ACE Abundance Contact Form",
+          }),
+          submitMdocEnquiry({
+            project: "ACE Abundance",
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            preferences: formData.config,
+            message: formData.message,
+          }),
+        ]);
       } catch (err) {
         console.error("ACE Abundance submission error:", err);
       } finally {
@@ -159,7 +169,7 @@ export default function Contact() {
             className="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-zinc-900 leading-tight"
           >
             Start Your Journey to <br />
-            <span className="italic font-light text-zinc-600">Pure Abundance.</span>
+            <span className="font-light text-zinc-900">Pure Abundance.</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

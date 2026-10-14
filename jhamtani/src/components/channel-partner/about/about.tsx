@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { sendFormEmail } from "@/services/api";
+import { SARV_ENQUIRY_INBOX, sendFormEmail } from "@/services/api";
 import { X, CheckCircle2, User, Phone, Mail, Building, FileCheck, MapPin, Send, CreditCard, Users, UserCheck, Receipt, FileText } from "lucide-react";
 
 interface WaveTextProps {
@@ -179,6 +179,7 @@ export default function About() {
         email: formData.email || formData.ownerEmail,
         phone: formData.phone || formData.ownerPhone,
         formName: "Channel Partner Registration Form",
+        to: SARV_ENQUIRY_INBOX,
         firmName: formData.firmName,
         reraNumber: formData.reraNumber,
         panNumber: formData.panNumber,

@@ -382,6 +382,8 @@ export async function getCmsNewsletters(limit = 100): Promise<CmsNewsletterItem[
 // Form Submission API Interfaces & Method
 // ==========================================
 
+export const SARV_ENQUIRY_INBOX = "sarvenquiry@jhamtani.com";
+
 export interface FormSubmissionPayload {
   name: string;
   email: string;
@@ -390,6 +392,61 @@ export interface FormSubmissionPayload {
   message?: string;
   consent?: boolean;
   formName?: string;
+  to?: string;
+}
+
+export interface MdocEnquiryPayload {
+  project: string;
+  name: string;
+  email: string;
+  phone: string;
+  preferences?: string;
+  message?: string;
+}
+
+const MDOC_UTM_FIELDS: Record<string, string> = {
+  utm_source: "UtmCampaignSource",
+  utm_campaign: "UtmCampaignName",
+  utm_id: "UtmCampaignId",
+  utm_medium: "UtmCampaignMedium",
+  utm_content: "UtmCampaignContent",
+  utm_term: "UtmCampaignTerm",
+};
+
+function readUtmParams(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const utm: Record<string, string> = {};
+  for (const [queryKey, field] of Object.entries(MDOC_UTM_FIELDS)) {
+    const value = params.get(queryKey);
+    if (value) utm[field] = value;
+  }
+  return utm;
+}
+
+/**
+ * Push a project-page enquiry into the MDOC CRM.
+ * The project API key stays on the server.
+ */
+export async function submitMdocEnquiry(
+  data: MdocEnquiryPayload
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch("/api/mdoc-enquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...data, ...readUtmParams() }),
+    });
+    const json = await res.json().catch(() => ({}));
+    if (res.ok && json.success) {
+      return { success: true };
+    }
+    console.error("MDOC enquiry failed:", json);
+    return { success: false, error: json.error || "MDOC enquiry failed" };
+  } catch (err: any) {
+    console.error("submitMdocEnquiry error:", err);
+    return { success: false, error: err?.message || "MDOC enquiry failed" };
+  }
 }
 
 export async function sendFormEmail(data: Record<string, any>): Promise<{ success: boolean; error?: string }> {
@@ -422,6 +479,7 @@ export async function submitContactUsForm(
     {
       ...data,
       formName: data.formName || "Contact Us Page Form",
+      to: data.to || SARV_ENQUIRY_INBOX,
     },
     CONTACT_PAGE_FORM_ID
   );
@@ -434,6 +492,7 @@ export async function submitQuickEnquiryForm(
     {
       ...data,
       formName: data.formName || "Floating Quick Enquiry Modal Form",
+      to: data.to || SARV_ENQUIRY_INBOX,
     },
     QUICK_ENQUIRY_FORM_ID
   );
@@ -451,6 +510,7 @@ export async function submitMainEnquiryForm(
     project: data.project,
     message: data.message,
     formName: data.formName || "Main Enquiry Form",
+    to: data.to,
   });
 
   const targetUrl =
@@ -590,57 +650,87 @@ export interface CareerApplicationData {
   resume?: File | null;
 }
 
+const CAREERS_INBOX = "careers@jhamtani.com";
+
+function asCareerApplication(payload: CareerApplicationData | FormData): CareerApplicationData {
+  if (!(payload instanceof FormData)) return payload;
+  const resume = payload.get("resume");
+  return {
+    positionApplyingFor: String(payload.get("positionApplyingFor") || "General Application"),
+    fullName: String(payload.get("fullName") || ""),
+    email: String(payload.get("email") || ""),
+    phone: String(payload.get("phone") || ""),
+    experienceYears: String(payload.get("experienceYears") || ""),
+    linkedinUrl: String(payload.get("linkedinUrl") || ""),
+    briefNote: String(payload.get("briefNote") || ""),
+    consent: String(payload.get("consent") ?? "true") !== "false",
+    resume: resume instanceof File ? resume : null,
+  };
+}
+
+async function sendCareerApplicationEmail(
+  data: CareerApplicationData
+): Promise<{ success: boolean; error?: string }> {
+  const body = new FormData();
+  body.append("to", CAREERS_INBOX);
+  body.append("name", data.fullName);
+  body.append("email", data.email);
+  body.append("phone", data.phone);
+  body.append("project", data.positionApplyingFor);
+  body.append("formName", `Career Application: ${data.positionApplyingFor}`);
+  body.append("experienceYears", `${data.experienceYears} Years`);
+  if (data.linkedinUrl) body.append("linkedinUrl", data.linkedinUrl);
+  if (data.briefNote) body.append("message", data.briefNote);
+  if (data.resume) body.append("resume", data.resume);
+
+  const res = await fetch("/api/send-email", {
+    method: "POST",
+    body,
+  });
+  const json = await res.json().catch(() => ({}));
+  if (res.ok && json.success) {
+    return { success: true };
+  }
+  return { success: false, error: json.error || "Failed to send career email" };
+}
+
 /**
- * Submit career application (FormData with file upload) to CMS /api/careers
+ * Submit career application to careers@jhamtani.com and the CMS.
+ * Job applications and general applications both use this path.
  */
 export async function submitCareerApplication(
   payload: CareerApplicationData | FormData
 ): Promise<{ success: boolean; data?: any; error?: string }> {
-  if (!(payload instanceof FormData)) {
-    sendFormEmail({
-      name: payload.fullName,
-      email: payload.email,
-      phone: payload.phone,
-      project: payload.positionApplyingFor,
-      message: `Experience: ${payload.experienceYears} Years | LinkedIn: ${payload.linkedinUrl || "N/A"} | Cover Note: ${payload.briefNote || "N/A"}`,
-      formName: `Career Application: ${payload.positionApplyingFor}`,
-    });
-  }
+  const data = asCareerApplication(payload);
+  const emailResult = await sendCareerApplicationEmail(data);
 
   const url = `${CMS_LOCATION_BASE_URL}/api/careers`;
+  const bodyData = new FormData();
+  bodyData.append("positionApplyingFor", data.positionApplyingFor);
+  bodyData.append("fullName", data.fullName);
+  bodyData.append("email", data.email);
+  bodyData.append("phone", data.phone);
+  bodyData.append("experienceYears", data.experienceYears);
+  if (data.linkedinUrl) bodyData.append("linkedinUrl", data.linkedinUrl);
+  if (data.briefNote) bodyData.append("briefNote", data.briefNote);
+  bodyData.append("consent", String(data.consent ?? true));
+  if (data.resume) bodyData.append("resume", data.resume);
 
   try {
-    let bodyData: FormData;
-    if (payload instanceof FormData) {
-      bodyData = payload;
-    } else {
-      bodyData = new FormData();
-      bodyData.append("positionApplyingFor", payload.positionApplyingFor);
-      bodyData.append("fullName", payload.fullName);
-      bodyData.append("email", payload.email);
-      bodyData.append("phone", payload.phone);
-      bodyData.append("experienceYears", payload.experienceYears);
-      if (payload.linkedinUrl) bodyData.append("linkedinUrl", payload.linkedinUrl);
-      if (payload.briefNote) bodyData.append("briefNote", payload.briefNote);
-      bodyData.append("consent", String(payload.consent ?? true));
-      if (payload.resume) {
-        bodyData.append("resume", payload.resume);
-      }
-    }
-
     const response = await fetch(url, {
       method: "POST",
       body: bodyData,
     });
-
-    if (response.ok) {
-      const resData = await response.json().catch(() => ({}));
-      return { success: true, data: resData };
+    const resData = await response.json().catch(() => ({}));
+    if (!emailResult.success) {
+      return { success: false, error: emailResult.error, data: resData };
     }
-
-    return { success: false, error: `HTTP ${response.status}` };
+    return { success: true, data: resData };
   } catch (err: any) {
-    return { success: false, error: err?.message || "Submission error" };
+    if (!emailResult.success) {
+      return { success: false, error: emailResult.error || err?.message || "Submission error" };
+    }
+    return { success: true };
   }
 }
 

@@ -337,6 +337,7 @@ export default function CareerComponent() {
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const fileInputId = useId();
 
@@ -457,6 +458,7 @@ export default function CareerComponent() {
     }
     setActiveJobModal(null);
     setSubmitSuccess(false);
+    setSubmitError("");
     setErrors({});
     setApplicationModalOpen(true);
   };
@@ -466,8 +468,9 @@ export default function CareerComponent() {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setSubmitError("");
     try {
-      await submitCareerApplication({
+      const result = await submitCareerApplication({
         positionApplyingFor: formData.position || "General Application",
         fullName: formData.name,
         email: formData.email,
@@ -478,12 +481,17 @@ export default function CareerComponent() {
         consent: formData.consent,
         resume: resumeFile,
       });
-    } catch (err) {
-      console.error("Career application submission error:", err);
-    } finally {
-      setIsSubmitting(false);
+      if (!result.success) {
+        setSubmitError(result.error || "Could not send your application. Please try again.");
+        return;
+      }
       setSubmitSuccess(true);
       setErrors({});
+    } catch (err) {
+      console.error("Career application submission error:", err);
+      setSubmitError("Could not send your application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -1227,6 +1235,10 @@ export default function CareerComponent() {
                         <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.consent}</p>
                       )}
                     </div>
+
+                    {submitError && (
+                      <p className="text-red-500 text-[11px] font-medium">{submitError}</p>
+                    )}
 
                     {/* Actions */}
                     <div className="pt-2 flex items-center justify-end gap-3">

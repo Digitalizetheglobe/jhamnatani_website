@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { submitMainEnquiryForm } from "@/services/api";
+import { SARV_ENQUIRY_INBOX, submitMainEnquiryForm } from "@/services/api";
 import {
   Calendar,
   User,
@@ -208,6 +208,7 @@ export default function BlogDetail({ blog }: BlogDetailProps) {
         message: formData.message,
         consent: formData.consent,
         formName: `Blog Detail Form (${blog?.title || "Blog"})`,
+        to: SARV_ENQUIRY_INBOX,
       });
     } catch (err) {
       console.error("Blog form submit error:", err);
