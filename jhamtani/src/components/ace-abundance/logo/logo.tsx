@@ -19,7 +19,7 @@ export default function Logo() {
         {/* Right side: Premium Residences text */}
         <div className="flex items-center text-center sm:text-left">
           <p className="font-serif font-light text-[24px] sm:text-[30px] md:text-[46px] leading-tight text-[#9A7A5A] tracking-wide">
-            Ultra-Luxury 3 & 4.5 Bed Residences
+            Ultra-Luxury 3, 4 & 4.5 Bed Residences
           </p>
         </div>
       </div>
