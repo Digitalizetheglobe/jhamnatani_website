@@ -41,6 +41,7 @@ const inriaSerif = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://jhamtani.com"),
   title: "Jhamtani | The Name Is A Promise",
   description: "Pune's premier luxury real estate developer. Creating exceptional architecture, curated experiences, and uncompromising quality.",
   icons: {
