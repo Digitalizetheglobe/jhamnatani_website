@@ -87,6 +87,16 @@ const projectsData = [
     logo: "/assets/pojetcts/Spacebiz logo.webp",
     link: "/jhamtani-spacebiz",
   },
+  {
+    id: 9,
+    title: "Jhamtani Biz One",
+    location: "Pimple Saudagar, Pune",
+    type: "Commercial",
+    image: "/assets/biz-one/banner.webp",
+    desc: "Offices & Retail Spaces at Kokane Chowk.",
+    logo: "/assets/pojetcts/Spacebiz logo.webp",
+    link: "/biz-one",
+  },
 ];
 
 export default function Projects() {

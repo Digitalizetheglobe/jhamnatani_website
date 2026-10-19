@@ -33,6 +33,7 @@ export default function Footer() {
 
   const currentProjectsColumn2 = [
     { label: "ACE ASTER - RAVET", href: "/ace-aster" },
+    { label: "JHAMTANI BIZ ONE - PIMPLE SAUDAGAR", href: "/biz-one" },
     { label: "JHAMTANI BIZCORE - KOREGAON PARK NX", href: "/jhamtani-bizcore" },
     { label: "JHAMTANI ELEVATE - MUNDHWA", href: "/jhamtani-elevate" },
     { label: "JHAMTANI SPACEBIZ - BANER", href: "/jhamtani-spacebiz" },

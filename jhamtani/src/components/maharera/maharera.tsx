@@ -131,6 +131,18 @@ const reraProjects: MahaReraProject[] = [
     description: "State-of-the-Art Commercial Hub & Showrooms",
     projectLink: "/jhamtani-spacebiz",
   },
+  {
+    id: 9,
+    title: "Jhamtani Biz One",
+    location: "Pimple Saudagar, Pune",
+    type: "Commercial",
+    reraNo: "P52100078120",
+    pdfUrl: "/assets/maha-rera/Jhamtani-SpaceBiz.pdf",
+    image: "/assets/biz-one/banner.webp",
+    logo: "/assets/pojetcts/Spacebiz logo.webp",
+    description: "Offices & Retail Spaces at Kokane Chowk",
+    projectLink: "/biz-one",
+  },
 ];
 
 interface WaveTextProps {

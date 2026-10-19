@@ -137,6 +137,18 @@ const brochuresData: BrochureItem[] = [
     logo: "/assets/pojetcts/Spacebiz logo.webp",
     projectLink: "/jhamtani-spacebiz",
   },
+  {
+    id: 9,
+    title: "Jhamtani Biz One",
+    location: "Pimple Saudagar, Pune",
+    type: "Commercial",
+    categories: ["Commercial"],
+    tagline: "Offices & Retail Spaces",
+    pdfUrl: "/assets/brochure/Spacebiz-Brochure.pdf",
+    image: "/assets/biz-one/banner.webp",
+    logo: "/assets/pojetcts/Spacebiz logo.webp",
+    projectLink: "/biz-one",
+  },
 ];
 
 interface WaveTextProps {

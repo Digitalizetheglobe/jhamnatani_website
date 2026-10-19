@@ -108,6 +108,16 @@ const projectsData: ProjectItem[] = [
     link: "/jhamtani-spacebiz",
     isLocal: true,
   },
+  {
+    id: 9,
+    title: "Jhamtani Biz One",
+    location: "Pimple Saudagar, Pune",
+    type: "Commercial",
+    categories: ["Commercial"],
+    image: "/assets/biz-one/banner.webp",
+    link: "/biz-one",
+    isLocal: true,
+  },
 ];
 
 const completedProjectLocations: Record<number, string> = {
@@ -331,68 +341,68 @@ export default function ProjectsComponent() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch"
               >
                 <AnimatePresence mode="popLayout">
-                  {filteredProjects.map((project, idx) => (
-                    <motion.div
-                      key={project.id}
-                      layout
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{
-                        duration: 0.6,
-                        ease: [0.16, 1, 0.3, 1],
-                        delay: idx * 0.05,
-                      }}
-                      className="flex flex-col bg-white border border-zinc-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group rounded-none"
-                    >
-                      {/* Image Wrapper */}
-                      <div className="relative w-full aspect-[4/5] overflow-hidden bg-zinc-100">
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          quality={90}
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                        />
-                        <span className="bg-[#A0725B] text-white text-[9px] tracking-widest font-semibold px-3.5 py-1.5 rounded-none absolute top-4 right-4 z-10 uppercase shadow-md">
-                          Ongoing
-                        </span>
-                      </div>
+                  {filteredProjects.map((project, idx) => {
+                    const CardWrapper = project.isLocal ? Link : "div";
+                    const wrapperProps = project.isLocal
+                      ? { href: project.link, className: "flex flex-col h-full w-full cursor-pointer" }
+                      : { onClick: () => handleEnquireClick(project.link), className: "flex flex-col h-full w-full cursor-pointer" };
 
-                      {/* Content Block */}
-                      <div className="flex flex-col flex-1 p-6 sm:p-8 text-left justify-between">
-                        <div>
-                          <span className="font-sans text-[11px] uppercase tracking-widest text-[#A0725B] font-semibold">
-                            {project.type} &bull; {project.location}
-                          </span>
-                          <h3 className="font-serif font-light text-[22px] sm:text-[24px] text-zinc-950 mt-2 leading-tight group-hover:text-[#A0725B] transition-colors duration-300">
-                            {project.title}
-                          </h3>
-                        </div>
+                    return (
+                      <motion.div
+                        key={project.id}
+                        layout
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{
+                          duration: 0.6,
+                          ease: [0.16, 1, 0.3, 1],
+                          delay: idx * 0.05,
+                        }}
+                        className="flex flex-col bg-white border border-zinc-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group rounded-none overflow-hidden cursor-pointer"
+                      >
+                        <CardWrapper {...(wrapperProps as any)}>
+                          {/* Image Wrapper */}
+                          <div className="relative w-full aspect-[4/5] overflow-hidden bg-zinc-100">
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              quality={90}
+                              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                            />
+                            <span className="bg-[#A0725B] text-white text-[9px] tracking-widest font-semibold px-3.5 py-1.5 rounded-none absolute top-4 right-4 z-10 uppercase shadow-md">
+                              Ongoing
+                            </span>
+                          </div>
 
-                        <div className="pt-6 mt-6 border-t border-zinc-100 flex items-center">
-                          {project.isLocal ? (
-                            <Link
-                              href={project.link}
-                              className="group/link flex items-center gap-2 text-xs tracking-wider uppercase font-semibold text-[#A0725B] hover:text-zinc-950 transition-colors cursor-pointer"
-                            >
-                              <WaveText text="EXPLORE PROJECT" letterDelay={20} groupHoverClass="group-hover/link" />
-                              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
-                            </Link>
-                          ) : (
-                            <button
-                              onClick={() => handleEnquireClick(project.link)}
-                              className="group/link flex items-center gap-2 text-xs tracking-wider uppercase font-semibold text-[#A0725B] hover:text-zinc-950 transition-colors cursor-pointer bg-transparent border-0 p-0"
-                            >
-                              <WaveText text="ENQUIRE NOW" letterDelay={20} groupHoverClass="group-hover/link" />
-                              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                          {/* Content Block */}
+                          <div className="flex flex-col flex-1 p-6 sm:p-8 text-left justify-between">
+                            <div>
+                              <span className="font-sans text-[11px] uppercase tracking-widest text-[#A0725B] font-semibold">
+                                {project.type} &bull; {project.location}
+                              </span>
+                              <h3 className="font-serif font-light text-[22px] sm:text-[24px] text-zinc-950 mt-2 leading-tight group-hover:text-[#A0725B] transition-colors duration-300">
+                                {project.title}
+                              </h3>
+                            </div>
+
+                            <div className="pt-6 mt-6 border-t border-zinc-100 flex items-center">
+                              <span className="flex items-center gap-2 text-xs tracking-wider uppercase font-semibold text-[#A0725B] group-hover:text-zinc-950 transition-colors">
+                                <WaveText
+                                  text={project.isLocal ? "EXPLORE PROJECT" : "ENQUIRE NOW"}
+                                  letterDelay={20}
+                                  groupHoverClass="group-hover"
+                                />
+                                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                              </span>
+                            </div>
+                          </div>
+                        </CardWrapper>
+                      </motion.div>
+                    );
+                  })}
                 </AnimatePresence>
               </motion.div>
             </motion.div>

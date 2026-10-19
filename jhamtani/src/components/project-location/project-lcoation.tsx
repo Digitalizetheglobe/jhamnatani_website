@@ -114,6 +114,17 @@ const locationsData: LocationItem[] = [
     projectLink: "/jhamtani-spacebiz",
     coordinates: "18.5590° N, 73.7868° E",
   },
+  {
+    id: 9,
+    title: "Pimple Saudagar, Pune",
+    project: "Jhamtani Biz One",
+    type: "Commercial",
+    tag: "Offices & Retail Spaces at Kokane Chowk",
+    image: "/assets/biz-one/banner.webp",
+    mapUrl: "https://maps.app.goo.gl/KokaneChowk",
+    projectLink: "/biz-one",
+    coordinates: "18.5986° N, 73.7899° E",
+  },
 ];
 
 interface WaveTextProps {

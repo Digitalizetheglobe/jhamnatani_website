@@ -48,11 +48,22 @@ export interface NewsletterEdition {
 
 export const newslettersData: NewsletterEdition[] = [
   {
+    id: "september-2026",
+    title: "Monthly Buzz September 2026",
+    month: "September",
+    year: 2026,
+    badge: "Latest Edition",
+    coverImage: "/assets/newsletter/covers/september-2026.webp",
+    tagline: "Ganpati at Jhamtani, Pune GRI Meet Insights, Legacy Milestone & Project Progress",
+    pdfUrl: "/assets/newsletter/2026/Newsletter_September 2026.pdf",
+    date: "September 2026",
+  },
+  {
     id: "august-2026",
     title: "Monthly Buzz August 2026",
     month: "August",
     year: 2026,
-    badge: "Latest Edition",
+    coverImage: "/assets/newsletter/covers/august-2026.webp",
     tagline: "Independence Month Special, Construction Milestones & Community Celebrations",
     pdfUrl: "/assets/newsletter/2026/newsletter_august.pdf",
     date: "August 2026",
