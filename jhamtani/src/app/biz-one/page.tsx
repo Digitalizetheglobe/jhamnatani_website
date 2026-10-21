@@ -27,7 +27,7 @@ export default function BizOnePage() {
         <Highlists />
         {/* <Amenities /> */}
         <Gallery />
-        <Walkthrough />
+        {/* <Walkthrough /> */}
         <MapSection />
         <Contact />
       </main>

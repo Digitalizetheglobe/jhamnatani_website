@@ -10,6 +10,8 @@ const PROJECT_API_KEYS: Record<string, string> = {
   "ace atmosphere": "a175b455-bbcb-4a78-a5af-322312435f33",
   "ace ayodhya": "b30864d0-35e0-4c9a-8d90-fbaccd098012",
   "ace villas": "b45c2c35-ef90-43a8-940f-e0f6ac0b4232",
+  "jhamtani biz one": "0f696337-895d-4ab1-aef9-0400191a7b2d",
+  "jhamtani bizone": "0f696337-895d-4ab1-aef9-0400191a7b2d",
   "jhamtani bizcore": "f9746457-0201-4c9b-8acb-5bec834ed844",
   "jhamtani elevate": "88fade9d-9e3b-4532-8639-e7136d650fd5",
   "jhamtani spacebiz": "b8da4b1f-f077-4450-a171-5ff45434c18a",
