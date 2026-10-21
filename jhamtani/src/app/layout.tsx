@@ -69,8 +69,13 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col text-white selection:bg-[#C5A880] selection:text-black font-sans"
       >
+        {/* Google Analytics & Google Ads Tags */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-93HTFX0TJ0"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18230516715"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -79,6 +84,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-93HTFX0TJ0');
+            gtag('config', 'AW-18230516715');
           `}
         </Script>
         {children}
