@@ -4,21 +4,31 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
-export default function HomeVideoModal() {
+interface HomeVideoModalProps {
+  videoSrc?: string;
+  title?: string;
+  storageKey?: string;
+}
+
+export default function HomeVideoModal({
+  videoSrc = "/assets/video.mp4",
+  title = "Jhamtani - The Name Is A Promise",
+  storageKey = "hasSeenHomeVideoModal",
+}: HomeVideoModalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     // Check if the popup has already been shown in this session
-    const hasSeenModal = sessionStorage.getItem("hasSeenHomeVideoModal");
+    const hasSeenModal = sessionStorage.getItem(storageKey);
     if (!hasSeenModal) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-        sessionStorage.setItem("hasSeenHomeVideoModal", "true");
+        sessionStorage.setItem(storageKey, "true");
       }, 4000);
 
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [storageKey]);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -70,7 +80,7 @@ export default function HomeVideoModal() {
             {/* Header bar with close button */}
             <div className="flex items-center justify-between px-6 py-3 bg-zinc-900/80 border-b border-[#C5A880]/20">
               <span className="text-[#C5A880] text-xs sm:text-sm tracking-widest uppercase font-serif font-medium">
-                Jhamtani - The Name Is A Promise
+                {title}
               </span>
               <button
                 onClick={() => setIsOpen(false)}
@@ -84,7 +94,7 @@ export default function HomeVideoModal() {
             {/* Video Container */}
             <div className="relative w-full aspect-video bg-black flex items-center justify-center">
               <video
-                src="/assets/video.mp4"
+                src={videoSrc}
                 autoPlay
                 muted
                 controls

@@ -33,7 +33,7 @@ export default function Footer() {
 
   const currentProjectsColumn2 = [
     { label: "ACE ASTER - RAVET", href: "/ace-aster" },
-    { label: "JHAMTANI BIZ ONE - PIMPLE SAUDAGAR", href: "/biz-one" },
+    { label: "JHAMTANI Bizone - PIMPLE SAUDAGAR", href: "/biz-one" },
     { label: "JHAMTANI BIZCORE - KOREGAON PARK NX", href: "/jhamtani-bizcore" },
     { label: "JHAMTANI ELEVATE - MUNDHWA", href: "/jhamtani-elevate" },
     { label: "JHAMTANI SPACEBIZ - BANER", href: "/jhamtani-spacebiz" },
@@ -191,43 +191,51 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10">
 
-          {/* Contact Details (Left Side) */}
-          <div className="space-y-6 text-left max-w-2xl">
-            <h4 className="font-serif text-[18px] tracking-wider text-[#C5A880] uppercase">
-              Contact
-            </h4>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3 text-zinc-300 font-sans text-[14px]">
-                <svg className="w-4 h-4 text-[#C5A880] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
-                <a href="tel:+917447447669" className="hover:text-[#C5A880] transition-colors">
-                  +91 7447447669
-                </a>
-              </div>
-              <div className="flex items-start space-x-3 text-zinc-300 font-sans text-[14px]">
-                <svg className="w-4.5 h-4.5 text-[#C5A880] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <a
-                  href="https://maps.app.goo.gl/nXNbJS46SHJopH2E7"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#C5A880] transition-colors group"
-                >
-                  <strong className="text-white group-hover:text-[#C5A880] font-medium pr-1 transition-colors">HEAD OFFICE:</strong>
-                  Office No. 1303/1309, Nandan Probiz, Balewadi High St., Baner, Pune, Maharashtra 411045
-                </a>
-              </div>
-              <div className="flex items-center space-x-3 text-zinc-300 font-sans text-[14px]">
-                <svg className="w-4 h-4 text-[#C5A880] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-                <a href="mailto:enquiry@jhamtani.com" className="hover:text-[#C5A880] transition-colors">
-                  enquiry@jhamtani.com
-                </a>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-8 sm:gap-10">
+            <img
+              src="/assets/gptw.svg"
+              alt="Great Place to Work Certified, India, September 2026 to September 2027"
+              className="h-36 sm:h-40 w-auto shrink-0"
+            />
+
+            {/* Contact Details */}
+            <div className="space-y-6 text-left max-w-2xl">
+              <h4 className="font-serif text-[18px] tracking-wider text-[#C5A880] uppercase">
+                Contact
+              </h4>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3 text-zinc-300 font-sans text-[14px]">
+                  <svg className="w-4 h-4 text-[#C5A880] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  <a href="tel:+917447447669" className="hover:text-[#C5A880] transition-colors">
+                    +91 7447447669
+                  </a>
+                </div>
+                <div className="flex items-start space-x-3 text-zinc-300 font-sans text-[14px]">
+                  <svg className="w-4.5 h-4.5 text-[#C5A880] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  <a
+                    href="https://maps.app.goo.gl/nXNbJS46SHJopH2E7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#C5A880] transition-colors group"
+                  >
+                    <strong className="text-white group-hover:text-[#C5A880] font-medium pr-1 transition-colors">HEAD OFFICE:</strong>
+                    Office No. 1303/1309, Nandan Probiz, Balewadi High St., Baner, Pune, Maharashtra 411045
+                  </a>
+                </div>
+                <div className="flex items-center space-x-3 text-zinc-300 font-sans text-[14px]">
+                  <svg className="w-4 h-4 text-[#C5A880] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                  <a href="mailto:enquiry@jhamtani.com" className="hover:text-[#C5A880] transition-colors">
+                    enquiry@jhamtani.com
+                  </a>
+                </div>
               </div>
             </div>
           </div>

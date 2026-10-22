@@ -127,7 +127,7 @@ export default function Contact() {
             project: "Jhamtani Biz One",
             message: `Commercial Requirement: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
             consent: formData.consent,
-            formName: "Jhamtani Biz One Contact Form",
+            formName: "Jhamtani Bizone Contact Form",
           }),
           submitMdocEnquiry({
             project: "Jhamtani Biz One",
@@ -139,7 +139,7 @@ export default function Contact() {
           }),
         ]);
       } catch (err) {
-        console.error("Jhamtani Biz One submission error:", err);
+        console.error("Jhamtani Bizone submission error:", err);
       } finally {
         setIsSubmitting(false);
         setShowSuccessModal(true);
@@ -404,7 +404,7 @@ Pune – 411017
           <div className="shrink-0 flex flex-col items-center md:items-end justify-center md:justify-start w-full md:w-auto mt-4 md:mt-0">
             <img
               src="/assets/biz-one/logo.svg"
-              alt="Jhamtani Biz One Logo"
+              alt="Jhamtani Bizone Logo"
               className="w-auto h-20 sm:h-24 md:h-32 object-contain brightness-0"
             />
           </div>

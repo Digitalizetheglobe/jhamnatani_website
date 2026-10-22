@@ -4,11 +4,11 @@ export default function Logo() {
   return (
     <section className="w-full bg-[#F2EFE9] border-b border-zinc-200">
       <div className="max-w-7xl mx-auto w-full py-10 md:py-14 px-6 sm:px-12 lg:px-16 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-14 lg:gap-20 select-none">
-        {/* Left side: Biz One Logo */}
+        {/* Left side: BizOne Logo */}
         <div className="relative flex items-center shrink-0">
           <Image
             src="/assets/biz-one/logo.svg"
-            alt="Jhamtani Biz One Logo"
+            alt="Jhamtani Bizone Logo"
             width={240}
             height={140}
             priority

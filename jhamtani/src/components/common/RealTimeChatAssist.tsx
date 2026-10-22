@@ -219,15 +219,15 @@ export default function RealTimeChatAssist({
       };
     }
 
-    // 6. Bizcore / Elevate / Biz One (Studio / Commercial)
+    // 6. Bizcore / Elevate / BizOne (Studio / Commercial)
     if (q.includes("bizcore") || q.includes("bizone") || q.includes("biz-one") || q.includes("studio") || q.includes("elevate") || q.includes("commercial") || q.includes("spacebiz") || q.includes("office") || q.includes("retail")) {
       return {
         id: "bot-" + Date.now(),
         sender: "bot",
-        text: "We offer high-ROI Commercial & Studio investments:\n• Jhamtani Biz One (Kokane Chowk, Pimple Saudagar) – Offices & Retail Spaces\n• Jhamtani Bizcore (Koregaon Park NX) – Serviced Studios & Retail Hub\n• Jhamtani Elevate (Mundhwa) – Studio Residences\n• Jhamtani SpaceBiz (Baner) – Grade-A Business & Office Spaces.",
+        text: "We offer high-ROI Commercial & Studio investments:\n• Jhamtani Bizone (Kokane Chowk, Pimple Saudagar) – Offices & Retail Spaces\n• Jhamtani Bizcore (Koregaon Park NX) – Serviced Studios & Retail Hub\n• Jhamtani Elevate (Mundhwa) – Studio Residences\n• Jhamtani SpaceBiz (Baner) – Grade-A Business & Office Spaces.",
         time: getCurrentTime(),
         actions: [
-          { label: "Jhamtani Biz One", type: "link", href: "/biz-one" },
+          { label: "Jhamtani BizOne", type: "link", href: "/biz-one" },
           { label: "Jhamtani Bizcore", type: "link", href: "/jhamtani-bizcore" },
           { label: "Jhamtani SpaceBiz", type: "link", href: "/jhamtani-spacebiz" },
           { label: "Request Commercial Brochure", type: "enquiry" },

@@ -20,6 +20,11 @@ const baseGalleryItems = [
     image: "/assets/biz-one/img-03.png",
     title: "Ahead of the Curve",
   },
+  {
+    id: 4,
+    image: "/assets/biz-one/img-04.jpg",
+    title: "Designed to Be Noticed",
+  },
 ];
 
 // Duplicate items when there are fewer than 5 to ensure smooth infinite 3D carousel transitions
@@ -306,7 +311,7 @@ export default function Gallery() {
           <button
             onClick={() => {
               const event = new CustomEvent("open-enquiry", {
-                detail: { project: "Jhamtani Biz One (Gallery)" },
+                detail: { project: "Jhamtani Bizone (Gallery)" },
               });
               window.dispatchEvent(event);
             }}

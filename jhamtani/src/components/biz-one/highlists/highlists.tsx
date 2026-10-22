@@ -8,21 +8,21 @@ const highlights = [
     title: "First Impressions Matter",
     desc: "The grand entrance lobby finished in Italian marble seals the deal.",
     image: "/assets/biz-one/img-01.png",
-    alt: "First Impressions Matter - Jhamtani Biz One Grand Lobby",
+    alt: "First Impressions Matter - Jhamtani Bizone Grand Lobby",
   },
   {
     id: 2,
     title: "Make Room for Productivity",
     desc: "Achieve more with meeting & conference rooms, breakout spaces, open-air 6th floor deck.",
     image: "/assets/biz-one/img-02.png",
-    alt: "Make Room for Productivity - Jhamtani Biz One Open Deck & Spaces",
+    alt: "Make Room for Productivity - Jhamtani Bizone Open Deck & Spaces",
   },
   {
     id: 3,
     title: "A Winning Pair",
     desc: "Dual-street exposure along with double-height retail frontage work twice as hard for you.",
     image: "/assets/biz-one/img-03.png",
-    alt: "A Winning Pair - Jhamtani Biz One Dual-Street Exposure Retail",
+    alt: "A Winning Pair - Jhamtani Bizone Dual-Street Exposure Retail",
   },
 ];
 

@@ -9,17 +9,17 @@ const slides = [
   {
     id: 1,
     image: "/assets/biz-one/img-1.png",
-    alt: "Jhamtani Biz One - Kokane Chowk, Pimple Saudagar",
+    alt: "Jhamtani Bizone - Kokane Chowk, Pimple Saudagar",
   },
   {
     id: 2,
     image: "/assets/biz-one/img-2.png",
-    alt: "Jhamtani Biz One - Offices & Retail Spaces",
+    alt: "Jhamtani Bizone - Offices & Retail Spaces",
   },
   {
     id: 3,
     image: "/assets/biz-one/img-3.png",
-    alt: "Jhamtani Biz One - Modern Architecture & Ecosystem",
+    alt: "Jhamtani Bizone - Modern Architecture & Ecosystem",
   },
 ];
 
@@ -116,8 +116,8 @@ export default function Planned() {
   const handleEnquiry = (action: string) => {
     const event = new CustomEvent("open-enquiry", {
       detail: {
-        project: "Jhamtani Biz One",
-        message: `I am interested in ${action} for Jhamtani Biz One (Kokane Chowk, Pimple Saudagar).`,
+        project: "Jhamtani Bizone",
+        message: `I am interested in ${action} for Jhamtani Bizone (Kokane Chowk, Pimple Saudagar).`,
       },
     });
     window.dispatchEvent(event);

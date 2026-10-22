@@ -9,6 +9,7 @@ import Walkthrough from "@/components/ace-abundance/walkthrough/wallkthrough";
 import MapSection from "@/components/ace-abundance/map/map";
 import Contact from "@/components/ace-abundance/contact/contact";
 import Footer from "@/components/footer/Footer";
+import HomeVideoModal from "@/components/home/HomeVideoModal";
 
 export const metadata = {
   title: "Ace Abundance | Jhamtani - The Ideal Way of Living",
@@ -19,6 +20,11 @@ export default function AceAbundancePage() {
   return (
     <>
       <Header />
+      <HomeVideoModal
+        videoSrc="/assets/ace-abundance/ABUNDANCE.mp4"
+        title="Ace Abundance"
+        storageKey="hasSeenAceAbundanceVideoModal"
+      />
       <main className="bg-white min-h-screen">
         <Hero />
         <Logo />

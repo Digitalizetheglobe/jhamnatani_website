@@ -27,6 +27,34 @@ const bannerSlides: BannerSlide[] = [
     tab: "/assets/home-banner/home-tab2.webp",
     laptop: "/assets/home-banner/home-laptop2.webp",
   },
+  {
+    id: 3,
+    title: "What We Build Begins With Who We Are",
+    mobile: "/assets/home-banner/home-mobile3.webp",
+    tab: "/assets/home-banner/home-tab3.webp",
+    laptop: "/assets/home-banner/home-laptop3.webp",
+  },
+  {
+    id: 4,
+    title: "Ace Ayodhya - Choose Sukoon",
+    mobile: "/assets/ace-ayodhya/RS-Ayodhya-mobile-banner.webp",
+    tab: "/assets/ace-ayodhya/RS-Ayodhya-tab-banner.webp",
+    laptop: "/assets/ace-ayodhya/RS-Ayodhya-Desktop-banner.webp",
+  },
+  {
+    id: 5,
+    title: "Jhamtani SpaceBiz",
+    mobile: "/assets/jhamtani-spacebiz/RS-SpaceBiz-mobile-banner.webp",
+    tab: "/assets/jhamtani-spacebiz/RS-SpaceBiz-tab-banner.webp",
+    laptop: "/assets/jhamtani-spacebiz/RS-SpaceBiz-Desktop-banner.webp",
+  },
+  {
+    id: 6,
+    title: "Jhamtani Biz One",
+    mobile: "/assets/biz-one/RS-BizOne-mobile-banner.webp",
+    tab: "/assets/biz-one/RS-BizOne-tab-banner.webp",
+    laptop: "/assets/biz-one/RS-BizOne-Desktop-banner.webp",
+  },
 ];
 
 export default function Hero() {

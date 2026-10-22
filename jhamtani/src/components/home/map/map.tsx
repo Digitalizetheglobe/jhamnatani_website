@@ -127,10 +127,26 @@ const LOCATIONS_DATA: LocationData[] = [
     projects: [
       {
         name: "Jhamtani Spacebiz",
-        image: "/assets/projects/jhamtani-spacebiz.webp",
+        image: "/assets/map/spacebiz.webp",
         category: "Grade A Commercial",
         details: "State-of-the-art office spaces and corporate showrooms in Baner.",
         link: "/jhamtani-spacebiz",
+      }
+    ]
+  },
+  {
+    id: "pimple-saudagar",
+    name: "Pimple Saudagar",
+    x: 48,
+    y: 10,
+    zone: "west",
+    projects: [
+      {
+        name: "Jhamtani Biz One",
+        image: "/assets/map/bizone.webp",
+        category: "Offices & Retail",
+        details: "Offices and retail spaces at Kokane Chowk, Pimple Saudagar.",
+        link: "/biz-one",
       }
     ]
   }
@@ -139,7 +155,6 @@ const LOCATIONS_DATA: LocationData[] = [
 // Background dots — visible on map for context
 const BACKGROUND_DOTS: BgDot[] = [
   { id: "wakad",            name: "Wakad",              x: 32, y: 28 },
-  { id: "pimple-saudagar",  name: "Pimple Saudagar",     x: 48, y: 10 },
   { id: "pimpri-chinchwad", name: "Pimpri Chinchwad",    x: 48, y: 18 },
   { id: "mca-stadium",      name: "MCA Stadium",         x: 64, y: 16 },
   { id: "balewadi",         name: "Balewadi High Street", x: 30, y: 20 },
@@ -405,13 +420,15 @@ const BACKGROUND_DOTS: BgDot[] = [
               style={{
                 left: `${activeLocation.x}%`,
                 top: `${activeLocation.y}%`,
-                transform: "translate(-50%, -100%)",
-                animation: "fadeSlideUp 0.3s ease-out forwards"
+                transform: activeLocation.y < 36 ? "translate(-50%, 12px)" : "translate(-50%, -100%)",
+                animation: activeLocation.y < 36
+                  ? "fadeSlideDown 0.3s ease-out forwards"
+                  : "fadeSlideUp 0.3s ease-out forwards"
               }}
               onMouseEnter={handlePopupEnter}
               onMouseLeave={handleLeave}
             >
-              <div className="flex flex-col items-center">
+              <div className={`flex items-center ${activeLocation.y < 36 ? "flex-col-reverse" : "flex-col"}`}>
                 <div className={`flex items-end gap-4 ${activeLocation.projects.length > 1 ? "flex-row" : "flex-col items-center"}`}>
                   {activeLocation.projects.filter(p => p.image).map((project, idx) => (
                     <Link
@@ -440,7 +457,13 @@ const BACKGROUND_DOTS: BgDot[] = [
                 </div>
 
                 {/* Center subtle pointer needle */}
-                <div className="w-px h-4 bg-gradient-to-b from-[#A0725B]/80 to-transparent mt-1" />
+                <div
+                  className={`w-px h-4 ${
+                    activeLocation.y < 36
+                      ? "bg-gradient-to-t from-[#A0725B]/80 to-transparent mb-1"
+                      : "bg-gradient-to-b from-[#A0725B]/80 to-transparent mt-1"
+                  }`}
+                />
               </div>
             </div>
           )}

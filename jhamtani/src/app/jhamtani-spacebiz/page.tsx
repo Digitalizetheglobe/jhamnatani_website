@@ -9,6 +9,7 @@ import Walkthrough from "@/components/jhamtani-spacebiz/walkthrough/wallkthrough
 import MapSection from "@/components/jhamtani-spacebiz/map/map";
 import Contact from "@/components/jhamtani-spacebiz/contact/contact";
 import Footer from "@/components/footer/Footer";
+import HomeVideoModal from "@/components/home/HomeVideoModal";
 
 export const metadata = {
   title: "Jhamtani SpaceBiz | Grade-A Commercial & Office Spaces in Baner, Pune",
@@ -19,6 +20,11 @@ export default function JhamtaniSpacebizPage() {
   return (
     <>
       <Header />
+      <HomeVideoModal
+        videoSrc="/assets/biz-one/COMMERCIAL-SPACES.mp4"
+        title="Jhamtani SpaceBiz"
+        storageKey="hasSeenSpacebizVideoModal"
+      />
       <main className="bg-white min-h-screen">
         <Hero />
         <Logo />

@@ -41,7 +41,7 @@ export default function Walkthrough() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="font-sans text-[13px] sm:text-[14px] text-[#000] font-medium tracking-[0.08em] mt-6 leading-none uppercase"
           >
-            Experience Jhamtani Biz One.
+            Experience Jhamtani BizOne.
           </motion.p>
 
           <motion.p
@@ -67,7 +67,7 @@ export default function Walkthrough() {
           {/* Preview Image */}
           <img
             src="/assets/biz-one/banner.webp"
-            alt="Jhamtani Biz One Walkthrough Video Preview"
+            alt="Jhamtani Bizone Walkthrough Video Preview"
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
           />
 

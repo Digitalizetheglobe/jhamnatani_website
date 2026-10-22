@@ -186,7 +186,7 @@ export default function MapSection() {
         const projectPinHtml = `
           <div style="display:flex;flex-direction:column;align-items:center;cursor:pointer;">
             <div style="background:rgba(25,31,38,0.95);border:1px solid #A0725B;color:#FFFFFF;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;white-space:nowrap;box-shadow:0 4px 15px rgba(0,0,0,0.5);margin-bottom:6px;font-family:sans-serif;letter-spacing:0.04em;">
-              Jhamtani Biz One
+              Jhamtani Bizone
             </div>
             <div style="position:relative;width:24px;height:24px;background:#A0725B;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FFFFFF;box-shadow:0 0 15px rgba(160,114,91,0.8);">
               <div style="width:8px;height:8px;background:#FFFFFF;border-radius:50%;"></div>
@@ -389,7 +389,7 @@ Bang in Kokane Chowk and in the lucrative Pimple Saudagar micro-market, your bus
                 className="absolute bottom-6 left-6 z-40 bg-[#191F26]/95 border border-[#A0725B]/40 text-white p-5 shadow-2xl rounded-sm w-[260px] sm:w-[280px]"
               >
                 <div className="text-[10px] uppercase tracking-[0.15em] text-[#A0725B] font-semibold mb-1">
-                  Distance from Biz One
+                  Distance from Bizone
                 </div>
                 <h4 className="font-serif text-[16px] sm:text-[18px] text-white leading-tight mb-3">
                   {selectedItem.name}
@@ -422,7 +422,7 @@ Bang in Kokane Chowk and in the lucrative Pimple Saudagar micro-market, your bus
         <div className="w-full md:absolute md:top-1/2 md:-translate-y-1/2 md:right-12 lg:right-16 z-30 md:w-[360px] bg-[#191F26]/75 backdrop-blur-xl border border-white/20 text-white p-6 sm:p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] rounded-sm">
           {/* Active Mode Tag */}
           <div className="text-[10px] uppercase tracking-[0.1em] text-[#C5A880] font-bold mb-3 border-b border-white/15 pb-2 flex items-center justify-between">
-            <span>{!selectedItem ? "Showing: Kokane Chowk (Biz One)" : `Showing: ${selectedItem.name}`}</span>
+            <span>{!selectedItem ? "Showing: Kokane Chowk (Bizone)" : `Showing: ${selectedItem.name}`}</span>
             <span className="w-2 h-2 rounded-full bg-[#A0725B] animate-pulse" />
           </div>
 
@@ -493,7 +493,7 @@ Bang in Kokane Chowk and in the lucrative Pimple Saudagar micro-market, your bus
             onClick={() => {
               if (!selectedItem) {
                 const event = new CustomEvent("open-enquiry", {
-                  detail: { project: "Jhamtani Biz One (Location)" },
+                  detail: { project: "Jhamtani Bizone (Location)" },
                 });
                 window.dispatchEvent(event);
               } else {

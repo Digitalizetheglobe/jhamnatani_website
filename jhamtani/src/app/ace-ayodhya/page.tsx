@@ -9,6 +9,7 @@ import Walkthrough from "@/components/ace-ayodhya/walkthrough/wallkthrough";
 import MapSection from "@/components/ace-ayodhya/map/map";
 import Contact from "@/components/ace-ayodhya/contact/contact";
 import Footer from "@/components/footer/Footer";
+import HomeVideoModal from "@/components/home/HomeVideoModal";
 
 export const metadata = {
   title: "Ace Ayodhya | Jhamtani - The Ideal Way of Living",
@@ -19,6 +20,11 @@ export default function AceAyodhyaPage() {
   return (
     <>
       <Header />
+      <HomeVideoModal
+        videoSrc="/assets/ace-ayodhya/AYODHYA.mp4"
+        title="Ace Ayodhya"
+        storageKey="hasSeenAceAyodhyaVideoModal"
+      />
       <main className="bg-white min-h-screen">
         <Hero />
         <Logo />

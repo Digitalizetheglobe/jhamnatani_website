@@ -9,6 +9,7 @@ import Walkthrough from "@/components/biz-one/walkthrough/wallkthrough";
 import MapSection from "@/components/biz-one/map/map";
 import Contact from "@/components/biz-one/contact/contact";
 import Footer from "@/components/footer/Footer";
+import HomeVideoModal from "@/components/home/HomeVideoModal";
 
 export const metadata = {
   title: "Jhamtani Bizone | Premium Offices & Retail Spaces at Kokane Chowk, Pune",
@@ -20,6 +21,11 @@ export default function BizOnePage() {
   return (
     <>
       <Header />
+      <HomeVideoModal
+        videoSrc="/assets/biz-one/COMMERCIAL-SPACES.mp4"
+        title="Jhamtani Biz One"
+        storageKey="hasSeenBizOneVideoModal"
+      />
       <main className="bg-white min-h-screen">
         <Hero />
         <Logo />
