@@ -4,21 +4,18 @@ import Footer from "@/components/footer/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BLOGS - Premium Residential and Commercial Properties in Pune and PCMC | Jhamtani",
+  title: "Jhamtani Perspectives | Blogs & Real Estate News",
   description:
-    "Explore latest real estate insights, RERA buying guides, and property investment opportunities in Pune with Jhamtani.",
+    "Read Jhamtani Perspectives: news, media features and ideas that build tomorrow, from Pune real estate developer Jhamtani Group.",
   keywords: [
-    "Jhamtani Blogs",
-    "Pune Real Estate Blogs",
-    "Buy Studio Apartment Pune",
-    "RERA Guidelines India",
-    "Real Estate Investment Pune",
-    "Jhamtani Properties"
+    "Jhamtani blog",
+    "Pune real estate news",
+    "Jhamtani Perspectives",
   ],
   openGraph: {
-    title: "BLOGS - Premium Residential and Commercial Properties in Pune and PCMC | Jhamtani",
+    title: "Jhamtani Perspectives | Blogs & Real Estate News",
     description:
-      "Explore latest real estate insights, RERA buying guides, and property investment opportunities in Pune with Jhamtani.",
+      "Read Jhamtani Perspectives: news, media features and ideas that build tomorrow, from Pune real estate developer Jhamtani Group.",
     url: "https://jhamtani.com/blogs",
     siteName: "Jhamtani",
     images: [
@@ -26,15 +23,15 @@ export const metadata: Metadata = {
         url: "/assets/blogs/best-locations-to-buy-studio-apartments-in-pune.webp",
         width: 1200,
         height: 628,
-        alt: "Jhamtani Blogs",
+        alt: "Jhamtani Perspectives",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BLOGS - Jhamtani Real Estate Perspectives",
+    title: "Jhamtani Perspectives | Blogs & Real Estate News",
     description:
-      "Explore latest real estate insights, RERA buying guides, and property investment opportunities in Pune with Jhamtani.",
+      "Read Jhamtani Perspectives: news, media features and ideas that build tomorrow, from Pune real estate developer Jhamtani Group.",
   },
 };
 

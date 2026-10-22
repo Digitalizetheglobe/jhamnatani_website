@@ -12,8 +12,15 @@ import Contact from "@/components/jhamtani-bizcore/contact/contact";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "Jhamtani Bizcore | Serviced Studio Apartments in Koregaon Park NX, Pune",
-  description: "Invest in premium serviced studio apartments at Jhamtani Bizcore in Koregaon Park NX, Pune. Managed by Colive with high rental yield, co-working suites, and curated amenities.",
+  title: "Jhamtani Bizcore | Serviced Studios Koregaon Park NX",
+  description:
+    "Serviced studio apartments in Koregaon Park NX, Pune by Jhamtani Group. Explore Jhamtani Bizcore and enquire today.",
+  keywords: [
+    "Jhamtani Bizcore",
+    "serviced apartments Koregaon Park",
+    "studio apartments Koregaon Park NX",
+    "serviced studio Pune",
+  ],
 };
 
 export default function JhamtaniBizcorePage() {

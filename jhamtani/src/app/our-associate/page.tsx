@@ -6,8 +6,14 @@ import VendorRegistration from "@/components/channel-partner/vendor-registration
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "Our Associate | Jhamtani",
-  description: "Partnerships Built on Promise. Join Jhamtani as a Channel Partner or Vendor.",
+  title: "Our Associates | Jhamtani Group Pune",
+  description:
+    "Meet the associates and partners who work with Jhamtani Group to deliver quality real estate across Pune.",
+  keywords: [
+    "Jhamtani associates",
+    "Jhamtani channel partners",
+    "real estate partners Pune",
+  ],
 };
 
 export default function OurAssociatePage() {

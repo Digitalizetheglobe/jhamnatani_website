@@ -7,8 +7,15 @@ import Soon from "@/components/XO/soon/soon";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "XO Series | Jhamtani - The Name Is A Promise",
-  description: "Discover the XO Series by Jhamtani. The finest expression of exceptional architecture, curated experiences, and uncompromising quality in Pune.",
+  title: "XO Series by Jhamtani | Luxury Homes in Pune",
+  description:
+    "The XO Series is Jhamtani's most considered collection of luxury homes, combining exceptional architecture, curated experiences and uncompromising quality.",
+  keywords: [
+    "luxury homes in Pune",
+    "XO Signature Series",
+    "XO Jhamtani",
+    "ultra luxury apartments Pune",
+  ],
 };
 
 export default function XOSignatureSeriesPage() {

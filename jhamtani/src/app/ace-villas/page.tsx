@@ -11,8 +11,15 @@ import Contact from "@/components/ace-villas/contact/contact";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "ACE Villas | Jhamtani - Bespoke Luxury Villas in Koregaon Park NX, Pune",
-  description: "Experience ultra-luxury estate living at ACE Villas by Jhamtani. Bespoke private residences featuring timeless architecture and exceptional craftsmanship in Koregaon Park NX, Pune.",
+  title: "Jhamtani ACE Villas Koregaon Park NX | Luxury Villas",
+  description:
+    "Ultra-luxury villas in Koregaon Park NX, Pune by Jhamtani Group. Explore ACE Villas and enquire to learn more.",
+  keywords: [
+    "Jhamtani ACE Villas",
+    "luxury villas in Koregaon Park",
+    "villas in Koregaon Park NX",
+    "ultra luxury villas Pune",
+  ],
 };
 
 export default function AceVillasPage() {

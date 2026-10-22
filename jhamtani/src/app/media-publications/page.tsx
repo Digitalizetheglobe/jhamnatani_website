@@ -3,8 +3,14 @@ import MediaPublicationsComponent from "@/components/media-publications/media-pu
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "Media Publications | Jhamtani - Press & News Articles",
-  description: "Read latest news articles, featured publications, and press coverage of the Jhamtani Group in prominent national media including BW Businessworld and The Pioneer.",
+  title: "Jhamtani in the News | Media & Press Coverage",
+  description:
+    "Read press coverage, announcements and media features about Jhamtani Group.",
+  keywords: [
+    "Jhamtani news",
+    "Jhamtani Group press",
+    "Jhamtani media coverage",
+  ],
 };
 
 export default function MediaPublicationsPage() {

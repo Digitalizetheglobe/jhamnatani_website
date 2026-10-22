@@ -4,13 +4,19 @@ import Footer from "@/components/footer/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Jhamtani - Head Office & Site Experience Centres",
+  title: "Contact Jhamtani Group | Baner Head Office, Pune",
   description:
-    "Connect with Jhamtani Real Estate Developers. Visit our Head Office at Balewadi High Street, Baner, or connect with our project sales advisors across Pune.",
+    "Reach Jhamtani at Nandan Probiz, Balewadi High Street, Baner, Pune. Call +91 7447447669 or email enquiry@jhamtani.com.",
+  keywords: [
+    "Jhamtani contact",
+    "Jhamtani Group office Baner",
+    "Jhamtani phone number",
+    "Jhamtani enquiry",
+  ],
   openGraph: {
-    title: "Contact Jhamtani Real Estate Developers | Pune",
+    title: "Contact Jhamtani Group | Baner Head Office, Pune",
     description:
-      "Get in touch for property enquiries, site visits, and developer consultations.",
+      "Reach Jhamtani at Nandan Probiz, Balewadi High Street, Baner, Pune. Call +91 7447447669 or email enquiry@jhamtani.com.",
     url: "https://jhamtani.com/contact/",
   },
 };

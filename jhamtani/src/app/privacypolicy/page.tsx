@@ -4,13 +4,13 @@ import Footer from "@/components/footer/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Jhamtani - Official Data Protection & Privacy Terms",
+  title: "Privacy Policy | Jhamtani Group",
   description:
-    "Review Jhamtani's Privacy Policy, data encryption protocols, user rights, and legal compliance under the Information Technology Act, 2000.",
+    "How Jhamtani Group collects, uses and protects your personal information.",
   openGraph: {
-    title: "Privacy Policy | Jhamtani Pune",
+    title: "Privacy Policy | Jhamtani Group",
     description:
-      "Transparency, data protection, and privacy standards at Jhamtani.",
+      "How Jhamtani Group collects, uses and protects your personal information.",
     url: "https://jhamtani.com/privacypolicy/",
   },
 };

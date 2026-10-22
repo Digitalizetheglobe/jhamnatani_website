@@ -11,8 +11,16 @@ import Contact from "@/components/ace-aster/contact/contact";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "ACE Aster | Jhamtani - Contemporary Residences in Ravet, Pune",
-  description: "Experience modern luxury living at ACE Aster by Jhamtani. Premium 2 & 3 BHK residences featuring exceptional architecture, lifestyle amenities and scenic views in Ravet, Pune.",
+  title: "Jhamtani ACE Aster Ravet | 2 & 3 BHK Homes in Pune",
+  description:
+    "Spacious 2 & 3 BHK homes in Ravet, Pune by Jhamtani Group. Explore ACE Aster and enquire today.",
+  keywords: [
+    "Jhamtani ACE Aster",
+    "2 BHK in Ravet",
+    "3 BHK flats in Ravet",
+    "spacious flats Ravet",
+    "Ace Aster Ravet",
+  ],
 };
 
 export default function AceAsterPage() {

@@ -3,9 +3,14 @@ import CareerComponent from "@/components/career/career";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "Careers | Jhamtani - Build a Career That Builds Lives",
+  title: "Careers at Jhamtani Group | Jobs in Pune",
   description:
-    "Explore career opportunities at Jhamtani. Build homes, communities and meaningful experiences while growing with purpose, mentorship, and Shakti Edge initiatives.",
+    "Explore open roles at Jhamtani Group, a fast-growing Pune real estate developer, and apply today.",
+  keywords: [
+    "Jhamtani careers",
+    "real estate jobs in Pune",
+    "Jhamtani Group jobs",
+  ],
 };
 
 export default function CareersPage() {

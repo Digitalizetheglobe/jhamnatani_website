@@ -4,13 +4,18 @@ import Footer from "@/components/footer/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Monthly Newsletters | Jhamtani - Official Monthly Buzz & Community Editions",
+  title: "Monthly Buzz Newsletter | Jhamtani Group",
   description:
-    "Read and download Jhamtani's official Monthly Newsletters and Annual Buzz editions. Explore construction progress, community events, and project milestone updates.",
+    "Read Monthly Buzz for construction milestones, project deliveries and community stories from Jhamtani Group.",
+  keywords: [
+    "Jhamtani Monthly Buzz",
+    "Jhamtani newsletter",
+    "Jhamtani Group updates",
+  ],
   openGraph: {
-    title: "Jhamtani Monthly Newsletters & Flipbook Archives",
+    title: "Monthly Buzz Newsletter | Jhamtani Group",
     description:
-      "Interactive digital flipbook editions and PDF downloads of Jhamtani Monthly Buzz across Pune.",
+      "Read Monthly Buzz for construction milestones, project deliveries and community stories from Jhamtani Group.",
     url: "https://jhamtani.com/monthlynewsletters/",
   },
 };

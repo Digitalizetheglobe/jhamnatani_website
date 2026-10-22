@@ -111,8 +111,9 @@ export default function Hero() {
   };
 
   return (
-    <section
-      className="group relative w-full overflow-hidden bg-black select-none aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto lg:h-screen lg:min-h-[650px] outline-none"
+    <section className="relative w-full bg-black">
+    <div
+      className="group relative w-full aspect-[3/4] overflow-hidden bg-black select-none outline-none sm:aspect-[4/5] lg:aspect-[1920/1024]"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onKeyDown={handleKeyDown}
@@ -175,10 +176,8 @@ export default function Hero() {
         );
       })}
 
-      {/* Gradient Overlays for header readability & smooth bottom transition */}
-      <div className="absolute inset-x-0 top-0 h-28 sm:h-32 lg:h-36 bg-gradient-to-b from-black/60 sm:from-black/50 via-black/20 to-transparent pointer-events-none z-10" />
-      <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 lg:h-28 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-10" />
-      <div className="hidden lg:block absolute inset-0 bg-black/10 pointer-events-none z-10" />
+      {/* Light top fade so the header stays readable without covering the artwork */}
+      <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/35 to-transparent pointer-events-none z-10" />
 
       {/* Navigation Arrow: Previous */}
       <button
@@ -240,6 +239,7 @@ export default function Hero() {
           }
         }
       `}</style>
+    </div>
     </section>
   );
 }

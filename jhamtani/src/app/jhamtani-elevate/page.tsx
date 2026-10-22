@@ -11,8 +11,15 @@ import Contact from "@/components/jhamtani-elevate/contact/contact";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "Jhamtani Elevate | Elevated Living in Mundhwa, Pune",
-  description: "Experience modern elevated living at Jhamtani Elevate in Mundhwa, Pune. Premium residences featuring thoughtful design, lifestyle amenities, and co-working spaces.",
+  title: "Jhamtani Elevate Mundhwa | Studio Apartments Pune",
+  description:
+    "Studio apartments in Mundhwa, Pune by Jhamtani Group. Explore Jhamtani Elevate and enquire today.",
+  keywords: [
+    "Jhamtani Elevate",
+    "studio apartments in Mundhwa",
+    "studio flats Pune",
+    "Elevate Mundhwa",
+  ],
 };
 
 export default function JhamtaniElevatePage() {

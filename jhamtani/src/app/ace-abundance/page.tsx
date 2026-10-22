@@ -12,8 +12,16 @@ import Footer from "@/components/footer/Footer";
 import HomeVideoModal from "@/components/home/HomeVideoModal";
 
 export const metadata = {
-  title: "Ace Abundance | Jhamtani - The Ideal Way of Living",
-  description: "Experience the ideal way of living at Ace Abundance by Jhamtani. Premium luxury residences featuring exceptional craftsmanship and architecture in Pune.",
+  title: "Jhamtani ACE Abundance Mundhwa | 3 & 4.5 BHK Pune",
+  description:
+    "Ultra-luxury 3 & 4.5 bed residences in Mundhwa, Pune by Jhamtani Group. Explore ACE Abundance and enquire today.",
+  keywords: [
+    "Jhamtani ACE Abundance",
+    "luxury apartments in Mundhwa",
+    "3 BHK in Mundhwa",
+    "4.5 BHK Pune",
+    "ultra luxury flats Mundhwa",
+  ],
 };
 
 export default function AceAbundancePage() {

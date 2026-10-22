@@ -3,8 +3,15 @@ import ProjectLocation from "@/components/project-location/project-lcoation";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "Project Locations | Jhamtani - Premium Properties in Pune",
-  description: "Explore our prime residential and commercial project locations across Pune and PCMC including Thergaon, Mundhwa, Koregaon Park NX, Ravet, and Baner.",
+  title: "Jhamtani Project Locations | Baner, Ravet, Mundhwa",
+  description:
+    "See where Jhamtani builds across Pune: Thergaon, Ravet, Mundhwa, Baner and Koregaon Park NX, with key city landmarks nearby.",
+  keywords: [
+    "Jhamtani project locations",
+    "Jhamtani projects in Ravet",
+    "Jhamtani projects in Baner",
+    "projects in Mundhwa",
+  ],
 };
 
 export default function ProjectLocationsPage() {

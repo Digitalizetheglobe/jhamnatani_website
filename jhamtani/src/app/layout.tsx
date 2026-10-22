@@ -40,6 +40,34 @@ const inriaSerif = localFont({
   variable: "--font-inria-serif",
 });
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://jhamtani.com/#organization",
+  name: "Jhamtani",
+  url: "https://jhamtani.com/",
+  description:
+    "Jhamtani is a real estate brand developing residential and commercial properties in Pune, Maharashtra, India.",
+  telephone: "+91 7447447669",
+  email: "enquiry@jhamtani.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress:
+      "Office No. 1303/1309, Nandan Probiz, Balewadi High Street, Baner",
+    addressLocality: "Pune",
+    addressRegion: "Maharashtra",
+    postalCode: "411045",
+    addressCountry: "IN",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "Sales and Customer Enquiries",
+    telephone: "+91 7447447669",
+    email: "enquiry@jhamtani.com",
+    availableLanguage: ["English", "Hindi", "Marathi"],
+  },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://jhamtani.com"),
   title: "Jhamtani | The Name Is A Promise",
@@ -69,6 +97,10 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col text-white selection:bg-[#C5A880] selection:text-black font-sans"
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
         {/* Google Analytics & Google Ads Tags */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-93HTFX0TJ0"

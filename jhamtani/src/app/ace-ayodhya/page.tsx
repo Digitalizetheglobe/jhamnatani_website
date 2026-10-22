@@ -12,8 +12,16 @@ import Footer from "@/components/footer/Footer";
 import HomeVideoModal from "@/components/home/HomeVideoModal";
 
 export const metadata = {
-  title: "Ace Ayodhya | Jhamtani - The Ideal Way of Living",
-  description: "Experience the ideal way of living at Ace Ayodhya by Jhamtani. Premium luxury residences featuring exceptional craftsmanship and architecture in Pune.",
+  title: "Jhamtani ACE Ayodhya Thergaon | 2 & 3 BHK Flats Pune",
+  description:
+    "Premium 2 & 3 BHK homes in Thergaon, Pune by Jhamtani Group. Explore ACE Ayodhya's project details and enquire today for a visit.",
+  keywords: [
+    "Jhamtani ACE Ayodhya",
+    "2 BHK flats in Thergaon",
+    "3 BHK flats in Thergaon",
+    "flats in Thergaon Pune",
+    "ACE Ayodhya Thergaon",
+  ],
 };
 
 export default function AceAyodhyaPage() {

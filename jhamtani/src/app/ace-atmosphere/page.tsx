@@ -12,8 +12,16 @@ import Footer from "@/components/footer/Footer";
 
 
 export const metadata = {
-  title: "ACE Atmosphere | Jhamtani - Pune's 1st 24x7 Lifestyle Concept in Ravet",
-  description: "Experience Pune's premier 24x7 lifestyle at ACE Atmosphere by Jhamtani. Luxury 2 & 3 BHK residences featuring round-the-clock amenities in Ravet, Pune.",
+  title: "Jhamtani ACE Atmosphere Ravet | 3 & 4 BHK Homes Pune",
+  description:
+    "Premium 3 & 4 BHK homes in Ravet, Pune by Jhamtani Group. Explore ACE Atmosphere and enquire today.",
+  keywords: [
+    "Jhamtani ACE Atmosphere",
+    "3 BHK in Ravet",
+    "4 BHK flats in Ravet",
+    "flats in Ravet Pune",
+    "Ace Atmosphere Ravet",
+  ],
 };
 
 export default function AceAtmospherePage() {

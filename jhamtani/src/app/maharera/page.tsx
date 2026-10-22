@@ -3,8 +3,14 @@ import MahaReraComponent from "@/components/maharera/maharera";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "MahaRERA Certifications | Jhamtani - Official Registrations & Approvals",
-  description: "Download verified MahaRERA certificates and registration documents for all residential and commercial projects by the Jhamtani Group in Pune.",
+  title: "MahaRERA Registration | Jhamtani Group Projects",
+  description:
+    "View MahaRERA registration details for Jhamtani Group projects in Pune.",
+  keywords: [
+    "Jhamtani MahaRERA",
+    "Jhamtani RERA registration",
+    "Jhamtani RERA number",
+  ],
 };
 
 export default function MahaReraPage() {

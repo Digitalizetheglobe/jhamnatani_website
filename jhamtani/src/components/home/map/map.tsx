@@ -136,7 +136,7 @@ const LOCATIONS_DATA: LocationData[] = [
   },
   {
     id: "pimple-saudagar",
-    name: "Pimple Saudagar",
+    name: "KOKANE CHOWK",
     x: 48,
     y: 10,
     zone: "west",

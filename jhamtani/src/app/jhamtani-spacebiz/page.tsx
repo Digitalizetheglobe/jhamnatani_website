@@ -12,8 +12,15 @@ import Footer from "@/components/footer/Footer";
 import HomeVideoModal from "@/components/home/HomeVideoModal";
 
 export const metadata = {
-  title: "Jhamtani SpaceBiz | Grade-A Commercial & Office Spaces in Baner, Pune",
-  description: "Explore state-of-the-art office spaces, corporate showrooms, and modern business infrastructure at Jhamtani SpaceBiz in Baner, Pune.",
+  title: "Jhamtani SpaceBiz Baner | Grade A Commercial Space",
+  description:
+    "Grade A commercial spaces in Baner, Pune by Jhamtani Group. Explore Jhamtani SpaceBiz and enquire for availability.",
+  keywords: [
+    "Jhamtani SpaceBiz",
+    "commercial space in Baner",
+    "office space Baner Pune",
+    "Grade A office Baner",
+  ],
 };
 
 export default function JhamtaniSpacebizPage() {

@@ -70,8 +70,12 @@ export const blogsData: BlogPost[] = [
     excerpt:
       "Jhamtani partners with Bollywood icon Ranveer Singh as their official brand ambassador to mark an ambitious new growth chapter in real estate.",
     metaDescription:
-      "Read MxMIndia coverage on Jhamtani signing Ranveer Singh as brand ambassador.",
-    keywords: ["Ranveer Singh Jhamtani", "Brand Ambassador", "Jhamtani Real Estate", "MxMIndia"],
+      "Jhamtani names Bollywood icon Ranveer Singh its official brand ambassador, marking an ambitious new growth chapter in real estate.",
+    keywords: [
+      "Jhamtani Ranveer Singh",
+      "Ranveer Singh brand ambassador real estate",
+      "Jhamtani brand ambassador",
+    ],
     tags: ["Media & Press", "Ranveer Singh", "Brand Ambassador", "Jhamtani"],
     intro: [
       "Jhamtani has officially signed Bollywood superstar Ranveer Singh as its brand ambassador, entering a dynamic new phase of growth and brand excellence.",
@@ -98,8 +102,12 @@ export const blogsData: BlogPost[] = [
     excerpt:
       "Jhamtani collaborates with Ranveer Singh to elevate brand presence and redefine luxury real estate experiences across Pune.",
     metaDescription:
-      "Advertising Reporter story on Jhamtani bringing Ranveer Singh on board as brand ambassador.",
-    keywords: ["Ranveer Singh", "Advertising Reporter", "Jhamtani Brand Ambassador"],
+      "Jhamtani collaborates with Ranveer Singh to elevate brand presence and redefine luxury real estate experiences across Pune.",
+    keywords: [
+      "Ranveer Singh Jhamtani partnership",
+      "Jhamtani growth chapter",
+      "luxury real estate brand ambassador Pune",
+    ],
     tags: ["Media & Press", "Advertising", "Ranveer Singh", "Jhamtani"],
     intro: [
       "Jhamtani brings Ranveer Singh on board to mark a major milestone in real estate brand building.",
@@ -127,8 +135,12 @@ export const blogsData: BlogPost[] = [
     excerpt:
       "Celebrating our collaboration with Ranveer Singh as we redefine skylines and luxury living. Check out the official LinkedIn post.",
     metaDescription:
-      "Official LinkedIn announcement of Ranveer Singh joining Jhamtani Group as brand ambassador.",
-    keywords: ["LinkedIn Jhamtani", "Ranveer Singh Announcement", "Pune Real Estate"],
+      "Official announcement: Ranveer Singh joins Jhamtani Group as we redefine skylines and luxury living. See the LinkedIn post.",
+    keywords: [
+      "Ranveer Singh joins Jhamtani",
+      "Jhamtani Group announcement",
+      "Jhamtani LinkedIn",
+    ],
     tags: ["Media & Press", "LinkedIn", "Ranveer Singh", "Jhamtani Group"],
     intro: [
       "Read the official announcement post on LinkedIn celebrating Ranveer Singh joining Jhamtani Group.",

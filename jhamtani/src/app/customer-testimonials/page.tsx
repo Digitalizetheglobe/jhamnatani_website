@@ -4,13 +4,19 @@ import Footer from "@/components/footer/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Customer Testimonials | Jhamtani - Video Reviews & Homeowner Stories",
+  title: "Customer Testimonials | Jhamtani Homebuyer Stories",
   description:
-    "Watch authentic video testimonials and reviews from over 5,000+ happy homeowners across Jhamtani residential developments in Pune.",
+    "Watch real homebuyer stories from Jhamtani residents, including Ace Abode in Ravet. Hear from 13K+ happy families across Pune.",
+  keywords: [
+    "Jhamtani reviews",
+    "Jhamtani customer reviews",
+    "Jhamtani builder reviews",
+    "Ace Abode reviews",
+  ],
   openGraph: {
-    title: "Customer Testimonials | Jhamtani Pune",
+    title: "Customer Testimonials | Jhamtani Homebuyer Stories",
     description:
-      "Real stories of joy, trust, and community from proud Jhamtani homeowners.",
+      "Watch real homebuyer stories from Jhamtani residents, including Ace Abode in Ravet. Hear from 13K+ happy families across Pune.",
     url: "https://jhamtani.com/customer-testimonials/",
   },
 };

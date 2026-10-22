@@ -55,18 +55,59 @@ export async function generateMetadata({
   const authorName =
     blog.author && blog.author !== "admin" ? blog.author : "Jhamtani Group";
 
+  const seoOverrides: Record<
+    string,
+    { title: string; description: string; keywords: string[] }
+  > = {
+    "mxmindia-jhamtani-signs-ranveer-singh": {
+      title: "Jhamtani Signs Ranveer Singh as Brand Ambassador",
+      description:
+        "Jhamtani names Bollywood icon Ranveer Singh its official brand ambassador, marking an ambitious new growth chapter in real estate.",
+      keywords: [
+        "Jhamtani Ranveer Singh",
+        "Ranveer Singh brand ambassador real estate",
+        "Jhamtani brand ambassador",
+      ],
+    },
+    "advertising-reporter-jhamtani-ranveer-singh": {
+      title: "Jhamtani and Ranveer Singh: A New Growth Chapter",
+      description:
+        "Jhamtani collaborates with Ranveer Singh to elevate brand presence and redefine luxury real estate experiences across Pune.",
+      keywords: [
+        "Ranveer Singh Jhamtani partnership",
+        "Jhamtani growth chapter",
+        "luxury real estate brand ambassador Pune",
+      ],
+    },
+    "linkedin-jhamtani-ranveer-singh-announcement": {
+      title: "Ranveer Singh Joins Jhamtani Group | Official Post",
+      description:
+        "Official announcement: Ranveer Singh joins Jhamtani Group as we redefine skylines and luxury living. See the LinkedIn post.",
+      keywords: [
+        "Ranveer Singh joins Jhamtani",
+        "Jhamtani Group announcement",
+        "Jhamtani LinkedIn",
+      ],
+    },
+  };
+
+  const seo = seoOverrides[blog.slug];
+  const title = seo?.title ?? `${blog.title} | Jhamtani`;
+  const description = seo?.description ?? blog.metaDescription;
+  const keywords = seo?.keywords ?? blog.keywords;
+
   return {
-    title: `${blog.title} | Jhamtani`,
-    description: blog.metaDescription,
-    keywords: blog.keywords,
+    title,
+    description,
+    keywords,
     authors: [{ name: authorName }],
     publisher: "Jhamtani Group",
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: `${blog.title} | Jhamtani`,
-      description: blog.metaDescription,
+      title,
+      description,
       url: canonicalUrl,
       siteName: "Jhamtani",
       type: "article",
@@ -83,8 +124,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: blog.title,
-      description: blog.metaDescription,
+      title,
+      description,
       images: [blog.image],
     },
   };

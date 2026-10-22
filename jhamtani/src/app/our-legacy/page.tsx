@@ -10,8 +10,15 @@ import AboutTimeline from "@/components/about/timeline/timeline";
 import Footer from "@/components/footer/Footer";
 
 export const metadata = {
-  title: "Our Legacy | Jhamtani - The Name Is A Promise",
-  description: "Learn about Jhamtani's 40+ years legacy, vision, and real estate excellence in Pune.",
+  title: "Our Story | Jhamtani Group, 40+ Years of Legacy in Pune",
+  description:
+    "Read the Jhamtani story: 40+ years of legacy, 16+ years in real estate, 32 projects and 13K+ happy families across Pune. See our awards and achievements.",
+  keywords: [
+    "Jhamtani Group",
+    "Jhamtani Group Pune",
+    "Jhamtani builders about",
+    "Pune developer 40 years",
+  ],
 };
 
 export default function OurLegacyPage() {

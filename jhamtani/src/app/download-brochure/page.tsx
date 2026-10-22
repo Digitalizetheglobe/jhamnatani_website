@@ -4,13 +4,18 @@ import Footer from "@/components/footer/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Download Brochure | Jhamtani - Floor Plans & Project Specifications",
+  title: "Download Brochures | Jhamtani Projects in Pune",
   description:
-    "Download official brochures, masterplans, and detailed unit floor plans for ACE Ayodhya, ACE Abundance, ACE Villas, ACE Atmosphere, ACE Aster, Jhamtani Bizcore, Jhamtani Elevate, and Jhamtani SpaceBiz.",
+    "Download brochures for Jhamtani's ongoing projects in Pune and enquire about homes, villas, studios and commercial spaces.",
+  keywords: [
+    "Jhamtani brochure",
+    "Jhamtani project brochure download",
+    "Jhamtani Group brochure",
+  ],
   openGraph: {
-    title: "Download Project Brochures | Jhamtani Pune",
+    title: "Download Brochures | Jhamtani Projects in Pune",
     description:
-      "Explore and download verified e-brochures and architectural floor plans across Pune and PCMC.",
+      "Download brochures for Jhamtani's ongoing projects in Pune and enquire about homes, villas, studios and commercial spaces.",
     url: "https://jhamtani.com/download-brochure/",
   },
 };
