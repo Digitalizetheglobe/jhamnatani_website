@@ -6,12 +6,29 @@ import { X } from "lucide-react";
 
 interface HomeVideoModalProps {
   videoSrc?: string;
+  youtubeUrl?: string;
   title?: string;
   storageKey?: string;
 }
 
+function getYouTubeId(url: string) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname === "youtu.be") {
+      return parsed.pathname.replace(/^\/+/, "").split("/")[0] || null;
+    }
+    if (parsed.hostname.endsWith("youtube.com")) {
+      return parsed.searchParams.get("v");
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
 export default function HomeVideoModal({
   videoSrc = "/assets/video.mp4",
+  youtubeUrl,
   title = "Jhamtani - The Name Is A Promise",
   storageKey = "hasSeenHomeVideoModal",
 }: HomeVideoModalProps) {
@@ -57,6 +74,8 @@ export default function HomeVideoModal({
     };
   }, [isOpen]);
 
+  const youtubeId = youtubeUrl ? getYouTubeId(youtubeUrl) : null;
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -93,14 +112,24 @@ export default function HomeVideoModal({
 
             {/* Video Container */}
             <div className="relative w-full aspect-video bg-black flex items-center justify-center">
-              <video
-                src={videoSrc}
-                autoPlay
-                muted
-                controls
-                playsInline
-                className="w-full h-full object-contain"
-              />
+              {youtubeId ? (
+                <iframe
+                  src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&rel=0&playsinline=1`}
+                  title={title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full"
+                />
+              ) : (
+                <video
+                  src={videoSrc}
+                  autoPlay
+                  muted
+                  controls
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+              )}
             </div>
           </motion.div>
         </motion.div>

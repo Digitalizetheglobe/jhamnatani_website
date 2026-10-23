@@ -29,7 +29,7 @@ export default function AceAyodhyaPage() {
     <>
       <Header />
       <HomeVideoModal
-        videoSrc="/assets/ace-ayodhya/AYODHYA.mp4"
+        youtubeUrl="https://youtu.be/AOeMqMzfRCQ"
         title="Ace Ayodhya"
         storageKey="hasSeenAceAyodhyaVideoModal"
       />

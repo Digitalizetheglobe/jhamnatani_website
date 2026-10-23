@@ -67,7 +67,7 @@ export default function Hero() {
 
   return (
     <section
-      className="group relative w-full h-screen min-h-[850px] overflow-hidden bg-white select-none outline-none"
+      className="group relative w-full aspect-[3/4] overflow-hidden bg-black select-none outline-none sm:aspect-[4/5] lg:aspect-[1920/1024]"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       tabIndex={0}

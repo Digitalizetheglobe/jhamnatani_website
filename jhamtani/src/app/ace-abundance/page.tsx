@@ -29,7 +29,7 @@ export default function AceAbundancePage() {
     <>
       <Header />
       <HomeVideoModal
-        videoSrc="/assets/ace-abundance/ABUNDANCE.mp4"
+        youtubeUrl="https://youtu.be/lJfdxpPMcBQ"
         title="Ace Abundance"
         storageKey="hasSeenAceAbundanceVideoModal"
       />

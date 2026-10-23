@@ -37,6 +37,7 @@ interface BrochureItem {
   logo: string;
   image: string;
   pdfUrl: string;
+  mapUrl: string;
   projectLink: string;
 }
 
@@ -50,7 +51,8 @@ const brochuresData: BrochureItem[] = [
     categories: ["Residential"],
     logo: "/assets/ace-ayodhya/logo_1.webp",
     image: "/assets/ace-ayodhya/hero.webp",
-    pdfUrl: "/assets/maha-rera/ace-ayodhya.pdf",
+    pdfUrl: "/assets/brochure/ace-ayodhya-brochure.pdf",
+    mapUrl: "https://maps.app.goo.gl/vYZwTtzdB66RBc659",
     projectLink: "/ace-ayodhya",
   },
   {
@@ -62,7 +64,8 @@ const brochuresData: BrochureItem[] = [
     categories: ["Residential"],
     logo: "/assets/pojetcts/Abundacne logo.webp",
     image: "/assets/pojetcts/Abundacne_Elevaion.webp",
-    pdfUrl: "/assets/maha-rera/Ace-Abundance.pdf",
+    pdfUrl: "/assets/brochure/ace-abundance-brochure.pdf",
+    mapUrl: "https://maps.app.goo.gl/6D4qdjPCjVYpbVHn7",
     projectLink: "/ace-abundance",
   },
   {
@@ -74,7 +77,8 @@ const brochuresData: BrochureItem[] = [
     categories: ["Residential"],
     logo: "/assets/pojetcts/ace_villas_logo.webp",
     image: "/assets/pojetcts/ace_villas.webp",
-    pdfUrl: "/assets/maha-rera/ACE-VILLAS.pdf",
+    pdfUrl: "/assets/brochure/ace-villas-brochure.pdf",
+    mapUrl: "https://maps.app.goo.gl/a9YwRzpSVa7HMv2Z6",
     projectLink: "/ace-villas",
   },
   {
@@ -86,7 +90,8 @@ const brochuresData: BrochureItem[] = [
     categories: ["Residential"],
     logo: "/assets/pojetcts/ace_atmosphere_logo.webp",
     image: "/assets/pojetcts/ace_atmosphere.webp",
-    pdfUrl: "/assets/maha-rera/ACE-ATMOSPHERE.pdf",
+    pdfUrl: "/assets/brochure/ace-atmosphere-brochure.pdf",
+    mapUrl: "https://maps.app.goo.gl/QmgpoiXuRVJrSPHK7",
     projectLink: "/ace-atmosphere",
   },
   {
@@ -98,7 +103,8 @@ const brochuresData: BrochureItem[] = [
     categories: ["Residential"],
     logo: "/assets/pojetcts/aster_logo.webp",
     image: "/assets/pojetcts/ace_aster.webp",
-    pdfUrl: "/assets/maha-rera/Ace-Aster.pdf",
+    pdfUrl: "/assets/brochure/ace-aster-brochure.pdf",
+    mapUrl: "https://maps.app.goo.gl/PpJ66RukXKwegA5r6",
     projectLink: "/ace-aster",
   },
   {
@@ -110,7 +116,8 @@ const brochuresData: BrochureItem[] = [
     categories: ["Studio"],
     logo: "/assets/pojetcts/bizcore_logo.webp",
     image: "/assets/pojetcts/bizcore_image.webp",
-    pdfUrl: "/assets/maha-rera/Jhamtani-Bizcore.pdf",
+    pdfUrl: "/assets/brochure/jhamtani-bizcore-brochure.pdf",
+    mapUrl: "https://maps.app.goo.gl/efy7ZLxVURwiotWM6",
     projectLink: "/jhamtani-bizcore",
   },
   {
@@ -120,7 +127,8 @@ const brochuresData: BrochureItem[] = [
     type: "Studio",
     categories: ["Studio"],
     tagline: "Studio Apartments in Mundhwa",
-    pdfUrl: "/assets/brochure/Brochure_Jhamtani-Elevate.pdf",
+    pdfUrl: "/assets/brochure/jhamtani-elevate-brochure.pdf",
+    mapUrl: "https://maps.app.goo.gl/NvMzvwJx6e4xpBxC7",
     image: "/assets/pojetcts/jhamtani-elevate.webp",
     logo: "/assets/pojetcts/Elevate logo.webp",
     projectLink: "/jhamtani-elevate",
@@ -132,7 +140,8 @@ const brochuresData: BrochureItem[] = [
     type: "Commercial",
     categories: ["Commercial"],
     tagline: "Premium Business Space",
-    pdfUrl: "/assets/brochure/Spacebiz-Brochure.pdf",
+    pdfUrl: "/assets/brochure/jhamtani-spacebiz-brochure.pdf",
+    mapUrl: "https://maps.app.goo.gl/F74h2REXgdd3DVfPA",
     image: "/assets/pojetcts/jhamtani-spacebiz.webp",
     logo: "/assets/pojetcts/Spacebiz logo.webp",
     projectLink: "/jhamtani-spacebiz",
@@ -144,7 +153,8 @@ const brochuresData: BrochureItem[] = [
     type: "Commercial",
     categories: ["Commercial"],
     tagline: "Offices & Retail Spaces",
-    pdfUrl: "/assets/brochure/Spacebiz-Brochure.pdf",
+    pdfUrl: "",
+    mapUrl: "https://www.google.com/maps/search/?api=1&query=Jhamtani%20Bizone%20Kokane%20Chowk%20Pimple%20Saudagar%20Pune",
     image: "/assets/biz-one/banner.webp",
     logo: "/assets/pojetcts/Spacebiz logo.webp",
     projectLink: "/biz-one",
@@ -217,6 +227,7 @@ export default function ProjectBrochureComponent() {
     consent: true,
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     let isMounted = true;
@@ -251,6 +262,9 @@ export default function ProjectBrochureComponent() {
           logo: logoUrl,
           image: logoUrl,
           pdfUrl: docUrl,
+          mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+            `${item.projectName || ""} ${item.location || "Pune"}`.trim()
+          )}`,
           projectLink: item.projectPageUrl || "#",
         };
       });
@@ -345,6 +359,7 @@ export default function ProjectBrochureComponent() {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setSubmitError("");
     try {
       await submitMainEnquiryForm({
         name: formData.name,
@@ -356,23 +371,34 @@ export default function ProjectBrochureComponent() {
         formName: "Download Brochure Form",
         to: ENQUIRY_INBOX,
       });
+
+      const thankYou = await fetch("/api/brochure-thank-you", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          project: selectedProject?.title || "",
+        }),
+      });
+      const thankYouJson = await thankYou.json().catch(() => ({}));
+      if (!thankYou.ok || !thankYouJson.success) {
+        throw new Error(thankYouJson.error || "The brochure email could not be sent.");
+      }
     } catch (err) {
       console.error("Brochure form submit error:", err);
-    } finally {
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "We could not send the brochure email. Please try again."
+      );
       setIsSubmitting(false);
-      setIsSuccess(true);
-      setErrors({});
-
-      if (selectedProject?.pdfUrl) {
-        const link = document.createElement("a");
-        link.href = selectedProject.pdfUrl;
-        link.download = `${selectedProject.title}-Brochure.pdf`;
-        link.target = "_blank";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
+      return;
     }
+
+    setIsSubmitting(false);
+    setIsSuccess(true);
+    setErrors({});
   };
 
   return (
@@ -601,22 +627,14 @@ export default function ProjectBrochureComponent() {
                   </div>
                   <div className="space-y-1">
                     <h4 className="font-serif text-xl text-zinc-900">
-                      Download Started!
+                      Brochure Sent!
                     </h4>
                     <p className="text-xs text-zinc-600 max-w-xs font-light">
-                      The official brochure for <strong>{selectedProject.title}</strong> has been downloaded to your device.
+                      The brochure for <strong>{selectedProject.title}</strong> has been sent to{" "}
+                      <strong>{formData.email}</strong> as an email attachment.
                     </p>
                   </div>
                   <div className="pt-2 w-full space-y-2">
-                    <a
-                      href={selectedProject.pdfUrl}
-                      download
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-bold tracking-widest uppercase bg-[#A0725B] text-white hover:bg-zinc-900 transition-all cursor-pointer shadow-md"
-                    >
-                      <Download className="w-4 h-4" /> Direct Download Again
-                    </a>
                     <button
                       onClick={handleCloseModal}
                       className="w-full py-2.5 text-xs text-zinc-600 hover:text-zinc-900 font-semibold cursor-pointer uppercase tracking-wider"
@@ -714,6 +732,10 @@ export default function ProjectBrochureComponent() {
                       <p className="text-red-500 text-[11px] mt-1 font-medium">{errors.consent}</p>
                     )}
                   </div>
+
+                  {submitError && (
+                    <p className="text-red-500 text-[11px] font-medium">{submitError}</p>
+                  )}
 
                   <button
                     type="submit"

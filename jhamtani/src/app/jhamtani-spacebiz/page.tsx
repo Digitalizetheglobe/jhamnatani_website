@@ -28,7 +28,7 @@ export default function JhamtaniSpacebizPage() {
     <>
       <Header />
       <HomeVideoModal
-        videoSrc="/assets/biz-one/COMMERCIAL-SPACES.mp4"
+        youtubeUrl="https://youtu.be/iPkzcEPlVHQ"
         title="Jhamtani SpaceBiz"
         storageKey="hasSeenSpacebizVideoModal"
       />
