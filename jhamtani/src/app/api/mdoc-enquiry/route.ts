@@ -5,16 +5,50 @@ const MDOC_ENDPOINT =
 
 /** Project pages that exist on the site, keyed to the MDOC PUSH API keys. */
 const PROJECT_API_KEYS: Record<string, string> = {
+  // Ace Abundance
   "ace abundance": "74259574-87b7-4083-beac-9070d2b2ed06",
+  "jhamtani abundance": "74259574-87b7-4083-beac-9070d2b2ed06",
+  "abundance": "74259574-87b7-4083-beac-9070d2b2ed06",
+
+  // Ace Aster
   "ace aster": "04544383-474f-4502-8fd4-94662a95b7df",
+
+  // Ace Atmosphere
   "ace atmosphere": "a175b455-bbcb-4a78-a5af-322312435f33",
+  "atmosphere": "a175b455-bbcb-4a78-a5af-322312435f33",
+
+  // Ace Ayodhya
   "ace ayodhya": "b30864d0-35e0-4c9a-8d90-fbaccd098012",
+  "ayodhya": "b30864d0-35e0-4c9a-8d90-fbaccd098012",
+
+  // Ace Crossroads Thergaon
+  "ace crossroads": "8873cea4-1c98-4947-8a19-67e596abe081",
+  "ace crossroads thergaon": "8873cea4-1c98-4947-8a19-67e596abe081",
+
+  // Ace Villas
   "ace villas": "b45c2c35-ef90-43a8-940f-e0f6ac0b4232",
+  "villas": "b45c2c35-ef90-43a8-940f-e0f6ac0b4232",
+
+  // Jhamtani BizCore
+  "jhamtani bizcore": "f9746457-0201-4c9b-8acb-5bec834ed844",
+  "bizcore": "f9746457-0201-4c9b-8acb-5bec834ed844",
+
+  // Jhamtani BizOne
   "jhamtani biz one": "0f696337-895d-4ab1-aef9-0400191a7b2d",
   "jhamtani bizone": "0f696337-895d-4ab1-aef9-0400191a7b2d",
-  "jhamtani bizcore": "f9746457-0201-4c9b-8acb-5bec834ed844",
+  "bizone": "0f696337-895d-4ab1-aef9-0400191a7b2d",
+
+  // Jhamtani Elevate
   "jhamtani elevate": "88fade9d-9e3b-4532-8639-e7136d650fd5",
+  "elevate": "88fade9d-9e3b-4532-8639-e7136d650fd5",
+
+  // Jhamtani SpaceBiz
   "jhamtani spacebiz": "b8da4b1f-f077-4450-a171-5ff45434c18a",
+  "spacebiz": "b8da4b1f-f077-4450-a171-5ff45434c18a",
+
+  // Vision Ace Commercial Phase I
+  "vision ace commercial phase i": "c7389832-e17b-4788-8f14-75deff1cf781",
+  "vision ace commercial": "c7389832-e17b-4788-8f14-75deff1cf781",
 };
 
 const MDOC_PREFERENCES = new Set([

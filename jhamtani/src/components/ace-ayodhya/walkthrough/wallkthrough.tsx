@@ -1,23 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { Play, X } from "lucide-react";
 
 export default function Walkthrough() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Lock scrolling when the video lightbox is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <section className="relative w-full bg-[#FFFFFF] py-20 lg:py-28 px-6 sm:px-12 lg:px-16 text-zinc-900 select-none overflow-hidden">
@@ -51,97 +39,82 @@ export default function Walkthrough() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="font-sans text-[14px] sm:text-[15px] text-zinc-700 leading-relaxed font-light mt-3 max-w-xl"
           >
-            Take a closer look at the residences, amenities and thoughtfully planned spaces that shape the ideal way of living.
+            Take a closer look at the architecture, design, and thoughtfully planned spaces created for an elevated living experience.
           </motion.p>
         </div>
 
-        {/* Video Thumbnail Preview Card */}
+        {/* Video Container - Inline Exact Size */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          onClick={() => setIsOpen(true)}
-          className="relative w-full aspect-[2.39/1] bg-zinc-950 overflow-hidden cursor-pointer group shadow-xl"
+          className="relative w-full aspect-[2.39/1] bg-zinc-950 overflow-hidden shadow-xl"
         >
-          {/* Preview Image */}
-          <img
-            src="/assets/ace-ayodhya/gallery_1.webp"
-            alt="Project Walkthrough Video Preview"
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
-          />
-
-          {/* Vignette / Dark overlay */}
-          <div className="absolute inset-0 bg-black/60 transition-colors duration-500 group-hover:bg-black/45 z-10" />
-
-          {/* Center Play Button */}
-          <div className="absolute inset-0 flex items-center justify-center z-20">
-            <motion.div
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full border border-white/80 flex items-center justify-center bg-black/20 hover:bg-white/10 transition-colors duration-300"
+          {!isPlaying ? (
+            <div
+              onClick={() => setIsPlaying(true)}
+              className="relative w-full h-full cursor-pointer group"
             >
-              {/* Play icon (triangle) */}
-              <Play className="w-6 h-6 sm:w-8 sm:h-8 text-white fill-white translate-x-0.5" />
-              
-              {/* Subtle hover ping animation ring */}
-              <div className="absolute inset-0 rounded-full border border-white/30 animate-ping opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </motion.div>
-          </div>
+              {/* Preview Image */}
+              <img
+                src="https://img.youtube.com/vi/z_nZd-89ACs/maxresdefault.jpg"
+                alt="Project Walkthrough Video Preview - Ace Ayodhya"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
+              />
 
-          {/* Artistic Impression tag inside thumbnail */}
-          <div
-            className="absolute right-3 bottom-6 z-20 flex items-center justify-center pointer-events-none select-none"
-            style={{
-              writingMode: "vertical-lr",
-              transform: "rotate(180deg)",
-            }}
-          >
-            <span className="text-[8px] tracking-[0.2em] text-white/40 font-sans uppercase font-medium">
-              Artistic Impression
-            </span>
-          </div>
+              {/* Vignette / Dark overlay */}
+              <div className="absolute inset-0 bg-black/50 transition-colors duration-500 group-hover:bg-black/35 z-10" />
+
+              {/* Center Play Button */}
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <motion.div
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full border border-white/80 flex items-center justify-center bg-black/20 hover:bg-white/10 transition-colors duration-300"
+                >
+                  <Play className="w-6 h-6 sm:w-8 sm:h-8 text-white fill-white translate-x-0.5" />
+                  <div className="absolute inset-0 rounded-full border border-white/30 animate-ping opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
+              </div>
+
+              {/* Artistic Impression tag inside thumbnail */}
+              <div
+                className="absolute right-3 bottom-6 z-20 flex items-center justify-center pointer-events-none select-none"
+                style={{
+                  writingMode: "vertical-lr",
+                  transform: "rotate(180deg)",
+                }}
+              >
+                <span className="text-[8px] tracking-[0.2em] text-white/60 font-sans uppercase font-medium">
+                  Artistic Impression
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="relative w-full h-full bg-black">
+              {/* Close Button to return to thumbnail preview */}
+              <button
+                onClick={() => setIsPlaying(false)}
+                className="absolute top-4 right-4 z-30 p-2 bg-black/70 hover:bg-black text-white rounded-full transition-colors cursor-pointer"
+                aria-label="Close video"
+              >
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+
+              {/* In-place YouTube Video Embed */}
+              <iframe
+                src="https://www.youtube.com/embed/z_nZd-89ACs?autoplay=1&rel=0"
+                title="Ace Ayodhya Project Walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full border-0"
+              />
+            </div>
+          )}
         </motion.div>
       </div>
-
-      {/* Full-Screen Video Lightbox Modal */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 sm:p-6 md:p-10"
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors cursor-pointer p-2 z-55 bg-black/40 rounded-full hover:bg-black/60 flex items-center justify-center"
-              aria-label="Close walkthrough video modal"
-            >
-              <X className="w-6 h-6 sm:w-8 sm:h-8" />
-            </button>
-
-            {/* Video Player Box */}
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              transition={{ type: "spring", stiffness: 220, damping: 26 }}
-              className="w-full max-w-5xl aspect-video bg-black shadow-2xl overflow-hidden relative z-50"
-              onClick={(e) => e.stopPropagation()} // Stop click propagation to prevent closing
-            >
-              <video
-                src="/video.mp4"
-                controls
-                autoPlay
-                className="w-full h-full object-contain"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
+

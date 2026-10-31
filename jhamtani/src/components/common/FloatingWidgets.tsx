@@ -477,12 +477,15 @@ export default function FloatingWidgets() {
                           <option value="" className="text-zinc-500">Select a Project</option>
                           <option value="Ace Ayodhya" className="text-white">Ace Ayodhya (Thergaon)</option>
                           <option value="ACE Atmosphere" className="text-white">ACE Atmosphere (Ravet)</option>
-                          <option value="Jhamtani Abundance" className="text-white">Jhamtani Abundance (Mundhwa)</option>
+                          <option value="Ace Abundance" className="text-white">Ace Abundance (Mundhwa)</option>
+                          <option value="ACE Crossroads Thergaon" className="text-white">Ace Crossroads (Thergaon)</option>
                           <option value="ACE Villas" className="text-white">ACE Villas (Koregaon Park NX)</option>
                           <option value="Jhamtani Bizcore" className="text-white">Jhamtani Bizcore (Koregaon Park NX)</option>
+                          <option value="Jhamtani BizOne" className="text-white">Jhamtani BizOne</option>
                           <option value="ACE Aster" className="text-white">ACE Aster (Ravet)</option>
                           <option value="Jhamtani Elevate" className="text-white">Jhamtani Elevate (Mundhwa)</option>
                           <option value="Jhamtani SpaceBiz" className="text-white">Jhamtani SpaceBiz (Baner)</option>
+                          <option value="Vision Ace Commercial Phase I" className="text-white">Vision Ace Commercial Phase I</option>
                         </select>
                         {errors.project && (
                           <span className="text-red-400 text-xs font-sans tracking-wide">{errors.project}</span>

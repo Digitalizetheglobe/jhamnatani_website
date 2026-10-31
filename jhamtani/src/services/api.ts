@@ -502,6 +502,17 @@ export async function submitMainEnquiryForm(
   data: FormSubmissionPayload,
   formId = QUICK_ENQUIRY_FORM_ID
 ): Promise<{ success: boolean; data?: any; fallback?: boolean; error?: string }> {
+  // Push to MDOC CRM if a project is selected
+  if (data.project) {
+    submitMdocEnquiry({
+      project: data.project,
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      message: data.message,
+    }).catch((err) => console.error("MDOC enquiry background error:", err));
+  }
+
   // Trigger Nodemailer email dispatch
   sendFormEmail({
     name: data.name,
