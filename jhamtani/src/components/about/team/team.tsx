@@ -15,37 +15,37 @@ const teamMembers: TeamMember[] = [
     id: "darshan-teredesai",
     name: "Darshan Teredesai",
     role: "CHIEF OPERATING OFFICER",
-    image: "/assets/Photos_B&W/Darshan Teredesai_B&W.jpg",
+    image: "/assets/Photos_B&W/Darshan_Teredesai_B&W.jpg",
   },
   {
     id: "dayal-jayswani",
     name: "Dayal Jayswani",
     role: "DIRECTOR - LIAISONING",
-    image: "/assets/Photos_B&W/Dayal Jayswani_B&W.jpg",
+    image: "/assets/Photos_B&W/Dayal_Jayswani_B&W.jpg",
   },
   {
     id: "deepika-kalghatgi",
     name: "Deepika Kalghatgi",
     role: "VP-RESIDENTIAL SALES",
-    image: "/assets/Photos_B&W/Deepika Kalghatgi_B&W.jpg",
+    image: "/assets/Photos_B&W/Deepika_Kalghatgi_B&W.jpg",
   },
   {
     id: "dipak-kale",
     name: "Dipak Kale",
     role: "VP-PROJECTS",
-    image: "/assets/Photos_B&W/Dipak Kale_B&W.jpg",
+    image: "/assets/Photos_B&W/Dipak_Kale_B&W.jpg",
   },
   {
     id: "anupam-kulkarni",
     name: "Anupam Kulkarni",
     role: "VP-FINANCE & ACCOUNTS",
-    image: "/assets/Photos_B&W/Anupam Kulkarni_B&W.jpg",
+    image: "/assets/Photos_B&W/Anupam_Kulkarni_B&W.jpg",
   },
   {
     id: "bhavik-jain",
     name: "Bhavik Jain",
     role: "PROJECT DIRECTOR",
-    image: "/assets/Photos_B&W/Bhavik Jain_B&W.jpg",
+    image: "/assets/Photos_B&W/Bhavik_Jain_B&W.jpg",
   },
 ];
 
