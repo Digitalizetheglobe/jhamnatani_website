@@ -56,7 +56,7 @@ export default function TeamSection() {
         {/* Section Heading */}
         <div className="text-center mb-10 sm:mb-14">
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#9A7229] tracking-tight leading-snug font-normal">
-            Leadrship Team
+            Leadership Team
           </h2>
         </div>
 
