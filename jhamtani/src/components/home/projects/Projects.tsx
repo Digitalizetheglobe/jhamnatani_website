@@ -94,7 +94,7 @@ const projectsData = [
     type: "Commercial",
     image: "/assets/biz-one/banner-laptop.jpg",
     desc: "Offices & Retail Spaces at Kokane Chowk.",
-    logo: "/assets/pojetcts/Spacebiz logo.webp",
+    logo: "/assets/biz-one/logo.svg", 
     link: "/biz-one",
   },
 ];
