@@ -407,7 +407,9 @@ export default function Projects() {
                       alt={`${project.title} Logo`}
                       fill
                       loading="lazy"
-                      className="object-contain object-left"
+                      className={`object-contain object-left ${
+                        project.logo === "/assets/biz-one/logo.svg" ? "brightness-0" : ""
+                      }`}
                     />
                   </div>
                   
