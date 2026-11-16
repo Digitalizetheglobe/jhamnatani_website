@@ -18,8 +18,8 @@ const teamMembers: TeamMember[] = [
     image: "/assets/Photos_B&W/Darshan_Teredesai_B&W.jpg",
   },
   {
-    id: "dayal-jayswani",
-    name: "Dayal Jayswani",
+    id: "dayal-jeswani",
+    name: "Dayal Jeswani",
     role: "DIRECTOR - LIAISONING",
     image: "/assets/Photos_B&W/Dayal_Jayswani_B&W.jpg",
   },
