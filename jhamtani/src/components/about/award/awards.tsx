@@ -3,11 +3,6 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface AwardItem {
   id: number;
@@ -49,26 +44,6 @@ export default function AwardsGridSection() {
 
   const displayedAwards = showAll ? ALL_AWARDS : ALL_AWARDS.slice(0, 6);
 
-  useGSAP(() => {
-    gsap.fromTo(
-      ".award-card",
-      { y: 40, opacity: 0, scale: 0.95 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.08,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
-  }, { scope: sectionRef, dependencies: [showAll] });
-
   return (
     <section
       ref={sectionRef}
@@ -82,7 +57,8 @@ export default function AwardsGridSection() {
             <motion.div
               key={award.id}
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.4, delay: (idx % 6) * 0.05 }}
               onClick={() => setSelectedAward(award)}
               className="award-card flex flex-col items-center text-center max-w-[340px] w-full group cursor-pointer"

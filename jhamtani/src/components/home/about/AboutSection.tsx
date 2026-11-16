@@ -7,6 +7,7 @@ import { motion, animate, AnimatePresence } from "framer-motion";
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
   const statsContainerRef = useRef<HTMLDivElement>(null);
   const isMouseOverRightRef = useRef(false);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -143,9 +144,12 @@ export default function AboutSection() {
       }
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
+    const rightCol = rightColRef.current;
+    if (!rightCol) return;
+
+    rightCol.addEventListener("wheel", handleWheel, { passive: false });
     return () => {
-      window.removeEventListener("wheel", handleWheel);
+      rightCol.removeEventListener("wheel", handleWheel);
     };
   }, [animateToItem, stats.length]);
 
@@ -282,6 +286,7 @@ export default function AboutSection() {
 
           {/* Right Column - LAPTOP VIEW (>= lg): Exact interactive scrolling list */}
           <div 
+            ref={rightColRef}
             className="hidden lg:block lg:col-span-5 relative"
             onMouseEnter={() => {
               isMouseOverRightRef.current = true;

@@ -353,7 +353,8 @@ export default function Projects() {
                     src={project.image}
                     alt={project.title}
                     fill
-                    priority
+                    priority={idx === 0}
+                    loading={idx === 0 ? "eager" : "lazy"}
                     className="object-cover"
                   />
                 </div>
@@ -405,7 +406,7 @@ export default function Projects() {
                       src={project.logo}
                       alt={`${project.title} Logo`}
                       fill
-                      priority
+                      loading="lazy"
                       className="object-contain object-left"
                     />
                   </div>

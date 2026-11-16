@@ -73,7 +73,7 @@ export default function DirectorSection() {
           src="/assets/team-bg.webp"
           alt="Team Background"
           fill
-          priority
+          loading="lazy"
           sizes="100vw"
           className="object-cover object-center"
         />
@@ -94,7 +94,7 @@ export default function DirectorSection() {
               src={activeDirector.image}
               alt={activeDirector.name}
               fill
-              priority
+              loading="lazy"
               sizes="50vw"
               className={`object-contain object-bottom transition-transform duration-500 ${activeDirector.imageClass || ""}`}
             />
@@ -209,7 +209,7 @@ export default function DirectorSection() {
               src={activeDirector.image}
               alt={activeDirector.name}
               fill
-              priority
+              loading="lazy"
               sizes="100vw"
               className="object-contain object-bottom"
             />

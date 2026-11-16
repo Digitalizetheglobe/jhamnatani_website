@@ -97,7 +97,7 @@ export default function Our() {
             src="/assets/about/our.webp"
             alt="Our Story - Jhamtani"
             fill
-            priority
+            loading="lazy"
             className="object-cover object-top transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
           />
         </motion.div>

@@ -4,6 +4,7 @@ import AboutContent from "@/components/about/about/about";
 import Our from "@/components/about/our/our";
 import Value from "@/components/about/value/value";
 import DirectorSection from "@/components/about/director/director";
+import TeamSection from "@/components/about/team/team";
 import AwardSection from "@/components/about/award/award";
 import AwardsGridSection from "@/components/about/award/awards";
 import AboutTimeline from "@/components/about/timeline/timeline";
@@ -32,6 +33,7 @@ export default function OurLegacyPage() {
         <Value />
         <DirectorSection />
         <AboutTimeline />
+        <TeamSection />
         <AwardSection />
         <AwardsGridSection />
       </main>

@@ -40,22 +40,6 @@ export default function AwardSection() {
         },
       }
     );
-
-    // 2. Parallax background shifting on scroll
-    gsap.fromTo(
-      sectionRef.current,
-      { backgroundPosition: "center 45%" },
-      {
-        backgroundPosition: "center 55%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      }
-    );
   }, { scope: sectionRef });
 
   return (

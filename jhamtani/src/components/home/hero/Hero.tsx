@@ -140,7 +140,8 @@ export default function Hero() {
                 src={slide.mobile}
                 alt={slide.title}
                 fill
-                priority
+                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
                 quality={90}
                 sizes="100vw"
                 className="object-cover object-center"
@@ -153,7 +154,8 @@ export default function Hero() {
                 src={slide.tab}
                 alt={slide.title}
                 fill
-                priority
+                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
                 quality={90}
                 sizes="100vw"
                 className="object-cover object-center"
@@ -166,7 +168,8 @@ export default function Hero() {
                 src={slide.laptop}
                 alt={slide.title}
                 fill
-                priority
+                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
                 quality={90}
                 sizes="100vw"
                 className="object-cover object-center"

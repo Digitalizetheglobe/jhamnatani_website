@@ -51,22 +51,20 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      const scrolled = window.scrollY > 50;
+      setIsScrolled((prev) => (prev === scrolled ? prev : scrolled));
     };
     
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
+      const mobile = window.innerWidth < 1024;
+      setIsMobile((prev) => (prev === mobile ? prev : mobile));
     };
 
     handleScroll();
     checkMobile();
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", checkMobile);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", checkMobile, { passive: true });
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
