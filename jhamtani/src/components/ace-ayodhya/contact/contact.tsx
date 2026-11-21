@@ -11,6 +11,7 @@ interface FormData {
   email: string;
   config: string;
   message: string;
+  website: string;
   consent: boolean;
 }
 
@@ -29,6 +30,7 @@ export default function Contact() {
     email: "",
     config: "",
     message: "",
+    website: "",
     consent: false,
   });
 
@@ -126,6 +128,7 @@ export default function Contact() {
             email: formData.email,
             project: "ACE Ayodhya",
             message: `Configuration: ${formData.config}${formData.message ? ` | Message: ${formData.message}` : ""}`,
+            website: formData.website,
             consent: formData.consent,
             formName: "ACE Ayodhya Contact Form",
           }),
@@ -149,6 +152,7 @@ export default function Contact() {
           email: "",
           config: "",
           message: "",
+          website: "",
           consent: false,
         });
         setErrors({});
@@ -190,7 +194,16 @@ export default function Contact() {
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           className="w-full max-w-6xl mx-auto bg-[#191F26] p-8 sm:p-12 lg:p-16 shadow-2xl text-left"
         >
-          <form onSubmit={handleSubmit} noValidate className="space-y-6 sm:space-y-8">
+          <form id="enquiry-form" onSubmit={handleSubmit} noValidate className="space-y-6 sm:space-y-8">
+            {/* Honeypot: leave hidden and empty. */}
+            <input
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+              style={{ display: "none" }}
+            />
             {/* Input Grid (2 Columns) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* Name field */}

@@ -390,9 +390,85 @@ export interface FormSubmissionPayload {
   phone: string;
   project?: string;
   message?: string;
+  website?: string;
+  policyCode?: string;
   consent?: boolean;
   formName?: string;
   to?: string;
+}
+
+export const ACE_AYODHYA_ACX_CAPTURE_KEY =
+  "acx_lc_13825584_KVY5OWOjhgnM9M4A5jhx8c9cUrbtu6h88LERpD8bejQ";
+
+const ABSOLUTECX_PROJECT_KEYS: Record<string, string> = {
+  "ace ayodhya": ACE_AYODHYA_ACX_CAPTURE_KEY,
+  "ayodhya": ACE_AYODHYA_ACX_CAPTURE_KEY,
+};
+
+export interface AbsoluteCxLeadPayload {
+  name: string;
+  phone: string;
+  email?: string;
+  message?: string;
+  website?: string;
+  policyCode?: string;
+  captureKey?: string;
+}
+
+/**
+ * Push a lead directly to AbsoluteCX Lead Capture API.
+ */
+export async function submitAbsoluteCxLead(
+  data: AbsoluteCxLeadPayload
+): Promise<{ success: boolean; error?: string }> {
+  const captureKey = data.captureKey || ACE_AYODHYA_ACX_CAPTURE_KEY;
+  try {
+    const query =
+      typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search)
+        : new URLSearchParams();
+
+    const body: Record<string, string | null | undefined> = {
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      message: data.message,
+      website: data.website,
+      policyCode: data.policyCode || "",
+      atk: query.get("atk"),
+      utm_source: query.get("utm_source"),
+      utm_medium: query.get("utm_medium"),
+      utm_campaign: query.get("utm_campaign"),
+      utm_content: query.get("utm_content"),
+      gclid: query.get("gclid"),
+      fbclid: query.get("fbclid"),
+      landingUrl: typeof window !== "undefined" ? window.location.href : undefined,
+      referrer: typeof document !== "undefined" ? document.referrer : undefined,
+    };
+
+    Object.keys(body).forEach((k) => {
+      if (!body[k]) delete body[k];
+    });
+
+    const res = await fetch("https://liteapi.absolutecx.com/api/v1/public/leads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Capture-Key": captureKey,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (res.ok) {
+      return { success: true };
+    }
+    const errText = await res.text().catch(() => "");
+    console.error("AbsoluteCX lead capture failed:", errText);
+    return { success: false, error: errText || "AbsoluteCX request failed" };
+  } catch (err: any) {
+    console.error("submitAbsoluteCxLead error:", err);
+    return { success: false, error: err?.message || "AbsoluteCX request failed" };
+  }
 }
 
 export interface MdocEnquiryPayload {
@@ -502,8 +578,22 @@ export async function submitMainEnquiryForm(
   data: FormSubmissionPayload,
   formId = QUICK_ENQUIRY_FORM_ID
 ): Promise<{ success: boolean; data?: any; fallback?: boolean; error?: string }> {
-  // Push to MDOC CRM if a project is selected
+  // Push to MDOC CRM and AbsoluteCX (if configured for this project)
   if (data.project) {
+    const normalizedProject = data.project.trim().toLowerCase().replace(/\s+/g, " ");
+    const acxKey = ABSOLUTECX_PROJECT_KEYS[normalizedProject];
+    if (acxKey) {
+      submitAbsoluteCxLead({
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        message: data.message,
+        website: data.website,
+        policyCode: data.policyCode,
+        captureKey: acxKey,
+      }).catch((err) => console.error("AbsoluteCX lead background error:", err));
+    }
+
     submitMdocEnquiry({
       project: data.project,
       name: data.name,
