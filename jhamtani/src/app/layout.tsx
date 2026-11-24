@@ -93,6 +93,14 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${forum.variable} ${plusJakartaSans.variable} ${inriaSerif.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          defer
+          src="https://www.kenyt.ai/botapp/ChatbotUI/dist/js/bot-loader.js"
+          type="text/javascript"
+          data-bot="25894481"
+        ></script>
+      </head>
       <body
         suppressHydrationWarning
         className="min-h-full flex flex-col text-white selection:bg-[#C5A880] selection:text-black font-sans"

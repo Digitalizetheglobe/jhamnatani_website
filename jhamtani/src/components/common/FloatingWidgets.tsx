@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, SquarePen, MessageSquare, X, Send, Phone, Mail, CheckCircle2, Loader2, Sparkles } from "lucide-react";
-import RealTimeChatAssist from "./RealTimeChatAssist";
+import { Search, SquarePen, X, Send, CheckCircle2, Loader2 } from "lucide-react";
 import { submitQuickEnquiryForm } from "@/services/api";
 
 // Custom WhatsApp SVG Icon (Standard Filled Outline)
@@ -37,7 +36,6 @@ interface FormErrors {
 export default function FloatingWidgets() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
-  const [isChatAssistOpen, setIsChatAssistOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const [formData, setFormData] = useState({
@@ -126,15 +124,10 @@ export default function FloatingWidgets() {
       setIsSubmitted(false);
       setIsEnquiryOpen(true);
     };
-    const handleOpenChatAssist = () => {
-      setIsChatAssistOpen(true);
-    };
 
     window.addEventListener("open-enquiry", handleOpenEnquiry);
-    window.addEventListener("open-chat-assist", handleOpenChatAssist);
     return () => {
       window.removeEventListener("open-enquiry", handleOpenEnquiry);
-      window.removeEventListener("open-chat-assist", handleOpenChatAssist);
     };
   }, []);
 
@@ -228,43 +221,7 @@ export default function FloatingWidgets() {
         </button>
       </div>
 
-      {/* 2. REAL-TIME CHAT ASSIST MODAL & LUXURY FLOAT BUTTON */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-        {/* Real-Time Interactive AI Concierge */}
-        <RealTimeChatAssist
-          isOpen={isChatAssistOpen}
-          onClose={() => setIsChatAssistOpen(false)}
-          onOpenEnquiry={(project, message) => {
-            setFormData((prev) => ({
-              ...prev,
-              ...(project ? { project } : {}),
-              ...(message ? { message } : {}),
-            }));
-            setErrors({});
-            setIsSubmitted(false);
-            setIsEnquiryOpen(true);
-          }}
-        />
-
-        {/* Chat Assist Luxury Toggle Button */}
-        <motion.button
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
-          onClick={() => setIsChatAssistOpen(!isChatAssistOpen)}
-          className="group relative flex items-center space-x-3 bg-gradient-to-r from-[#A0725B] via-[#8C5E47] to-[#A0725B] bg-[length:200%_auto] hover:bg-[position:right_center] text-white px-5 py-3 rounded-full shadow-[0_8px_30px_rgba(160,114,91,0.45)] border border-[#C5A880]/50 transition-all duration-500 cursor-pointer select-none"
-          aria-label="Open Real-Time Chat Assist"
-        >
-          {/* Pulsing notification ring */}
-          
-
-          <MessageSquare className="w-4 h-4 fill-white/20 text-white group-hover:scale-110 transition-transform duration-300" />
-          <span className="font-sans text-xs sm:text-[13px] font-semibold tracking-widest uppercase">
-            {isChatAssistOpen ? "CLOSE ASSIST" : "CHAT ASSIST"}
-          </span>
-        </motion.button>
-      </div>
-
-      {/* 3. SEARCH OVERLAY MODAL */}
+      {/* 2. SEARCH OVERLAY MODAL */}
       <AnimatePresence>
         {isSearchOpen && (
           <motion.div

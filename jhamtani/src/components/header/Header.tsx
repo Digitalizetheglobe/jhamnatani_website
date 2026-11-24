@@ -353,26 +353,6 @@ export default function Header() {
                     })}
                   </nav>
                 </div>
-
-                {/* Chat Assist at Bottom */}
-                <div className="pl-4 lg:pl-24 mb-6 lg:mb-12">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <button
-                      onClick={() => {
-                        setIsOpen(false);
-                        window.dispatchEvent(new CustomEvent("open-chat-assist"));
-                      }}
-                      className="flex items-center justify-center space-x-2 border border-[#C5A880]/30 py-4 px-8 w-full lg:w-fit font-sans text-[13px] tracking-widest text-[#C5A880] hover:bg-[#C5A880] hover:text-black transition-all duration-500 rounded-none uppercase font-light cursor-pointer"
-                    >
-                      <MessageSquare className="w-4 h-4" />
-                      <span>Chat Assist</span>
-                    </button>
-                  </motion.div>
-                </div>
               </motion.div>
             </div>
           </>
