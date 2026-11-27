@@ -135,6 +135,8 @@ export default function Header() {
     pathname === "/j-tribe" ||
     pathname === "/shakti-edge";
 
+  const isAceAyodhyaPage = pathname === "/ace-ayodhya";
+
   return (
     <>
       <motion.header
@@ -211,6 +213,20 @@ export default function Header() {
               >
                 <WaveText text="Our Associates" />
               </Link>
+              {isAceAyodhyaPage && (
+                <>
+                  <span className="text-white/20">|</span>
+                  {/* Temporary Environmental Clearance button */}
+                  <a
+                    href="/assets/EC-Certificate.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-md bg-[#9A7A5A] px-3.5 py-1.5 text-[13px] font-medium text-white transition-colors duration-300 hover:bg-[#826447] whitespace-nowrap"
+                  >
+                    Environmental Clearance
+                  </a>
+                </>
+              )}
             </nav>
 
             {/* Hamburger Button (Mobile / Tablet only, hidden on Laptop) */}
@@ -351,6 +367,23 @@ export default function Header() {
                         </motion.div>
                       );
                     })}
+                    {isAceAyodhyaPage && (
+                      <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.7, delay: 0.15 + navLinks.length * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <a
+                          href="/assets/EC-Certificate.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="inline-flex items-center rounded-md bg-[#9A7A5A] px-5 py-2.5 text-base font-medium tracking-wide text-white transition-colors duration-300 hover:bg-[#826447]"
+                        >
+                          Environmental Clearance
+                        </a>
+                      </motion.div>
+                    )}
                   </nav>
                 </div>
               </motion.div>
